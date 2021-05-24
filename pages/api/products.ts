@@ -2,9 +2,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string
+  value: string
 }
 
 export default (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  res.status(200).json({ name: 'John Doe' })
+  const { value } = req.body
+  console.log('on the server', req.body)
+  console.log('on the server', value)
+
+  res.status(200).json({ value: req.body.value })
 }

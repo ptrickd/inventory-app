@@ -1,11 +1,39 @@
-import { Input, InputLabel, FormControl } from '@material-ui/core';
+import React, { useState } from 'react'
+import { TextField, FormControl, Button } from '@material-ui/core';
 
-function About() {
+//Styling
+import styles from '../styles/Products.module.css'
+
+
+const About: React.FC = () => {
+    const [tomato, setTomato] = useState('')
+
+    const handleClick = (e: React.FormEvent) => {
+        e.preventDefault()
+        fetch('/api/products', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application.json'
+            },
+            body: JSON.stringify({ value: tomato })
+        })
+            .then(resp => resp.json())
+            .then(data => console.log('response from the server', data))
+    }
+
     return (
-        <FormControl>
-            <InputLabel htmlFor="tomato" >Tomato</InputLabel>
-            <Input id="tomato" aria-describedby="tomato-field" />
-        </FormControl>
+        <div className={styles.container}>
+            <FormControl >
+                <TextField value={tomato} onChange={e => setTomato(e.target.value)}
+                    id="tomato" label="Tomato"
+                />
+
+            </FormControl>
+            <Button
+                onClick={handleClick}
+                className={styles.button} variant="outlined" color="primary"
+            >Submit</Button>
+        </div>
     )
 }
 
