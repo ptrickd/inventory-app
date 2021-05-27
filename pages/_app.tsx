@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Fragment>
       <Head>
+       
         <title>The App Inventory</title>
       </Head>
       <Navbar />
