@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     activeSubMenu: {
         marginLeft: theme.spacing(2),
-        backgorundColor: '#f4f4f4'
+        backgroundColor: '#f4f4f4'
     }
 
 }));
@@ -70,7 +70,10 @@ const Navbar = () => {
 
     const renderedCategories = () => {
         return CATEGORIES.map(category => {
-            return <ListItem className={classes.subMenu} button key={category}>
+            return <ListItem
+                className={classes.subMenu}
+                button key={category}
+            >
                 <ListItemText primary={category} />
                 <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
             </ListItem>
@@ -87,7 +90,7 @@ const Navbar = () => {
             className={classes.appBar}
         >
             <Toolbar >
-                <Typography className={classes.title} variant="h6" >
+                <Typography variant="h6" >
                     Inventory
             </Typography>
             </Toolbar>
