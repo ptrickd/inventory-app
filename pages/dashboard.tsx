@@ -19,7 +19,18 @@ import ListItem from '@material-ui/core/ListItem'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 
+//Graphql
+import { useQuery, gql } from '@apollo/client'
+
 const drawerWidth = 120
+
+const QUERY = gql`
+  query Category {
+    addCategories {
+      name
+    }
+  }
+`;
 
 
 const useStyles = makeStyles({
@@ -35,8 +46,27 @@ function Dashboard() {
     const classes = useStyles()
     const [openModal, setOpenModal] = useState(false)
 
+    const { data, loading, error } = useQuery(QUERY);
+
+    if (loading) {
+        return <h2>Loading...</h2>;
+    }
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+
     //Adding categories
     const handleAddCategory = () => setOpenModal(true)
+    const handleCloseModal = (categoryName: string) => {
+        setOpenModal(false)
+        if (categoryName.length) {
+            fetch('/api/graphql', {
+                method: 'POST'
+            })
+        }
+    }
 
     return (
         <Container className={classes.root}>
@@ -59,16 +89,10 @@ function Dashboard() {
 
                 </ListItem>
 
-                {/* <TextField
-                    id='test'
-                    label='ADD'
-                    color="primary"
 
-                    variant='standard'
-                /> */}
             </List>
 
-            <AddCategoryForm />
+            <AddCategoryForm open={openModal} handleCloseModal={handleCloseModal} />
         </Container >
     )
 }
