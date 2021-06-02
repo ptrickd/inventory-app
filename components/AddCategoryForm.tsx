@@ -7,11 +7,11 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
-import { specifiedRules } from 'graphql';
+
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
@@ -43,12 +43,12 @@ const useStyle = makeStyles({
 
 function AddCategoryForm({ open, handleCloseModal }: IProps) {
     const classes = useStyle()
-
-    const { control, handleSubmit, formState: { errors } } = useForm<IForm>()
+    const [submitting, setSubmitting] = useState(false)
+    const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
-
-        fetch('/api/category', {
+        setSubmitting(true)
+        await fetch('/api/category', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +58,55 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
             .then(resp => resp.json())
             .then(data => console.log(data))
             .catch(err => console.log('error:', err))
+        reset({ name: '' })
+        setSubmitting(false)
+        handleCloseModal()
     }
+
+    const formBody = (
+        < form onSubmit={handleSubmit(onSubmit)} >
+            <div className={classes.input}>
+
+                <Controller
+
+                    name="name"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: true }}
+                    render={({ field }) => <TextField
+                        {...field}
+                        label="Add a category"
+                        autoComplete="off"
+                    />}
+                />
+                {errors.name && <span>*Required</span>}
+            </div>
+
+            <div className={classes.buttons}>
+                <Button
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    type="submit"
+                >
+                    Add
+                            </Button>
+                <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    onClick={() => {
+                        handleCloseModal()
+
+                    }}
+                >
+                    Cancel
+                            </Button>
+            </div>
+        </form >
+    )
+
+    
 
     return (
         <Dialog
@@ -68,44 +116,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
         >
             {/* <DialogTitle>Add a category</DialogTitle> */}
             <DialogContent className={classes.content}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={classes.input}>
-
-                        <Controller
-
-                            name="name"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: true }}
-                            render={({ field }) => <TextField {...field} label="Add a category" autoComplete="off" />}
-                        />
-                        {errors.name && <span>*Required</span>}
-                    </div>
-
-                    <div className={classes.buttons}>
-                        <Button
-                            variant="contained"
-                            size="small"
-                            color="primary"
-                            type="submit"
-                        >
-                            Add
-                            </Button>
-                        <Button
-                            variant="contained"
-                            size="small"
-                            color="secondary"
-                            onClick={() => {
-                                handleCloseModal()
-
-                            }}
-                        >
-                            Cancel
-                            </Button>
-                    </div>
-                </form>
-
-
+                {!submitting ? formBody : <CircularProgress />}
 
             </DialogContent>
 
