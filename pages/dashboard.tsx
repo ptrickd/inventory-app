@@ -60,14 +60,8 @@ function Dashboard() {
 
     //Adding categories
     const handleAddCategory = () => setOpenModal(true)
-    const handleCloseModal = (categoryName: string) => {
-        setOpenModal(false)
-        // if (categoryName.length > 0) {
-        //     fetch('/api/graphql', {
-        //         method: 'POST'
-        //     })
-        // }
-    }
+    const handleCloseModal = () => setOpenModal(false)
+
 
     return (
         <Container className={classes.root}>
