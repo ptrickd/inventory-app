@@ -1,6 +1,6 @@
 import { useState } from 'react'
 //Material UI
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -25,7 +25,7 @@ import { CATEGORIES } from '../dummy-data'
 
 const drawerWidth = 220
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex'
     },

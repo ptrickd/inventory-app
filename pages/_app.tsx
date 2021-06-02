@@ -10,8 +10,15 @@ import client from "../queries/apollo-client";
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
+//Material UI
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  toolbar: theme.mixins.toolbar
+}))
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const classes = useStyles()
   return (
     <ApolloProvider client={client}>
       <Head>
@@ -19,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>The App Inventory</title>
       </Head>
       <Navbar />
+      <div className={classes.toolbar} />
       <Component {...pageProps} />
     </ApolloProvider>
 

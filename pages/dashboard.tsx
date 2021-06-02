@@ -5,7 +5,7 @@ import AddCategoryForm from '../components/AddCategoryForm'
 
 
 //Material UI
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
@@ -33,15 +33,16 @@ const QUERY = gql`
 `;
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
         marginTop: 60,
         marginLeft: drawerWidth,
         alignItems: 'center',
         justifyContent: 'center'
-    }
-})
+    },
+    toolbar: theme.mixins.toolbar
+}))
 function Dashboard() {
     const classes = useStyles()
     const [openModal, setOpenModal] = useState(false)
@@ -52,28 +53,28 @@ function Dashboard() {
         return <h2>Loading...</h2>;
     }
 
-    if (error) {
-        console.error(error);
-        return null;
-    }
+    // if (error) {
+    //     console.error(error);
+    //     return null;
+    // }
 
     //Adding categories
     const handleAddCategory = () => setOpenModal(true)
     const handleCloseModal = (categoryName: string) => {
         setOpenModal(false)
-        if (categoryName.length) {
-            fetch('/api/graphql', {
-                method: 'POST'
-            })
-        }
+        // if (categoryName.length > 0) {
+        //     fetch('/api/graphql', {
+        //         method: 'POST'
+        //     })
+        // }
     }
 
     return (
         <Container className={classes.root}>
             <List >
-                <Typography
-                    variant='h4'
-                >Dashboard</Typography>
+                <Typography variant='h4' >
+                    Dashboard
+                </Typography>
                 <Divider />
                 <ListItem>
                     <IconButton
