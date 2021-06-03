@@ -1,4 +1,6 @@
+//React
 import React, { useState } from 'react'
+
 
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +17,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
+    categoryId: string | string[] | undefined
 }
 
 interface IForm {
@@ -41,8 +44,9 @@ const useStyle = makeStyles({
 
 
 
-function AddProductForm({ open, handleCloseModal }: IProps) {
+function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
     const classes = useStyle()
+
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
@@ -54,7 +58,12 @@ function AddProductForm({ open, handleCloseModal }: IProps) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: data.name, amount: 0 })
+            body: JSON.stringify(
+                {
+                    name: data.name,
+                    amount: 0,
+                    categoryId: categoryId
+                })
         })
             .then(resp => resp.json())
             .then(data => console.log(data))

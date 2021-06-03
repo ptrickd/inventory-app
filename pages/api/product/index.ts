@@ -14,7 +14,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             console.log('amount', req.body.amount)
             let product = new Product({
                 name: req.body.name,
-                amount: req.body.amount
+                amount: req.body.amount,
+                categoryId:req.body.categoryId
             })
 
             product = await product.save()

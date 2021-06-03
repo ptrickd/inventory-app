@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 
 interface IProduct {
     name: String
+    amount: Number
+    categoryId: String
 }
 
 const schema = new mongoose.Schema<IProduct>({
@@ -13,6 +15,10 @@ const schema = new mongoose.Schema<IProduct>({
     amount: {
         type: Number,
         default: 0
+    },
+    categoryId: {
+        type: mongoose.Types.ObjectId,
+        required: true
     }
 })
 

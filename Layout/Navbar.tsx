@@ -91,7 +91,8 @@ const Navbar = () => {
                 <ListItem
                     onClick={handleCategoryClick}
                     className={classes.subMenu}
-                    button key={category._id}
+                    button
+                    key={category._id}
                 >
                     <ListItemText primary={category.name} />
                     <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
@@ -126,14 +127,14 @@ const Navbar = () => {
             <Divider />
             <List>
                 <Link href='/dashboard'>
-                    <ListItem button>
+                    <ListItem button key='dahsboard'>
                         <ListItemText primary='Dashboard' />
                         <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
                     </ListItem>
                 </Link>
 
                 <Divider />
-                <ListItem button onClick={handleClickCategories}>
+                <ListItem button onClick={handleClickCategories} key="category">
                     <ListItemText primary='Categories' />
                     <ListItemIcon >
                         {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
