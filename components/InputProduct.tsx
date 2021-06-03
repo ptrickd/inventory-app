@@ -5,8 +5,7 @@ import {
     Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-//Styling
-import styles from '../styles/Products.module.css'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,9 +20,11 @@ type IProduct = {
 }
 
 const InputProduct: React.FC<IProduct> = ({ name, amount }) => {
-    const classesUI = useStyles();
+    const classes = useStyles();
     return (
-        <FormControl >
+        <FormControl
+            className={classes.root}
+        >
 
             <TextField
 
@@ -32,6 +33,7 @@ const InputProduct: React.FC<IProduct> = ({ name, amount }) => {
                 color="primary"
                 value={amount}
                 variant='standard'
+                fullWidth
             />
         </FormControl>
 

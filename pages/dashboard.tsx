@@ -14,6 +14,7 @@ import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItem from '@material-ui/core/ListItem'
+import { DRAWER_WIDTH } from '../constants/dimensions'
 
 //Icons
 import IconButton from '@material-ui/core/IconButton'
@@ -22,7 +23,7 @@ import AddIcon from '@material-ui/icons/Add'
 //Graphql
 import { useQuery, gql } from '@apollo/client'
 
-const drawerWidth = 120
+
 
 const QUERY = gql`
   query Category {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
         marginTop: 60,
-        marginLeft: drawerWidth,
+        marginLeft: DRAWER_WIDTH,
         alignItems: 'center',
         justifyContent: 'center'
     },

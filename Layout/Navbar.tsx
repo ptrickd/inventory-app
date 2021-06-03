@@ -87,7 +87,7 @@ const Navbar = () => {
 
     const renderedCategories = () => {
         return categories.map((category: ICategory) => {
-            return <Link href={`/product/${category._id}`}>
+            return <Link href={`/category/${category._id}`}>
                 <ListItem
                     onClick={handleCategoryClick}
                     className={classes.subMenu}
