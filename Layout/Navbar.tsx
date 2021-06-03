@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,9 +20,11 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Slide from '@material-ui/core/Slide';
 import Link from 'next/link'
-import { Fragment } from 'react'
 
-import { CATEGORIES } from '../dummy-data'
+interface ICategory {
+    _id: string
+    name: string
+}
 
 const drawerWidth = 220
 
@@ -67,16 +70,33 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Navbar = () => {
     const classes = useStyles();
     const [categoryMenu, setCategoryMenu] = useState(false)
+    const [categories, setCategories] = useState([])
+
+
+
+    useEffect(() => {
+        fetch('/api/category')
+            .then(resp => resp.json())
+            .then(data => setCategories(data))
+            .catch(err => console.log('Error: ', err))
+    }, [])
+
+    const handleCategoryClick = () => {
+
+    }
 
     const renderedCategories = () => {
-        return CATEGORIES.map(category => {
-            return <ListItem
-                className={classes.subMenu}
-                button key={category}
-            >
-                <ListItemText primary={category} />
-                <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-            </ListItem>
+        return categories.map((category: ICategory) => {
+            return <Link href={`/product/${category._id}`}>
+                <ListItem
+                    onClick={handleCategoryClick}
+                    className={classes.subMenu}
+                    button key={category._id}
+                >
+                    <ListItemText primary={category.name} />
+                    <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+                </ListItem>
+            </Link>
         })
     }
 
