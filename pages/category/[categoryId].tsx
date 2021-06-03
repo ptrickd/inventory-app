@@ -18,9 +18,7 @@ import { DRAWER_WIDTH } from '../../constants/dimensions'
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
 
-//Data
-import { PRODUCTS } from '../../dummy-data'
-import { Category } from '../../models/category.model';
+
 
 interface IProduct {
     name: string

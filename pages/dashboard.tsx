@@ -41,8 +41,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         marginLeft: DRAWER_WIDTH,
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    toolbar: theme.mixins.toolbar
+    }
 }))
 function Dashboard() {
     const classes = useStyles()
