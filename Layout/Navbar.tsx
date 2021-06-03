@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -21,6 +21,10 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Slide from '@material-ui/core/Slide';
 import Link from 'next/link'
 
+
+
+//Icons
+import MenuIcon from '@material-ui/icons/Menu';
 interface ICategory {
     _id: string
     name: string
@@ -73,7 +77,6 @@ const Navbar = () => {
     const [categories, setCategories] = useState([])
 
 
-
     useEffect(() => {
         fetch('/api/category')
             .then(resp => resp.json())
@@ -81,21 +84,19 @@ const Navbar = () => {
             .catch(err => console.log('Error: ', err))
     }, [])
 
-    const handleCategoryClick = () => {
 
-    }
 
     const renderedCategories = () => {
         return categories.map((category: ICategory) => {
-            return <Link href={`/category/${category._id}`}>
+            return <Link href={`/category/${category._id}`} >
                 <ListItem
-                    onClick={handleCategoryClick}
                     className={classes.subMenu}
                     button
                     key={category._id}
                 >
                     <ListItemText primary={category.name} />
                     <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+
                 </ListItem>
             </Link>
         })
