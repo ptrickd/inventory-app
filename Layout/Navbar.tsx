@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-
+import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -63,6 +63,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     activeSubMenu: {
         marginLeft: theme.spacing(2),
         backgroundColor: '#f4f4f4'
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
     }
 
 }));
@@ -75,7 +81,7 @@ const Navbar = () => {
     const classes = useStyles();
     const [categoryMenu, setCategoryMenu] = useState(false)
     const [categories, setCategories] = useState([])
-
+    const [mobileOpen, setMobileOpen] = useState(false)
 
     useEffect(() => {
         fetch('/api/category')
@@ -84,7 +90,10 @@ const Navbar = () => {
             .catch(err => console.log('Error: ', err))
     }, [])
 
+    const handleClickCategories = () => setCategoryMenu(!categoryMenu)
 
+
+    const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
 
     const renderedCategories = () => {
         return categories.map((category: ICategory) => {
@@ -102,28 +111,8 @@ const Navbar = () => {
         })
     }
 
-    const handleClickCategories = () => {
-        setCategoryMenu(!categoryMenu)
-    }
-
-    return <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-            className={classes.appBar}
-        >
-            <Toolbar >
-                <Typography variant="h6" >
-                    Inventory
-            </Typography>
-            </Toolbar>
-        </AppBar>
-
-        <Drawer
-            className={classes.drawer}
-            variant='permanent'
-            anchor='left'
-            classes={{ paper: classes.drawerPaper }}
-        >
+    const drawer = (
+        <Fragment>
             <div className={classes.toolbar} />
             <Divider />
             <List>
@@ -148,12 +137,59 @@ const Navbar = () => {
                     </List></Slide>
                 }
             </List>
-
-
-
             <Divider />
+        </Fragment>
 
-        </Drawer>
+
+    )
+
+
+
+    return <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+            className={classes.appBar}
+        >
+            <Toolbar >
+                <IconButton
+                    color="inherit"
+                    arial-label="open drawer"
+                    edge="start"
+                    className={classes.menuButton}
+                    onClick={handleDrawerToggle}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" >
+                    Inventory
+            </Typography>
+            </Toolbar>
+        </AppBar>
+        <nav className={classes.drawer} aria-label="menu">
+            <Hidden smUp implementation="css">
+                <Drawer
+                    variant='temporary'
+                    anchor='left'
+                    classes={{ paper: classes.drawerPaper }}
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{ keepMounted: true }}
+                >
+
+                    {drawer}
+                </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+                <Drawer
+                    open
+                    variant="permanent"
+                    classes={{ paper: classes.drawerPaper }}
+                >
+                    {drawer}
+                </Drawer>
+            </Hidden>
+        </nav>
+
 
 
 
