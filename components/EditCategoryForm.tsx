@@ -64,7 +64,7 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
             .catch(err => console.log('error:', err))
         reset({ name: '' })
         setSubmitting(false)
-        handleCloseModal({ name: data.name })
+        handleCloseModal()
     }
 
     const formBody = (

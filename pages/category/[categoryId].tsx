@@ -1,6 +1,9 @@
 //React
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, useContext, Fragment } from 'react'
 import { useRouter } from 'next/router'
+
+//Context
+import { ProductsContext } from '../../contexts/ProductsContext'
 
 //Components
 import InputProduct from '../../components/InputProduct'
@@ -11,13 +14,14 @@ import EditCategoryForm from '../../components/EditCategoryForm'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { DRAWER_WIDTH } from '../../constants/dimensions'
 
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
 
+//Time
+import { DateTime } from 'luxon'
 
 
 interface IProduct {
@@ -26,8 +30,12 @@ interface IProduct {
 }
 
 interface ICategory {
+    _id: string
     name: string
+
 }
+
+
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -49,25 +57,31 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         marginRight: 10
     }
 }))
-
+//https://www.youtube.com/watch?v=D7WPn1uD9Is 18min
 const ProductsPage: React.FC = () => {
+    const { products, setCategoryId } = useContext(ProductsContext)
     const classes = useStyles()
     const router = useRouter()
     const { categoryId } = router.query
 
     const [openAddProductModal, setOpenAddProductModal] = useState(false)
     const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false)
-    const [products, setProducts] = useState([])
-    const [category, setCategory] = useState({ name: '' })
+
+    // const [productsArray, setProductsArray]: [IProduct[], (prod: IProduct[]) => void] = useState([])
+    // [string, (categoryId: string) => void] = useState('')
+    const [category, setCategory]: [ICategory, (category: ICategory) => void] = useState({ _id: '', name: '' })
     const [errorServer, setErrorServer] = useState(false)
 
-    useEffect(() => {
-        fetch(`/api/product/category/${categoryId}`)
-            .then(resp => resp.json())
-            .then(data => setProducts(data))
-            .catch(err => console.log('Error::', err))
+    // useEffect(() => {
+    //     if (products) setProductsArray(products)
+    // }, [products])
 
+    useEffect(() => {
+        if (categoryId && typeof categoryId === 'string' && setCategoryId !== undefined) {
+            setCategoryId(categoryId)
+        }
     }, [categoryId])
+
     useEffect(() => {
         fetch(`/api/category/${categoryId}`)
             .then(resp => resp.json())
@@ -76,10 +90,10 @@ const ProductsPage: React.FC = () => {
     }, [categoryId])
 
     const renderedProducts = () => {
-        if (!products || products.message) return null
+        if (!products || !categoryId) return null
         console.log(products)
-        return products.map((product: IProduct) => {
-            return <Fragment>
+        return products.map((product: IProduct, index) => {
+            return <Fragment key={index}>
 
                 <div>
                     {/* <span>{!product.newValue && '*'}</span> */}
@@ -93,15 +107,14 @@ const ProductsPage: React.FC = () => {
 
     const handleCloseProductForm = () => {
         setOpenAddProductModal(false)
-        fetch('/api/product')
-            .then(resp => resp.json())
-            .then(data => setProducts(data))
-            .catch(err => console.log('Error::', err))
+
     }
     const handleCloseEditCategoryForm = (categoryEdited: ICategory) => {
         setCategory({ ...category, name: categoryEdited.name })
         setOpenEditCategoryModal(false)
     }
+
+    const dateTime = DateTime.local(2017, 5, 15, 8, 30)
 
     return (
         <div className={classes.root}>
@@ -116,6 +129,13 @@ const ProductsPage: React.FC = () => {
                 <IconButton onClick={() => setOpenEditCategoryModal(true)}>
                     <EditIcon />
                 </IconButton>
+            </div>
+            <div>
+                <Typography
+                    variant="h6"
+                >
+                    {dateTime.toLocaleString()}
+                </Typography>
             </div>
 
             <hr />

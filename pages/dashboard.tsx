@@ -88,6 +88,7 @@ function Dashboard() {
             </List>
 
             <AddCategoryForm open={openModal} handleCloseModal={handleCloseModal} />
+            {/* <h6 style={{ display: 'block' }}>Create new inventory form</h6> */}
         </Container >
     )
 }

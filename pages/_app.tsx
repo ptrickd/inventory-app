@@ -1,6 +1,10 @@
+//React
 import { Fragment } from 'react'
 import Head from 'next/head'
 import Navbar from '../Layout/Navbar'
+
+//Context API
+import { ProductsProvider } from '../contexts/ProductsContext'
 
 //GraphQL
 import { ApolloProvider } from "@apollo/client";
@@ -20,15 +24,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 function MyApp({ Component, pageProps }: AppProps) {
   const classes = useStyles()
   return (
-    <ApolloProvider client={client}>
-      <Head>
+    <ProductsProvider>
+      <ApolloProvider client={client}>
+        <Head>
 
-        <title>The App Inventory</title>
-      </Head>
-      <Navbar />
-      <div className={classes.toolbar} />
-      <Component {...pageProps} />
-    </ApolloProvider>
+          <title>The App Inventory</title>
+        </Head>
+        <Navbar />
+        <div className={classes.toolbar} />
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </ProductsProvider>
+
 
   )
 }

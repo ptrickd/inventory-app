@@ -97,11 +97,11 @@ const Navbar = () => {
 
     const renderedCategories = () => {
         return categories.map((category: ICategory) => {
-            return <Link href={`/category/${category._id}`} >
+            return <Link href={`/category/${category._id}`} key={category._id}>
                 <ListItem
                     className={classes.subMenu}
                     button
-                    key={category._id}
+
                 >
                     <ListItemText primary={category.name} />
                     <ListItemIcon><ArrowForwardIcon /></ListItemIcon>

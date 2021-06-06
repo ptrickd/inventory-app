@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+//React
+import React, { useState, useContext } from 'react'
+
+//Context
+import { ProductsContext } from '../contexts/ProductsContext'
 
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -106,7 +110,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
         </form >
     )
 
-    
+
 
     return (
         <Dialog
