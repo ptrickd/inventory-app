@@ -5,6 +5,7 @@ interface IProps {
 }
 
 interface IProduct {
+    _id: string
     name: string
     amount: number
     categoryId: string
@@ -14,6 +15,7 @@ interface IContext {
     products: IProduct[]
     setCategoryId: (categoryId: string) => void
     addProduct: (product: IProduct) => void
+    deleteProduct: (productId: string) => void
 }
 
 const ProductsContext = createContext<Partial<IContext>>({})
@@ -51,12 +53,30 @@ const ProductsProvider = ({ children }: IProps) => {
             .catch(err => console.log('error:', err))
     }
 
+    const deleteProduct = async (productId: string) => {
+        await fetch(`/api/product/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                const newArray = products.filter(product => product._id !== data._id)
+                console.log(data)
+                console.log('newArray', newArray)
+                setProducts(newArray)
+            })
+            .catch(err => console.log('error:', err))
+    }
+
 
     return (
         <ProductsContext.Provider value={{
             products,
             setCategoryId,
-            addProduct
+            addProduct,
+            deleteProduct
         }}>
             {children}
         </ProductsContext.Provider>

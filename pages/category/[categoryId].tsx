@@ -94,7 +94,7 @@ const ProductsPage: React.FC = () => {
 
                 <div>
                     {/* <span>{!product.newValue && '*'}</span> */}
-                    <InputProduct name={product.name} amount={product.amount} />
+                    <InputProduct name={product.name} amount={product.amount} id={product._id} />
                 </div>
 
 
