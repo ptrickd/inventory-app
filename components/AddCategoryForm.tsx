@@ -1,9 +1,6 @@
 //React
 import React, { useState, useContext } from 'react'
 
-//Context
-import { ProductsContext } from '../contexts/ProductsContext'
-
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog'
@@ -60,11 +57,11 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
             body: JSON.stringify({ name: data.name })
         })
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(dataFromServer => console.log(dataFromServer))
             .catch(err => console.log('error:', err))
         reset({ name: '' })
         setSubmitting(false)
-        handleCloseModal()
+        handleCloseModal(data)
     }
 
     const formBody = (
@@ -72,7 +69,6 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
             <div className={classes.input}>
 
                 <Controller
-
                     name="name"
                     control={control}
                     defaultValue=""
@@ -105,7 +101,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
                     }}
                 >
                     Cancel
-                            </Button>
+                </Button>
             </div>
         </form >
     )

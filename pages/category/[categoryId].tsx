@@ -67,14 +67,11 @@ const ProductsPage: React.FC = () => {
     const [openAddProductModal, setOpenAddProductModal] = useState(false)
     const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false)
 
-    // const [productsArray, setProductsArray]: [IProduct[], (prod: IProduct[]) => void] = useState([])
-    // [string, (categoryId: string) => void] = useState('')
+
     const [category, setCategory]: [ICategory, (category: ICategory) => void] = useState({ _id: '', name: '' })
     const [errorServer, setErrorServer] = useState(false)
 
-    // useEffect(() => {
-    //     if (products) setProductsArray(products)
-    // }, [products])
+
 
     useEffect(() => {
         if (categoryId && typeof categoryId === 'string' && setCategoryId !== undefined) {
@@ -105,14 +102,9 @@ const ProductsPage: React.FC = () => {
         })
     }
 
-    const handleCloseProductForm = () => {
-        setOpenAddProductModal(false)
+    const handleCloseProductForm = () => setOpenAddProductModal(false)
+    const handleCloseEditCategoryForm = () => setOpenEditCategoryModal(false)
 
-    }
-    const handleCloseEditCategoryForm = (categoryEdited: ICategory) => {
-        setCategory({ ...category, name: categoryEdited.name })
-        setOpenEditCategoryModal(false)
-    }
 
     const dateTime = DateTime.local(2017, 5, 15, 8, 30)
 
@@ -166,6 +158,7 @@ const ProductsPage: React.FC = () => {
                 open={openEditCategoryModal}
                 handleCloseModal={handleCloseEditCategoryForm}
                 category={category}
+                setNewCategoryName={name => setCategory({ ...category, name })}
             />
         </div>
     )

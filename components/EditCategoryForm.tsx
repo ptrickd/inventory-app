@@ -12,15 +12,22 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
+interface ICategory {
+    _id: string
+    name: string
+}
 interface IProps {
     open: boolean;
-    handleCloseModal: () => object;
+    handleCloseModal: () => void;
     category: {
+        _id: string
         name: string
     }
+    setNewCategoryName: (name: string) => void
 }
 
 interface IForm {
+    _id: string
     name: string
 }
 
@@ -44,7 +51,7 @@ const useStyle = makeStyles({
 
 
 
-function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
+function EditCategoryForm({ open, handleCloseModal, category, setNewCategoryName }: IProps) {
     const classes = useStyle()
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
@@ -60,10 +67,11 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
             body: JSON.stringify({ name: data.name })
         })
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(dataFromServer => console.log(dataFromServer))
             .catch(err => console.log('error:', err))
         reset({ name: '' })
         setSubmitting(false)
+        setNewCategoryName(data.name)
         handleCloseModal()
     }
 

@@ -7,11 +7,13 @@ interface IProps {
 interface IProduct {
     name: string
     amount: number
+    categoryId: string
 }
 
 interface IContext {
     products: IProduct[]
     setCategoryId: (categoryId: string) => void
+    addProduct: (product: IProduct) => void
 }
 
 const ProductsContext = createContext<Partial<IContext>>({})
@@ -31,11 +33,30 @@ const ProductsProvider = ({ children }: IProps) => {
         }
     }, [categoryId])
 
+    const addProduct = async (product: IProduct) => {
+
+
+        await fetch('/api/product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(product)
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log("products::", data)
+                setProducts([...products, data])
+            })
+            .catch(err => console.log('error:', err))
+    }
+
 
     return (
         <ProductsContext.Provider value={{
             products,
-            setCategoryId
+            setCategoryId,
+            addProduct
         }}>
             {children}
         </ProductsContext.Provider>

@@ -1,6 +1,8 @@
 //React
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
+//Context
+import { ProductsContext } from '../contexts/ProductsContext'
 
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -46,28 +48,15 @@ const useStyle = makeStyles({
 
 function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
     const classes = useStyle()
-
+    const { addProduct } = useContext(ProductsContext)
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 
         setSubmitting(true)
-        await fetch('/api/product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    name: data.name,
-                    amount: 0,
-                    categoryId: categoryId
-                })
-        })
-            .then(resp => resp.json())
-            .then(data => console.log(data))
-            .catch(err => console.log('error:', err))
+        if (addProduct !== undefined && typeof categoryId === "string") addProduct({ name: data.name, amount: 0, categoryId: categoryId })
+
         reset({ name: '' })
         setSubmitting(false)
         handleCloseModal()
