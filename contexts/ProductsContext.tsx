@@ -16,6 +16,7 @@ interface IContext {
     setCategoryId: (categoryId: string) => void
     addProduct: (product: IProduct) => void
     deleteProduct: (productId: string) => void
+    editProduct: (productId: string, productName: string) => void
 }
 
 const ProductsContext = createContext<Partial<IContext>>({})
@@ -27,6 +28,7 @@ const ProductsProvider = ({ children }: IProps) => {
 
     useEffect(() => {
         if (categoryId) {
+            console.log('in the context product')
             console.log(categoryId)
             fetch(`/api/product/category/${categoryId}`)
                 .then(resp => resp.json())
@@ -37,7 +39,6 @@ const ProductsProvider = ({ children }: IProps) => {
 
     const addProduct = async (product: IProduct) => {
 
-
         await fetch('/api/product', {
             method: 'POST',
             headers: {
@@ -47,7 +48,7 @@ const ProductsProvider = ({ children }: IProps) => {
         })
             .then(resp => resp.json())
             .then(data => {
-                console.log("products::", data)
+
                 setProducts([...products, data])
             })
             .catch(err => console.log('error:', err))
@@ -63,9 +64,24 @@ const ProductsProvider = ({ children }: IProps) => {
             .then(resp => resp.json())
             .then(data => {
                 const newArray = products.filter(product => product._id !== data._id)
-                console.log(data)
-                console.log('newArray', newArray)
                 setProducts(newArray)
+            })
+            .catch(err => console.log('error:', err))
+    }
+
+    const editProduct = async (productID: string, productName: string) => {
+        await fetch(`/api/product/${productID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: productName })
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                const newArray = products.filter(product => product._id !== data._id)
+                setProducts([...newArray, data])
+
             })
             .catch(err => console.log('error:', err))
     }
@@ -76,7 +92,8 @@ const ProductsProvider = ({ children }: IProps) => {
             products,
             setCategoryId,
             addProduct,
-            deleteProduct
+            deleteProduct,
+            editProduct
         }}>
             {children}
         </ProductsContext.Provider>

@@ -1,8 +1,11 @@
 //React
-import React, { useContext } from 'react'
+import React, { useState, useContext, Fragment } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
+
+//Components
+import EditProductForm from './EditProductForm'
 
 //Material UI
 import TextField from '@material-ui/core/TextField'
@@ -19,6 +22,7 @@ type IProduct = {
     name: string,
     amount: number
     id: string
+    categoryId: string
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -29,39 +33,50 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const InputProduct: React.FC<IProduct> = ({ name, amount, id }) => {
+const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
     const classes = useStyles();
     const { deleteProduct } = useContext(ProductsContext)
+    const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
+
+    const handleEditAddProductForm = () => setOpenEditProductModal(false)
 
     return (
-        <FormControl
-            className={classes.root}
-            fullWidth
-        >
-
-            <TextField
-
-                id={name}
-                label={name}
-                color="primary"
-                value={amount}
-                variant='standard'
+        <Fragment>
+            <FormControl
+                className={classes.root}
                 fullWidth
+            >
+
+                <TextField
+
+                    id={name}
+                    label={name}
+                    color="primary"
+                    value={amount}
+                    variant='standard'
+                    fullWidth
+                />
+
+                <IconButton onClick={e => setOpenEditProductModal(true)}>
+                    <EditIcon />
+                </IconButton>
+
+                <IconButton onClick={e => { if (deleteProduct !== undefined) deleteProduct(id) }}>
+                    <DeleteIcon />
+                </IconButton>
+
+
+
+            </FormControl >
+            <EditProductForm
+                open={openEditProductForm}
+                handleCloseModal={handleEditAddProductForm}
+                productId={id}
+                categoryId={categoryId}
+                productName={name}
             />
 
-            <IconButton>
-                <EditIcon />
-            </IconButton>
-
-
-            <IconButton onClick={e => { if (deleteProduct !== undefined) deleteProduct(id) }}>
-                <DeleteIcon />
-            </IconButton>
-
-
-
-        </FormControl >
-
+        </Fragment>
 
     )
 }

@@ -25,8 +25,10 @@ import { DateTime } from 'luxon'
 
 
 interface IProduct {
+    _id: string
     name: string
     amount: number
+    categoryId: string
 }
 
 interface ICategory {
@@ -80,10 +82,13 @@ const ProductsPage: React.FC = () => {
     }, [categoryId])
 
     useEffect(() => {
-        fetch(`/api/category/${categoryId}`)
-            .then(resp => resp.json())
-            .then(data => setCategory(data))
-            .catch(err => console.log('Error::', err))
+        if (categoryId) {
+            fetch(`/api/category/${categoryId}`)
+                .then(resp => resp.json())
+                .then(data => setCategory(data))
+                .catch(err => console.log('Error::', err))
+        }
+
     }, [categoryId])
 
     const renderedProducts = () => {
@@ -94,7 +99,12 @@ const ProductsPage: React.FC = () => {
 
                 <div>
                     {/* <span>{!product.newValue && '*'}</span> */}
-                    <InputProduct name={product.name} amount={product.amount} id={product._id} />
+                    <InputProduct
+                        name={product.name}
+                        amount={product.amount}
+                        id={product._id}
+                        categoryId={product.categoryId}
+                    />
                 </div>
 
 
@@ -102,7 +112,7 @@ const ProductsPage: React.FC = () => {
         })
     }
 
-    const handleCloseProductForm = () => setOpenAddProductModal(false)
+    const handleCloseAddProductForm = () => setOpenAddProductModal(false)
     const handleCloseEditCategoryForm = () => setOpenEditCategoryModal(false)
 
 
@@ -151,7 +161,7 @@ const ProductsPage: React.FC = () => {
         </Button>
             <AddProductForm
                 open={openAddProductModal}
-                handleCloseModal={handleCloseProductForm}
+                handleCloseModal={handleCloseAddProductForm}
                 categoryId={categoryId}
             />
             <EditCategoryForm
@@ -160,6 +170,7 @@ const ProductsPage: React.FC = () => {
                 category={category}
                 setNewCategoryName={name => setCategory({ ...category, name })}
             />
+
         </div>
     )
 }
