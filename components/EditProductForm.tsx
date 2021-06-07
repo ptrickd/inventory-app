@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext, Fragment } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
@@ -12,6 +12,9 @@ import DialogContent from '@material-ui/core/DialogContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel'
 
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
@@ -19,12 +22,18 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
-    categoryId: string | string[] | undefined
+    categoryId: string
     productName: string
     productId: string
 }
 
 interface IForm {
+    name: string
+    categoryId: string
+}
+
+interface ICategory {
+    _id: string
     name: string
 }
 
@@ -42,6 +51,9 @@ const useStyle = makeStyles({
     input: {
         display: 'flex',
         flexDirection: 'column'
+    },
+    category: {
+        marginTop: 10
     }
 
 })
@@ -54,13 +66,22 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
+    const [allCategories, setAllCategories] = useState<ICategory[]>([])
+
+    useEffect(() => {
+        fetch(`/api/category/`)
+            .then(resp => resp.json())
+            .then(data => { setAllCategories(data) })
+    }, [])
+
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 
-        setSubmitting(true)
-        if (editProduct !== undefined && typeof categoryId === "string") {
-            await editProduct(productId, data.name)
 
-            reset({ name: '' })
+        if (editProduct !== undefined && typeof categoryId === "string") {
+            setSubmitting(true)
+            await editProduct(productId, data.name, data.categoryId)
+
+            reset({ name: '', categoryId: '' })
             setSubmitting(false)
             handleCloseModal()
         }
@@ -82,7 +103,25 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
                     />}
                 />
                 {errors.name && <span>*Required</span>}
+                <Controller
+                    name="categoryId"
+                    control={control}
+                    defaultValue={categoryId}
+                    rules={{ required: true }}
+                    render={({ field }) => <Fragment >
+                        <InputLabel className={classes.category}>Category</InputLabel>
+                        <Select
+                            {...field}
+                            label="Category"
+                            autoComplete="off"
+                        >
+                            {allCategories.map((category) => (
+                                <MenuItem value={category._id}>{category.name}</MenuItem>
+                            ))}
 
+
+                        </Select></Fragment>}
+                />
             </div>
 
             <div className={classes.buttons}>

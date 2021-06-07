@@ -25,6 +25,7 @@ type IProduct = {
     categoryId: string
 }
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: '8px',
@@ -37,8 +38,9 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
     const classes = useStyles();
     const { deleteProduct } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
-
+   
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
+
 
     return (
         <Fragment>
