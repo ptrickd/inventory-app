@@ -5,33 +5,26 @@ import { DateTime } from 'luxon'
 import LuxonUtils from '@date-io/luxon'
 
 //Material UI
-import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-    KeyboardDateTimePicker
-} from '@material-ui/pickers';
-
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 const DatePicker = () => {
     const initialDate = DateTime.now()
-    const [selectedDate, setSelectedDate] = useState<DateTime | null>()
+    const [selectedDate, setSelectedDate] = useState<DateTime | null>(initialDate)
 
-    useEffect(() => {
-        console.log(selectedDate)
-    }, [])
 
     return (
         <div>
-            <h2>DatePicker</h2>
             <MuiPickersUtilsProvider utils={LuxonUtils}>
                 <KeyboardDatePicker
+                    disableToolbar
                     variant="inline"
-                    format="yyyy/MM/dd"
-                    // format="dateFormat"
+                    format="DDDD"
                     margin="normal"
                     value={selectedDate}
                     onChange={date => setSelectedDate(date)}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
                 />
 
             </MuiPickersUtilsProvider>

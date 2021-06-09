@@ -61,7 +61,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
             .catch(err => console.log('error:', err))
         reset({ name: '' })
         setSubmitting(false)
-        handleCloseModal(data)
+        handleCloseModal()
     }
 
     const formBody = (

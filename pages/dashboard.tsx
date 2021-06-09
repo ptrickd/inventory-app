@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         display: 'flex',
         marginTop: 60,
         marginLeft: DRAWER_WIDTH,
+        // alignItems: 'center',
         justifyContent: 'center'
     }
 }))
@@ -44,11 +45,11 @@ function Dashboard() {
     const classes = useStyles()
     const [openModal, setOpenModal] = useState(false)
 
-    // const { data, loading, error } = useQuery(QUERY);
+    const { data, loading, error } = useQuery(QUERY);
 
-    // if (loading) {
-    //     return <h2>Loading...</h2>;
-    // }
+    if (loading) {
+        return <h2>Loading...</h2>;
+    }
 
     // if (error) {
     //     console.error(error);
@@ -83,7 +84,10 @@ function Dashboard() {
                         />
 
                     </ListItem>
+                    <Divider />
+                    <DatePicker />
                     <ListItem>
+
                         <IconButton
                             aria-label='create new report'
                             color='primary'
@@ -96,7 +100,7 @@ function Dashboard() {
                         />
 
                     </ListItem>
-                    <DatePicker />
+
                 </List>
 
                 <AddCategoryForm open={openModal} handleCloseModal={handleCloseModal} />
