@@ -12,7 +12,9 @@ import {
 } from '../../../controllers/product.controller'
 import {
     getCategories,
-    createCategory
+    createCategory,
+    getCategory,
+    editCategory
 } from '../../../controllers/category.controller'
 
 const typeDefs = gql`
@@ -32,6 +34,7 @@ const typeDefs = gql`
         getProducts: [Product]
         getProductsByCategory(categoryId: String): [Product]
 
+        getCategory(categoryId: ID):Category
         getCategories: [Category]
     }
 
@@ -41,6 +44,7 @@ const typeDefs = gql`
         deleteProduct(productId: ID): Product
         
         createCategory(name:String): Category
+        editCategory(categoryId:ID, name:String): Category
     }
 `
 
@@ -68,7 +72,7 @@ interface IEditProduct {
 }
 
 interface ICategory {
-    id: string
+    categoryId: string
     name: string
 }
 
@@ -103,12 +107,23 @@ const resolvers = {
                 console.log(err)
             }
         },
+        getCategory: async (_: any, { categoryId }: IIds) => {
+            try {
+                const category = await getCategory(categoryId)
+                if (!category) throw new Error("No Category Found");
+
+                return category
+            }
+            catch (err) {
+                console.log(err)
+            }
+        },
         getCategories: async () => {
             try {
                 const categories = await getCategories()
                 if (!categories) throw new Error("No Categories Found")
-                return categories.map(({ id, name }: ICategory) => ({
-                    id, name
+                return categories.map(({ categoryId, name }: ICategory) => ({
+                    categoryId, name
                 }))
             }
             catch (err) {
@@ -137,6 +152,11 @@ const resolvers = {
             if (!category) throw new Error("No Category Create")
             return category
 
+        },
+        editCategory: async (_: any, { categoryId, name }: ICategory) => {
+            let editedCategory = editCategory(categoryId, name)
+            if (!editedCategory) throw new Error("No Category Found")
+            return editedCategory
         }
     }
 }
