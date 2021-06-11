@@ -1,5 +1,3 @@
-//Type
-import type { NextApiRequest, NextApiResponse } from 'next'
 
 //GraphQL
 import { ApolloServer, gql } from 'apollo-server-micro'
@@ -10,6 +8,7 @@ import { createProduct, getProducts } from '../../../controllers/product.control
 const typeDefs = gql`
     type Product {
         id: ID
+        name: String
         amount: Int
         categoryId: ID
     }
@@ -17,27 +16,48 @@ const typeDefs = gql`
     type Query {
         getProducts: [Product]
     }
+
+    type Mutation {
+        createProduct(name:String, amount:Int, categoryId: String): Product
+    }
 `
 
 interface IProduct {
     id: string
+    name: string
     amount: number
     categoryId: string
 }
+
+interface ICreateProduct {
+    name: string
+    amount: number
+    categoryId: string
+}
+
 
 const resolvers = {
     Query: {
         getProducts: async () => {
             try {
                 const products = await getProducts()
-                return products.data.map(({ id, amount, categoryId }: IProduct) => ({
+                return products.map(({ id, amount, name, categoryId }: IProduct) => ({
                     id,
+                    name,
                     amount,
                     categoryId
                 }))
             } catch (err) {
                 throw err
             }
+        }
+    },
+    Mutation: {
+        createProduct: async (_: any, { name, amount, categoryId }: ICreateProduct) => {
+
+            let product = await createProduct(name, amount, categoryId)
+            // console.log(product)
+            return product
         }
     }
 }
@@ -51,8 +71,4 @@ export const config = {
     }
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-
-    res.json({ test: 'test' })
-
-}
+export default apolloServer.createHandler({ path: "/api/graphql" })

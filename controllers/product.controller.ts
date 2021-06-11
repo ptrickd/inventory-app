@@ -1,28 +1,40 @@
 import dbConnect from '../utils/dbConnect'
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { Product } from '../models/product.model'
+import Product from '../models/product.model'
 
 dbConnect()
 
-export const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
+interface IProduct {
+    _id: string
+    name: string
+    amount: number
+    categoryId: string
+}
 
-    if (!req.body.name) return res.status(400).json({ message: 'Name required' })
-    console.log('amount', req.body.name, req.body.amount, req.body.categoryId)
-    let product = new Product({
-        name: req.body.name,
-        amount: req.body.amount,
-        categoryId: req.body.categoryId
-    })
+export const createProduct = async (name: string, amount: number, categoryId: string) => {
 
-    product = await product.save()
-    console.log('product.index.ts', product)
-    return res.status(200).json(product)
+    try {
+        let product = await Product.create({ name, amount, categoryId })
+        // console.log(product)
+        return product
+    }
+    catch (err) {
+        console.log(err)
+    }
+
+    console.log('product.index.ts after saving', product)
+    // return savedProduct
+    // return res.status(200).json(product)
 
 }
 
 export const getProducts = async () => {
+    let products = []
+    try {
+        products = await Product.find({})
 
-    let product = await Product.find({})
-    return res.status(200).json(product)
-
+    }
+    catch (err) {
+        console.log(err)
+    }
+    return products
 }

@@ -24,4 +24,4 @@ const schema = new mongoose.Schema<IProduct>({
 
 
 
-export const Product = mongoose.models.Product || mongoose.model<IProduct>('Product', schema)
+export default mongoose.models.Product || mongoose.model<IProduct>('Product', schema)
