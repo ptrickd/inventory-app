@@ -1,21 +1,14 @@
-// const { ApolloServer } = require('apollo-server-micro')
-// import { schema } from 
+import dbConnect from '../utils/dbConnect'
+import { Category } from '../models/category.model'
 
-// import Category from '../models/category.model'
+dbConnect()
 
-// //Graphql schema
-// const typeDefs = gql`
+export const createCategory = async (name: string) => {
+    const category = await Category.create({ name })
+    return category
+}
 
-//     type Category{
-//         name: String
-//     }
-
-//     type Query {
-//         catagory: [Category]
-//     }
-// `
-// const server = new ApolloServer({ schema, context })
-// const handler = server.createHandler({ path: '/api/graphql' })
-
-// export default handler
-export { }
+export const getCategories = async () => {
+    const categories = await Category.find({})
+    return categories
+}

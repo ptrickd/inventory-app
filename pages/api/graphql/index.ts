@@ -10,6 +10,10 @@ import {
     editProduct,
     deleteProduct
 } from '../../../controllers/product.controller'
+import {
+    getCategories,
+    createCategory
+} from '../../../controllers/category.controller'
 
 const typeDefs = gql`
     type Product {
@@ -19,15 +23,24 @@ const typeDefs = gql`
         categoryId: ID
     }
 
+    type Category {
+        id: ID
+        name: String
+    }
+
     type Query {
         getProducts: [Product]
         getProductsByCategory(categoryId: String): [Product]
+
+        getCategories: [Category]
     }
 
     type Mutation {
         createProduct(name:String, amount:Int, categoryId: String): Product
         editProduct(id:ID, name:String, categoryId: String): Product
         deleteProduct(productId: ID): Product
+        
+        createCategory(name:String): Category
     }
 `
 
@@ -52,6 +65,11 @@ interface IEditProduct {
     id: string
     name: string
     categoryId: string
+}
+
+interface ICategory {
+    id: string
+    name: string
 }
 
 
@@ -84,6 +102,18 @@ const resolvers = {
             catch (err) {
                 console.log(err)
             }
+        },
+        getCategories: async () => {
+            try {
+                const categories = await getCategories()
+                if (!categories) throw new Error("No Categories Found")
+                return categories.map(({ id, name }: ICategory) => ({
+                    id, name
+                }))
+            }
+            catch (err) {
+                console.log(err)
+            }
         }
     },
     Mutation: {
@@ -101,6 +131,12 @@ const resolvers = {
             let product = await deleteProduct(productId)
             if (!product) throw new Error('No product found')
             return product
+        },
+        createCategory: async (_: any, { name }: IIds) => {
+            let category = await createCategory(name)
+            if (!category) throw new Error("No Category Create")
+            return category
+
         }
     }
 }

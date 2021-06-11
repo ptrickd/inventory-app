@@ -53,7 +53,7 @@ export const deleteProduct = async (productId: string) => {
 }
 
 export const editProduct = async (id: string, name: string, categoryId: string) => {
-    console.log('editProduct function')
+
     let editedProduct = await Product.findById(id)
     editedProduct.name = name
     editedProduct.categoryId = categoryId
