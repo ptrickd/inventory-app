@@ -84,9 +84,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 
-
-
-
 const Navbar = () => {
     const classes = useStyles();
     const [categoryMenu, setCategoryMenu] = useState(false)

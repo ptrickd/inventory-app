@@ -13,6 +13,9 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
+
+//GraphQL
+import { useMutation, gql } from '@apollo/client'
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
@@ -21,6 +24,15 @@ interface IProps {
 interface IForm {
     name: string
 }
+
+const CREATE_CATEGORY = gql`
+   mutation CreateCategory($name: String!){
+    createCategory(name: $name){
+        id
+        name
+    }
+ }
+`
 
 const useStyle = makeStyles({
     content: {
@@ -46,19 +58,11 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
     const classes = useStyle()
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
+    const [createCategory, { data }] = useMutation(CREATE_CATEGORY)
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
-        await fetch('/api/category', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name: data.name })
-        })
-            .then(resp => resp.json())
-            .then(dataFromServer => console.log(dataFromServer))
-            .catch(err => console.log('error:', err))
+        createCategory({ variables: { name: data.name } })
         reset({ name: '' })
         setSubmitting(false)
         handleCloseModal()
@@ -90,7 +94,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
                     type="submit"
                 >
                     Add
-                            </Button>
+                </Button>
                 <Button
                     variant="contained"
                     size="small"

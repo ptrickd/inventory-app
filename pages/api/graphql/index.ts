@@ -151,6 +151,7 @@ const resolvers = {
             return product
         },
         createCategory: async (_: any, { name }: IIds) => {
+            console.log('createCategory', name)
             let category = await createCategory(name)
             if (!category) throw new Error("No Category Create")
             return category
