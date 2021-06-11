@@ -14,7 +14,8 @@ import {
     getCategories,
     createCategory,
     getCategory,
-    editCategory
+    editCategory,
+    deleteCategory
 } from '../../../controllers/category.controller'
 
 const typeDefs = gql`
@@ -45,6 +46,7 @@ const typeDefs = gql`
         
         createCategory(name:String): Category
         editCategory(categoryId:ID, name:String): Category
+        deleteCategory(categoryId:ID): Category
     }
 `
 
@@ -154,9 +156,14 @@ const resolvers = {
 
         },
         editCategory: async (_: any, { categoryId, name }: ICategory) => {
-            let editedCategory = editCategory(categoryId, name)
+            let editedCategory = await editCategory(categoryId, name)
             if (!editedCategory) throw new Error("No Category Found")
             return editedCategory
+        },
+        deleteCategory: async (_: any, { categoryId }: IIds) => {
+            let deletedCategory = await deleteCategory(categoryId)
+            if (!deletedCategory) throw new Error("No Category Found")
+            return deletedCategory
         }
     }
 }

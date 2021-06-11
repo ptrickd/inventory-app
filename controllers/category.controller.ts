@@ -1,5 +1,6 @@
 import dbConnect from '../utils/dbConnect'
 import { Category } from '../models/category.model'
+import { DeleteOutline } from '@material-ui/icons'
 
 dbConnect()
 
@@ -25,4 +26,10 @@ export const editCategory = async (categoryId: string, name: string) => {
     category.name = name
     category = await category.save()
     return category
+}
+
+export const deleteCategory = async (categoryId: string) => {
+    const deletedCategory = await Category.findById(categoryId)
+    await Category.deleteOne({ _id: categoryId })
+    return deletedCategory
 }
