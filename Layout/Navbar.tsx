@@ -21,14 +21,24 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Slide from '@material-ui/core/Slide';
 import Link from 'next/link'
 
-
-
 //Icons
 import MenuIcon from '@material-ui/icons/Menu';
+
+//GraphQL
+import { useQuery, gql } from '@apollo/client'
 interface ICategory {
-    _id: string
+    id: string
     name: string
 }
+
+const GET_CATEGORIES = gql`
+    query {
+        getCategories {
+                id
+                name
+        }
+    }
+`
 
 const drawerWidth = 220
 
@@ -80,15 +90,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Navbar = () => {
     const classes = useStyles();
     const [categoryMenu, setCategoryMenu] = useState(false)
-    const [categories, setCategories] = useState([])
     const [mobileOpen, setMobileOpen] = useState(false)
 
-    useEffect(() => {
-        fetch('/api/category')
-            .then(resp => resp.json())
-            .then(data => setCategories(data))
-            .catch(err => console.log('Error: ', err))
-    }, [])
+    const { data, loading, error } = useQuery(GET_CATEGORIES)
+    if (loading) return <div><h2>Loading...</h2></div>
+    if (error) return <div>`Error! ${error.message}`</div>
+    console.log(data)
+    const categories = data.getCategories
 
     const handleClickCategories = () => setCategoryMenu(!categoryMenu)
 
@@ -97,7 +105,7 @@ const Navbar = () => {
 
     const renderedCategories = () => {
         return categories.map((category: ICategory) => {
-            return <Link href={`/category/${category._id}`} key={category._id}>
+            return <Link href={`/category/${category.id}`} key={category.id}>
                 <ListItem
                     className={classes.subMenu}
                     button
@@ -162,7 +170,7 @@ const Navbar = () => {
                 </IconButton>
                 <Typography variant="h6" >
                     Inventory
-            </Typography>
+                </Typography>
             </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="menu">

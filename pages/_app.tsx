@@ -8,7 +8,7 @@ import { ProductsProvider } from '../contexts/ProductsContext'
 
 //GraphQL
 import { ApolloProvider } from "@apollo/client";
-import client from "../queries/apollo-client";
+import client from "../apollo-client";
 
 //Styles
 import '../styles/globals.css'

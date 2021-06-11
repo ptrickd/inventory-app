@@ -122,10 +122,11 @@ const resolvers = {
         },
         getCategories: async () => {
             try {
+                console.log('in getCategories')
                 const categories = await getCategories()
                 if (!categories) throw new Error("No Categories Found")
-                return categories.map(({ categoryId, name }: ICategory) => ({
-                    categoryId, name
+                return categories.map(({ id, name }) => ({
+                    id, name
                 }))
             }
             catch (err) {
