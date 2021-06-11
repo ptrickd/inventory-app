@@ -14,16 +14,12 @@ export const createProduct = async (name: string, amount: number, categoryId: st
 
     try {
         let product = await Product.create({ name, amount, categoryId })
-        // console.log(product)
         return product
     }
     catch (err) {
         console.log(err)
     }
 
-    console.log('product.index.ts after saving', product)
-    // return savedProduct
-    // return res.status(200).json(product)
 
 }
 
@@ -37,4 +33,14 @@ export const getProducts = async () => {
         console.log(err)
     }
     return products
+}
+
+export const getProductsByCategory = async (categoryId: string) => {
+    try {
+        let products = await Product.find({ categoryId: categoryId })
+        return products
+    }
+    catch (err) {
+        console.log(err)
+    }
 }

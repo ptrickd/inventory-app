@@ -3,7 +3,7 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 
 //Controller
-import { createProduct, getProducts } from '../../../controllers/product.controller'
+import { createProduct, getProducts, getProductsByCategory } from '../../../controllers/product.controller'
 
 const typeDefs = gql`
     type Product {
@@ -15,6 +15,7 @@ const typeDefs = gql`
 
     type Query {
         getProducts: [Product]
+        getProductsByCategory(categoryId: String): [Product]
     }
 
     type Mutation {
@@ -35,6 +36,10 @@ interface ICreateProduct {
     categoryId: string
 }
 
+interface IGetProductsByCategory {
+    categoryId: string
+}
+
 
 const resolvers = {
     Query: {
@@ -48,7 +53,22 @@ const resolvers = {
                     categoryId
                 }))
             } catch (err) {
-                throw err
+                console.log(err)
+            }
+        },
+        getProductsByCategory: async (_: any, { categoryId }: IGetProductsByCategory) => {
+            try {
+                const products = await getProductsByCategory(categoryId)
+                if (!products) throw new Error('No products found')
+                return products.map(({ id, amount, name, categoryId }: IProduct) => ({
+                    id,
+                    name,
+                    amount,
+                    categoryId
+                }))
+            }
+            catch (err) {
+                console.log(err)
             }
         }
     },
@@ -56,7 +76,6 @@ const resolvers = {
         createProduct: async (_: any, { name, amount, categoryId }: ICreateProduct) => {
 
             let product = await createProduct(name, amount, categoryId)
-            // console.log(product)
             return product
         }
     }
