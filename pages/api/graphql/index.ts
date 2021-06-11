@@ -3,7 +3,13 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 
 //Controller
-import { createProduct, getProducts, getProductsByCategory, editProduct, deleteProduct } from '../../../controllers/product.controller'
+import {
+    createProduct,
+    getProducts,
+    getProductsByCategory,
+    editProduct,
+    deleteProduct
+} from '../../../controllers/product.controller'
 
 const typeDefs = gql`
     type Product {
@@ -38,8 +44,8 @@ interface ICreateProduct {
     categoryId: string
 }
 
-interface IGetProductsByCategory {
-    categoryId: string
+interface IIds {
+    [propName: string]: string
 }
 
 interface IEditProduct {
@@ -64,7 +70,7 @@ const resolvers = {
                 console.log(err)
             }
         },
-        getProductsByCategory: async (_: any, { categoryId }: IGetProductsByCategory) => {
+        getProductsByCategory: async (_: any, { categoryId }: IIds) => {
             try {
                 const products = await getProductsByCategory(categoryId)
                 if (!products) throw new Error('No products found')
@@ -88,6 +94,11 @@ const resolvers = {
         },
         editProduct: async (_: any, { id, name, categoryId }: IEditProduct) => {
             let product = await editProduct(id, name, categoryId)
+            if (!product) throw new Error('No product found')
+            return product
+        },
+        deleteProduct: async (_: any, { productId }: IIds) => {
+            let product = await deleteProduct(productId)
             if (!product) throw new Error('No product found')
             return product
         }

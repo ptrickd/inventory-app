@@ -46,13 +46,10 @@ export const getProductsByCategory = async (categoryId: string) => {
 }
 
 export const deleteProduct = async (productId: string) => {
-    // const { productId } = req.query
-    // const deletedProduct = await Product.deleteOne({ _id: productId })
 
-    // if (!deletedProduct) return res.status(404).json({ message: 'Product not found' })
-
-    // // console.log('delete mthoed::', deletedProduct)
-    // return res.status(200).json({ _id: productId })
+    const deletedProduct = await Product.findOne({ _id: productId })
+    await Product.deleteOne({ _id: productId })
+    return deletedProduct
 }
 
 export const editProduct = async (id: string, name: string, categoryId: string) => {
