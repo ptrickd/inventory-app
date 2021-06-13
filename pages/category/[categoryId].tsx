@@ -85,26 +85,19 @@ const ProductsPage: React.FC = () => {
 
     //Get the data from the backend using the categoryId
     const { data, loading, error } = useQuery(GET_CATEGORY, {
-        variables: { categoryId: "60c3e574e56b6b54bd73d476" },
-        // skip: !categoryId
+        variables: { categoryId: "60b815236e9fbd96a3ce5b33" },
+        skip: !categoryId
     })
+    
+    useEffect(() => {
+        if (data) setCategory(data.getCategory)
+    }, [data])
+
 
     const dateTime = DateTime.local(2017, 5, 15, 8, 30)
-    console.log('after useQuery')
-    console.log('data in useEffect:', data)
-    console.log('loading in useEffect:', loading)
-    console.log('error in useEffect:', error)
-    //Set category once it go it from the query
-    // useEffect(() => {
 
-    //     if (data) {
-    //         // setCategory(data.getCategory)
-    //         console.log('data in useEffect:', data)
-
-    //     }
-    // }, [data])
     useEffect(() => {
-        setCategoryId("60c3e574e56b6b54bd73d476")
+        if (typeof categoryId === 'string') setCategoryId(categoryId)
 
     }, [])
     /*********************************** */
@@ -139,7 +132,7 @@ const ProductsPage: React.FC = () => {
 
     if (loading) return <div><h2>Loading...</h2></div>
     if (error) return <div>`Error! ${error.message}`</div>
-    if (!data) return <div><h2>No category...</h2></div>
+
 
     return (
         <div className={classes.root}>

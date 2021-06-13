@@ -58,10 +58,10 @@ const ProductsProvider = ({ children }: IProps) => {
 
 
     useEffect(() => {
-        if (contextCategoryId) {
-            // console.log('getProductsByCategory', data.getProductsByCategory)
-            // setProducts(data.getProductsByCategory)
-            setProducts([])
+        if (contextCategoryId && data) {
+            console.log('getProductsByCategory', data.getProductsByCategory)
+            setProducts(data.getProductsByCategory)
+
         }
     }, [contextCategoryId])
 

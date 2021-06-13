@@ -95,7 +95,7 @@ const Navbar = () => {
     if (loading) return <div><h2>Loading...</h2></div>
     if (error) return <div>`Error! ${error.message}`</div>
     console.log(data)
-    const categories = data.getCategories
+    const categories = data.getCategories || []
 
     const handleClickCategories = () => setCategoryMenu(!categoryMenu)
 
@@ -145,7 +145,7 @@ const Navbar = () => {
                 }
             </List>
             <Divider />
-            <Link href="/test">Test</Link>
+            {/* <Link href="/test">Test</Link> */}
         </Fragment>
 
 
