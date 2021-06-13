@@ -41,7 +41,7 @@ const typeDefs = gql`
 
     type Mutation {
         createProduct(name:String, amount:Int, categoryId: String): Product
-        editProduct(id:ID, name:String, categoryId: String): Product
+        editProduct(productId:ID, name:String, categoryId: String): Product
         deleteProduct(productId: ID): Product
         
         createCategory(name:String): Category
@@ -68,7 +68,7 @@ interface IIds {
 }
 
 interface IEditProduct {
-    id: string
+    productId: string
     name: string
     categoryId: string
 }
@@ -142,13 +142,12 @@ const resolvers = {
             let product = await createProduct(name, amount, categoryId)
             return product
         },
-        editProduct: async (_: any, { id, name, categoryId }: IEditProduct) => {
-            let product = await editProduct(id, name, categoryId)
+        editProduct: async (_: any, { productId, name, categoryId }: IEditProduct) => {
+            let product = await editProduct(productId, name, categoryId)
             if (!product) throw new Error('No product found')
             return product
         },
         deleteProduct: async (_: any, { productId }: IIds) => {
-            console.log('deleteCategory server side')
             let product = await deleteProduct(productId)
             if (!product) throw new Error('No product found')
             return product

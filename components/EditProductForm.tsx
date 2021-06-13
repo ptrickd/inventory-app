@@ -62,7 +62,7 @@ const useStyle = makeStyles({
 
 function EditProductForm({ open, handleCloseModal, categoryId, productName, productId }: IProps) {
     const classes = useStyle()
-    const { editProduct } = useContext(ProductsContext)
+    const { editProductApi } = useContext(ProductsContext)
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
@@ -77,9 +77,9 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 
 
-        if (editProduct !== undefined && typeof categoryId === "string") {
+        if (editProductApi !== undefined && typeof categoryId === "string") {
             setSubmitting(true)
-            await editProduct(productId, data.name, data.categoryId)
+            await editProductApi(productId, data.name, data.categoryId)
 
             reset({ name: '', categoryId: '' })
             setSubmitting(false)
@@ -132,7 +132,7 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
                     type="submit"
                 >
                     Edit
-                            </Button>
+                </Button>
                 <Button
                     variant="contained"
                     size="small"
@@ -143,7 +143,7 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
                     }}
                 >
                     Cancel
-                            </Button>
+                </Button>
             </div>
         </form >
     )

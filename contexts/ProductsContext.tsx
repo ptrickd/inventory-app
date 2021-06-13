@@ -20,7 +20,7 @@ interface IContext {
     setCategoryId: (categoryId: string) => void
     addProduct: (product: IProduct) => void
     deleteProductApi: (productId: string) => void
-    editProduct: (productId: string, productName: string, categoryId: string) => void
+    editProductApi: (productId: string, productName: string, categoryId: string) => void
 }
 
 const GET_PRODUCTS_BY_CATEGORY = gql`
@@ -50,6 +50,17 @@ const DELETE_PRODUCT = gql`
         }
     }
 `
+const EDIT_PRODUCT = gql`
+    mutation EditProduct($productId: ID, $name: String, $categoryId: String){
+        editProduct(productId: $productId, name: $name, categoryId: $categoryId){
+            id
+            name
+            amount
+            categoryId
+        }
+    }
+`
+
 
 // const ProductsContext = createContext<Partial<IContext>>({})
 const ProductsContext = createContext<IContext>({})
@@ -61,10 +72,11 @@ const ProductsProvider = ({ children }: IProps) => {
 
     const { data, loading, error, refetch } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
         variables: { categoryId: contextCategoryId },
-        skip: !contextCategoryId.length
+        // skip: !contextCategoryId.length
     })
     const [createProduct] = useMutation(CREATE_PRODUCT)
     const [deleteProduct] = useMutation(DELETE_PRODUCT)
+    const [editProduct] = useMutation(EDIT_PRODUCT)
 
 
     useEffect(() => {
@@ -91,26 +103,12 @@ const ProductsProvider = ({ children }: IProps) => {
         refetch()
     }
 
-    const editProduct = async (productID: string, productName: string, categoryId: string) => {
-        await fetch(`/api/product/${productID}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name: productName, categoryId })
-        })
-            .then(resp => resp.json())
-            .then(data => {
-
-                const newArray = products.filter(product => product._id !== data._id)
-                if (categoryId === contextCategoryId) {
-                    setProducts([...newArray, data])
-                } else {
-                    setProducts([...newArray])
-                }
-
-            })
-            .catch(err => console.log('error:', err))
+    const editProductApi = async (productId: string, productName: string, categoryId: string) => {
+        console.log('productId:', productId)
+        console.log('productName:', productName)
+        console.log('categoryId:', categoryId)
+        await editProduct({ variables: { productId, name: productName, categoryId } })
+        refetch()
     }
 
     if (loading) return <div><h2>Loading...</h2></div>
@@ -122,7 +120,7 @@ const ProductsProvider = ({ children }: IProps) => {
             setCategoryId,
             addProduct,
             deleteProductApi,
-            editProduct
+            editProductApi
         }}>
             {children}
         </ProductsContext.Provider>
