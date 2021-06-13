@@ -13,21 +13,21 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 interface ICategory {
-    _id: string
+    id: string
     name: string
 }
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
     category: {
-        _id: string
+        id: string
         name: string
     }
     setNewCategoryName: (name: string) => void
 }
 
 interface IForm {
-    _id: string
+    id: string
     name: string
 }
 
@@ -59,7 +59,7 @@ function EditCategoryForm({ open, handleCloseModal, category, setNewCategoryName
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
-        await fetch(`/api/category/${category._id}`, {
+        await fetch(`/api/category/${category.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ function EditCategoryForm({ open, handleCloseModal, category, setNewCategoryName
                     type="submit"
                 >
                     Edit
-                            </Button>
+                </Button>
                 <Button
                     variant="contained"
                     size="small"
@@ -113,7 +113,7 @@ function EditCategoryForm({ open, handleCloseModal, category, setNewCategoryName
                     }}
                 >
                     Cancel
-                            </Button>
+                </Button>
             </div>
         </form >
     )

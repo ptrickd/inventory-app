@@ -1,5 +1,5 @@
 //React
-import React, { useState, useEffect, useContext, Fragment } from 'react'
+import React, { useState, useContext, Fragment } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
@@ -7,7 +7,6 @@ import { ProductsContext } from '../contexts/ProductsContext'
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -18,6 +17,10 @@ import InputLabel from '@material-ui/core/InputLabel'
 
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+
+
+//GraphQL
+import { gql, useQuery } from '@apollo/client'
 
 interface IProps {
     open: boolean;
@@ -33,9 +36,18 @@ interface IForm {
 }
 
 interface ICategory {
-    _id: string
+    id: string
     name: string
 }
+
+const GET_CATEGORY = gql`
+    query GetCategories{
+        getCategories {
+            id
+            name
+        }
+    }
+`
 
 const useStyle = makeStyles({
     content: {
@@ -66,13 +78,7 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
-    const [allCategories, setAllCategories] = useState<ICategory[]>([])
-
-    useEffect(() => {
-        fetch(`/api/category/`)
-            .then(resp => resp.json())
-            .then(data => { setAllCategories(data) })
-    }, [])
+    const { data, loading, error } = useQuery(GET_CATEGORY)
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 
@@ -81,7 +87,7 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
             setSubmitting(true)
             await editProductApi(productId, data.name, data.categoryId)
 
-            reset({ name: '', categoryId: '' })
+            // reset({ name: '', categoryId: '' })
             setSubmitting(false)
             handleCloseModal()
         }
@@ -115,8 +121,8 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
                             label="Category"
                             autoComplete="off"
                         >
-                            {allCategories.map((category) => (
-                                <MenuItem value={category._id}>{category.name}</MenuItem>
+                            {data.getCategories.map((category: ICategory) => (
+                                <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
                             ))}
 
 
@@ -148,7 +154,8 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
         </form >
     )
 
-
+    if (loading) return <div><h2>Loading...</h2></div>
+    if (error) return <div>`Error! ${error.message}`</div>
 
     return (
         <Dialog
