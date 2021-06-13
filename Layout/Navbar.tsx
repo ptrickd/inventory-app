@@ -2,6 +2,7 @@
 import { useState, useEffect, Fragment } from 'react'
 
 //Material UI
+import clsx from 'clsx'
 import { DRAWER_WIDTH } from '../constants/dimensions'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -42,30 +43,37 @@ const GET_CATEGORIES = gql`
     }
 `
 
-const drawerWidth = DRAWER_WIDTH
+
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex'
     },
-    title: {
-        flexGrow: 1,
-    },
     drawer: {
-        width: drawerWidth,
+        width: DRAWER_WIDTH,
         flexShrink: 0,
     },
     drawerPaper: {
-        width: drawerWidth
+        width: DRAWER_WIDTH
+    },
+    hide: {
+        display: 'none',
     },
     appBar: {
-
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
+        transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
+        })
+    },
+    appBarShift: {
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${DRAWER_WIDTH}px)`,
+            marginLeft: DRAWER_WIDTH,
+        },
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
         }),
-
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
@@ -108,7 +116,6 @@ const Navbar = () => {
                 <ListItem
                     className={classes.subMenu}
                     button
-
                 >
                     <ListItemText primary={category.name} />
                     <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
@@ -156,14 +163,14 @@ const Navbar = () => {
     return <div className={classes.root}>
         <CssBaseline />
         <AppBar
-            className={classes.appBar}
+            className={clsx(classes.appBar, { [classes.appBarShift]: true })}
         >
             <Toolbar >
                 <IconButton
                     color="inherit"
                     arial-label="open drawer"
                     edge="start"
-                    className={classes.menuButton}
+                    className={clsx(classes.menuButton, mobileOpen && classes.hide)}
                     onClick={handleDrawerToggle}
                 >
                     <MenuIcon />
