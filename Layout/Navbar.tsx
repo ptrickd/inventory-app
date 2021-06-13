@@ -1,6 +1,8 @@
+//React
 import { useState, useEffect, Fragment } from 'react'
 
 //Material UI
+import { DRAWER_WIDTH } from '../constants/dimensions'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -40,7 +42,7 @@ const GET_CATEGORIES = gql`
     }
 `
 
-const drawerWidth = 220
+const drawerWidth = DRAWER_WIDTH
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -143,6 +145,7 @@ const Navbar = () => {
                 }
             </List>
             <Divider />
+            <Link href="/test">Test</Link>
         </Fragment>
 
 

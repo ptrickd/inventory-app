@@ -34,8 +34,8 @@ const typeDefs = gql`
     type Query {
         getProducts: [Product]
         getProductsByCategory(categoryId: String): [Product]
+        getCategory(categoryId: ID): Category
 
-        getCategory(categoryId: ID):Category
         getCategories: [Category]
     }
 
@@ -111,7 +111,9 @@ const resolvers = {
         },
         getCategory: async (_: any, { categoryId }: IIds) => {
             try {
+                console.log('categoryId', categoryId)
                 const category = await getCategory(categoryId)
+                
                 if (!category) throw new Error("No Category Found");
 
                 return category

@@ -1,4 +1,8 @@
+//React
 import React, { createContext, useState, useEffect } from 'react'
+
+//GraphQL
+import { gql, useQuery, useMutation } from '@apollo/client'
 
 interface IProps {
     children: React.ReactNode
@@ -19,37 +23,51 @@ interface IContext {
     editProduct: (productId: string, productName: string, categoryId: string) => void
 }
 
-const ProductsContext = createContext<Partial<IContext>>({})
+const GET_PRODUCTS_BY_CATEGORY = gql`
+    query GetProductsByCategory($categoryId: String){
+        getProductsByCategory(categoryId: $categoryId){
+            id
+            name
+            amount
+            categoryId
+        }
+    }
+`
+const CREATE_PRODUCT = gql`
+    mutation CreateProduct($name: String!, $amount: Int!, $categoryId: String!){
+        createProduct(name: $name, amount: $amount, categoryId: $categoryId){
+            id
+            name
+            amount
+        }
+    }
+`
+// const ProductsContext = createContext<Partial<IContext>>({})
+const ProductsContext = createContext<IContext>({})
 
 const ProductsProvider = ({ children }: IProps) => {
-    // let products: IProduct[] = []
+
     const [contextCategoryId, setCategoryId]: [string, (categoryId: string) => void] = useState('')
     const [products, setProducts] = useState<IProduct[]>([])
 
+    const { data, loading, error } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
+        variables: { categoryId: contextCategoryId },
+        skip: !contextCategoryId.length
+    })
+    const [createProduct] = useMutation(CREATE_PRODUCT)
+
+
     useEffect(() => {
         if (contextCategoryId) {
-            fetch(`/api/product/category/${contextCategoryId}`)
-                .then(resp => resp.json())
-                .then(data => { console.log(data); setProducts(data) })
-                .catch(err => console.log('Error::', err))
+            // console.log('getProductsByCategory', data.getProductsByCategory)
+            // setProducts(data.getProductsByCategory)
+            setProducts([])
         }
     }, [contextCategoryId])
 
     const addProduct = async (product: IProduct) => {
-
-        await fetch('/api/product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(product)
-        })
-            .then(resp => resp.json())
-            .then(data => {
-
-                setProducts([...products, data])
-            })
-            .catch(err => console.log('error:', err))
+        createProduct({ variables: { name: product.name, amount: product.amount, categoryId: product.categoryId } })
+        setProducts([...products, data])
     }
 
     const deleteProduct = async (productId: string) => {
@@ -89,8 +107,10 @@ const ProductsProvider = ({ children }: IProps) => {
             .catch(err => console.log('error:', err))
     }
 
-
+    if (loading) return <div><h2>Loading...</h2></div>
+    if (error) return <div>`Error!hh ${error.message}`</div>
     return (
+
         <ProductsContext.Provider value={{
             products,
             setCategoryId,

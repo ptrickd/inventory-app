@@ -20,17 +20,6 @@ import { DRAWER_WIDTH } from '../constants/dimensions'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 
-//Graphql
-import { useQuery, gql } from '@apollo/client'
-
-const QUERY = gql`
-  query Category {
-    addCategories {
-      name
-    }
-  }
-`;
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
@@ -45,17 +34,6 @@ function Dashboard() {
     const classes = useStyles()
     const [openModal, setOpenModal] = useState(false)
 
-    const { data, loading, error } = useQuery(QUERY);
-
-    if (loading) {
-        return <h2>Loading...</h2>;
-    }
-
-    // if (error) {
-    //     console.error(error);
-    //     return null;
-    // }
-
     //Adding categories
     const handleAddCategory = () => setOpenModal(true)
     const handleCloseModal = () => setOpenModal(false)
@@ -69,7 +47,7 @@ function Dashboard() {
                 <List >
                     <Typography variant='h4' >
                         Dashboard
-                </Typography>
+                    </Typography>
                     <Divider />
                     <ListItem>
                         <IconButton

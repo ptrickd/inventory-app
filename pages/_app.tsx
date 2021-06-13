@@ -24,8 +24,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 function MyApp({ Component, pageProps }: AppProps) {
   const classes = useStyles()
   return (
-    <ProductsProvider>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <ProductsProvider>
+
         <Head>
 
           <title>The App Inventory</title>
@@ -33,8 +34,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Navbar />
         <div className={classes.toolbar} />
         <Component {...pageProps} />
-      </ApolloProvider>
-    </ProductsProvider>
+      </ProductsProvider>
+    </ApolloProvider >
+
 
 
   )

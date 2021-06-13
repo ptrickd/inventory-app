@@ -1,7 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
+//React
 import styles from '../styles/Home.module.css'
 import Container from '@material-ui/core/Container'
+
+/*
+/components
+/utils
+/modals
+/graphql
+  /queries
+  /mutations
+*/
 
 export default function Home() {
   return (
