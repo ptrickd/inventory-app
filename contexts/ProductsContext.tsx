@@ -50,7 +50,7 @@ const ProductsProvider = ({ children }: IProps) => {
     const [contextCategoryId, setCategoryId]: [string, (categoryId: string) => void] = useState('')
     const [products, setProducts] = useState<IProduct[]>([])
 
-    const { data, loading, error } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
+    const { data, loading, error, refetch } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
         variables: { categoryId: contextCategoryId },
         skip: !contextCategoryId.length
     })
@@ -63,11 +63,11 @@ const ProductsProvider = ({ children }: IProps) => {
             setProducts(data.getProductsByCategory)
 
         }
-    }, [contextCategoryId])
+    }, [contextCategoryId, data])
 
     const addProduct = async (product: IProduct) => {
         createProduct({ variables: { name: product.name, amount: product.amount, categoryId: product.categoryId } })
-        setProducts([...products, data])
+        refetch()
     }
 
     const deleteProduct = async (productId: string) => {
