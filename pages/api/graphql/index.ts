@@ -113,7 +113,7 @@ const resolvers = {
             try {
                 console.log('categoryId', categoryId)
                 const category = await getCategory(categoryId)
-                
+
                 if (!category) throw new Error("No Category Found");
 
                 return category
@@ -148,6 +148,7 @@ const resolvers = {
             return product
         },
         deleteProduct: async (_: any, { productId }: IIds) => {
+            console.log('deleteCategory server side')
             let product = await deleteProduct(productId)
             if (!product) throw new Error('No product found')
             return product

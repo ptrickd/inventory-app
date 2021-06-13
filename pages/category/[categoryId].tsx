@@ -36,7 +36,7 @@ interface IProduct {
 }
 
 interface ICategory {
-    _id: string
+    id: string
     name: string
 }
 
@@ -80,21 +80,22 @@ const ProductsPage: React.FC = () => {
     const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false)
 
     //Get set by the useQuery below
-    const [category, setCategory] = useState<ICategory>({ _id: '', name: '' })
+    const [category, setCategory] = useState<ICategory>({ id: '', name: '' })
 
 
     //Get the data from the backend using the categoryId
-    const { data, loading, error } = useQuery(GET_CATEGORY, {
-        variables: { categoryId: "60b815236e9fbd96a3ce5b33" },
+    const { data, loading, error, refetch } = useQuery(GET_CATEGORY, {
+        variables: { categoryId: categoryId },
         skip: !categoryId
     })
-    
+
     useEffect(() => {
         if (data) setCategory(data.getCategory)
+        else refetch()
     }, [data])
 
 
-    const dateTime = DateTime.local(2017, 5, 15, 8, 30)
+    // const dateTime = DateTime.local(2017, 5, 15, 8, 30)
 
     useEffect(() => {
         if (typeof categoryId === 'string') setCategoryId(categoryId)
@@ -107,18 +108,15 @@ const ProductsPage: React.FC = () => {
         console.log(products)
         return products.map((product, index) => {
             return <Fragment key={index}>
-
                 <div>
                     {/* <span>{!product.newValue && '*'}</span> */}
                     <InputProduct
                         name={product.name}
                         amount={product.amount}
-                        id={product._id}
+                        id={product.id}
                         categoryId={product.categoryId}
                     />
                 </div>
-
-
             </Fragment>
         })
     }
@@ -152,7 +150,7 @@ const ProductsPage: React.FC = () => {
                 <Typography
                     variant="h6"
                 >
-                    {dateTime.toLocaleString()}
+                    Some Date{/* {dateTime.toLocaleString()} */}
                 </Typography>
             </div>
 

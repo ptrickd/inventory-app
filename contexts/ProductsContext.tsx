@@ -9,7 +9,7 @@ interface IProps {
 }
 
 interface IProduct {
-    _id: string
+    id: string
     name: string
     amount: number
     categoryId: string
@@ -19,7 +19,7 @@ interface IContext {
     products: IProduct[]
     setCategoryId: (categoryId: string) => void
     addProduct: (product: IProduct) => void
-    deleteProduct: (productId: string) => void
+    deleteProductApi: (productId: string) => void
     editProduct: (productId: string, productName: string, categoryId: string) => void
 }
 
@@ -42,6 +42,15 @@ const CREATE_PRODUCT = gql`
         }
     }
 `
+const DELETE_PRODUCT = gql`
+    mutation DeleteProduct($productId: ID!){
+        deleteProduct(productId: $productId){
+            id
+            name
+        }
+    }
+`
+
 // const ProductsContext = createContext<Partial<IContext>>({})
 const ProductsContext = createContext<IContext>({})
 
@@ -55,34 +64,31 @@ const ProductsProvider = ({ children }: IProps) => {
         skip: !contextCategoryId.length
     })
     const [createProduct] = useMutation(CREATE_PRODUCT)
+    const [deleteProduct] = useMutation(DELETE_PRODUCT)
 
 
     useEffect(() => {
+        console.log('contextCategoryId', contextCategoryId)
+        console.log('data', data)
         if (contextCategoryId && data) {
             console.log('getProductsByCategory', data.getProductsByCategory)
             setProducts(data.getProductsByCategory)
 
+        } else {
+            refetch()
         }
     }, [contextCategoryId, data])
 
     const addProduct = async (product: IProduct) => {
-        createProduct({ variables: { name: product.name, amount: product.amount, categoryId: product.categoryId } })
+        await createProduct({ variables: { name: product.name, amount: product.amount, categoryId: product.categoryId } })
         refetch()
     }
 
-    const deleteProduct = async (productId: string) => {
-        await fetch(`/api/product/${productId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(resp => resp.json())
-            .then(data => {
-                const newArray = products.filter(product => product._id !== data._id)
-                setProducts(newArray)
-            })
-            .catch(err => console.log('error:', err))
+    const deleteProductApi = async (productId: string) => {
+        console.log('productId:', productId)
+        await deleteProduct({ variables: { productId: productId } })
+
+        refetch()
     }
 
     const editProduct = async (productID: string, productName: string, categoryId: string) => {
@@ -115,7 +121,7 @@ const ProductsProvider = ({ children }: IProps) => {
             products,
             setCategoryId,
             addProduct,
-            deleteProduct,
+            deleteProductApi,
             editProduct
         }}>
             {children}

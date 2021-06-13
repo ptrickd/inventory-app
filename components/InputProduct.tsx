@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext, Fragment } from 'react'
+import React, { useState, useContext, Fragment, useEffect } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
@@ -36,11 +36,14 @@ const useStyles = makeStyles((theme) => ({
 
 const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
     const classes = useStyles();
-    const { deleteProduct } = useContext(ProductsContext)
+    const { deleteProductApi } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
-   
+
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
 
+    useEffect(() => {
+        console.log('id in InputProduct', id)
+    }, [])
 
     return (
         <Fragment>
@@ -63,7 +66,7 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
                     <EditIcon />
                 </IconButton>
 
-                <IconButton onClick={e => { if (deleteProduct !== undefined) deleteProduct(id) }}>
+                <IconButton onClick={e => { if (deleteProductApi !== undefined) deleteProductApi(id) }}>
                     <DeleteIcon />
                 </IconButton>
 
