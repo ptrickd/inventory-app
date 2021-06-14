@@ -22,8 +22,9 @@ import {
     deleteCategory
 } from '../../../controllers/category.controller'
 
-//Bcrypt
+//Auth
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const typeDefs = gql`
     type Product {
@@ -105,6 +106,24 @@ interface IRegister {
     password: String
 }
 
+interface IUser {
+    email: String
+    password: String
+}
+
+const getUser = (token: string) => {
+    try {
+        if (token) {
+            return jwt.verify(token, process.env.RESTO_JWT_SECRET)
+        }
+        return null
+    }
+    catch (err) {
+        return null
+
+    }
+
+}
 
 const resolvers = {
     Query: {
@@ -161,6 +180,10 @@ const resolvers = {
             catch (err) {
                 console.log(err)
             }
+        },
+        currentUser: (_: any, _1: any, { user }: any) => {
+            if (!user) throw new Error("Not Authenticated")
+            return User.findOne({ _id: user.id })
         }
     },
     Mutation: {
@@ -197,21 +220,42 @@ const resolvers = {
             return deletedCategory
         },
         register: async (_: any, { email, password }: IRegister) => {
-            console.log(email, password)
             const hashedPassword = await bcrypt.hash(password, 10)
-            console.log(hashedPassword)
             let user = new User({
                 email, password: hashedPassword
             })
             user = await user.save()
             if (!user) throw new Error("Failed to create user")
             return user
+        },
+        login: async (_: any, { email, password }: IRegister) => {
+            const user = await User.findOne({ email })
+            if (!user) throw new Error("Invalid Login")
+            const passwordMatch = await bcrypt.compare(password, user.password)
+            if (!passwordMatch) throw new Error("Invalid Login")
+
+            const token = jwt.sign(
+                { id: user.id, email: user.email },
+                process.env.RESTO_JWT_SECRET,
+                { expiresIn: '30d' }
+            )
+
+            return { token, user }
         }
     }
 }
 
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers })
+const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => {
+        const tokenWithBearer = req.headers.authorization || ''
+        const token = tokenWithBearer.split(' ')[1]
+        const user = getUser(token)
+        return { user }
+    }
+})
 
 export const config = {
     api: {
