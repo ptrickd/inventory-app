@@ -63,7 +63,7 @@ const EDIT_PRODUCT = gql`
 
 
 // const ProductsContext = createContext<Partial<IContext>>({})
-const ProductsContext = createContext<IContext>({})
+const ProductsContext = createContext<Partial<IContext>>({})
 
 const ProductsProvider = ({ children }: IProps) => {
 

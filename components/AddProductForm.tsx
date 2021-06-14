@@ -55,7 +55,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 
         setSubmitting(true)
-        if (addProduct !== undefined && typeof categoryId === "string") addProduct({ _id: '', name: data.name, amount: 0, categoryId: categoryId })
+        if (addProduct !== undefined && typeof categoryId === "string") addProduct({ id: '', name: data.name, amount: 0, categoryId: categoryId })
 
         reset({ name: '' })
         setSubmitting(false)
@@ -89,7 +89,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
                     type="submit"
                 >
                     Add
-                            </Button>
+                </Button>
                 <Button
                     variant="contained"
                     size="small"
@@ -100,7 +100,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
                     }}
                 >
                     Cancel
-                            </Button>
+                </Button>
             </div>
         </form >
     )

@@ -26,9 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <ProductsProvider>
-
         <Head>
-
           <title>The App Inventory</title>
         </Head>
         <Navbar />

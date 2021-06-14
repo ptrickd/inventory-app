@@ -94,13 +94,10 @@ const ProductsPage: React.FC = () => {
         else refetch()
     }, [data])
 
-
     // const dateTime = DateTime.local(2017, 5, 15, 8, 30)
-
     useEffect(() => {
-        if (typeof categoryId === 'string') setCategoryId(categoryId)
-
-    }, [])
+        if (typeof categoryId === 'string' && setCategoryId) setCategoryId(categoryId)
+    }, [categoryId])
     /*********************************** */
     const renderedProducts = () => {
 

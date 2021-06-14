@@ -2,6 +2,10 @@
 //GraphQL
 import { ApolloServer, gql } from 'apollo-server-micro'
 
+//Models 
+import dbConnect from '../../../utils/dbConnect'
+import User from '../../../models/user.model'
+
 //Controller
 import {
     createProduct,
@@ -18,6 +22,9 @@ import {
     deleteCategory
 } from '../../../controllers/category.controller'
 
+//Bcrypt
+const bcrypt = require('bcryptjs')
+
 const typeDefs = gql`
     type Product {
         id: ID
@@ -31,12 +38,24 @@ const typeDefs = gql`
         name: String
     }
 
+    type User {
+        id: ID!
+        email: String!
+    }
+
+    type LoginResponse {
+        token: String
+        user: User
+    }
+
     type Query {
         getProducts: [Product]
         getProductsByCategory(categoryId: String): [Product]
         getCategory(categoryId: ID): Category
 
         getCategories: [Category]
+
+        currentUser: User!
     }
 
     type Mutation {
@@ -47,6 +66,9 @@ const typeDefs = gql`
         createCategory(name:String): Category
         editCategory(categoryId:ID, name:String): Category
         deleteCategory(categoryId:ID): Category
+
+        register(email: String!, password: String!): User!
+        login(email: String!, password: String!): LoginResponse!
     }
 `
 
@@ -76,6 +98,11 @@ interface IEditProduct {
 interface ICategory {
     categoryId: string
     name: string
+}
+
+interface IRegister {
+    email: String
+    password: String
 }
 
 
@@ -168,6 +195,17 @@ const resolvers = {
             let deletedCategory = await deleteCategory(categoryId)
             if (!deletedCategory) throw new Error("No Category Found")
             return deletedCategory
+        },
+        register: async (_: any, { email, password }: IRegister) => {
+            console.log(email, password)
+            const hashedPassword = await bcrypt.hash(password, 10)
+            console.log(hashedPassword)
+            let user = new User({
+                email, password: hashedPassword
+            })
+            user = await user.save()
+            if (!user) throw new Error("Failed to create user")
+            return user
         }
     }
 }
