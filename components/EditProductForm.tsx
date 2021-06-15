@@ -20,8 +20,8 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 
 //GraphQL
-import { gql, useQuery } from '@apollo/client'
-import { GET_CATEGORY } from '../graphql/queries'
+import { useQuery } from '@apollo/client'
+import { GET_CATEGORIES } from '../graphql/queries'
 
 interface IProps {
     open: boolean;
@@ -70,7 +70,7 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
-    const { data, loading, error } = useQuery(GET_CATEGORY)
+    const { data, loading, error } = useQuery(GET_CATEGORIES)
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 
