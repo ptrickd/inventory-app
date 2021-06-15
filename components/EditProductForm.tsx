@@ -113,7 +113,7 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
                             label="Category"
                             autoComplete="off"
                         >
-                            {data.getCategories.map((category: ICategory) => (
+                            {data.categories.map((category: ICategory) => (
                                 <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
                             ))}
 

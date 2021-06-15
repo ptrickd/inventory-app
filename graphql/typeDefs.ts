@@ -25,11 +25,11 @@ export const typeDefs = gql`
     }
 
     type Query {
-        getProducts: [Product]
-        getProductsByCategory(categoryId: String): [Product]
-        getCategory(categoryId: ID): Category
+        products: [Product]
+        productsByCategory(categoryId: String): [Product]
+        category(categoryId: ID): Category
 
-        getCategories: [Category]
+        categories: [Category]
 
         currentUser: User!
     }

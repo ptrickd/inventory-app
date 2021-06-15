@@ -14,7 +14,7 @@ export const REGISTER = gql`
 //Product
 export const GET_PRODUCTS_BY_CATEGORY = gql`
     query GetProductsByCategory($categoryId: String){
-        getProductsByCategory(categoryId: $categoryId){
+        productsByCategory(categoryId: $categoryId){
             id
             name
             amount
@@ -53,7 +53,7 @@ export const EDIT_PRODUCT = gql`
 //Category
 export const GET_CATEGORIES = gql`
     query GetCategories{
-        getCategories {
+        categories {
                 id
                 name
         }
@@ -71,7 +71,7 @@ export const CREATE_CATEGORY = gql`
 
 export const GET_CATEGORY = gql`
     query GetCategory($categoryId: ID!){
-        getCategory(categoryId: $categoryId) {
+        category(categoryId: $categoryId) {
             id
             name
         }

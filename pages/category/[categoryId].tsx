@@ -81,7 +81,7 @@ const ProductsPage: React.FC = () => {
     })
 
     useEffect(() => {
-        if (data) setCategory(data.getCategory)
+        if (data) setCategory(data.category)
         else refetch()
     }, [data])
 

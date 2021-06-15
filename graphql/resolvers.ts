@@ -65,7 +65,7 @@ interface IUser {
 
 export const resolvers = {
     Query: {
-        getProducts: async () => {
+        products: async () => {
             try {
                 const products = await getProducts()
                 return products.map(({ id, amount, name, categoryId }: IProduct) => ({
@@ -78,7 +78,7 @@ export const resolvers = {
                 console.log(err)
             }
         },
-        getProductsByCategory: async (_: any, { categoryId }: IIds) => {
+        productsByCategory: async (_: any, { categoryId }: IIds) => {
             try {
                 console.log('getProductsByCategory')
                 const products = await getProductsByCategory(categoryId)
@@ -94,7 +94,7 @@ export const resolvers = {
                 console.log(err)
             }
         },
-        getCategory: async (_: any, { categoryId }: IIds) => {
+        category: async (_: any, { categoryId }: IIds) => {
             try {
                 console.log('categoryId', categoryId)
                 const category = await getCategory(categoryId)
@@ -107,7 +107,7 @@ export const resolvers = {
                 console.log(err)
             }
         },
-        getCategories: async () => {
+        categories: async () => {
             try {
                 console.log('in getCategories')
                 const categories = await getCategories()

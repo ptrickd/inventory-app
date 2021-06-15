@@ -8,7 +8,6 @@ import { resolvers } from '../../../graphql/resolvers'
 import dbConnect from '../../../utils/dbConnect'
 
 //Auth
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 dbConnect()

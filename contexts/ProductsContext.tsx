@@ -47,8 +47,8 @@ const ProductsProvider = ({ children }: IProps) => {
         console.log('contextCategoryId', contextCategoryId)
         console.log('data', data)
         if (contextCategoryId.length && data) {
-            console.log('getProductsByCategory', data.getProductsByCategory)
-            setProducts(data.getProductsByCategory)
+            console.log('getProductsByCategory', data.productsByCategory)
+            setProducts(data.productsByCategory)
         }
     }, [contextCategoryId, data])
 
