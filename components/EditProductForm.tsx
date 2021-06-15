@@ -21,6 +21,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 //GraphQL
 import { gql, useQuery } from '@apollo/client'
+import { GET_CATEGORY } from '../graphql/queries'
 
 interface IProps {
     open: boolean;
@@ -39,15 +40,6 @@ interface ICategory {
     id: string
     name: string
 }
-
-const GET_CATEGORY = gql`
-    query GetCategories{
-        getCategories {
-            id
-            name
-        }
-    }
-`
 
 const useStyle = makeStyles({
     content: {

@@ -4,7 +4,6 @@ import React, { useState, useContext } from 'react'
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -15,7 +14,8 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 
 //GraphQL
-import { useMutation, gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
+import { CREATE_CATEGORY } from '../graphql/queries'
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
@@ -24,15 +24,6 @@ interface IProps {
 interface IForm {
     name: string
 }
-
-const CREATE_CATEGORY = gql`
-   mutation CreateCategory($name: String!){
-    createCategory(name: $name){
-        id
-        name
-    }
- }
-`
 
 const useStyle = makeStyles({
     content: {

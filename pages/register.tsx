@@ -12,22 +12,13 @@ import Button from '@material-ui/core/Button'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 //GraphQL
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
+import { REGISTER } from '../graphql/queries'
 
 interface IForm {
     email: string
     password: string
 }
-
-
-const REGISTER = gql`
-    mutation Register($email: String!, $password: String!) {
-        register(email: $email, password: $password){
-            id 
-            email
-        }
-    }
-`
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -43,8 +34,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     button: {
         marginTop: 15
+    },
+    input: {
+        marginBottom: 15
     }
 }))
+
+// const REGISTER = gql`
+//     mutation Register($email: String!, $password: String!) {
+//         register(email: $email, password: $password){
+//             id 
+//             email
+//         }
+//     }
+//    `
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -77,6 +80,7 @@ const Register: React.FC = () => {
                         { required: true, pattern: emailRegex }
                     }
                     render={({ field }) => <TextField
+                        className={classes.input}
                         {...field}
                         label="Email"
                         autoComplete="off"
@@ -93,6 +97,7 @@ const Register: React.FC = () => {
                         { required: true, minLength: 6 }
                     }
                     render={({ field }) => <TextField
+                        className={classes.input}
                         {...field}
                         label="Password"
                         autoComplete="off"

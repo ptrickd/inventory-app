@@ -23,8 +23,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { DateTime } from 'luxon'
 
 //GraphQL
-import { gql, useQuery } from '@apollo/client'
-// import { getCategory } from '../../controllers/category.controller'
+import { useQuery } from '@apollo/client'
+import { GET_CATEGORY } from '../../graphql/queries'
 
 
 interface IProduct {
@@ -39,14 +39,7 @@ interface ICategory {
     name: string
 }
 
-const GET_CATEGORY = gql`
-    query GetCategory($categoryId: ID!){
-        getCategory(categoryId: $categoryId) {
-            id
-            name
-        }
-    }
-`
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',

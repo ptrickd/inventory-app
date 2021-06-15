@@ -2,7 +2,10 @@
 import React, { createContext, useState, useEffect } from 'react'
 
 //GraphQL
-import { gql, useQuery, useMutation } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
+import {
+    GET_PRODUCTS_BY_CATEGORY, CREATE_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT
+} from '../graphql/queries'
 
 interface IProps {
     children: React.ReactNode
@@ -22,45 +25,6 @@ interface IContext {
     deleteProductApi: (productId: string) => void
     editProductApi: (productId: string, productName: string, categoryId: string) => void
 }
-
-const GET_PRODUCTS_BY_CATEGORY = gql`
-    query GetProductsByCategory($categoryId: String){
-        getProductsByCategory(categoryId: $categoryId){
-            id
-            name
-            amount
-            categoryId
-        }
-    }
-`
-const CREATE_PRODUCT = gql`
-    mutation CreateProduct($name: String!, $amount: Int!, $categoryId: String!){
-        createProduct(name: $name, amount: $amount, categoryId: $categoryId){
-            id
-            name
-            amount
-        }
-    }
-`
-const DELETE_PRODUCT = gql`
-    mutation DeleteProduct($productId: ID!){
-        deleteProduct(productId: $productId){
-            id
-            name
-        }
-    }
-`
-const EDIT_PRODUCT = gql`
-    mutation EditProduct($productId: ID, $name: String, $categoryId: String){
-        editProduct(productId: $productId, name: $name, categoryId: $categoryId){
-            id
-            name
-            amount
-            categoryId
-        }
-    }
-`
-
 
 // const ProductsContext = createContext<Partial<IContext>>({})
 const ProductsContext = createContext<Partial<IContext>>({})

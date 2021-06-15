@@ -30,21 +30,11 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 //GraphQL
 import { useQuery, gql } from '@apollo/client'
+import { GET_CATEGORIES } from '../graphql/queries'
 interface ICategory {
     id: string
     name: string
 }
-
-const GET_CATEGORIES = gql`
-    query {
-        getCategories {
-                id
-                name
-        }
-    }
-`
-
-
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
