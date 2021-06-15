@@ -46,6 +46,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }))
 
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
 const Register: React.FC = () => {
     const classes = useStyles()
     const [submiting, setSubmitting] = useState(false)
@@ -71,7 +73,9 @@ const Register: React.FC = () => {
                     name="email"
                     control={control}
                     defaultValue=""
-                    rules={{ required: true }}
+                    rules={
+                        { required: true, pattern: emailRegex }
+                    }
                     render={({ field }) => <TextField
                         {...field}
                         label="Email"
@@ -79,12 +83,15 @@ const Register: React.FC = () => {
                     />
                     }
                 />
-
+                {errors.email?.type === 'required' && <span>*Required</span>}
+                {errors.email?.type === 'pattern' && <span>Must be a valid email</span>}
                 <Controller
                     name="password"
                     control={control}
                     defaultValue=""
-                    rules={{ required: true }}
+                    rules={
+                        { required: true, minLength: 6 }
+                    }
                     render={({ field }) => <TextField
                         {...field}
                         label="Password"
@@ -93,6 +100,8 @@ const Register: React.FC = () => {
                     />
                     }
                 />
+                {errors.password?.type === "required" && <span>*Required</span>}
+                {errors.password?.type === "minLength" && <span>Must be at least 6 characters</span>}
                 <Button
                     variant="contained"
                     color="primary"
