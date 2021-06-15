@@ -70,7 +70,7 @@ const typeDefs = gql`
         editCategory(categoryId:ID, name:String): Category
         deleteCategory(categoryId:ID): Category
 
-        register(email: String!, password: String!): User!
+        register(email: String!, password: String!): User
         login(email: String!, password: String!): LoginResponse!
     }
 `
@@ -104,8 +104,8 @@ interface ICategory {
 }
 
 interface IRegister {
-    email: String
-    password: String
+    email: string
+    password: string
 }
 
 interface IUser {

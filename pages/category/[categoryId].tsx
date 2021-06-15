@@ -15,7 +15,6 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { DRAWER_WIDTH } from '../../constants/dimensions'
 
 //Icons
 import EditIcon from '@material-ui/icons/Edit';

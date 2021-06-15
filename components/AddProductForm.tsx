@@ -7,7 +7,6 @@ import { ProductsContext } from '../contexts/ProductsContext'
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -55,7 +54,9 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 
         setSubmitting(true)
-        if (addProduct !== undefined && typeof categoryId === "string") addProduct({ id: '', name: data.name, amount: 0, categoryId: categoryId })
+        if (addProduct !== undefined && typeof categoryId === "string") {
+            addProduct({ id: '', name: data.name, amount: 0, categoryId: categoryId })
+        }
 
         reset({ name: '' })
         setSubmitting(false)
