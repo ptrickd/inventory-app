@@ -1,5 +1,4 @@
 //React
-import { Fragment } from 'react'
 import Head from 'next/head'
 import Navbar from '../Layout/Navbar'
 

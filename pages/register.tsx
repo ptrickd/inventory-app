@@ -15,6 +15,9 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
 import { REGISTER } from '../graphql/queries'
 
+//Components
+import WaitingModal from '../components/WaitingModal'
+
 interface IForm {
     email: string
     password: string
@@ -40,20 +43,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }))
 
-// const REGISTER = gql`
-//     mutation Register($email: String!, $password: String!) {
-//         register(email: $email, password: $password){
-//             id 
-//             email
-//         }
-//     }
-//    `
-
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const Register: React.FC = () => {
     const classes = useStyles()
-    const [submiting, setSubmitting] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
     const [register] = useMutation(REGISTER)
@@ -71,13 +65,14 @@ const Register: React.FC = () => {
             <Typography variant="h2" align="center">
                 Register
             </Typography>
+
             <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                 <Controller
                     name="email"
                     control={control}
                     defaultValue=""
                     rules={
-                        { required: true, pattern: emailRegex }
+                        { required: true, pattern: EMAIL_REGEX }
                     }
                     render={({ field }) => <TextField
                         className={classes.input}
@@ -116,7 +111,7 @@ const Register: React.FC = () => {
                     Register
                 </Button>
             </form>
-
+            <WaitingModal open={submitting} />
         </Container>
 
     )
