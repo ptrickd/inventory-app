@@ -72,7 +72,7 @@ const ProductsProvider = ({ children }: IProps) => {
 
     const { data, loading, error, refetch } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
         variables: { categoryId: contextCategoryId },
-        // skip: !contextCategoryId.length
+        skip: !contextCategoryId.length
     })
     const [createProduct] = useMutation(CREATE_PRODUCT)
     const [deleteProduct] = useMutation(DELETE_PRODUCT)
@@ -82,12 +82,9 @@ const ProductsProvider = ({ children }: IProps) => {
     useEffect(() => {
         console.log('contextCategoryId', contextCategoryId)
         console.log('data', data)
-        if (contextCategoryId && data) {
+        if (contextCategoryId.length && data) {
             console.log('getProductsByCategory', data.getProductsByCategory)
             setProducts(data.getProductsByCategory)
-
-        } else {
-            refetch()
         }
     }, [contextCategoryId, data])
 

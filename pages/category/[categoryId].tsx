@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         display: 'flex',
         flexDirection: 'column',
         marginTop: 60,
-        marginLeft: DRAWER_WIDTH,
         alignItems: 'center',
         justifyContent: 'center'
     },

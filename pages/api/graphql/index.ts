@@ -26,6 +26,8 @@ import {
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+dbConnect()
+
 const typeDefs = gql`
     type Product {
         id: ID
@@ -111,20 +113,6 @@ interface IUser {
     password: String
 }
 
-const getUser = (token: string) => {
-    try {
-        if (token) {
-            return jwt.verify(token, process.env.RESTO_JWT_SECRET)
-        }
-        return null
-    }
-    catch (err) {
-        return null
-
-    }
-
-}
-
 const resolvers = {
     Query: {
         getProducts: async () => {
@@ -142,6 +130,7 @@ const resolvers = {
         },
         getProductsByCategory: async (_: any, { categoryId }: IIds) => {
             try {
+                console.log('getProductsByCategory')
                 const products = await getProductsByCategory(categoryId)
                 if (!products) throw new Error('No products found')
                 return products.map(({ id, amount, name, categoryId }: IProduct) => ({
@@ -182,8 +171,14 @@ const resolvers = {
             }
         },
         currentUser: (_: any, _1: any, { user }: any) => {
-            if (!user) throw new Error("Not Authenticated")
-            return User.findOne({ _id: user.id })
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                return User.findOne({ _id: user.id })
+            }
+            catch (err) {
+                console.log(err)
+            }
+
         }
     },
     Mutation: {
@@ -245,6 +240,17 @@ const resolvers = {
     }
 }
 
+const getUser = (token: string) => {
+    try {
+        if (token) {
+            return jwt.verify(token, process.env.RESTO_JWT_SECRET)
+        }
+        return null
+    }
+    catch (err) {
+        return null
+    }
+}
 
 const apolloServer = new ApolloServer({
     typeDefs,

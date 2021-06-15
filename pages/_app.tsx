@@ -16,8 +16,12 @@ import type { AppProps } from 'next/app'
 
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { DRAWER_WIDTH } from '../constants/dimensions'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+  main: {
+    marginLeft: DRAWER_WIDTH
+  },
   toolbar: theme.mixins.toolbar
 }))
 
@@ -31,7 +35,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Head>
         <Navbar />
         <div className={classes.toolbar} />
-        <Component {...pageProps} />
+        <div className={classes.main}>
+          <Component {...pageProps} />
+        </div>
+
       </ProductsProvider>
     </ApolloProvider >
 

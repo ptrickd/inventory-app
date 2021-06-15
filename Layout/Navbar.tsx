@@ -1,5 +1,6 @@
 //React
 import { useState, useEffect, Fragment } from 'react'
+import Link from 'next/link'
 
 //Material UI
 import clsx from 'clsx'
@@ -22,10 +23,10 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Slide from '@material-ui/core/Slide';
-import Link from 'next/link'
 
 //Icons
 import MenuIcon from '@material-ui/icons/Menu';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
 //GraphQL
 import { useQuery, gql } from '@apollo/client'
@@ -47,7 +48,7 @@ const GET_CATEGORIES = gql`
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-        display: 'flex'
+        flexGrow: 1
     },
     drawer: {
         width: DRAWER_WIDTH,
@@ -60,6 +61,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         display: 'none',
     },
     appBar: {
+        // width: '100%',
+        // flexGrow: 1,
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -89,6 +92,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         [theme.breakpoints.up('sm')]: {
             display: 'none',
         },
+    },
+    title: {
+        flexGrow: 1
     }
 
 }));
@@ -102,7 +108,7 @@ const Navbar = () => {
     const { data, loading, error } = useQuery(GET_CATEGORIES)
     if (loading) return <div><h2>Loading...</h2></div>
     if (error) return <div>`Error! ${error.message}`</div>
-    console.log(data)
+    // console.log(data)
     const categories = data.getCategories || []
 
     const handleClickCategories = () => setCategoryMenu(!categoryMenu)
@@ -154,11 +160,7 @@ const Navbar = () => {
             <Divider />
             {/* <Link href="/test">Test</Link> */}
         </Fragment>
-
-
     )
-
-
 
     return <div className={classes.root}>
         <CssBaseline />
@@ -175,9 +177,16 @@ const Navbar = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" >
+                <Typography variant="h6" className={classes.title} >
                     Inventory
                 </Typography>
+                <IconButton
+                    aria-label="display more action"
+                    edge="end"
+                    color="inherit"
+                >
+                    <MoreIcon />
+                </IconButton>
             </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="menu">
@@ -204,11 +213,6 @@ const Navbar = () => {
                 </Drawer>
             </Hidden>
         </nav>
-
-
-
-
-
     </div>
 }
 

@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
         marginTop: 60,
-        marginLeft: DRAWER_WIDTH,
         // alignItems: 'center',
         justifyContent: 'center'
     }
