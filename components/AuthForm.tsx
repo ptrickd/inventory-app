@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         marginBottom: 15
     },
     button: {
-        marginTop: 15
+        marginTop: 15,
+        marginBottom: 15
     }
 }))
 

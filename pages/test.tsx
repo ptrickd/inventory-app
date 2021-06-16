@@ -1,10 +1,13 @@
+//React
+import { Fragment } from 'react'
+
 //Material UI
 import { Container } from "@material-ui/core"
 import { makeStyles, Theme, createStyles } from "@material-ui/core"
 import { DRAWER_WIDTH } from "../constants/dimensions"
 
-//GraphQL
-import { gql, useQuery } from '@apollo/client'
+//Component
+import LoadingPage from '../components/LoadingPage'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -15,11 +18,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Test = () => {
     const classes = useStyles()
     return (
-        <Container className={classes.root}>
-            <h1>
-                testddddddddddddddddddddddddddddddddddddddddddddddd
-            </h1>
-        </Container>
+        <Fragment >
+            <LoadingPage />
+        </Fragment>
 
     )
 }

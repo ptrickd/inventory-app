@@ -1,12 +1,13 @@
 //React
 import React, { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
-
+import Button from '@material-ui/core/Button'
 
 //Form
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
@@ -75,7 +76,7 @@ const Login: React.FC = () => {
                 Login
             </Typography>
             <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
-
+            <Link href="/register"><Button color="inherit" variant="contained">Register</Button></Link>
         </Container>
 
     )

@@ -1,5 +1,9 @@
 //React
+
+//Styles
 import styles from '../styles/Home.module.css'
+
+//Material UI
 import Container from '@material-ui/core/Container'
 
 /*

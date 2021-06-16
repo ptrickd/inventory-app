@@ -55,9 +55,12 @@ const Register: React.FC = () => {
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
         const user = await register({ variables: { email: data.email, password: data.password } })
-        if (user && user.data && currentUser !== undefined && setCurrentUser !== undefined && setLoggedIn !== undefined) {
-            setCurrentUser(user.data)
-            setLoggedIn(true)
+        if (
+            user && user.data && user.data.register &&
+            currentUser !== undefined &&
+            setCurrentUser !== undefined && setLoggedIn !== undefined
+        ) {
+            router.push('login')
         }
         setSubmitting(false)
         reset({ email: '', password: '' })
