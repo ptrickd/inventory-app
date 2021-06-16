@@ -44,8 +44,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         display: 'none',
     },
     appBar: {
-        // width: '100%',
-        // flexGrow: 1,
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -132,36 +130,53 @@ const Navbar = () => {
                     <MoreIcon />
                 </IconButton>
                 <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
-                {loggedIn && <Button color="inherit">Logout</Button>}
-
+                {
+                    loggedIn &&
+                    <Link href="/">
+                        <Button color="inherit" >
+                            Logout
+                        </Button>
+                    </Link>
+                }
+                {
+                    !loggedIn &&
+                    <Link href="/register">
+                        <Button color="inherit">
+                            Login
+                        </Button>
+                    </Link>
+                }
             </Toolbar>
         </AppBar>
+        {
+            loggedIn &&
+            <nav className={classes.drawer} aria-label="menu">
+                <Hidden smUp implementation="css">
+                    <Drawer
+                        variant='temporary'
+                        anchor='left'
+                        classes={{ paper: classes.drawerPaper }}
+                        open={mobileOpen}
+                        onClose={handleDrawerToggle}
+                        ModalProps={{ keepMounted: true }}
+                    >
 
-        <nav className={classes.drawer} aria-label="menu">
-            <Hidden smUp implementation="css">
-                <Drawer
-                    variant='temporary'
-                    anchor='left'
-                    classes={{ paper: classes.drawerPaper }}
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{ keepMounted: true }}
-                >
+                        <NavbarDrawer categories={categories} />
+                    </Drawer>
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                    <Drawer
+                        open
+                        variant="permanent"
+                        classes={{ paper: classes.drawerPaper }}
+                    >
+                        <NavbarDrawer categories={categories} />
+                    </Drawer>
+                </Hidden>
+            </nav>
+        }
 
-                    <NavbarDrawer categories={categories} />
-                </Drawer>
-            </Hidden>
-            <Hidden xsDown implementation="css">
-                <Drawer
-                    open
-                    variant="permanent"
-                    classes={{ paper: classes.drawerPaper }}
-                >
-                    <NavbarDrawer categories={categories} />
-                </Drawer>
-            </Hidden>
-        </nav>
-    </div>
+    </div >
 }
 
 export default Navbar
