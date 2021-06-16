@@ -13,7 +13,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 //GraphQL
 import { useMutation } from '@apollo/client'
-import { REGISTER } from '../graphql/queries'
+import { LOGIN } from '../graphql/queries'
 
 //Context
 import { UserContext } from '../contexts/UserContext'
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }))
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
     const classes = useStyles()
     const router = useRouter()
     const { currentUser, setCurrentUser, loggedIn, setLoggedIn } = useContext(UserContext)
@@ -44,7 +44,7 @@ const Register: React.FC = () => {
 
     const { reset } = useForm<IForm>()
 
-    const [register] = useMutation(REGISTER)
+    const [login] = useMutation(LOGIN)
 
     useEffect(() => {
         if (loggedIn) {
@@ -54,9 +54,14 @@ const Register: React.FC = () => {
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
-        const user = await register({ variables: { email: data.email, password: data.password } })
-        if (user && user.data && currentUser !== undefined && setCurrentUser !== undefined && setLoggedIn !== undefined) {
-            setCurrentUser(user.data)
+        const loginResponse = await login({ variables: { email: data.email, password: data.password } })
+        console.log(loginResponse.data.login.user)
+        if (
+            loginResponse && loginResponse.data &&
+            currentUser !== undefined && setCurrentUser !== undefined
+            && setLoggedIn !== undefined
+        ) {
+            setCurrentUser(loginResponse.data.login.user)
             setLoggedIn(true)
         }
         setSubmitting(false)
@@ -67,13 +72,13 @@ const Register: React.FC = () => {
     return (
         <Container className={classes.root} maxWidth="xs">
             <Typography variant="h2" align="center">
-                Register
+                Login
             </Typography>
-            <AuthForm onSubmit={onSubmit} submitting={submitting} label="Register" />
+            <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
 
         </Container>
 
     )
 }
 
-export default Register
+export default Login

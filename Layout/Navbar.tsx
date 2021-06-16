@@ -140,7 +140,7 @@ const Navbar = () => {
                 }
                 {
                     !loggedIn &&
-                    <Link href="/register">
+                    <Link href="/login">
                         <Button color="inherit">
                             Login
                         </Button>

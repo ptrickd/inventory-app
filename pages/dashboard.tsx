@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+//React
+import React, { useState, useEffect, useContext } from 'react'
+import { useRouter } from 'next/router'
 
 //Components
 import AddCategoryForm from '../components/AddCategoryForm'
@@ -20,6 +22,9 @@ import { DRAWER_WIDTH } from '../constants/dimensions'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 
+//Context
+import { UserContext } from '../contexts/UserContext'
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
@@ -31,6 +36,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Dashboard() {
     const classes = useStyles()
+    const router = useRouter()
+    const { loggedIn, currentUser } = useContext(UserContext)
     const [openModal, setOpenModal] = useState(false)
 
     //Adding categories
@@ -40,12 +47,18 @@ function Dashboard() {
     //create template for new report
     const handleCreateNewReport = () => { }
 
+    useEffect(() => {
+        if (!loggedIn) {
+            router.push("/")
+        }
+    }, [loggedIn])
+
     return (
         <Container >
             <div className={classes.root}>
                 <List >
                     <Typography variant='h4' >
-                        Dashboard
+                        {currentUser && currentUser.email}
                     </Typography>
                     <Divider />
                     <ListItem>

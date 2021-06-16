@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     toolbar: theme.mixins.toolbar
 }))
 
-//Insure the transition of the mainpage when sidebar come and go
+//Insure the transition of the pages when sidebar come and go
 const ComponentWrapper = ({ children }: IProps) => {
     const classes = useStyles()
     const { loggedIn } = useContext(UserContext)
