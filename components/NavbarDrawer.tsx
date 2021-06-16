@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     toolbar: theme.mixins.toolbar
 }))
 
-const NavbarDrawer = ({ categories }: Iprops) => {
+const NavbarDrawer = ({ categories }: IProps) => {
     const classes = useStyles()
     const [categoryMenu, setCategoryMenu] = useState(false)
     const handleClickCategories = () => setCategoryMenu(!categoryMenu)

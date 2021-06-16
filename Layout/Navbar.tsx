@@ -1,9 +1,12 @@
 //React
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 
 //Components
 import NavbarDrawer from '../components/NavbarDrawer'
+
+//Context
+import { UserContext } from '../contexts/UserContext'
 
 //Material UI
 import clsx from 'clsx'
@@ -23,12 +26,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import MoreIcon from '@material-ui/icons/MoreVert'
 
 //GraphQL
-import { useQuery, gql } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES } from '../graphql/queries'
-
-
-
-
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -83,6 +82,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Navbar = () => {
     const classes = useStyles();
+    const { loggedIn } = useContext(UserContext)
 
     const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -132,7 +132,7 @@ const Navbar = () => {
                     <MoreIcon />
                 </IconButton>
                 <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
-                <Button color="inherit">Logout</Button>
+                {loggedIn && <Button color="inherit">Logout</Button>}
 
             </Toolbar>
         </AppBar>

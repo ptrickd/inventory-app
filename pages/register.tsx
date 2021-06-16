@@ -1,5 +1,5 @@
 //React
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
 //Material UI
@@ -18,6 +18,9 @@ import { REGISTER } from '../graphql/queries'
 
 //Components
 import WaitingModal from '../components/WaitingModal'
+
+//Context
+import { UserContext } from '../contexts/UserContext'
 
 interface IForm {
     email: string
@@ -49,17 +52,30 @@ const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))
 const Register: React.FC = () => {
     const classes = useStyles()
     const router = useRouter()
+    const { currentUser, setCurrentUser, loggedIn, setLoggedIn } = useContext(UserContext)
     const [submitting, setSubmitting] = useState(false)
+
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
+
 
     const [register] = useMutation(REGISTER)
 
+    useEffect(() => {
+        if (loggedIn) {
+            router.push('/dashboard')
+        }
+    }, [loggedIn])
+
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
-        await register({ variables: { email: data.email, password: data.password } })
+        const user = await register({ variables: { email: data.email, password: data.password } })
+        if (user && user.data && currentUser !== undefined && setCurrentUser !== undefined && setLoggedIn !== undefined) {
+            setCurrentUser(user.data)
+            setLoggedIn(true)
+        }
         setSubmitting(false)
         reset({ email: '', password: '' })
-        router.push('/dashboard')
+
     }
 
     return (

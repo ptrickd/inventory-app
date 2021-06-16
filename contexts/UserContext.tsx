@@ -1,5 +1,5 @@
 //React 
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 
 //save my user
 interface IProps {
@@ -12,8 +12,8 @@ interface IUser {
 }
 
 interface IContext {
-    user: IUser
-    setUser: (user: IUser) => void
+    currentUser: IUser
+    setCurrentUser: (user: IUser) => void
     loggedIn: boolean
     setLoggedIn: (loggedIn: boolean) => void
 }
@@ -21,16 +21,26 @@ interface IContext {
 const UserContext = createContext<Partial<IContext>>({})
 
 const UserProvider = ({ children }: IProps) => {
-    const [user, setUser] = useState<IUser>({ id: '', email: '' })
+    const [currentUser, setCurrentUser] = useState<IUser>({ id: '', email: '' })
     const [loggedIn, setLoggedIn] = useState(false)
 
+    useEffect(() => {
+        console.log('currentUser::', currentUser)
+    }, [currentUser])
+
+    useEffect(() => {
+        console.log('loggedIn::', loggedIn)
+    }, [loggedIn])
+
     return (
-        <UserContext.Provider value={{
-            user,
-            setUser,
-            loggedIn,
-            setLoggedIn
-        }} >
+        <UserContext.Provider
+            value={{
+                currentUser,
+                setCurrentUser,
+                loggedIn,
+                setLoggedIn
+            }}
+        >
             {children}
         </UserContext.Provider >
     )
