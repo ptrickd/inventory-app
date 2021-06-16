@@ -105,7 +105,7 @@ const Navbar = () => {
     return <div className={classes.root}>
         <CssBaseline />
         <AppBar
-            className={clsx(classes.appBar, { [classes.appBarShift]: true })}
+            className={clsx(classes.appBar, { [classes.appBarShift]: loggedIn })}
         >
             <Toolbar >
                 <IconButton
