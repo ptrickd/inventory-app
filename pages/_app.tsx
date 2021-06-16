@@ -4,6 +4,7 @@ import Navbar from '../Layout/Navbar'
 
 //Context API
 import { ProductsProvider } from '../contexts/ProductsContext'
+import { UserProvider } from '../contexts/UserContext'
 
 //GraphQL
 import { ApolloProvider } from "@apollo/client";
@@ -28,21 +29,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   const classes = useStyles()
   return (
     <ApolloProvider client={client}>
-      <ProductsProvider>
-        <Head>
-          <title>The App Inventory</title>
-        </Head>
-        <Navbar />
-        <div className={classes.toolbar} />
-        <div className={classes.main}>
-          <Component {...pageProps} />
-        </div>
-
-      </ProductsProvider>
+      <UserProvider>
+        <ProductsProvider>
+          <Head>
+            <title>The App Inventory</title>
+          </Head>
+          <Navbar />
+          <div className={classes.toolbar} />
+          <div className={classes.main}>
+            <Component {...pageProps} />
+          </div>
+        </ProductsProvider>
+      </UserProvider>
     </ApolloProvider >
-
-
-
   )
 }
 export default MyApp

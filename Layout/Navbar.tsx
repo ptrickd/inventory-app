@@ -1,40 +1,34 @@
 //React
-import { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Link from 'next/link'
+
+//Components
+import NavbarDrawer from '../components/NavbarDrawer'
 
 //Material UI
 import clsx from 'clsx'
 import { DRAWER_WIDTH } from '../constants/dimensions'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import Hidden from '@material-ui/core/Hidden'
 import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import Divider from '@material-ui/core/Divider';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Slide from '@material-ui/core/Slide';
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Button from '@material-ui/core/Button'
 
 //Icons
-import MenuIcon from '@material-ui/icons/Menu';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import MenuIcon from '@material-ui/icons/Menu'
+import MoreIcon from '@material-ui/icons/MoreVert'
 
 //GraphQL
 import { useQuery, gql } from '@apollo/client'
 import { GET_CATEGORIES } from '../graphql/queries'
-interface ICategory {
-    id: string
-    name: string
-}
+
+
+
+
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -70,9 +64,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
-    subMenu: {
-        marginLeft: theme.spacing(2),
-    },
     activeSubMenu: {
         marginLeft: theme.spacing(2),
         backgroundColor: '#f4f4f4'
@@ -92,8 +83,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Navbar = () => {
     const classes = useStyles();
-    const [categoryMenu, setCategoryMenu] = useState(false)
+
     const [mobileOpen, setMobileOpen] = useState(false)
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     const { data, loading, error } = useQuery(GET_CATEGORIES)
     if (loading) return <div><h2>Loading...</h2></div>
@@ -101,56 +94,15 @@ const Navbar = () => {
     // console.log(data)
     const categories = data.categories || []
 
-    const handleClickCategories = () => setCategoryMenu(!categoryMenu)
+    //Keep those for the icon more menu
+    const handleClickOnMoreIconMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(e.currentTarget)
+    }
+    const handleCloseMoreIconMenu = () => { setAnchorEl(null) }
+
 
 
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
-
-    const renderedCategories = () => {
-        return categories.map((category: ICategory) => {
-            return <Link href={`/category/${category.id}`} key={category.id}>
-                <ListItem
-                    className={classes.subMenu}
-                    button
-                >
-                    <ListItemText primary={category.name} />
-                    <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-
-                </ListItem>
-            </Link>
-        })
-    }
-
-    const drawer = (
-        <Fragment>
-            <div className={classes.toolbar} />
-            <Divider />
-            <List>
-                <Link href='/dashboard'>
-                    <ListItem button key='dahsboard'>
-                        <ListItemText primary='Dashboard' />
-                        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-                    </ListItem>
-                </Link>
-
-                <Divider />
-                <ListItem button onClick={handleClickCategories} key="category">
-                    <ListItemText primary='Categories' />
-                    <ListItemIcon >
-                        {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                    </ListItemIcon>
-                </ListItem>
-
-                {
-                    categoryMenu && <Slide direction="down" in={categoryMenu} mountOnEnter unmountOnExit><List>
-                        {renderedCategories()}
-                    </List></Slide>
-                }
-            </List>
-            <Divider />
-            {/* <Link href="/test">Test</Link> */}
-        </Fragment>
-    )
 
     return <div className={classes.root}>
         <CssBaseline />
@@ -170,15 +122,21 @@ const Navbar = () => {
                 <Typography variant="h6" className={classes.title} >
                     Inventory
                 </Typography>
-                <IconButton
+                {/* Keep this code for later */}
+                {/* <IconButton
                     aria-label="display more action"
                     edge="end"
                     color="inherit"
+                    onClick={handleClickOnMoreIconMenu}
                 >
                     <MoreIcon />
                 </IconButton>
+                <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
+                <Button color="inherit">Logout</Button>
+
             </Toolbar>
         </AppBar>
+
         <nav className={classes.drawer} aria-label="menu">
             <Hidden smUp implementation="css">
                 <Drawer
@@ -190,7 +148,7 @@ const Navbar = () => {
                     ModalProps={{ keepMounted: true }}
                 >
 
-                    {drawer}
+                    <NavbarDrawer categories={categories} />
                 </Drawer>
             </Hidden>
             <Hidden xsDown implementation="css">
@@ -199,7 +157,7 @@ const Navbar = () => {
                     variant="permanent"
                     classes={{ paper: classes.drawerPaper }}
                 >
-                    {drawer}
+                    <NavbarDrawer categories={categories} />
                 </Drawer>
             </Hidden>
         </nav>

@@ -4,7 +4,9 @@ import React, { createContext, useState, useEffect } from 'react'
 //GraphQL
 import { useQuery, useMutation } from '@apollo/client'
 import {
-    GET_PRODUCTS_BY_CATEGORY, CREATE_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT
+    GET_PRODUCTS_BY_CATEGORY,
+    CREATE_PRODUCT, DELETE_PRODUCT,
+    EDIT_PRODUCT
 } from '../graphql/queries'
 
 interface IProps {
@@ -26,7 +28,6 @@ interface IContext {
     editProductApi: (productId: string, productName: string, categoryId: string) => void
 }
 
-// const ProductsContext = createContext<Partial<IContext>>({})
 const ProductsContext = createContext<Partial<IContext>>({})
 
 const ProductsProvider = ({ children }: IProps) => {
@@ -75,7 +76,6 @@ const ProductsProvider = ({ children }: IProps) => {
     if (loading) return <div><h2>Loading...</h2></div>
     if (error) return <div>`Error!hh ${error.message}`</div>
     return (
-
         <ProductsContext.Provider value={{
             products,
             setCategoryId,

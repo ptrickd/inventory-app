@@ -1,5 +1,6 @@
 //React
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
@@ -47,6 +48,7 @@ const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))
 
 const Register: React.FC = () => {
     const classes = useStyles()
+    const router = useRouter()
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
@@ -54,10 +56,10 @@ const Register: React.FC = () => {
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
-        console.log(`email: ${data.email}, password: ${data.password}`)
-        register({ variables: { email: data.email, password: data.password } })
+        await register({ variables: { email: data.email, password: data.password } })
         setSubmitting(false)
         reset({ email: '', password: '' })
+        router.push('/dashboard')
     }
 
     return (
