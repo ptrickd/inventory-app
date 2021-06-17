@@ -10,6 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Divider from '@material-ui/core/Divider'
 import Slide from '@material-ui/core/Slide'
+import Box from '@material-ui/core/Box'
+import blueGrey from '@material-ui/core/colors/blueGrey'
 
 //Icons
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
@@ -25,9 +27,17 @@ interface IProps {
     categories: ICategory[]
 }
 
+const textMenuColor = blueGrey[100]
 const useStyles = makeStyles((theme: Theme) => createStyles({
+    menu: {
+        color: textMenuColor
+    },
+    menuIcon: {
+        color: textMenuColor
+    },
     subMenu: {
         marginLeft: theme.spacing(2),
+        color: textMenuColor
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar
@@ -45,7 +55,7 @@ const NavbarDrawer = ({ categories }: IProps) => {
                     button
                 >
                     <ListItemText primary={category.name} />
-                    <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+                    <ListItemIcon className={classes.menuIcon}><ArrowForwardIcon /></ListItemIcon>
 
                 </ListItem>
             </Link>
@@ -53,23 +63,34 @@ const NavbarDrawer = ({ categories }: IProps) => {
     }
     return (
         <Fragment>
-            <div className={classes.toolbar} />
+            {/* //Add the primary color on the top on the sidebar side */}
+            <Box bgcolor="primary.main" >
+                <div className={classes.toolbar} />
+            </Box>
+
             <Divider />
-            <List>
+
+            <List >
                 <Link href='/dashboard'>
-                    <ListItem button key='dahsboard'>
-                        <ListItemText primary='Dashboard' />
-                        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-                    </ListItem>
+                    <span className={classes.menu}>
+                        <ListItem button key='dashboard'>
+                            <ListItemText primary='Dashboard' />
+                            <ListItemIcon className={classes.menuIcon}><ArrowForwardIcon /></ListItemIcon>
+                        </ListItem>
+                    </span>
+
                 </Link>
 
                 <Divider />
-                <ListItem button onClick={handleClickCategories} key="category">
-                    <ListItemText primary='Categories' />
-                    <ListItemIcon >
-                        {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                    </ListItemIcon>
-                </ListItem>
+                <span className={classes.menu}>
+                    <ListItem button onClick={handleClickCategories} key="category">
+                        <ListItemText primary='Categories' />
+                        <ListItemIcon className={classes.menuIcon}>
+                            {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
+                        </ListItemIcon>
+                    </ListItem>
+                </span>
+
 
                 {
                     categoryMenu && <Slide direction="down" in={categoryMenu} mountOnEnter unmountOnExit><List>
@@ -77,9 +98,15 @@ const NavbarDrawer = ({ categories }: IProps) => {
                     </List></Slide>
                 }
             </List>
+
+
             <Divider />
-            {/* <Link href="/test">Test</Link> */}
+
+
+
+
         </Fragment>
+
     )
 }
 

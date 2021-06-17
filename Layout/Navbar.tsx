@@ -20,7 +20,8 @@ import Hidden from '@material-ui/core/Hidden'
 import Drawer from '@material-ui/core/Drawer'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Button from '@material-ui/core/Button'
-
+import grey from '@material-ui/core/colors/grey'
+import blueGrey from '@material-ui/core/colors/blueGrey'
 //Icons
 import MenuIcon from '@material-ui/icons/Menu'
 import MoreIcon from '@material-ui/icons/MoreVert'
@@ -31,14 +32,17 @@ import { GET_CATEGORIES } from '../graphql/queries'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        height: '100%'
     },
     drawer: {
         width: DRAWER_WIDTH,
         flexShrink: 0,
+
     },
     drawerPaper: {
-        width: DRAWER_WIDTH
+        width: DRAWER_WIDTH,
+        background: blueGrey[700]
     },
     hide: {
         display: 'none',
@@ -72,7 +76,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         },
     },
     title: {
-        flexGrow: 1
+        flexGrow: 1,
+        cursor: 'pointer'
     }
 
 }));
@@ -117,9 +122,11 @@ const Navbar = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title} >
-                    Inventory
-                </Typography>
+                <Link href="/">
+                    <Typography variant="h6" className={classes.title} >
+                        Inventory
+                    </Typography>
+                </Link>
                 {/* Keep this code for later */}
                 {/* <IconButton
                     aria-label="display more action"
@@ -141,7 +148,7 @@ const Navbar = () => {
                 {
                     !loggedIn &&
                     <Link href="/login">
-                        <Button color="inherit">
+                        <Button color="inherit" >
                             Login
                         </Button>
                     </Link>
@@ -151,7 +158,9 @@ const Navbar = () => {
         {
             loggedIn &&
             <nav className={classes.drawer} aria-label="menu">
+
                 <Hidden smUp implementation="css">
+
                     <Drawer
                         variant='temporary'
                         anchor='left'
@@ -162,17 +171,26 @@ const Navbar = () => {
                     >
 
                         <NavbarDrawer categories={categories} />
+
                     </Drawer>
+
+
                 </Hidden>
                 <Hidden xsDown implementation="css">
+
                     <Drawer
                         open
                         variant="permanent"
                         classes={{ paper: classes.drawerPaper }}
                     >
+
                         <NavbarDrawer categories={categories} />
+
                     </Drawer>
+
                 </Hidden>
+
+
             </nav>
         }
 

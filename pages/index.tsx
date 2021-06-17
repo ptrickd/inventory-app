@@ -30,11 +30,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   section: {
     marginTop: 50,
-    // flexGrow: 1,
+    flexGrow: 1,
     width: '100%',
-    // display: 'flex',
-    // justifyContent: 'space-between'
-    // background: '#aaa'
   },
   image: {
     display: 'flex',
@@ -52,6 +49,7 @@ export default function Home() {
           <Typography
             className={classes.title}
             variant="h4"
+            align="center"
           >
             App For Kitchen Inventory
           </Typography>
