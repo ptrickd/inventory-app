@@ -138,7 +138,7 @@ const ProductsPage: React.FC = () => {
                 <Typography
                     variant="h6"
                 >
-                    Some Date{/* {dateTime.toLocaleString()} */}
+                    {/* Some Date{dateTime.toLocaleString()} */}
                 </Typography>
             </div>
 

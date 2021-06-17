@@ -87,7 +87,7 @@ const Navbar = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     const { data, loading, error } = useQuery(GET_CATEGORIES)
-    if (loading) return <div><h2>Loading...</h2></div>
+    if (loading) return null
     if (error) return <div>`Error! ${error.message}`</div>
     // console.log(data)
     const categories = data.categories || []
