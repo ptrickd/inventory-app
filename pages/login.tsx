@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Login: React.FC = () => {
     const classes = useStyles()
     const router = useRouter()
-    const { currentUser, setCurrentUser, loggedIn, setLoggedIn } = useContext(UserContext)
+    const { currentUser, setCurrentUser, loggedIn, setLoggedIn, setToken } = useContext(UserContext)
     const [submitting, setSubmitting] = useState(false)
 
     const { reset } = useForm<IForm>()
@@ -60,9 +60,10 @@ const Login: React.FC = () => {
         if (
             loginResponse && loginResponse.data &&
             currentUser !== undefined && setCurrentUser !== undefined
-            && setLoggedIn !== undefined
+            && setLoggedIn !== undefined && setToken !== undefined
         ) {
             setCurrentUser(loginResponse.data.login.user)
+            setToken(loginResponse.data.login.token)
             setLoggedIn(true)
         }
         setSubmitting(false)

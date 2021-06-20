@@ -16,6 +16,8 @@ interface IContext {
     setCurrentUser: (user: IUser) => void
     loggedIn: boolean
     setLoggedIn: (loggedIn: boolean) => void
+    setToken: (token: string) => void
+    logout: () => void
 }
 
 const UserContext = createContext<Partial<IContext>>({})
@@ -31,6 +33,18 @@ const UserProvider = ({ children }: IProps) => {
     useEffect(() => {
         console.log('loggedIn::', loggedIn)
     }, [loggedIn])
+    useEffect(() => {
+        console.log("token:", localStorage.getItem("token"))
+    }, [])
+    const setToken = (token: string) => {
+        localStorage.setItem('token', token)
+    }
+    const logout = () => {
+        setCurrentUser({ id: '', email: '' })
+        setLoggedIn(false)
+        localStorage.removeItem('token')
+    }
+
 
     return (
         <UserContext.Provider
@@ -38,7 +52,9 @@ const UserProvider = ({ children }: IProps) => {
                 currentUser,
                 setCurrentUser,
                 loggedIn,
-                setLoggedIn
+                setLoggedIn,
+                setToken,
+                logout
             }}
         >
             {children}

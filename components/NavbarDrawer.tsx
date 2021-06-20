@@ -10,8 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Divider from '@material-ui/core/Divider'
 import Slide from '@material-ui/core/Slide'
-import Box from '@material-ui/core/Box'
 import blueGrey from '@material-ui/core/colors/blueGrey'
+import indigo from '@material-ui/core/colors/indigo'
 
 //Icons
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
@@ -27,7 +27,7 @@ interface IProps {
     categories: ICategory[]
 }
 
-const textMenuColor = blueGrey[100]
+const textMenuColor = indigo[100]
 const useStyles = makeStyles((theme: Theme) => createStyles({
     menu: {
         color: textMenuColor
@@ -64,9 +64,9 @@ const NavbarDrawer = ({ categories }: IProps) => {
     return (
         <Fragment>
             {/* //Add the primary color on the top on the sidebar side */}
-            <Box bgcolor="primary.main" >
-                <div className={classes.toolbar} />
-            </Box>
+
+            <div className={classes.toolbar} />
+
 
             <Divider />
 
@@ -98,15 +98,8 @@ const NavbarDrawer = ({ categories }: IProps) => {
                     </List></Slide>
                 }
             </List>
-
-
             <Divider />
-
-
-
-
         </Fragment>
-
     )
 }
 

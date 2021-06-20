@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 //Context
 import { ProductsContext } from '../../contexts/ProductsContext'
+import { UserContext } from '../../contexts/UserContext'
 
 //Components
 import InputProduct from '../../components/InputProduct'
@@ -63,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const ProductsPage: React.FC = () => {
 
     const { products, setCategoryId } = useContext(ProductsContext)
+    const { loggedIn } = useContext(UserContext)
     const classes = useStyles()
     const router = useRouter()
     const { categoryId } = router.query
@@ -79,6 +81,10 @@ const ProductsPage: React.FC = () => {
         variables: { categoryId: categoryId },
         skip: !categoryId
     })
+
+    useEffect(() => {
+        if (!loggedIn) router.push('/')
+    }, [loggedIn])
 
     useEffect(() => {
         if (data) setCategory(data.category)

@@ -20,8 +20,9 @@ import Hidden from '@material-ui/core/Hidden'
 import Drawer from '@material-ui/core/Drawer'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Button from '@material-ui/core/Button'
-import grey from '@material-ui/core/colors/grey'
 import blueGrey from '@material-ui/core/colors/blueGrey'
+import indigo from '@material-ui/core/colors/indigo'
+
 //Icons
 import MenuIcon from '@material-ui/icons/Menu'
 import MoreIcon from '@material-ui/icons/MoreVert'
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     drawerPaper: {
         width: DRAWER_WIDTH,
-        background: blueGrey[700]
+        background: indigo[800]
     },
     hide: {
         display: 'none',
@@ -85,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Navbar = () => {
     const classes = useStyles();
-    const { loggedIn } = useContext(UserContext)
+    const { loggedIn, logout } = useContext(UserContext)
 
     const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -102,7 +103,9 @@ const Navbar = () => {
         setAnchorEl(e.currentTarget)
     }
     const handleCloseMoreIconMenu = () => { setAnchorEl(null) }
-
+    const handleLogoutClick = () => {
+        if (logout !== undefined) logout()
+    }
 
 
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
@@ -139,11 +142,11 @@ const Navbar = () => {
                 <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
                 {
                     loggedIn &&
-                    <Link href="/">
-                        <Button color="inherit" >
-                            Logout
-                        </Button>
-                    </Link>
+
+                    <Button color="inherit" onClick={() => handleLogoutClick()}>
+                        Logout
+                    </Button>
+
                 }
                 {
                     !loggedIn &&
