@@ -14,6 +14,7 @@ dbConnect()
 
 const getUser = (token: string) => {
     try {
+        // console.log('in get user:', token)
         if (token) {
             return jwt.verify(token, process.env.RESTO_JWT_SECRET)
         }
