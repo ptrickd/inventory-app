@@ -22,6 +22,15 @@ export const LOGIN = gql`
     }
 `
 
+export const GET_CURRENT_USER = gql`
+    query CurrentUser{
+        currentUser{
+            id
+            email
+        }
+    }
+`
+
 //Product
 export const GET_PRODUCTS_BY_CATEGORY = gql`
     query GetProductsByCategory($categoryId: String){

@@ -1,6 +1,10 @@
 //React 
 import { createContext, useState, useEffect } from 'react'
 
+//GraphQL
+import { useQuery } from '@apollo/client'
+import { GET_CURRENT_USER } from '../graphql/queries'
+
 //save my user
 interface IProps {
     children: React.ReactNode
@@ -25,6 +29,7 @@ const UserContext = createContext<Partial<IContext>>({})
 const UserProvider = ({ children }: IProps) => {
     const [currentUser, setCurrentUser] = useState<IUser>({ id: '', email: '' })
     const [loggedIn, setLoggedIn] = useState(false)
+    const { loading, error, data } = useQuery(GET_CURRENT_USER)
 
     useEffect(() => {
         console.log('currentUser::', currentUser)
@@ -36,6 +41,21 @@ const UserProvider = ({ children }: IProps) => {
     useEffect(() => {
         console.log("token:", localStorage.getItem("token"))
     }, [])
+    /*
+    check If LoggedIn on reload 
+    */
+    useEffect(() => {
+
+        if (typeof (localStorage.getItem('token')) !== 'undefined' && data && data.currentUser) {
+            console.log('refetch data on reload:', data.currentUser)
+            setCurrentUser({ id: data.currentUser.id, email: data.currentUser.email })
+            setLoggedIn(true)
+        }
+
+    }, [data])
+
+
+
     const setToken = (token: string) => {
         localStorage.setItem('token', token)
     }

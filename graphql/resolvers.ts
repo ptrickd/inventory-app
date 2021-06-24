@@ -67,7 +67,7 @@ export const resolvers = {
     Query: {
         products: async (_: any, _1: any, { user }: any) => {
             try {
-                if (!products) throw new Error('No products found')
+                if (!user) throw new Error("Not Authenticated")
                 const products = await getProducts()
                 return products.map(({ id, amount, name, categoryId }: IProduct) => ({
                     id,
@@ -136,41 +136,71 @@ export const resolvers = {
     },
     Mutation: {
         createProduct: async (_: any, { name, amount, categoryId }: ICreateProduct, { user }: any) => {
-            if (!user) throw new Error("Not Authenticated")
-            let product = await createProduct(name, amount, categoryId)
-            return product
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                let product = await createProduct(name, amount, categoryId)
+                return product
+            } catch (err) {
+                console.log(err)
+            }
+
         },
         editProduct: async (_: any, { productId, name, categoryId }: IEditProduct, { user }: any) => {
-            if (!user) throw new Error("Not Authenticated")
-            let product = await editProduct(productId, name, categoryId)
-            if (!product) throw new Error('No product found')
-            return product
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                let product = await editProduct(productId, name, categoryId)
+                if (!product) throw new Error('No product found')
+                return product
+            } catch (err) {
+                console.log(err)
+            }
+
         },
         deleteProduct: async (_: any, { productId }: IIds, { user }: any) => {
-            if (!user) throw new Error("Not Authenticated")
-            let product = await deleteProduct(productId)
-            if (!product) throw new Error('No product found')
-            return product
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                let product = await deleteProduct(productId)
+                if (!product) throw new Error('No product found')
+                return product
+            } catch (err) {
+                console.log(err)
+            }
+
         },
         createCategory: async (_: any, { name }: IIds, { user }: any) => {
-            console.log('createCategory', name)
-            if (!user) throw new Error("Not Authenticated")
-            let category = await createCategory(name)
-            if (!category) throw new Error("No Category Create")
-            return category
+            try {
+                // console.log('createCategory', name)
+                if (!user) throw new Error("Not Authenticated")
+                let category = await createCategory(name)
+                if (!category) throw new Error("No Category Create")
+                return category
+            } catch (err) {
+                console.log(err)
+            }
+
 
         },
         editCategory: async (_: any, { categoryId, name }: ICategory, { user }: any) => {
-            if (!user) throw new Error("Not Authenticated")
-            let editedCategory = await editCategory(categoryId, name)
-            if (!editedCategory) throw new Error("No Category Found")
-            return editedCategory
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                let editedCategory = await editCategory(categoryId, name)
+                if (!editedCategory) throw new Error("No Category Found")
+                return editedCategory
+            } catch (err) {
+                console.log(err)
+            }
+
         },
         deleteCategory: async (_: any, { categoryId }: IIds, { user }: any) => {
-            if (!user) throw new Error("Not Authenticated")
-            let deletedCategory = await deleteCategory(categoryId)
-            if (!deletedCategory) throw new Error("No Category Found")
-            return deletedCategory
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                let deletedCategory = await deleteCategory(categoryId)
+                if (!deletedCategory) throw new Error("No Category Found")
+                return deletedCategory
+            } catch (err) {
+                console.log(err)
+            }
+
         },
         register: async (_: any, { email, password }: IRegister) => {
             const hashedPassword = await bcrypt.hash(password, 10)

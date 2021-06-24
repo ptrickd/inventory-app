@@ -92,11 +92,13 @@ const Navbar = () => {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-    const { data, loading, error } = useQuery(GET_CATEGORIES)
+    const { data, loading, error } = useQuery(GET_CATEGORIES, {
+        skip: !loggedIn
+    })
     if (loading) return null
     if (error) return <div>`Error! ${error.message}`</div>
     // console.log(data)
-    const categories = data.categories || []
+    const categories = data && data.categories ? data.categories : []
 
     //Keep those for the icon more menu
     const handleClickOnMoreIconMenu = (e: React.MouseEvent<HTMLButtonElement>) => {

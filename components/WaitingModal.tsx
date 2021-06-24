@@ -9,7 +9,7 @@ interface IProps {
     open: boolean
 }
 
-const useStyles = makeStyles((theme: theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         marginLeft: DRAWER_WIDTH
     }

@@ -3,7 +3,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 
 interface IProps {
-    anchorEl: null | HMTLElement
+    anchorEl: null | HTMLElement
     handleOnClose: () => void
 }
 

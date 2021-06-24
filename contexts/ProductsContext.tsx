@@ -46,7 +46,7 @@ const ProductsProvider = ({ children }: IProps) => {
 
     useEffect(() => {
         console.log('contextCategoryId', contextCategoryId)
-        console.log('data', data)
+        // console.log('data', data)
         if (contextCategoryId.length && data) {
             console.log('getProductsByCategory', data.productsByCategory)
             setProducts(data.productsByCategory)

@@ -1,6 +1,5 @@
 import dbConnect from '../utils/dbConnect'
 import { Category } from '../models/category.model'
-import { DeleteOutline } from '@material-ui/icons'
 
 dbConnect()
 
