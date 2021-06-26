@@ -3,12 +3,6 @@ import { Category } from '../models/category.model'
 
 dbConnect()
 
-
-export const getCategories = async () => {
-    const categories = await Category.find({})
-    return categories
-}
-
 export const getCategory = async (categoryId: string) => {
 
     let category = await Category.findById(categoryId)

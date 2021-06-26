@@ -37,7 +37,7 @@ export const typeDefs = gql`
         productsByCategory(categoryId: String): [Product]
         category(categoryId: ID): Category
 
-        categories: [Category]
+        categories(userId: String): [Category]
 
         currentUser: User
     }

@@ -114,14 +114,14 @@ export const resolvers = {
                 return err
             }
         },
-        categories: async (_: any, _1: any, { user }: any) => {
+        categories: async (_: any, { userId }: IID, { user }: any) => {
             try {
                 console.log('in getCategories')
                 if (!user) throw new Error("Not Authenticated")
-                const categories = await getCategories()
+                const categories = await Category.find({ userId })
                 if (!categories) throw new Error("No Categories Found")
-                return categories.map(({ id, name }) => ({
-                    id, name
+                return categories.map(({ id, name, userId }) => ({
+                    id, name, userId
                 }))
             }
             catch (err) {

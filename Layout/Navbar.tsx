@@ -86,13 +86,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Navbar = () => {
     const classes = useStyles();
-    const { loggedIn, logout } = useContext(UserContext)
+    const { loggedIn, logout, currentUser } = useContext(UserContext)
 
     const [mobileOpen, setMobileOpen] = useState(false)
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     const { data, loading, error } = useQuery(GET_CATEGORIES, {
+        variables: { userId: currentUser?.id },
         skip: !loggedIn
     })
     if (loading) return null
