@@ -40,8 +40,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Login: React.FC = () => {
     const classes = useStyles()
     const router = useRouter()
-    const { currentUser, setCurrentUser, loggedIn, setLoggedIn, setToken } = useContext(UserContext)
+    const { currentUser, setCurrentUser, loggedIn, setLoggedIn, setToken, logout } = useContext(UserContext)
     const [submitting, setSubmitting] = useState(false)
+    const [serverErrorMess, setServerErrorMess] = useState('')
 
     const { reset } = useForm<IForm>()
 
@@ -56,15 +57,28 @@ const Login: React.FC = () => {
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
         const loginResponse = await login({ variables: { email: data.email, password: data.password } })
-        console.log(loginResponse.data.login.user)
+        // console.log('user on login', loginResponse.data.login.user)
+        // console.log('error on login', loginResponse.data.errors)
+        console.log('login response', loginResponse.data.login)
+
+
         if (
-            loginResponse && loginResponse.data &&
+            loginResponse?.data?.login?.error && setLoggedIn && logout
+        ) {
+            console.log('Error::', loginResponse.data.login.error)
+            setServerErrorMess(loginResponse.data.login.error)
+            logout()
+            setLoggedIn(false)
+        }
+        else if (
+            loginResponse && loginResponse.data && loginResponse.data.login.user &&
             currentUser !== undefined && setCurrentUser !== undefined
             && setLoggedIn !== undefined && setToken !== undefined
         ) {
             setCurrentUser(loginResponse.data.login.user)
             setToken(loginResponse.data.login.token)
             setLoggedIn(true)
+            setServerErrorMess('')
         }
         setSubmitting(false)
         reset({ email: '', password: '' })
@@ -76,6 +90,11 @@ const Login: React.FC = () => {
             <Typography variant="h2" align="center">
                 Login
             </Typography>
+            {serverErrorMess.length > 1 && <Typography
+                variant='body1'
+                align="center"
+                color="secondary"
+            >{serverErrorMess}</Typography>}
             <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
             <Link href="/register"><Button color="inherit" variant="contained">Register</Button></Link>
         </Container>

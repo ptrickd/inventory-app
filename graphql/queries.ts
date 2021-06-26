@@ -18,6 +18,7 @@ export const LOGIN = gql`
                 id
                 email
             }
+            error
         }
     }
 `

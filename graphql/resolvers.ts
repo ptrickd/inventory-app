@@ -22,6 +22,7 @@ import {
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+
 dbConnect()
 
 interface IProduct {
@@ -77,6 +78,7 @@ export const resolvers = {
                 }))
             } catch (err) {
                 console.log(err)
+                return err
             }
         },
         productsByCategory: async (_: any, { categoryId }: IIds, { user }: any) => {
@@ -93,6 +95,7 @@ export const resolvers = {
             }
             catch (err) {
                 console.log(err)
+                return err
             }
         },
         category: async (_: any, { categoryId }: IIds, { user }: any) => {
@@ -107,6 +110,7 @@ export const resolvers = {
             }
             catch (err) {
                 console.log(err)
+                return err
             }
         },
         categories: async (_: any, _1: any, { user }: any) => {
@@ -121,15 +125,18 @@ export const resolvers = {
             }
             catch (err) {
                 console.log(err)
+                return err
             }
         },
         currentUser: async (_: any, _1: any, { user }: any) => {
             try {
-                if (!user) throw new Error("Not Authenticated")
+                if (!user) return null
+
                 return User.findOne({ _id: user.id })
             }
             catch (err) {
                 console.log(err)
+                return err
             }
 
         }
@@ -142,6 +149,7 @@ export const resolvers = {
                 return product
             } catch (err) {
                 console.log(err)
+                return err
             }
 
         },
@@ -153,6 +161,7 @@ export const resolvers = {
                 return product
             } catch (err) {
                 console.log(err)
+                return err
             }
 
         },
@@ -164,6 +173,7 @@ export const resolvers = {
                 return product
             } catch (err) {
                 console.log(err)
+                return err
             }
 
         },
@@ -176,6 +186,7 @@ export const resolvers = {
                 return category
             } catch (err) {
                 console.log(err)
+                return err
             }
 
 
@@ -188,6 +199,7 @@ export const resolvers = {
                 return editedCategory
             } catch (err) {
                 console.log(err)
+                return err
             }
 
         },
@@ -199,31 +211,50 @@ export const resolvers = {
                 return deletedCategory
             } catch (err) {
                 console.log(err)
+                return err
             }
 
         },
         register: async (_: any, { email, password }: IRegister) => {
-            const hashedPassword = await bcrypt.hash(password, 10)
-            let user = new User({
-                email, password: hashedPassword
-            })
-            user = await user.save()
-            if (!user) throw new Error("Failed to create user")
-            return user
+            try {
+                const hashedPassword = await bcrypt.hash(password, 10)
+                let user = new User({
+                    email, password: hashedPassword
+                })
+                user = await user.save()
+                if (!user) throw new Error("Failed to create user")
+                return user
+            }
+            catch (err) {
+                console.log(err)
+                return err
+            }
+
         },
         login: async (_: any, { email, password }: IRegister) => {
-            const user = await User.findOne({ email })
-            if (!user) throw new Error("Invalid Login")
-            const passwordMatch = await bcrypt.compare(password, user.password)
-            if (!passwordMatch) throw new Error("Invalid Login")
+            try {
+                const user = await User.findOne({ email })
+                // console.log('user from login', user)
 
-            const token = jwt.sign(
-                { id: user.id, email: user.email },
-                process.env.RESTO_JWT_SECRET,
-                { expiresIn: '30d' }
-            )
+                if (!user) throw new Error("Invalid Login")
+                const passwordMatch = await bcrypt.compare(password, user.password)
+                if (!passwordMatch) throw new Error("Invalid Login")
 
-            return { token, user }
+                const token = jwt.sign(
+                    { id: user.id, email: user.email },
+                    process.env.RESTO_JWT_SECRET,
+                    { expiresIn: '30d' }
+                )
+
+                return { token, user }
+            }
+            catch (err) {
+                console.log('error login resolver')
+                console.log(err)
+                return { error: 'Invalid Login' }
+                // return err
+            }
+
         }
     }
 }

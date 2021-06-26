@@ -15,13 +15,15 @@ export const typeDefs = gql`
     }
 
     type User {
-        id: ID!
-        email: String!
+        id: ID
+        email: String
+        error: String
     }
 
     type LoginResponse {
         token: String
         user: User
+        error: String
     }
 
     type Query {
@@ -31,7 +33,7 @@ export const typeDefs = gql`
 
         categories: [Category]
 
-        currentUser: User!
+        currentUser: User
     }
 
     type Mutation {
@@ -44,6 +46,6 @@ export const typeDefs = gql`
         deleteCategory(categoryId:ID): Category
 
         register(email: String!, password: String!): User
-        login(email: String!, password: String!): LoginResponse!
+        login(email: String!, password: String!): LoginResponse
     }
 `
