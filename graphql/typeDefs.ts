@@ -12,6 +12,7 @@ export const typeDefs = gql`
     type Category {
         id: ID
         name: String
+        userId: String
     }
 
     type User {
@@ -22,6 +23,11 @@ export const typeDefs = gql`
 
     type LoginResponse {
         token: String
+        user: User
+        error: String
+    }
+
+    type RegisterResponse {
         user: User
         error: String
     }
@@ -41,11 +47,11 @@ export const typeDefs = gql`
         editProduct(productId:ID, name:String, categoryId: String): Product
         deleteProduct(productId: ID): Product
         
-        createCategory(name:String): Category
+        createCategory(name:String, userId: String): Category
         editCategory(categoryId:ID, name:String): Category
         deleteCategory(categoryId:ID): Category
 
-        register(email: String!, password: String!): User
+        register(email: String!, password: String!): RegisterResponse
         login(email: String!, password: String!): LoginResponse
     }
 `

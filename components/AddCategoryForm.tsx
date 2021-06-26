@@ -12,6 +12,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
+//Context
+import { UserContext } from '../contexts/UserContext'
 
 //GraphQL
 import { useMutation } from '@apollo/client'
@@ -50,13 +52,18 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
     const [createCategory, { data }] = useMutation(CREATE_CATEGORY)
+    const { currentUser } = useContext(UserContext)
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
-        setSubmitting(true)
-        createCategory({ variables: { name: data.name } })
-        reset({ name: '' })
-        setSubmitting(false)
-        handleCloseModal()
+        if (currentUser !== undefined) {
+            setSubmitting(true)
+            createCategory({ variables: { name: data.name, userId: currentUser.id } })
+            console.log('currentUser::', currentUser.id)
+            reset({ name: '' })
+            setSubmitting(false)
+            handleCloseModal()
+        }
+
     }
 
     const formBody = (

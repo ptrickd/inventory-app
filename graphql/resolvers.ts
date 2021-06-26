@@ -1,6 +1,7 @@
 //Models 
 import dbConnect from '../utils/dbConnect'
 import User from '../models/user.model'
+import { Category } from '../models/category.model'
 
 //Controller
 import {
@@ -12,7 +13,6 @@ import {
 } from '../controllers/product.controller'
 import {
     getCategories,
-    createCategory,
     getCategory,
     editCategory,
     deleteCategory
@@ -51,6 +51,7 @@ interface IEditProduct {
 interface ICategory {
     categoryId: string
     name: string
+    userId: string
 }
 
 interface IRegister {
@@ -177,12 +178,14 @@ export const resolvers = {
             }
 
         },
-        createCategory: async (_: any, { name }: IIds, { user }: any) => {
+        createCategory: async (_: any, { name, userId }: IIds, { user }: any) => {
             try {
-                // console.log('createCategory', name)
+                console.log('createCategory name', name)
+                console.log('createCategory userId', userId)
                 if (!user) throw new Error("Not Authenticated")
-                let category = await createCategory(name)
-                if (!category) throw new Error("No Category Create")
+                let category = await Category.create({ name, userId })
+                console.log('category::', category)
+                if (!category) throw new Error("No Category Created")
                 return category
             } catch (err) {
                 console.log(err)

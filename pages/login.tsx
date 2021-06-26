@@ -71,7 +71,7 @@ const Login: React.FC = () => {
             setLoggedIn(false)
         }
         else if (
-            loginResponse && loginResponse.data && loginResponse.data.login.user &&
+            loginResponse?.data?.login?.user &&
             currentUser !== undefined && setCurrentUser !== undefined
             && setLoggedIn !== undefined && setToken !== undefined
         ) {
@@ -90,11 +90,15 @@ const Login: React.FC = () => {
             <Typography variant="h2" align="center">
                 Login
             </Typography>
-            {serverErrorMess.length > 1 && <Typography
-                variant='body1'
-                align="center"
-                color="secondary"
-            >{serverErrorMess}</Typography>}
+            {
+                serverErrorMess.length > 1 && <Typography
+                    variant='body1'
+                    align="center"
+                    color="secondary"
+                >
+                    {serverErrorMess}
+                </Typography>
+            }
             <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
             <Link href="/register"><Button color="inherit" variant="contained">Register</Button></Link>
         </Container>

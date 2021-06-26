@@ -81,6 +81,14 @@ const NavbarDrawer = ({ categories }: IProps) => {
 
                 </Link>
 
+                <span className={classes.menu}>
+                    <ListItem button key='dashboard'>
+                        <ListItemText primary='Reports' />
+                        <ListItemIcon className={classes.menuIcon}><ArrowForwardIcon /></ListItemIcon>
+                    </ListItem>
+                </span>
+
+
                 <Divider />
                 <span className={classes.menu}>
                     <ListItem button onClick={handleClickCategories} key="category">

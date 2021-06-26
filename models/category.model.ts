@@ -2,10 +2,15 @@ import mongoose from 'mongoose'
 
 interface ICategory {
     name: String
+    userId: String
 }
 
 const schema = new mongoose.Schema<ICategory>({
     name: {
+        type: String,
+        required: true
+    },
+    userId: {
         type: String,
         required: true
     }
