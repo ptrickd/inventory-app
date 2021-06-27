@@ -10,9 +10,10 @@ import EditProductForm from './EditProductForm'
 //Material UI
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
-import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography'
 
 //Icons
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -31,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '8px',
         display: 'flex',
         flexDirection: 'row'
+    },
+    textfield: {
+        marginLeft: 5,
+        marginRight: 5
     }
 }));
 
@@ -47,6 +52,7 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
 
     return (
         <Fragment>
+            <Typography variant="h6">{name}</Typography>
             <FormControl
                 className={classes.root}
                 fullWidth
@@ -55,13 +61,23 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
                 <TextField
 
                     id={name}
-                    label={name}
+                    label={'Current'}
                     color="primary"
                     value={amount}
                     variant='standard'
                     fullWidth
+                    className={classes.textfield}
                 />
+                <Divider orientation="vertical" flexItem />
+                <TextField
 
+                    id={name}
+                    label={'Last'}
+                    color="primary"
+                    value={amount}
+                    variant='standard'
+                    className={classes.textfield}
+                />
                 <IconButton onClick={e => setOpenEditProductModal(true)}>
                     <EditIcon />
                 </IconButton>

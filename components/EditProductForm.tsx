@@ -3,6 +3,7 @@ import React, { useState, useContext, Fragment } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
+import { UserContext } from '../contexts/UserContext';
 
 //Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -67,10 +68,15 @@ const useStyle = makeStyles({
 function EditProductForm({ open, handleCloseModal, categoryId, productName, productId }: IProps) {
     const classes = useStyle()
     const { editProductApi } = useContext(ProductsContext)
+    const { currentUser } = useContext(UserContext)
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
 
-    const { data, loading, error } = useQuery(GET_CATEGORIES)
+
+    const { data, loading, error } = useQuery(GET_CATEGORIES, {
+        variables: { userId: currentUser?.id },
+        skip: !currentUser
+    })
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
 

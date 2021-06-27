@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         margin: theme.spacing(4),
         padding: theme.spacing(4)
+    },
+    button: {
+        marginTop: 10
     }
 }))
 
@@ -33,7 +36,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
 
     return (
         <Dialog
-            open={true}
+            open={open}
             aria-labelledby="Create A New Report"
             onClose={() => handleCloseModal()}
             className={classes.root}
@@ -42,6 +45,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
                 <Typography variant="h5">Choose the date for the next report</Typography>
                 <DatePicker handleSelectedDate={handleSelectedDate} />
                 <Button
+                    className={classes.button}
                     variant="contained"
                     color='primary'
                     fullWidth
