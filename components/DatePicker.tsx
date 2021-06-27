@@ -10,7 +10,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
 interface IProps {
-    handleSelectedDate: (date: Date) => void
+    handleSelectedDate: (date: DateTime | null) => void
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }))
 
-const DatePicker = ({ handleSelectedDate }: Iprops) => {
+const DatePicker = ({ handleSelectedDate }: IProps) => {
     const initialDate = DateTime.now()
     const [selectedDate, setSelectedDate] = useState<DateTime | null>(initialDate)
     const classes = useStyles()

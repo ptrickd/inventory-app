@@ -11,6 +11,9 @@ import DialogContent from '@material-ui/core/DialogContent'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
+//Time
+import { DateTime } from 'luxon'
+
 interface IProps {
     open: boolean
     handleCloseModal: () => void
@@ -28,9 +31,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function CreateNewReportModal({ open, handleCloseModal }: IProps) {
     const classes = useStyles()
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState<DateTime | null>(DateTime.now())
 
-    const handleSelectedDate = (date: Date) => {
+    const handleSelectedDate = (date: DateTime | null) => {
         console.log('date from datepocker', date)
     }
 

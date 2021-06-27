@@ -12,7 +12,6 @@ import {
     deleteProduct
 } from '../controllers/product.controller'
 import {
-    getCategories,
     getCategory,
     editCategory,
     deleteCategory
@@ -114,7 +113,7 @@ export const resolvers = {
                 return err
             }
         },
-        categories: async (_: any, { userId }: IID, { user }: any) => {
+        categories: async (_: any, { userId }: IIds, { user }: any) => {
             try {
                 console.log('in getCategories')
                 if (!user) throw new Error("Not Authenticated")
