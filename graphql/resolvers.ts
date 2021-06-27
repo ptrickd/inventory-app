@@ -218,18 +218,21 @@ export const resolvers = {
 
         },
         register: async (_: any, { email, password }: IRegister) => {
+
             try {
+                let user = await User.findOne({ email })
+                if (user) throw new Error('Failed to create user')
+
                 const hashedPassword = await bcrypt.hash(password, 10)
-                let user = new User({
+                user = new User({
                     email, password: hashedPassword
                 })
                 user = await user.save()
                 if (!user) throw new Error("Failed to create user")
-                return user
+                return { user }
             }
             catch (err) {
-                console.log(err)
-                return err
+                return { error: err.message }
             }
 
         },
@@ -251,10 +254,7 @@ export const resolvers = {
                 return { token, user }
             }
             catch (err) {
-                console.log('error login resolver')
-                console.log(err)
                 return { error: 'Invalid Login' }
-                // return err
             }
 
         }

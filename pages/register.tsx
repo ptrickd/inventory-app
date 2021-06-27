@@ -41,6 +41,7 @@ const Register: React.FC = () => {
     const router = useRouter()
     const { currentUser, setCurrentUser, loggedIn, setLoggedIn } = useContext(UserContext)
     const [submitting, setSubmitting] = useState(false)
+    const [errorServerMess, setErrorServerMess] = useState('')
 
     const { reset } = useForm<IForm>()
 
@@ -55,12 +56,11 @@ const Register: React.FC = () => {
     const onSubmit: SubmitHandler<IForm> = async (data) => {
         setSubmitting(true)
         const user = await register({ variables: { email: data.email, password: data.password } })
-        if (
-            user && user.data && user.data.register &&
-            currentUser !== undefined &&
-            setCurrentUser !== undefined && setLoggedIn !== undefined
-        ) {
-            router.push('login')
+        if (user.data.register.error) {
+            setErrorServerMess(user.data.register.error)
+        } else if (user?.data?.register.user) {
+            setErrorServerMess('')
+            router.push('/login')
         }
         setSubmitting(false)
         reset({ email: '', password: '' })
@@ -72,6 +72,10 @@ const Register: React.FC = () => {
             <Typography variant="h2" align="center">
                 Register
             </Typography>
+            {errorServerMess.length > 1 && <Typography
+                align="center"
+                color="secondary"
+            >{errorServerMess}</Typography>}
             <AuthForm onSubmit={onSubmit} submitting={submitting} label="Register" />
 
         </Container>
