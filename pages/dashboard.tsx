@@ -4,19 +4,16 @@ import { useRouter } from 'next/router'
 
 //Components
 import AddCategoryForm from '../components/AddCategoryForm'
-import DatePicker from '../components/DatePicker'
+import CreateNewReportModal from '../components/CreateNewReportModal';
 
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
-import InputLabel from '@material-ui/core/InputLabel'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItem from '@material-ui/core/ListItem'
-import { DRAWER_WIDTH } from '../constants/dimensions'
 
 //Icons
 import IconButton from '@material-ui/core/IconButton'
@@ -29,8 +26,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
         marginTop: 60,
-        // alignItems: 'center',
         justifyContent: 'center'
+    },
+    divider: {
+        marginTop: 10
     }
 }))
 
@@ -39,13 +38,15 @@ function Dashboard() {
     const router = useRouter()
     const { loggedIn, currentUser } = useContext(UserContext)
     const [openModal, setOpenModal] = useState(false)
+    const [openCreateNewReport, setOpenCreateNewReport] = useState(false)
 
     //Adding categories
     const handleAddCategory = () => setOpenModal(true)
     const handleCloseModal = () => setOpenModal(false)
 
     //create template for new report
-    const handleCreateNewReport = () => { }
+    const handleCreateNewReport = () => setOpenCreateNewReport(true)
+    const handleCloseCreateNewReport = () => setOpenCreateNewReport(false)
 
     useEffect(() => {
         if (!loggedIn) {
@@ -60,7 +61,7 @@ function Dashboard() {
                     <Typography variant='h4' >
                         {currentUser && currentUser.email}
                     </Typography>
-                    <Divider />
+                    <Divider className={classes.divider} />
                     <ListItem>
                         <IconButton
                             aria-label='add category'
@@ -74,8 +75,7 @@ function Dashboard() {
                         />
 
                     </ListItem>
-                    <Divider />
-                    <DatePicker />
+
                     <ListItem>
 
                         <IconButton
@@ -93,7 +93,14 @@ function Dashboard() {
 
                 </List>
 
-                <AddCategoryForm open={openModal} handleCloseModal={handleCloseModal} />
+                <AddCategoryForm
+                    open={openModal}
+                    handleCloseModal={handleCloseModal}
+                />
+                <CreateNewReportModal
+                    open={openCreateNewReport}
+                    handleCloseModal={handleCloseCreateNewReport}
+                />
             </div>
 
         </Container >

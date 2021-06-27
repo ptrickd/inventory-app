@@ -1,20 +1,37 @@
 //React
 import { useState, useEffect } from 'react'
+
 //Time
 import { DateTime } from 'luxon'
 import LuxonUtils from '@date-io/luxon'
 
 //Material UI
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
-const DatePicker = () => {
+interface IProps {
+    handleSelectedDate: (date: Date) => void
+}
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    root: {
+        display: 'flex',
+        justifyContent: 'center'
+    }
+}))
+
+const DatePicker = ({ handleSelectedDate }: Iprops) => {
     const initialDate = DateTime.now()
     const [selectedDate, setSelectedDate] = useState<DateTime | null>(initialDate)
+    const classes = useStyles()
 
+    useEffect(() => {
+        handleSelectedDate(selectedDate)
+    }, [selectedDate])
 
     return (
-        <div>
-            <MuiPickersUtilsProvider utils={LuxonUtils}>
+        <div className={classes.root}>
+            <MuiPickersUtilsProvider utils={LuxonUtils} >
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
