@@ -24,25 +24,34 @@ type IProduct = {
     amount: number
     id: string
     categoryId: string
+    showAmounts: boolean
 }
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        width: '100%'
+    },
+    formControl: {
         marginTop: '8px',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     textfield: {
         marginLeft: 5,
         marginRight: 5
+    },
+    productNameWithoutAmount: {
+
     }
 }));
 
-const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
+const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId, showAmounts }) => {
     const classes = useStyles();
     const { deleteProductApi } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
+
 
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
 
@@ -50,34 +59,49 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
         console.log('id in InputProduct', id)
     }, [])
 
-    return (
+    const bodyWithAmount = () => (
         <Fragment>
-            <Typography variant="h6">{name}</Typography>
+
+            <TextField
+
+                id={name}
+                label={'Current'}
+                color="primary"
+                value={amount}
+                variant='standard'
+                fullWidth
+                className={classes.textfield}
+            />
+            <Divider orientation="vertical" flexItem />
+            <TextField
+
+                id={name}
+                label={'Last'}
+                color="primary"
+                value={amount}
+                variant='standard'
+                className={classes.textfield}
+            />
+        </Fragment>
+
+    )
+
+    return (
+        <div className={classes.root}>
+            {showAmounts && <Typography variant="h6">{name}</Typography>}
             <FormControl
-                className={classes.root}
+                className={classes.formControl}
                 fullWidth
             >
-
-                <TextField
-
-                    id={name}
-                    label={'Current'}
-                    color="primary"
-                    value={amount}
-                    variant='standard'
-                    fullWidth
-                    className={classes.textfield}
-                />
-                <Divider orientation="vertical" flexItem />
-                <TextField
-
-                    id={name}
-                    label={'Last'}
-                    color="primary"
-                    value={amount}
-                    variant='standard'
-                    className={classes.textfield}
-                />
+                {
+                    !showAmounts && <Typography
+                        variant="h6"
+                        className={classes.productNameWithoutAmount}
+                    >{name}</Typography>
+                }
+                {
+                    showAmounts && bodyWithAmount()
+                }
                 <IconButton onClick={e => setOpenEditProductModal(true)}>
                     <EditIcon />
                 </IconButton>
@@ -85,6 +109,7 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
                 <IconButton onClick={e => { if (deleteProductApi !== undefined) deleteProductApi(id) }}>
                     <DeleteIcon />
                 </IconButton>
+
 
 
 
@@ -97,7 +122,7 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId }) => {
                 productName={name}
             />
 
-        </Fragment>
+        </div>
 
     )
 }

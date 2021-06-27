@@ -15,6 +15,7 @@ import EditCategoryForm from '../../components/EditCategoryForm'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
 //Icons
@@ -28,12 +29,12 @@ import { useQuery } from '@apollo/client'
 import { GET_CATEGORY } from '../../graphql/queries'
 
 
-interface IProduct {
-    id: string
-    name: string
-    amount: number
-    categoryId: string
-}
+// interface IProduct {
+//     id: string
+//     name: string
+//     amount: number
+//     categoryId: string
+// }
 
 interface ICategory {
     id: string
@@ -58,6 +59,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     titleText: {
         marginRight: 10
+    },
+    productContainer: {
+        flexGrow: 1
     }
 }))
 
@@ -101,16 +105,20 @@ const ProductsPage: React.FC = () => {
         if (!products) return null
         console.log(products)
         return products.map((product, index) => {
-            return <Fragment key={index}>
+            return <Fragment key={index} >
+
+
                 <div>
-                    {/* <span>{!product.newValue && '*'}</span> */}
                     <InputProduct
                         name={product.name}
                         amount={product.amount}
                         id={product.id}
                         categoryId={product.categoryId}
+                        showAmounts={true}
                     />
+
                 </div>
+
             </Fragment>
         })
     }
