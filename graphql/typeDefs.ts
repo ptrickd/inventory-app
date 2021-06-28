@@ -2,11 +2,39 @@
 import { gql } from 'apollo-server-micro'
 
 export const typeDefs = gql`
+
+    scalar Date
+
+   input InputReportProduct {
+        productId: String
+        currentAmount: Int
+        lastAmount: Int
+    }
+
     type Product {
         id: ID
         name: String
         amount: Int
         categoryId: ID
+    }
+
+    type ReportProduct {
+        productId: String
+        currentAmount: Int
+        lastAmount: Int
+    }
+
+    type ReportResponse {
+        userId: String
+        date: Date
+        products: [ReportProduct]
+        error: String
+    }
+
+    type Report {
+        userId: String
+        date: Date
+        products: [ReportProduct]
     }
 
     type Category {
@@ -40,6 +68,8 @@ export const typeDefs = gql`
         categories(userId: String): [Category]
 
         currentUser: User
+
+        reports: [Report]
     }
 
     type Mutation {
@@ -53,5 +83,7 @@ export const typeDefs = gql`
 
         register(email: String!, password: String!): RegisterResponse
         login(email: String!, password: String!): LoginResponse
+
+        createReport(date: Date!, products: [InputReportProduct]!): ReportResponse
     }
 `

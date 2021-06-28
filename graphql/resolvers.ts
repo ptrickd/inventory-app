@@ -2,6 +2,7 @@
 import dbConnect from '../utils/dbConnect'
 import User from '../models/user.model'
 import { Category } from '../models/category.model'
+import Report from '../models/report.model'
 
 //Controller
 import {
@@ -21,9 +22,15 @@ import {
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+//Time
+import { DateTime } from 'luxon'
 
 dbConnect()
 
+interface ICreateReport {
+    date: DateTime
+    products: IProduct[]
+}
 interface IProduct {
     id: string
     name: string
@@ -139,6 +146,17 @@ export const resolvers = {
                 return err
             }
 
+        },
+        reports: async (_: any, _1: any, { user }: any) => {
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                let reports = await Report.find({ userId: user.id })
+                return reports
+
+            }
+            catch (err) {
+                return { error: err.message }
+            }
         }
     },
     Mutation: {
@@ -257,6 +275,21 @@ export const resolvers = {
                 return { error: 'Invalid Login' }
             }
 
+        },
+        createReport: async (_: any, { date, products }: ICreateReport, { user }: any) => {
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                let report = await Report.create({
+                    userId: user.id,
+                    date,
+                    products
+                })
+                if (!report) throw new Error("Can't create report")
+                return report
+            } catch (err) {
+                // return { error: err.message }
+                return { error: err.message }
+            }
         }
     }
 }
