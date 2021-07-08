@@ -151,7 +151,7 @@ export const resolvers = {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 let reports = await Report.find({ userId: user.id })
-                return reports
+                return { reports }
 
             }
             catch (err) {

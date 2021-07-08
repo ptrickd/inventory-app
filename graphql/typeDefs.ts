@@ -5,7 +5,7 @@ export const typeDefs = gql`
 
     scalar Date
 
-   input InputReportProduct {
+    input InputReportProduct {
         productId: String
         currentAmount: Int
         lastAmount: Int
@@ -28,6 +28,11 @@ export const typeDefs = gql`
         userId: String
         date: Date
         products: [ReportProduct]
+        error: String
+    }
+
+    type ReportsResponse {
+        reports:[ReportResponse]
         error: String
     }
 
@@ -69,7 +74,7 @@ export const typeDefs = gql`
 
         currentUser: User
 
-        reports: [Report]
+        reports: ReportsResponse
     }
 
     type Mutation {

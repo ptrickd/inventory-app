@@ -10,13 +10,17 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Divider from '@material-ui/core/Divider'
 import Slide from '@material-ui/core/Slide'
-import blueGrey from '@material-ui/core/colors/blueGrey'
-import indigo from '@material-ui/core/colors/indigo'
+
+//Color
+import { TEXT_MENU_COLOR } from '../constants/colors'
 
 //Icons
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
+
+//Components
+import NavbarReportsList from './NavbarReportsList'
 
 interface ICategory {
     id: string
@@ -27,17 +31,17 @@ interface IProps {
     categories: ICategory[]
 }
 
-const textMenuColor = indigo[100]
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
     menu: {
-        color: textMenuColor
+        color: TEXT_MENU_COLOR
     },
     menuIcon: {
-        color: textMenuColor
+        color: TEXT_MENU_COLOR
     },
     subMenu: {
         marginLeft: theme.spacing(2),
-        color: textMenuColor
+        color: TEXT_MENU_COLOR
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar
@@ -82,10 +86,10 @@ const NavbarDrawer = ({ categories }: IProps) => {
                 </Link>
 
                 <span className={classes.menu}>
-                    <ListItem button key='dashboard'>
-                        <ListItemText primary='Reports' />
-                        <ListItemIcon className={classes.menuIcon}><ArrowForwardIcon /></ListItemIcon>
-                    </ListItem>
+                    {/* <ListItem> */}
+                    <NavbarReportsList />
+
+                    {/* </ListItem> */}
                 </span>
 
 
