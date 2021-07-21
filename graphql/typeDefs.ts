@@ -25,6 +25,7 @@ export const typeDefs = gql`
     }
 
     type ReportResponse {
+        id: ID
         userId: String
         date: Date
         products: [ReportProduct]
@@ -37,6 +38,7 @@ export const typeDefs = gql`
     }
 
     type Report {
+        id: ID
         userId: String
         date: Date
         products: [ReportProduct]

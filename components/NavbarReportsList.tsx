@@ -1,5 +1,6 @@
 //React
 import React, { useEffect, Fragment } from 'react'
+import Link from 'next/link'
 
 //Material UI 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
@@ -26,13 +27,13 @@ import { DateTime } from 'luxon'
 interface IReport {
     userId: string
     date: Date
-    // products: [ReportProduct]
 }
 
 const GET_REPORTS = gql`
     query Reports {
         reports {
             reports{
+                id
                 date
             }
             error
@@ -64,14 +65,15 @@ const NavbarReportsList = () => {
     const handleCloseMenu = () => { setAnchorEl(null) }
 
     const renderedReportsMenu = () => {
-        return data?.reports?.reports.map((report: IReport) => {
+        return data?.reports?.reports.map((report: IReport, index: number) => {
+            console.log(report)
             const dateTime = DateTime.fromISO(report.date.toString())
             const year = dateTime.year
             const month = dateTime.month
             const day = dateTime.day
-            return <MenuItem onClick={handleCloseMenu} >
-                {`${year}-${month}-${day} `}
-            </MenuItem>
+            return <MenuItem onClick={handleCloseMenu} key={index}>
+                <Link href={`/report/${report.id}`}>{`${year}-${month}-${day} `}</Link>
+            </MenuItem >
         })
     }
 
