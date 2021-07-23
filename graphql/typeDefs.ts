@@ -11,12 +11,7 @@ export const typeDefs = gql`
         lastAmount: Int
     }
 
-    type Product {
-        id: ID
-        name: String
-        amount: Int
-        categoryId: ID
-    }
+    
 
     type ReportProduct {
         productId: String
@@ -68,14 +63,14 @@ export const typeDefs = gql`
     }
 
     type Query {
-        products: [Product]
-        productsByCategory(categoryId: String): [Product]
+        
         category(categoryId: ID): Category
 
         categories(userId: String): [Category]
 
         currentUser: User
 
+        report(reportId: ID): Report
         reports: ReportsResponse
     }
 

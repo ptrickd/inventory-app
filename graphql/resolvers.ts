@@ -5,13 +5,13 @@ import { Category } from '../models/category.model'
 import Report from '../models/report.model'
 
 //Controller
-import {
-    createProduct,
-    getProducts,
-    getProductsByCategory,
-    editProduct,
-    deleteProduct
-} from '../controllers/product.controller'
+// import {
+//     createProduct,
+//     getProducts,
+//     getProductsByCategory,
+//     editProduct,
+//     deleteProduct
+// } from '../controllers/product.controller'
 import {
     getCategory,
     editCategory,
@@ -31,28 +31,15 @@ interface ICreateReport {
     date: DateTime
     products: IProduct[]
 }
-interface IProduct {
-    id: string
-    name: string
-    amount: number
-    categoryId: string
-}
 
-interface ICreateProduct {
-    name: string
-    amount: number
-    categoryId: string
-}
+
+
 
 interface IIds {
     [propName: string]: string
 }
 
-interface IEditProduct {
-    productId: string
-    name: string
-    categoryId: string
-}
+
 
 interface ICategory {
     categoryId: string
@@ -73,38 +60,6 @@ interface IUser {
 
 export const resolvers = {
     Query: {
-        products: async (_: any, _1: any, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                const products = await getProducts()
-                return products.map(({ id, amount, name, categoryId }: IProduct) => ({
-                    id,
-                    name,
-                    amount,
-                    categoryId
-                }))
-            } catch (err) {
-                console.log(err)
-                return err
-            }
-        },
-        productsByCategory: async (_: any, { categoryId }: IIds, { user }: any) => {
-            try {
-                console.log('getProductsByCategory')
-                const products = await getProductsByCategory(categoryId)
-                if (!products) throw new Error('No products found')
-                return products.map(({ id, amount, name, categoryId }: IProduct) => ({
-                    id,
-                    name,
-                    amount,
-                    categoryId
-                }))
-            }
-            catch (err) {
-                console.log(err)
-                return err
-            }
-        },
         category: async (_: any, { categoryId }: IIds, { user }: any) => {
             try {
                 console.log('categoryId', categoryId)
@@ -147,6 +102,18 @@ export const resolvers = {
             }
 
         },
+        report: async (_: any, { reportId }: IIds, { user }: any) => {
+            try {
+                if (!user) throw new Error('Not Authenticated')
+                const report = await Report.findById(reportId)
+                if (!report) throw new Error('No report found')
+                return report
+            }
+            catch (err) {
+                console.log(err)
+                return { error: err.message }
+            }
+        },
         reports: async (_: any, _1: any, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
@@ -160,41 +127,6 @@ export const resolvers = {
         }
     },
     Mutation: {
-        createProduct: async (_: any, { name, amount, categoryId }: ICreateProduct, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                let product = await createProduct(name, amount, categoryId)
-                return product
-            } catch (err) {
-                console.log(err)
-                return err
-            }
-
-        },
-        editProduct: async (_: any, { productId, name, categoryId }: IEditProduct, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                let product = await editProduct(productId, name, categoryId)
-                if (!product) throw new Error('No product found')
-                return product
-            } catch (err) {
-                console.log(err)
-                return err
-            }
-
-        },
-        deleteProduct: async (_: any, { productId }: IIds, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                let product = await deleteProduct(productId)
-                if (!product) throw new Error('No product found')
-                return product
-            } catch (err) {
-                console.log(err)
-                return err
-            }
-
-        },
         createCategory: async (_: any, { name, userId }: IIds, { user }: any) => {
             try {
                 console.log('createCategory name', name)
