@@ -45,6 +45,12 @@ export const typeDef = `
         products: [Product]
         productsByCategory(categoryId: String): [Product]
     }
+
+    type Mutation {
+        createProduct(name:String, amount:Int, categoryId: String): Product
+        editProduct(productId:ID, name:String, categoryId: String): Product
+        deleteProduct(productId: ID): Product
+    }
 `
 
 export const resolvers = {

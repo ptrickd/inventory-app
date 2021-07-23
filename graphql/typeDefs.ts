@@ -39,11 +39,7 @@ export const typeDefs = gql`
         products: [ReportProduct]
     }
 
-    type Category {
-        id: ID
-        name: String
-        userId: String
-    }
+   
 
     type User {
         id: ID
@@ -63,10 +59,6 @@ export const typeDefs = gql`
     }
 
     type Query {
-        
-        category(categoryId: ID): Category
-
-        categories(userId: String): [Category]
 
         currentUser: User
 
@@ -75,13 +67,6 @@ export const typeDefs = gql`
     }
 
     type Mutation {
-        createProduct(name:String, amount:Int, categoryId: String): Product
-        editProduct(productId:ID, name:String, categoryId: String): Product
-        deleteProduct(productId: ID): Product
-        
-        createCategory(name:String, userId: String): Category
-        editCategory(categoryId:ID, name:String): Category
-        deleteCategory(categoryId:ID): Category
 
         register(email: String!, password: String!): RegisterResponse
         login(email: String!, password: String!): LoginResponse
