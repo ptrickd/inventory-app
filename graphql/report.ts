@@ -52,12 +52,12 @@ export const typeDef = gql`
         products: [ReportProduct]
     }
 
-    type Query {
+    extend type Query {
         report(reportId: ID): Report
         reports: ReportsResponse
     }
 
-    type Mutation {
+    extend type Mutation {
         createReport(date: Date!, products: [InputReportProduct]!): ReportResponse
     }
 `

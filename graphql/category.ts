@@ -31,12 +31,12 @@ export const typeDef = gql`
         userId: String
     }
 
-    type Query {
+    extend type Query {
         category(categoryId: ID): Category
         categories(userId: String): [Category]
     }
 
-    type Mutation {
+    extend type Mutation {
         createCategory(name:String, userId: String): Category
         editCategory(categoryId:ID, name:String): Category
         deleteCategory(categoryId:ID): Category

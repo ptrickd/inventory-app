@@ -26,8 +26,8 @@ export const schema = makeExecutableSchema({
     resolvers: merge(
         productResolver,
         categoryResolver,
-        userResolver,
-        reportResolver
+        reportResolver,
+        userResolver
     )
 
 })

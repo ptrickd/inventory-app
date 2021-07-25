@@ -39,11 +39,11 @@ export const typeDef = `
         error: String
     }
 
-    type Query {
+    extend type Query {
         currentUser: User
     }
 
-    type Mutation {
+    extend type Mutation {
         register(email: String!, password: String!): RegisterResponse
         login(email: String!, password: String!): LoginResponse
 

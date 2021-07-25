@@ -1,6 +1,6 @@
 //GraphQL
 import { ApolloServer } from 'apollo-server-micro'
-import { schema } from './schema'
+import { schema } from '../../../graphql/schema'
 
 //Models 
 import dbConnect from '../../../utils/dbConnect'
