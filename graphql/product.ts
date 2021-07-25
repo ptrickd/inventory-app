@@ -10,6 +10,8 @@ import {
     deleteProduct
 } from '../controllers/product.controller'
 
+dbConnect()
+
 interface IProduct {
     id: string
     name: string

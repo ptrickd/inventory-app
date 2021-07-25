@@ -1,47 +1,15 @@
+//GraphQl
+import { gql } from 'apollo-server'
+
 //Models 
 import dbConnect from '../utils/dbConnect'
 import User from '../models/user.model'
-import { Category } from '../models/category.model'
-import Report from '../models/report.model'
-
-//Controller
-// import {
-//     createProduct,
-//     getProducts,
-//     getProductsByCategory,
-//     editProduct,
-//     deleteProduct
-// } from '../controllers/product.controller'
-// import {
-//     getCategory,
-//     editCategory,
-//     deleteCategory
-// } from '../controllers/category.controller'
 
 //Auth
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-//Time
-import { DateTime } from 'luxon'
-
 dbConnect()
-
-interface ICreateReport {
-    date: DateTime
-    products: IProduct[]
-}
-
-
-
-
-interface IIds {
-    [propName: string]: string
-}
-
-
-
-
 
 interface IRegister {
     email: string
@@ -53,10 +21,37 @@ interface IUser {
     password: String
 }
 
+export const typeDef = `
+    type User {
+        id: ID
+        email: String
+        error: String
+    }
+
+    type LoginResponse {
+        token: String
+        user: User
+        error: String
+    }
+
+    type RegisterResponse {
+        user: User
+        error: String
+    }
+
+    type Query {
+        currentUser: User
+    }
+
+    type Mutation {
+        register(email: String!, password: String!): RegisterResponse
+        login(email: String!, password: String!): LoginResponse
+
+    }
+`
 
 export const resolvers = {
     Query: {
-        
         currentUser: async (_: any, _1: any, { user }: any) => {
             try {
                 if (!user) return null
@@ -69,32 +64,8 @@ export const resolvers = {
             }
 
         },
-        report: async (_: any, { reportId }: IIds, { user }: any) => {
-            try {
-                if (!user) throw new Error('Not Authenticated')
-                const report = await Report.findById(reportId)
-                if (!report) throw new Error('No report found')
-                return report
-            }
-            catch (err) {
-                console.log(err)
-                return { error: err.message }
-            }
-        },
-        reports: async (_: any, _1: any, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                let reports = await Report.find({ userId: user.id })
-                return { reports }
-
-            }
-            catch (err) {
-                return { error: err.message }
-            }
-        }
     },
     Mutation: {
-        
         register: async (_: any, { email, password }: IRegister) => {
 
             try {
@@ -136,20 +107,6 @@ export const resolvers = {
             }
 
         },
-        createReport: async (_: any, { date, products }: ICreateReport, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                let report = await Report.create({
-                    userId: user.id,
-                    date,
-                    products
-                })
-                if (!report) throw new Error("Can't create report")
-                return report
-            } catch (err) {
-                // return { error: err.message }
-                return { error: err.message }
-            }
-        }
     }
+
 }

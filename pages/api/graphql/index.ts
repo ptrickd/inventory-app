@@ -1,8 +1,6 @@
-
 //GraphQL
 import { ApolloServer } from 'apollo-server-micro'
-import { typeDefs } from '../../../graphql/typeDefs'
-import { resolvers } from '../../../graphql/resolvers'
+import { schema } from './schema'
 
 //Models 
 import dbConnect from '../../../utils/dbConnect'
@@ -26,8 +24,7 @@ const getUser = (token: string) => {
 }
 
 const apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema,
     context: ({ req }) => {
         const tokenWithBearer = req.headers.authorization || ''
         const token = tokenWithBearer.split(' ')[1]

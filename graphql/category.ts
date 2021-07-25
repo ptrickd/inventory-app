@@ -3,6 +3,7 @@ import { gql } from 'apollo-server'
 
 //Models
 import dbConnect from '../utils/dbConnect'
+import { Category } from '../models/category.model'
 
 //Controller
 import {
@@ -10,6 +11,8 @@ import {
     editCategory,
     deleteCategory
 } from '../controllers/category.controller'
+
+dbConnect()
 
 interface IIds {
     [propName: string]: string
@@ -21,7 +24,7 @@ interface ICategory {
     userId: string
 }
 
-const typeDefs = gql`
+export const typeDef = gql`
      type Category {
         id: ID
         name: String
