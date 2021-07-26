@@ -15,7 +15,8 @@ interface IProduct {
 const productSchema = new mongoose.Schema<IProduct>({
     productId: String,
     currentAmount: Number,
-    lastAmount: Number
+    lastAmount: Number,
+    name: String,
 })
 
 const reportSchema = new mongoose.Schema<IReport>({
@@ -28,7 +29,15 @@ const reportSchema = new mongoose.Schema<IReport>({
         required: true,
         unique: true
     },
-    products: [productSchema]
+    products: [productSchema],
+    hasBeenSubmitted: {
+        type: Boolean,
+        default: true
+    },
+    dateSubmitted: {
+        type: Date,
+        required: true
+    }
 })
 
 export default mongoose.models.Report || mongoose.model<IReport>('Report', reportSchema)

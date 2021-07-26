@@ -31,10 +31,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function CreateNewReportModal({ open, handleCloseModal }: IProps) {
     const classes = useStyles()
-    const [date, setDate] = useState<DateTime | null>(DateTime.now())
 
-    const handleSelectedDate = (date: DateTime | null) => {
-        console.log('date from datepocker', date)
+    const handleSelectedDate =async  (date: DateTime | null) => {
+        await fetch('/api/graphql')
     }
 
     return (

@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import Typography from '@material-ui/core/Typography'
 
 //Color
 import { TEXT_MENU_COLOR } from '../constants/colors'
@@ -25,6 +26,7 @@ import { gql, useQuery } from '@apollo/client'
 import { DateTime } from 'luxon'
 
 interface IReport {
+    id: string
     userId: string
     date: Date
 }
@@ -65,6 +67,11 @@ const NavbarReportsList = () => {
     const handleCloseMenu = () => { setAnchorEl(null) }
 
     const renderedReportsMenu = () => {
+        if (data?.reports?.reports.length === 0) {
+            return <MenuItem onClick={handleCloseMenu} >
+                <Typography variant="body1">No reports saved</Typography>
+            </MenuItem >
+        }
         return data?.reports?.reports.map((report: IReport, index: number) => {
             console.log(report)
             const dateTime = DateTime.fromISO(report.date.toString())
