@@ -32,7 +32,7 @@ const reportSchema = new mongoose.Schema<IReport>({
     products: [productSchema],
     hasBeenSubmitted: {
         type: Boolean,
-        default: true
+        default: false
     },
     dateSubmitted: {
         type: Date,

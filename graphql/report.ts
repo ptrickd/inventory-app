@@ -5,11 +5,21 @@ import Report from '../models/report.model'
 //GraphQl
 import { gql } from 'apollo-server-micro'
 
+//Time
+import { DateTime } from 'luxon'
+
 dbConnect()
 
+interface IProduct {
+    productId: string
+    currentAmount: number
+    lastAmount: number
+    name: string
+}
 interface ICreateReport {
     date: DateTime
     products: IProduct[]
+    createdDate: DateTime
 }
 
 interface IIds {
@@ -58,7 +68,11 @@ export const typeDef = gql`
     }
 
     extend type Mutation {
-        createReport(date: Date!, products: [InputReportProduct]!): ReportResponse
+        createReport(
+            date: Date!, 
+            products: [InputReportProduct]!,
+            createdDate: Date!
+            ): ReportResponse
     }
 `
 export const resolvers = {
@@ -92,13 +106,14 @@ export const resolvers = {
     Mutation: {
 
 
-        createReport: async (_: any, { date, products }: ICreateReport, { user }: any) => {
+        createReport: async (_: any, { date, products, createdDate }: ICreateReport, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 let report = await Report.create({
                     userId: user.id,
                     date,
-                    products
+                    products,
+                    dateSubmitted: createdDate
                 })
                 if (!report) throw new Error("Can't create report")
                 return report

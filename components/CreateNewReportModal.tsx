@@ -1,5 +1,5 @@
 //React
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 //Component
 import DatePicker from './DatePicker'
@@ -14,6 +14,9 @@ import Button from '@material-ui/core/Button'
 //Time
 import { DateTime } from 'luxon'
 
+//Context
+import { ReportsContext } from '../contexts/ReportsContext'
+import { ProductsContext } from '../contexts/ProductsContext'
 interface IProps {
     open: boolean
     handleCloseModal: () => void
@@ -31,9 +34,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function CreateNewReportModal({ open, handleCloseModal }: IProps) {
     const classes = useStyles()
+    const { addNewReport } = useContext(ReportsContext)
+    const { products } = useContext(ProductsContext)
+    const [selectedDate, setSelectedDate] = useState<null | DateTime>(null)
+    const [currentDate] = useState(DateTime.now())
 
-    const handleSelectedDate =async  (date: DateTime | null) => {
-        await fetch('/api/graphql')
+    const handleSelectedDate = async (date: DateTime | null) => {
+        // console.log('selectedDate', typeof date)
+        setSelectedDate(date)
+    }
+
+    const handleClickCreate = () => {
+        handleCloseModal()
+        if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
+            addNewReport(selectedDate, products, currentDate)
+        }
+
+        //date, products, dateSubmitted
     }
 
     return (
@@ -51,6 +68,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
                     variant="contained"
                     color='primary'
                     fullWidth
+                    onClick={handleClickCreate}
                 >Create</Button>
             </DialogContent>
         </Dialog>
