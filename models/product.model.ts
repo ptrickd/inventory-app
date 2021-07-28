@@ -2,7 +2,8 @@ import mongoose from 'mongoose'
 
 interface IProduct {
     name: String
-    amount: Number
+    currentAmount: Number
+    previousAmount: Number
     categoryId: String
 }
 
@@ -12,7 +13,11 @@ const schema = new mongoose.Schema<IProduct>({
         required: true,
         unique: true
     },
-    amount: {
+    currentAmount: {
+        type: Number,
+        default: 0
+    },
+    previousAmount: {
         type: Number,
         default: 0
     },

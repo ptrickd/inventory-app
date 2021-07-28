@@ -4,18 +4,20 @@ interface IReport {
     userId: String
     date: Date
     products: IProduct[]
+    hasBeenSubmitted: Boolean
+    dateCreated: Date
+    dateSubmitted: Date
 }
 
 interface IProduct {
     productId: String
-    currentAmount: Number
-    lastAmount: Number
+    amount: Number
+    name: Number
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
     productId: String,
-    currentAmount: Number,
-    lastAmount: Number,
+    amount: Number,
     name: String,
 })
 
@@ -33,6 +35,9 @@ const reportSchema = new mongoose.Schema<IReport>({
     hasBeenSubmitted: {
         type: Boolean,
         default: false
+    },
+    dateCreated: {
+        type: Date
     },
     dateSubmitted: {
         type: Date,
