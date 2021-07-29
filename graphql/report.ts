@@ -16,9 +16,14 @@ interface IProduct {
     lastAmount: number
     name: string
 }
+interface IProductInReport {
+    productId: string
+    amount: number
+    name: string
+}
 interface ICreateReport {
     date: DateTime
-    products: IProduct[]
+    products: IProductInReport[]
     createdDate: DateTime
 }
 
@@ -77,12 +82,11 @@ export const typeDef = gql`
 `
 export const resolvers = {
     Query: {
-
-
         report: async (_: any, { reportId }: IIds, { user }: any) => {
             try {
                 if (!user) throw new Error('Not Authenticated')
                 const report = await Report.findById(reportId)
+
                 if (!report) throw new Error('No report found')
                 return report
             }

@@ -40,11 +40,23 @@ interface IProps {
     children: React.ReactNode
 }
 
-interface IProductInReport {
-    productId: string
+interface IProduct {
+    id: string
+    name: string
     currentAmount: number
     lastAmount: number
+    categoryId: string
+}
+
+interface IProductInReport {
+    productId: string
+    amount: number
     name: string
+}
+interface IInputNewReport {
+    selectedDate: DateTime
+    products: IProduct[]
+    currentDate: DateTime
 }
 
 interface IReport {
@@ -60,7 +72,7 @@ interface IContext {
     reports: IReport[]
     addNewReport: (
         selectedDate: DateTime,
-        products: IProduct[],
+        products: IProductInReport[],
         currentDate: DateTime
     ) => void
 }
@@ -77,7 +89,7 @@ const ReportsProvider = ({ children }: IProps) => {
         products: IProductInReport[],
         createdDate: DateTime
     ) => {
-        await createReport(date, products, createdDate)
+        await createReport({ variables: { date, products, createdDate } })
         refetch()
     }
 

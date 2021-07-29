@@ -16,7 +16,8 @@ interface IProps {
 interface IProduct {
     id: string
     name: string
-    amount: number
+    currentAmount: number
+    previousAmount: number
     categoryId: string
 }
 
@@ -54,7 +55,7 @@ const ProductsProvider = ({ children }: IProps) => {
     }, [contextCategoryId, data])
 
     const addProduct = async (product: IProduct) => {
-        await createProduct({ variables: { name: product.name, amount: product.amount, categoryId: product.categoryId } })
+        await createProduct({ variables: { name: product.name, categoryId: product.categoryId } })
         refetch()
     }
 

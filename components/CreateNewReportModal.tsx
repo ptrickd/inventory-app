@@ -47,7 +47,24 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
     const handleClickCreate = () => {
         handleCloseModal()
         if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
-            addNewReport(selectedDate, products, currentDate)
+            let productsForReport: any[] = []
+            let newProduct = {
+                productId: '',
+                amount: 0,
+                name: '',
+                categoryId: ''
+            }
+            products.map(product => {
+                newProduct.productId = product.id
+                newProduct.amount = product.currentAmount
+                newProduct.name = product.name
+                newProduct.categoryId = product.categoryId
+                productsForReport.push(newProduct)
+            })
+
+            ////////////make change to products
+
+            addNewReport(selectedDate, productsForReport, currentDate)
         }
 
         //date, products, dateSubmitted

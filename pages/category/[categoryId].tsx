@@ -111,7 +111,8 @@ const ProductsPage: React.FC = () => {
                 <div>
                     <InputProduct
                         name={product.name}
-                        amount={product.amount}
+                        currentAmount={product.currentAmount}
+                        previousAmount={product.previousAmount}
                         id={product.id}
                         categoryId={product.categoryId}
                         showAmounts={true}

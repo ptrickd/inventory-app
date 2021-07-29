@@ -18,6 +18,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "typeRoots": [
+      "./types"
+    ],
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true

@@ -20,8 +20,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
 type IProduct = {
-    name: string,
-    amount: number
+    name: string
+    currentAmount: number
+    previousAmount: number
     id: string
     categoryId: string
     showAmounts: boolean
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId, showAmounts }) => {
+const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount, id, categoryId, showAmounts }) => {
     const classes = useStyles();
     const { deleteProductApi } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
@@ -67,7 +68,7 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId, showAm
                 id={name}
                 label={'Current'}
                 color="primary"
-                value={amount}
+                value={currentAmount}
                 variant='standard'
                 fullWidth
                 className={classes.textfield}
@@ -78,7 +79,7 @@ const InputProduct: React.FC<IProduct> = ({ name, amount, id, categoryId, showAm
                 id={name}
                 label={'Last'}
                 color="primary"
-                value={amount}
+                value={previousAmount}
                 variant='standard'
                 className={classes.textfield}
             />
