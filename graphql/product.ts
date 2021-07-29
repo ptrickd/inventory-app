@@ -135,6 +135,7 @@ export const resolvers = {
         },
         saveAmountProduct: async (_: any, { productId, updatedAmount }: IIds, { user }: any) => {
             try {
+                console.log('saveAmounProduct')
                 if (!user) throw new Error("Not Authenticated")
                 const product = await Product.findById(productId)
                 if (!product) throw new Error("No product found")

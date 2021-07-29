@@ -19,6 +19,17 @@ import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
+//Graphql
+import { gql, useMutation } from '@apollo/client'
+
+const UPDATE_AMOUNT = gql`
+    mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!){
+        saveAmountProduct(productId: $productId, updatedAmount: $updatedAmount){
+            id
+        }
+    }
+`
+
 type IProduct = {
     name: string
     currentAmount: number
@@ -52,11 +63,21 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
     const classes = useStyles();
     const { deleteProductApi } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
-    const [amount, setAmount] = useState(currentAmount.toString())
+    const [amount, setAmount] = useState(currentAmount)
+    const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
 
 
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
-    const saveProductOnBlur = () => { }
+
+    const saveProductOnBlur = async () => {
+        console.log('id', id)
+        await saveAmountProduct({
+            variables: {
+                productId: id,
+                updatedAmount: amount
+            }
+        })
+    }
 
 
     const bodyWithAmount = () => (
@@ -64,11 +85,11 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
 
             <TextField
 
-                id={name}
+                id={name + 'current'}
                 label={'Current'}
                 color="primary"
-                value={amount}
-                onChange={e => setAmount(e.target.value)}
+                value={amount.toString()}
+                onChange={e => setAmount(parseInt(e.target.value))}
                 onBlur={saveProductOnBlur}
                 variant='standard'
                 fullWidth
@@ -77,7 +98,7 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
             <Divider orientation="vertical" flexItem />
             <TextField
 
-                id={name}
+                id={name + 'previous'}
                 label={'Last'}
                 color="primary"
                 value={previousAmount}
