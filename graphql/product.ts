@@ -1,27 +1,21 @@
 //Models
 import dbConnect from '../utils/dbConnect'
-
-//Controller
-import {
-    createProduct,
-    getProducts,
-    getProductsByCategory,
-    editProduct,
-    deleteProduct
-} from '../controllers/product.controller'
+import Product from '../models/product.model'
 
 dbConnect()
 
 interface IProduct {
     id: string
     name: string
-    amount: number
+    currentAmount: number
+    previousAmount: number
     categoryId: string
 }
 
 interface ICreateProduct {
     name: string
-    amount: number
+    currentAmount: number
+    previousAmount: number
     categoryId: string
 }
 
@@ -39,7 +33,8 @@ export const typeDef = `
     type Product {
         id: ID
         name: String
-        amount: Int
+        currentAmount: Int
+        previousAmount: Int
         categoryId: ID
     }
 
@@ -49,8 +44,8 @@ export const typeDef = `
     }
 
     type Mutation {
-        createProduct(name:String, amount:Int, categoryId: String): Product
-        editProduct(productId:ID, name:String, categoryId: String): Product
+        createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String): Product
+        editProduct(productId:ID, name:String, currentAmount:Int, previousAmount:Int, categoryId: String): Product
         deleteProduct(productId: ID): Product
     }
 `
@@ -59,12 +54,15 @@ export const resolvers = {
     Query: {
         products: async (_: any, _1: any, { user }: any) => {
             try {
+                let products = []
                 if (!user) throw new Error("Not Authenticated")
-                const products = await getProducts()
-                return products.map(({ id, amount, name, categoryId }: IProduct) => ({
+                products = await Product.find({})
+                if (!products) throw new Error("Products not found")
+                return products.map(({ id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
                     id,
                     name,
-                    amount,
+                    currentAmount,
+                    previousAmount,
                     categoryId
                 }))
             } catch (err) {
@@ -75,12 +73,13 @@ export const resolvers = {
         productsByCategory: async (_: any, { categoryId }: IIds, { user }: any) => {
             try {
                 console.log('getProductsByCategory')
-                const products = await getProductsByCategory(categoryId)
+                let products = await Product.find({ categoryId: categoryId })
                 if (!products) throw new Error('No products found')
-                return products.map(({ id, amount, name, categoryId }: IProduct) => ({
+                return products.map(({ id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
                     id,
                     name,
-                    amount,
+                    currentAmount,
+                    previousAmount,
                     categoryId
                 }))
             }
@@ -91,10 +90,10 @@ export const resolvers = {
         },
     },
     Mutation: {
-        createProduct: async (_: any, { name, amount, categoryId }: ICreateProduct, { user }: any) => {
+        createProduct: async (_: any, { name, currentAmount, previousAmount, categoryId }: ICreateProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let product = await createProduct(name, amount, categoryId)
+                let product = await Product.create({ name, currentAmount, previousAmount, categoryId })
                 return product
             } catch (err) {
                 console.log(err)
@@ -105,9 +104,15 @@ export const resolvers = {
         editProduct: async (_: any, { productId, name, categoryId }: IEditProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let product = await editProduct(productId, name, categoryId)
-                if (!product) throw new Error('No product found')
-                return product
+                let editedProduct = await Product.findById(user.id)
+
+                if (!editedProduct) throw new Error('No product found')
+                editedProduct.name = name
+                editedProduct.categoryId = categoryId
+                editedProduct = await editedProduct.save()
+
+                return editedProduct
+
             } catch (err) {
                 console.log(err)
                 return err
@@ -117,9 +122,10 @@ export const resolvers = {
         deleteProduct: async (_: any, { productId }: IIds, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let product = await deleteProduct(productId)
-                if (!product) throw new Error('No product found')
-                return product
+                const deletedProduct = await Product.findOne({ _id: productId })
+                await Product.deleteOne({ _id: productId })
+                if (!deletedProduct) throw new Error('No product found')
+                return deletedProduct
             } catch (err) {
                 console.log(err)
                 return err
