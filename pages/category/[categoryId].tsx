@@ -25,7 +25,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { DateTime } from 'luxon'
 
 //GraphQL
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { GET_CATEGORY } from '../../graphql/queries'
 
 
@@ -81,29 +81,29 @@ const ProductsPage: React.FC = () => {
 
 
     //Get the data from the backend using the categoryId
-    const { data, loading, error, refetch } = useQuery(GET_CATEGORY, {
-        variables: { categoryId: categoryId },
-        skip: !categoryId
-    })
+    const [getCategory, { loading, data }] = useLazyQuery(GET_CATEGORY)
 
     useEffect(() => {
         if (!loggedIn) router.push('/')
     }, [loggedIn])
 
     useEffect(() => {
+        // console.log('data', data)
         if (data) setCategory(data.category)
-        else refetch()
+        else getCategory({ variables: { categoryId: categoryId } })
     }, [data])
 
     // const dateTime = DateTime.local(2017, 5, 15, 8, 30)
     useEffect(() => {
+        // console.log('categoryId', categoryId)
+        // console.log('category', category)
         if (typeof categoryId === 'string' && setCategoryId) setCategoryId(categoryId)
     }, [categoryId])
     /*********************************** */
     const renderedProducts = () => {
 
         if (!products) return null
-        console.log(products)
+        // console.log(products)
         return products.map((product, index) => {
             return <Fragment key={index} >
 
@@ -132,7 +132,6 @@ const ProductsPage: React.FC = () => {
 
 
     if (loading) return <div><h2>Loading...</h2></div>
-    if (error) return <div>`Error! ${error.message}`</div>
 
 
     return (

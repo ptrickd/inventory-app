@@ -47,6 +47,7 @@ export const typeDef = `
         createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String): Product
         editProduct(productId:ID, name:String, currentAmount:Int, previousAmount:Int, categoryId: String): Product
         deleteProduct(productId: ID): Product
+        saveAmountProduct(productId: ID, updatedAmount: Int): Product
     }
 `
 
@@ -104,7 +105,7 @@ export const resolvers = {
         editProduct: async (_: any, { productId, name, categoryId }: IEditProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let editedProduct = await Product.findById(user.id)
+                let editedProduct = await Product.findById(productId)
 
                 if (!editedProduct) throw new Error('No product found')
                 editedProduct.name = name
@@ -122,7 +123,7 @@ export const resolvers = {
         deleteProduct: async (_: any, { productId }: IIds, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                const deletedProduct = await Product.findOne({ _id: productId })
+                const deletedProduct = await Product.findById(productId)
                 await Product.deleteOne({ _id: productId })
                 if (!deletedProduct) throw new Error('No product found')
                 return deletedProduct
@@ -132,5 +133,20 @@ export const resolvers = {
             }
 
         },
+        saveAmountProduct: async (_: any, { productId, updatedAmount }: IIds, { user }: any) => {
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                const product = await Product.findById(productId)
+                if (!product) throw new Error("No product found")
+
+                product.currentAmount = updatedAmount
+                await product.save()
+                return product
+            }
+            catch (err) {
+                console.log(err)
+                return err
+            }
+        }
     }
 }

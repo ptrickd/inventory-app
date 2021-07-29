@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext, Fragment, useEffect } from 'react'
+import React, { useState, useContext, Fragment } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
@@ -52,13 +52,12 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
     const classes = useStyles();
     const { deleteProductApi } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
+    const [amount, setAmount] = useState(currentAmount.toString())
 
 
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
+    const saveProductOnBlur = () => { }
 
-    useEffect(() => {
-        console.log('id in InputProduct', id)
-    }, [])
 
     const bodyWithAmount = () => (
         <Fragment>
@@ -68,7 +67,9 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
                 id={name}
                 label={'Current'}
                 color="primary"
-                value={currentAmount}
+                value={amount}
+                onChange={e => setAmount(e.target.value)}
+                onBlur={saveProductOnBlur}
                 variant='standard'
                 fullWidth
                 className={classes.textfield}

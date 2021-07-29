@@ -37,11 +37,12 @@ export const GET_CURRENT_USER = gql`
 
 //Product
 export const GET_PRODUCTS_BY_CATEGORY = gql`
-    query GetProductsByCategory($categoryId: String){
+    query ProductsByCategory($categoryId: String){
         productsByCategory(categoryId: $categoryId){
             id
             name
-            amount
+            currentAmount
+            previousAmount
             categoryId
         }
     }
@@ -51,7 +52,6 @@ export const CREATE_PRODUCT = gql`
         createProduct(name: $name, amount: $amount, categoryId: $categoryId){
             id
             name
-            amount
         }
     }
 `
@@ -68,7 +68,6 @@ export const EDIT_PRODUCT = gql`
         editProduct(productId: $productId, name: $name, categoryId: $categoryId){
             id
             name
-            amount
             categoryId
         }
     }

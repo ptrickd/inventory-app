@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect } from 'react'
 
 //GraphQL
-import { useQuery, useMutation } from '@apollo/client'
+import { useMutation, useLazyQuery } from '@apollo/client'
 import {
     GET_PRODUCTS_BY_CATEGORY,
     CREATE_PRODUCT, DELETE_PRODUCT,
@@ -36,10 +36,7 @@ const ProductsProvider = ({ children }: IProps) => {
     const [contextCategoryId, setCategoryId]: [string, (categoryId: string) => void] = useState('')
     const [products, setProducts] = useState<IProduct[]>([])
 
-    const { data, loading, error, refetch } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
-        variables: { categoryId: contextCategoryId },
-        skip: !contextCategoryId.length
-    })
+    const [getProducts, { data }] = useLazyQuery(GET_PRODUCTS_BY_CATEGORY)
     const [createProduct] = useMutation(CREATE_PRODUCT)
     const [deleteProduct] = useMutation(DELETE_PRODUCT)
     const [editProduct] = useMutation(EDIT_PRODUCT)
@@ -47,23 +44,26 @@ const ProductsProvider = ({ children }: IProps) => {
 
     useEffect(() => {
         console.log('contextCategoryId', contextCategoryId)
-        // console.log('data', data)
+        console.log('data', data)
         if (contextCategoryId.length && data) {
             console.log('getProductsByCategory', data.productsByCategory)
             setProducts(data.productsByCategory)
+        } else if (contextCategoryId?.length && !data) {
+            console.log('getProducts')
+            getProducts({ variables: { categoryId: contextCategoryId } })
         }
     }, [contextCategoryId, data])
 
     const addProduct = async (product: IProduct) => {
         await createProduct({ variables: { name: product.name, categoryId: product.categoryId } })
-        refetch()
+        getProducts({ variables: { categoryId: contextCategoryId } })
     }
 
     const deleteProductApi = async (productId: string) => {
         console.log('productId:', productId)
         await deleteProduct({ variables: { productId: productId } })
 
-        refetch()
+        getProducts({ variables: { categoryId: contextCategoryId } })
     }
 
     const editProductApi = async (productId: string, productName: string, categoryId: string) => {
@@ -71,11 +71,10 @@ const ProductsProvider = ({ children }: IProps) => {
         console.log('productName:', productName)
         console.log('categoryId:', categoryId)
         await editProduct({ variables: { productId, name: productName, categoryId } })
-        refetch()
+        getProducts({ variables: { categoryId: contextCategoryId } })
     }
 
-    if (loading) return <div><h2>Loading...</h2></div>
-    if (error) return <div>`Error!hh ${error.message}`</div>
+    // if (loading) return <div><h2>Loading...</h2></div>
     return (
         <ProductsContext.Provider value={{
             products,
