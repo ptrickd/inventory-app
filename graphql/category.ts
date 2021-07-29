@@ -5,13 +5,6 @@ import { gql } from 'apollo-server'
 import dbConnect from '../utils/dbConnect'
 import { Category } from '../models/category.model'
 
-//Controller
-import {
-    getCategory,
-    editCategory,
-    deleteCategory
-} from '../controllers/category.controller'
-
 dbConnect()
 
 interface IIds {
@@ -49,7 +42,7 @@ export const resolvers = {
             try {
                 console.log('categoryId', categoryId)
                 if (!user) throw new Error("Not Authenticated")
-                const category = await getCategory(categoryId)
+                let category = await Category.findById(categoryId)
 
                 if (!category) throw new Error("No Category Found");
 
@@ -96,8 +89,10 @@ export const resolvers = {
         editCategory: async (_: any, { categoryId, name }: ICategory, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let editedCategory = await editCategory(categoryId, name)
+                let editedCategory = await Category.findById(categoryId)
                 if (!editedCategory) throw new Error("No Category Found")
+                editedCategory.name = name
+                editedCategory = await editedCategory.save()
                 return editedCategory
             } catch (err) {
                 console.log(err)
@@ -108,8 +103,9 @@ export const resolvers = {
         deleteCategory: async (_: any, { categoryId }: IIds, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let deletedCategory = await deleteCategory(categoryId)
+                let deletedCategory = await Category.findById(categoryId)
                 if (!deletedCategory) throw new Error("No Category Found")
+                await Category.deleteOne({ _id: categoryId })
                 return deletedCategory
             } catch (err) {
                 console.log(err)
