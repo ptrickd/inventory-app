@@ -66,7 +66,6 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
     const [amount, setAmount] = useState(currentAmount)
     const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
 
-
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
 
     const saveProductOnBlur = async () => {
@@ -78,7 +77,6 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
             }
         })
     }
-
 
     const bodyWithAmount = () => (
         <Fragment>
@@ -132,9 +130,6 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
                 <IconButton onClick={e => { if (deleteProductApi !== undefined) deleteProductApi(id) }}>
                     <DeleteIcon />
                 </IconButton>
-
-
-
 
             </FormControl >
             <EditProductForm

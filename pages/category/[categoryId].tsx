@@ -82,22 +82,24 @@ const ProductsPage: React.FC = () => {
 
     //Get the data from the backend using the categoryId
     const [getCategory, { loading, data }] = useLazyQuery(GET_CATEGORY)
-
+    //Redirect to homepage if not login
     useEffect(() => {
         if (!loggedIn) router.push('/')
     }, [loggedIn])
 
     useEffect(() => {
         // console.log('data', data)
-        if (data) setCategory(data.category)
+        if (categoryId && data?.category.id === categoryId) setCategory(data.category)
         else getCategory({ variables: { categoryId: categoryId } })
-    }, [data])
+    }, [data, categoryId])
 
     // const dateTime = DateTime.local(2017, 5, 15, 8, 30)
     useEffect(() => {
         // console.log('categoryId', categoryId)
-        // console.log('category', category)
-        if (typeof categoryId === 'string' && setCategoryId) setCategoryId(categoryId)
+        // console.log('category', category.name)
+        if (typeof categoryId === 'string' && setCategoryId) {
+            setCategoryId(categoryId)
+        }
     }, [categoryId])
     /*********************************** */
     const renderedProducts = () => {
@@ -106,7 +108,6 @@ const ProductsPage: React.FC = () => {
         // console.log(products)
         return products.map((product, index) => {
             return <Fragment key={index} >
-
 
                 <div>
                     <InputProduct
@@ -128,11 +129,7 @@ const ProductsPage: React.FC = () => {
     const handleCloseAddProductForm = () => setOpenAddProductModal(false)
     const handleCloseEditCategoryForm = () => setOpenEditCategoryModal(false)
 
-
-
-
     if (loading) return <div><h2>Loading...</h2></div>
-
 
     return (
         <div className={classes.root}>

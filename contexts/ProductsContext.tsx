@@ -36,23 +36,22 @@ const ProductsProvider = ({ children }: IProps) => {
     const [contextCategoryId, setCategoryId]: [string, (categoryId: string) => void] = useState('')
     const [products, setProducts] = useState<IProduct[]>([])
 
-    const [getProducts, { data }] = useLazyQuery(GET_PRODUCTS_BY_CATEGORY)
+    const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS_BY_CATEGORY)
     const [createProduct] = useMutation(CREATE_PRODUCT)
     const [deleteProduct] = useMutation(DELETE_PRODUCT)
     const [editProduct] = useMutation(EDIT_PRODUCT)
 
-
     useEffect(() => {
-        console.log('contextCategoryId', contextCategoryId)
-        console.log('data', data)
-        if (contextCategoryId.length && data) {
-            console.log('getProductsByCategory', data.productsByCategory)
-            setProducts(data.productsByCategory)
-        } else if (contextCategoryId?.length && !data) {
-            console.log('getProducts')
+        if (contextCategoryId.length) {
             getProducts({ variables: { categoryId: contextCategoryId } })
         }
-    }, [contextCategoryId, data])
+    }, [contextCategoryId])
+
+    useEffect(() => {
+        if (data) {
+            setProducts(data.productsByCategory)
+        }
+    }, [data])
 
     const addProduct = async (product: IProduct) => {
         await createProduct({ variables: { name: product.name, categoryId: product.categoryId } })
@@ -74,7 +73,7 @@ const ProductsProvider = ({ children }: IProps) => {
         getProducts({ variables: { categoryId: contextCategoryId } })
     }
 
-    // if (loading) return <div><h2>Loading...</h2></div>
+    if (loading) return <div><h2>Loading...</h2></div>
     return (
         <ProductsContext.Provider value={{
             products,
