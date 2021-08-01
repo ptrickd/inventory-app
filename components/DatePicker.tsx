@@ -26,6 +26,7 @@ const DatePicker = ({ handleSelectedDate }: IProps) => {
     const classes = useStyles()
 
     useEffect(() => {
+        console.log(selectedDate)
         handleSelectedDate(selectedDate)
     }, [selectedDate])
 

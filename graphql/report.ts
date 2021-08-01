@@ -37,14 +37,14 @@ export const typeDef = gql`
 
     input InputReportProduct {
         productId: String
-        currentAmount: Int
-        lastAmount: Int
+        amount: Int
+        name: String
     }
 
     type ReportProduct {
         productId: String
-        currentAmount: Int
-        lastAmount: Int
+        amount: Int
+        name: String
     }
 
     type ReportResponse {

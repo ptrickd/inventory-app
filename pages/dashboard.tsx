@@ -86,7 +86,7 @@ function Dashboard() {
                             <AddIcon />
                         </IconButton>
                         <ListItemText
-                            primary='Create New Inventory Report'
+                            primary='Save Inventory Report'
                         />
 
                     </ListItem>

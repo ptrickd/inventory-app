@@ -87,6 +87,7 @@ const ProductsPage: React.FC = () => {
         if (!loggedIn) router.push('/')
     }, [loggedIn])
 
+
     useEffect(() => {
         // console.log('data', data)
         if (categoryId && data?.category.id === categoryId) setCategory(data.category)
@@ -155,15 +156,7 @@ const ProductsPage: React.FC = () => {
 
             <hr />
             {renderedProducts()}
-            <span>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    className={classes.button}
-                >
-                    Submit</Button>
 
-            </span>
             <Button
                 variant="contained"
                 color="primary"

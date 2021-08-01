@@ -30,13 +30,13 @@ const UPDATE_AMOUNT = gql`
     }
 `
 
-type IProduct = {
+type IProps = {
     name: string
     currentAmount: number
     previousAmount: number
     id: string
     categoryId: string
-    showAmounts: boolean
+    showAmount: boolean
 }
 
 
@@ -59,23 +59,35 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount, id, categoryId, showAmounts }) => {
+const InputProduct: React.FC<IProps> = ({ name, currentAmount, previousAmount, id, categoryId, showAmounts }) => {
     const classes = useStyles();
-    const { deleteProductApi } = useContext(ProductsContext)
+    const { products, updateProducts, deleteProductApi } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
-    const [amount, setAmount] = useState(currentAmount)
+    const [amount, setAmount] = useState(currentAmount.toString())
     const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
 
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
 
     const saveProductOnBlur = async () => {
         console.log('id', id)
+
         await saveAmountProduct({
             variables: {
                 productId: id,
-                updatedAmount: amount
+                updatedAmount: parseInt(amount)
             }
         })
+        let newProductsList = products?.map((product: IProduct) => {
+
+            if (product.id === id) {
+                console.log(product)
+                let newProduct = JSON.parse(JSON.stringify(product))
+                return Object.assign(newProduct, { currentAmount: parseInt(amount) })
+            }
+            return product
+
+        })
+        if (updateProducts && newProductsList) updateProducts(newProductsList)
     }
 
     const bodyWithAmount = () => (
@@ -86,8 +98,8 @@ const InputProduct: React.FC<IProduct> = ({ name, currentAmount, previousAmount,
                 id={name + 'current'}
                 label={'Current'}
                 color="primary"
-                value={amount.toString()}
-                onChange={e => setAmount(parseInt(e.target.value))}
+                value={amount}
+                onChange={e => setAmount(e.target.value)}
                 onBlur={saveProductOnBlur}
                 variant='standard'
                 fullWidth

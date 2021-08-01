@@ -23,10 +23,12 @@ interface IProduct {
 
 interface IContext {
     products: IProduct[]
+    updateProducts: (list: IProduct[]) => void
     setCategoryId: (categoryId: string) => void
     addProduct: (product: IProduct) => void
     deleteProductApi: (productId: string) => void
     editProductApi: (productId: string, productName: string, categoryId: string) => void
+
 }
 
 const ProductsContext = createContext<Partial<IContext>>({})
@@ -34,7 +36,7 @@ const ProductsContext = createContext<Partial<IContext>>({})
 const ProductsProvider = ({ children }: IProps) => {
 
     const [contextCategoryId, setCategoryId]: [string, (categoryId: string) => void] = useState('')
-    const [products, setProducts] = useState<IProduct[]>([])
+    const [products, setProducts] = useState<IProduct[] | []>([])
 
     const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS_BY_CATEGORY)
     const [createProduct] = useMutation(CREATE_PRODUCT)
@@ -52,6 +54,10 @@ const ProductsProvider = ({ children }: IProps) => {
             setProducts(data.productsByCategory)
         }
     }, [data])
+
+    const updateProducts = (list: IProduct[]) => {
+        setProducts(list)
+    }
 
     const addProduct = async (product: IProduct) => {
         await createProduct({ variables: { name: product.name, categoryId: product.categoryId } })
@@ -77,6 +83,7 @@ const ProductsProvider = ({ children }: IProps) => {
     return (
         <ProductsContext.Provider value={{
             products,
+            updateProducts,
             setCategoryId,
             addProduct,
             deleteProductApi,

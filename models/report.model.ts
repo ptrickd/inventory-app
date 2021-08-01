@@ -12,7 +12,7 @@ interface IReport {
 interface IProduct {
     productId: String
     amount: Number
-    name: Number
+    name: String
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
