@@ -36,7 +36,7 @@ type IProps = {
     previousAmount: number
     id: string
     categoryId: string
-    showAmount: boolean
+    showAmounts: boolean
 }
 
 

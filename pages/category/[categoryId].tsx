@@ -29,12 +29,13 @@ import { useLazyQuery } from '@apollo/client'
 import { GET_CATEGORY } from '../../graphql/queries'
 
 
-// interface IProduct {
-//     id: string
-//     name: string
-//     amount: number
-//     categoryId: string
-// }
+interface IProduct {
+    id: string
+    name: string
+    currentAmount: number
+    previousAmount: number
+    categoryId: string
+}
 
 interface ICategory {
     id: string
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const ProductsPage: React.FC = () => {
 
-    const { products, setCategoryId } = useContext(ProductsContext)
+    const { productsByCategory, setCategoryId } = useContext(ProductsContext)
     const { loggedIn } = useContext(UserContext)
     const classes = useStyles()
     const router = useRouter()
@@ -104,6 +105,10 @@ const ProductsPage: React.FC = () => {
     }, [categoryId])
     /*********************************** */
     const renderedProducts = () => {
+        let products: IProduct[] | [] = []
+        if (productsByCategory !== undefined) {
+            products = productsByCategory()
+        }
 
         if (!products) return null
         // console.log(products)

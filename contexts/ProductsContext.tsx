@@ -2,12 +2,22 @@
 import React, { createContext, useState, useEffect } from 'react'
 
 //GraphQL
-import { useMutation, useLazyQuery } from '@apollo/client'
-import {
-    GET_PRODUCTS_BY_CATEGORY,
-    CREATE_PRODUCT, DELETE_PRODUCT,
-    EDIT_PRODUCT
-} from '../graphql/queries'
+import { gql, useMutation, useLazyQuery } from '@apollo/client'
+import { CREATE_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT } from '../graphql/queries'
+import { Category } from '../types/types'
+
+//Queries
+const GET_PRODUCTS = gql`
+    query Product{
+        products{
+            id
+            name
+            currentAmount
+            previousAmount
+            categoryId
+        }
+    }
+`
 
 interface IProps {
     children: React.ReactNode
@@ -23,6 +33,7 @@ interface IProduct {
 
 interface IContext {
     products: IProduct[]
+    productsByCategory: () => IProduct[] | []
     updateProducts: (list: IProduct[]) => void
     setCategoryId: (categoryId: string) => void
     addProduct: (product: IProduct) => void
@@ -38,25 +49,39 @@ const ProductsProvider = ({ children }: IProps) => {
     const [contextCategoryId, setCategoryId]: [string, (categoryId: string) => void] = useState('')
     const [products, setProducts] = useState<IProduct[] | []>([])
 
-    const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS_BY_CATEGORY)
+    const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS)
     const [createProduct] = useMutation(CREATE_PRODUCT)
     const [deleteProduct] = useMutation(DELETE_PRODUCT)
     const [editProduct] = useMutation(EDIT_PRODUCT)
 
     useEffect(() => {
         if (contextCategoryId.length) {
-            getProducts({ variables: { categoryId: contextCategoryId } })
+            getProducts()
         }
     }, [contextCategoryId])
 
     useEffect(() => {
         if (data) {
-            setProducts(data.productsByCategory)
+            setProducts(data.products)
         }
     }, [data])
 
     const updateProducts = (list: IProduct[]) => {
         setProducts(list)
+    }
+
+    const productsByCategory = () => {
+        let productsToReturn: IProduct[] | [] = []
+        console.log('products', products)
+        console.log('contextCategoryId', contextCategoryId)
+        // console.log('pro', pro)
+        if (contextCategoryId.length) {
+            productsToReturn = products.filter(product => product.categoryId === contextCategoryId)
+        }
+
+
+        console.log('productsToReturn', productsToReturn)
+        return productsToReturn
     }
 
     const addProduct = async (product: IProduct) => {
@@ -83,6 +108,7 @@ const ProductsProvider = ({ children }: IProps) => {
     return (
         <ProductsContext.Provider value={{
             products,
+            productsByCategory,
             updateProducts,
             setCategoryId,
             addProduct,
