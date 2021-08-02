@@ -41,12 +41,19 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
 
     const handleSelectedDate = async (date: DateTime | null) => {
         // console.log('selectedDate', typeof date)
+        // console.log('currentDate', typeof currentDate)
         setSelectedDate(date)
+
     }
 
-    const handleClickCreate = () => {
-        handleCloseModal()
+    const handleClickCreate = async () => {
+        // console.log('selectedDate', selectedDate)
+        console.log('products:', products)
+
+        // console.log('addNewReport', typeof addNewReport)
+
         if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
+            console.log('in the if newReportModal')
             let productsForReport: any[] = []
             let newProduct = {
                 productId: '',
@@ -61,11 +68,12 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
                 newProduct.categoryId = product.categoryId
                 productsForReport.push(newProduct)
             })
-
+            console.log('productsForReport:', productsForReport)
             ////////////make change to products
 
-            addNewReport(selectedDate, productsForReport, currentDate)
+            await addNewReport(selectedDate, productsForReport, currentDate)
         }
+        handleCloseModal()
 
         //date, products, dateSubmitted
     }

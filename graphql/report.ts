@@ -112,6 +112,7 @@ export const resolvers = {
 
         createReport: async (_: any, { date, products, createdDate }: ICreateReport, { user }: any) => {
             try {
+
                 if (!user) throw new Error("Not Authenticated")
                 let report = await Report.create({
                     userId: user.id,
@@ -122,6 +123,7 @@ export const resolvers = {
                 if (!report) throw new Error("Can't create report")
                 return report
             } catch (err) {
+                console.log('createReport mutation')
                 // return { error: err.message }
                 return { error: err.message }
             }

@@ -8,6 +8,7 @@ import ComponentWrapper from '../components/ComponentWrapper'
 //Context API
 import { ProductsProvider } from '../contexts/ProductsContext'
 import { UserProvider } from '../contexts/UserContext'
+import { ReportsProvider } from '../contexts/ReportsContext'
 
 //GraphQL
 import { ApolloProvider } from "@apollo/client";
@@ -23,15 +24,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <UserProvider>
-        <ProductsProvider>
-          <Head>
-            <title>The App Inventory</title>
-          </Head>
-          <Navbar />
-          <ComponentWrapper>
-            <Component {...pageProps} />
-          </ComponentWrapper>
-        </ProductsProvider>
+        <ReportsProvider>
+          <ProductsProvider>
+            <Head>
+              <title>The App Inventory</title>
+            </Head>
+            <Navbar />
+            <ComponentWrapper>
+              <Component {...pageProps} />
+            </ComponentWrapper>
+          </ProductsProvider>
+        </ReportsProvider>
       </UserProvider>
     </ApolloProvider >
   )

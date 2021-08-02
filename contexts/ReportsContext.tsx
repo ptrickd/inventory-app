@@ -1,8 +1,8 @@
 //React
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 //GraphQL
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 
 //Date
 import { DateTime } from 'luxon'
@@ -55,7 +55,7 @@ interface IProductInReport {
 }
 interface IInputNewReport {
     selectedDate: DateTime
-    products: IProduct[]
+    products: IProduct[] | []
     currentDate: DateTime
 }
 
@@ -63,7 +63,7 @@ interface IReport {
     id: string
     userId: string
     date: DateTime
-    products: IProductInReport[]
+    products: IProductInReport[] | []
     hasBeenSubmitted: boolean
     dateCreated: DateTime
     dateSubmitted: DateTime
@@ -80,21 +80,29 @@ interface IContext {
 const ReportsContext = createContext<Partial<IContext>>({})
 
 const ReportsProvider = ({ children }: IProps) => {
+    const [reports, setReports] = useState<IReport[] | undefined>(undefined)
     const [createReport] = useMutation(CREATE_REPORT)
-    const { data, loading, error, refetch } = useQuery(GET_REPORTS)
-    const reports = data.reports.reports
+    const [getReports, { data, loading }] = useLazyQuery(GET_REPORTS)
 
+    useEffect(() => {
+        if (data) setReports(data?.reports?.report)
+    }, [data])
+    useEffect(() => {
+        getReports()
+    }, [])
     const addNewReport = async (
         date: DateTime,
-        products: IProductInReport[],
+        products: IProductInReport[] | [],
         createdDate: DateTime
     ) => {
-        await createReport({ variables: { date, products, createdDate } })
-        refetch()
+        console.log(products)
+        let resp = await createReport({ variables: { date, products, createdDate } })
+        console.log('response from createReport:', resp)
+        getReports()
     }
 
     if (loading) return <div><h2>Loading...</h2></div>
-    if (error) return <div>`Error!hh ${error.message}` </div>
+
     return (
         <ReportsContext.Provider value={{
             reports,
