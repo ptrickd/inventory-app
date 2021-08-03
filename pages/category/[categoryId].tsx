@@ -95,10 +95,7 @@ const ProductsPage: React.FC = () => {
         else getCategory({ variables: { categoryId: categoryId } })
     }, [data, categoryId])
 
-    // const dateTime = DateTime.local(2017, 5, 15, 8, 30)
     useEffect(() => {
-        // console.log('categoryId', categoryId)
-        // console.log('category', category.name)
         if (typeof categoryId === 'string' && setCategoryId) {
             setCategoryId(categoryId)
         }
@@ -112,7 +109,7 @@ const ProductsPage: React.FC = () => {
 
         if (!products) return null
         // console.log(products)
-        return products.map((product, index) => {
+        return products.map((product: IProduct, index: number) => {
             return <Fragment key={index} >
 
                 <div>
@@ -155,7 +152,6 @@ const ProductsPage: React.FC = () => {
                 <Typography
                     variant="h6"
                 >
-                    {/* Some Date{dateTime.toLocaleString()} */}
                 </Typography>
             </div>
 

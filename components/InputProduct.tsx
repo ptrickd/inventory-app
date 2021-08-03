@@ -39,6 +39,13 @@ type IProps = {
     showAmounts: boolean
 }
 
+interface IProduct {
+    id: string
+    name: string
+    currentAmount: number
+    previousAmount: number
+    categoryId: string
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -78,15 +78,9 @@ function report() {
                         <Typography variant="body2">
                             {product.amount}
                         </Typography>
-                        {/* <Typography variant="body2">
-                                {product.categoryId}
-                            </Typography> */}
                     </div>
-
-
                 )
             }
-
         })
     }
     const renderedReport = () => {
@@ -98,9 +92,7 @@ function report() {
                 </Typography>
                 {productsByCategory(category.id)}
             </div>
-
         })
-
     }
 
     return (
