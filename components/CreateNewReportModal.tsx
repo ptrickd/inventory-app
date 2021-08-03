@@ -62,14 +62,15 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
                 categoryId: ''
             }
             products.map(product => {
+                console.log('product mapping', product)
                 newProduct.productId = product.id
                 newProduct.amount = product.currentAmount
                 newProduct.name = product.name
                 newProduct.categoryId = product.categoryId
-                productsForReport.push(newProduct)
+                productsForReport.push({ ...newProduct })
             })
             console.log('productsForReport:', productsForReport)
-            ////////////make change to products
+
 
             await addNewReport(selectedDate, productsForReport, currentDate)
         }

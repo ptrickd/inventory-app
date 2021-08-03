@@ -55,9 +55,9 @@ const ProductsProvider = ({ children }: IProps) => {
     const [editProduct] = useMutation(EDIT_PRODUCT)
 
     useEffect(() => {
-        if (contextCategoryId.length) {
-            getProducts()
-        }
+
+        getProducts()
+
     }, [contextCategoryId])
 
     useEffect(() => {
@@ -65,6 +65,7 @@ const ProductsProvider = ({ children }: IProps) => {
             setProducts(data.products)
         }
     }, [data])
+
 
     const updateProducts = (list: IProduct[]) => {
         setProducts(list)
