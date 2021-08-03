@@ -19,8 +19,19 @@ const GET_REPORT = gql`
                 id  
                 products{
                     productId
-                    lastAmount
+                    name
+                    amount
+                    categoryId
                 }
+        }
+    }
+`
+
+const GET_CATEGORIES = gql`
+    query Categories{
+        categories{
+            id
+            name
         }
     }
 `
@@ -28,7 +39,12 @@ const GET_REPORT = gql`
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'column'
+    },
+    dataFormat: {
+        display: 'flex',
+        flexDirection: 'row'
     }
 }))
 
@@ -41,13 +57,50 @@ function report() {
         variables: { reportId: reportId },
         skip: !reportId
     })
+    const {
+        data: dataCategories,
+        loading: loadingCategories,
+        error: errorCategories
+    } = useQuery(GET_CATEGORIES)
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error...</p>
+    if (loading || loadingCategories) return <p>Loading...</p>
+    if (error || errorCategories) return <p>Error...</p>
     if (!data) return <p>No data...</p>
+    const productsByCategory = (categoryId: string) => {
+        return data.report.products.map((product: any) => {
 
+            if (categoryId === product.categoryId) {
+                return (
+                    <div key={product.productId} className={classes.dataFormat}>
+                        <Typography variant="body2">
+                            {product.name}
+                        </Typography>
+                        <Typography variant="body2">
+                            {product.amount}
+                        </Typography>
+                        {/* <Typography variant="body2">
+                                {product.categoryId}
+                            </Typography> */}
+                    </div>
+
+
+                )
+            }
+
+        })
+    }
     const renderedReport = () => {
-        data.report.products.map((product: any) => console.log(product))
+        console.log('dataCategories', dataCategories)
+        return dataCategories.categories.map((category: any) => {
+            return <div>
+                <Typography variant="h5">
+                    {category.name}
+                </Typography>
+                {productsByCategory(category.id)}
+            </div>
+
+        })
+
     }
 
     return (
@@ -56,6 +109,7 @@ function report() {
                 variant='h3'
             >
                 Report
+
 
             </Typography>
             {renderedReport()}

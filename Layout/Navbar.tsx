@@ -93,7 +93,6 @@ const Navbar = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     const { data, loading, error } = useQuery(GET_CATEGORIES, {
-        variables: { userId: currentUser?.id },
         skip: !loggedIn
     })
     if (loading) return null

@@ -26,7 +26,7 @@ export const typeDef = gql`
 
     extend type Query {
         category(categoryId: ID): Category
-        categories(userId: String): [Category]
+        categories: [Category]
     }
 
     extend type Mutation {
@@ -53,11 +53,11 @@ export const resolvers = {
                 return err
             }
         },
-        categories: async (_: any, { userId }: IIds, { user }: any) => {
+        categories: async (_: any, _1: any, { user }: any) => {
             try {
                 console.log('in getCategories')
                 if (!user) throw new Error("Not Authenticated")
-                const categories = await Category.find({ userId })
+                const categories = await Category.find({ userId: user.id })
                 if (!categories) throw new Error("No Categories Found")
                 return categories.map(({ id, name, userId }) => ({
                     id, name, userId

@@ -75,8 +75,8 @@ export const EDIT_PRODUCT = gql`
 
 //Category
 export const GET_CATEGORIES = gql`
-    query GetCategories($userId: String!){
-        categories (userId: $userId){
+    query GetCategories{
+        categories{
                 id
                 name
         }
