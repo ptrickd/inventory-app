@@ -13,12 +13,14 @@ interface IProduct {
     productId: String
     amount: Number
     name: String
+    categoryId: String
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
     productId: String,
     amount: Number,
     name: String,
+    categoryId: String
 })
 
 const reportSchema = new mongoose.Schema<IReport>({

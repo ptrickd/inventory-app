@@ -24,8 +24,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <UserProvider>
-        <ReportsProvider>
-          <ProductsProvider>
+        <ProductsProvider>
+          <ReportsProvider>
             <Head>
               <title>The App Inventory</title>
             </Head>
@@ -33,8 +33,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             <ComponentWrapper>
               <Component {...pageProps} />
             </ComponentWrapper>
-          </ProductsProvider>
-        </ReportsProvider>
+          </ReportsProvider>
+        </ProductsProvider>
       </UserProvider>
     </ApolloProvider >
   )

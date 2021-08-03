@@ -15,15 +15,16 @@ const GET_REPORTS = gql`
                 id
             }
         }
+        
     }
 `
 
 //Mutation
 const CREATE_REPORT = gql`
     mutation CreateReport(
-        $date: Date, 
+        $date: timestamptz,
         $products: [InputReportProduct], 
-        $createdDate: Date
+        $createdDate: timestamptz
         ){
             createReport(
                 date: $date, 
@@ -31,6 +32,7 @@ const CREATE_REPORT = gql`
                 createdDate: $createdDate
                 ){
                 id
+                error
             }
         }
 `
@@ -52,6 +54,7 @@ interface IProductInReport {
     productId: string
     amount: number
     name: string
+    categoryId: string
 }
 interface IInputNewReport {
     selectedDate: DateTime
@@ -76,7 +79,7 @@ interface IContext {
         currentDate: DateTime
     ) => void
 }
-
+//DateTime.fromISO(datetime, { zone: 'utc-6' }).toString() -7
 const ReportsContext = createContext<Partial<IContext>>({})
 
 const ReportsProvider = ({ children }: IProps) => {
@@ -95,9 +98,10 @@ const ReportsProvider = ({ children }: IProps) => {
         products: IProductInReport[] | [],
         createdDate: DateTime
     ) => {
-        console.log(products)
-        let resp = await createReport({ variables: { date, products, createdDate } })
-        console.log('response from createReport:', resp)
+        // console.log('productsOnCreation', products)
+        let resp = await createReport({ variables: { date: date.toJSDate(), products, createdDate: createdDate.toJSDate() } })
+        // console.log('response from createReport:', resp)
+        // console.log('datetime local:', typeof date.toJSDate())
         getReports()
     }
 

@@ -33,24 +33,26 @@ interface IIds {
 
 export const typeDef = gql`
 
-    scalar Date
+    scalar timestamptz
 
     input InputReportProduct {
         productId: String
         amount: Int
         name: String
+        categoryId: String
     }
 
     type ReportProduct {
         productId: String
         amount: Int
         name: String
+        categoryId: String
     }
 
     type ReportResponse {
         id: ID
         userId: String
-        date: Date
+        date: timestamptz
         products: [ReportProduct]
         error: String
     }
@@ -63,7 +65,7 @@ export const typeDef = gql`
     type Report {
         id: ID
         userId: String
-        date: Date
+        date: timestamptz
         products: [ReportProduct]
     }
 
@@ -74,9 +76,9 @@ export const typeDef = gql`
 
     extend type Mutation {
         createReport(
-            date: Date!, 
-            products: [InputReportProduct]!,
-            createdDate: Date!
+            date: timestamptz, 
+            products: [InputReportProduct],
+            createdDate: timestamptz
             ): ReportResponse
     }
 `

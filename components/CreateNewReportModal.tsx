@@ -50,7 +50,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
         // console.log('selectedDate', selectedDate)
         console.log('products:', products)
 
-        // console.log('addNewReport', typeof addNewReport)
+        // console.log('date variable', currentDate.toJSDate())
 
         if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
             console.log('in the if newReportModal')
@@ -75,7 +75,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
         }
         handleCloseModal()
 
-        //date, products, dateSubmitted
+
     }
 
     return (

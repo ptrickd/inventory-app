@@ -72,8 +72,8 @@ const ProductsProvider = ({ children }: IProps) => {
 
     const productsByCategory = () => {
         let productsToReturn: IProduct[] | [] = []
-        console.log('products', products)
-        console.log('contextCategoryId', contextCategoryId)
+        // console.log('products', products)
+        // console.log('contextCategoryId', contextCategoryId)
         // console.log('pro', pro)
         if (contextCategoryId.length) {
             productsToReturn = products.filter(product => product.categoryId === contextCategoryId)
@@ -90,16 +90,16 @@ const ProductsProvider = ({ children }: IProps) => {
     }
 
     const deleteProductApi = async (productId: string) => {
-        console.log('productId:', productId)
+        // console.log('productId:', productId)
         await deleteProduct({ variables: { productId: productId } })
 
         getProducts({ variables: { categoryId: contextCategoryId } })
     }
 
     const editProductApi = async (productId: string, productName: string, categoryId: string) => {
-        console.log('productId:', productId)
-        console.log('productName:', productName)
-        console.log('categoryId:', categoryId)
+        // console.log('productId:', productId)
+        // console.log('productName:', productName)
+        // console.log('categoryId:', categoryId)
         await editProduct({ variables: { productId, name: productName, categoryId } })
         getProducts({ variables: { categoryId: contextCategoryId } })
     }
