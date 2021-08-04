@@ -38,13 +38,24 @@ const GET_CATEGORIES = gql`
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
+        width: '100%',
+        marginLeft: 10,
+        marginRight: 10,
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column'
     },
+    title: {
+        marginBottom: 15
+    },
+    subTitle: {
+        marginTop: 10,
+        marginBottom: 10
+    },
     dataFormat: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 }))
 
@@ -86,11 +97,12 @@ function report() {
     const renderedReport = () => {
         console.log('dataCategories', dataCategories)
         return dataCategories.categories.map((category: any) => {
-            return <div>
+            return <div key={category.id}>
                 <Typography variant="h5">
                     {category.name}
                 </Typography>
                 {productsByCategory(category.id)}
+                <hr/>
             </div>
         })
     }
@@ -98,7 +110,8 @@ function report() {
     return (
         <Container className={classes.root}>
             <Typography
-                variant='h3'
+                className={classes.title}
+                variant='h3' align="center"
             >
                 Report
 
