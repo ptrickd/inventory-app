@@ -1,6 +1,27 @@
-export type Category = {
+export type TCategory = {
     id: string
     name: string
+}
+
+export type TIds = {
+    [propName: string]: string
+}
+
+export interface IProduct {
+    id?: string
+    productId?: string
+    currentAmount?: number
+    previousAmount?: number
+    amount?: number
+    name: string
+    categoryId: string
+
+}
+
+export interface IUser {
+    id?: string
+    email: String
+    password?: String
 }
 
 //Interface to define a new object or method of an object

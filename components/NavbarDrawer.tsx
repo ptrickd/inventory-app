@@ -22,13 +22,10 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 //Components
 import NavbarReportsList from './NavbarReportsList'
 
-interface ICategory {
-    id: string
-    name: string
-}
-
+//Types
+import { TCategory } from '../types/types'
 interface IProps {
-    categories: ICategory[]
+    categories: TCategory[]
 }
 
 
@@ -52,7 +49,7 @@ const NavbarDrawer = ({ categories }: IProps) => {
     const [categoryMenu, setCategoryMenu] = useState(false)
     const handleClickCategories = () => setCategoryMenu(!categoryMenu)
     const renderedCategories = () => {
-        return categories.map((category: ICategory) => {
+        return categories.map((category: TCategory) => {
             return <Link href={`/category/${category.id}`} key={category.id}>
                 <ListItem
                     className={classes.subMenu}

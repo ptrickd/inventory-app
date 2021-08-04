@@ -7,6 +7,9 @@ import { gql, useLazyQuery, useMutation } from "@apollo/client";
 //Date
 import { DateTime } from 'luxon'
 
+//Types
+import { IProduct } from '../types/types'
+
 //Queries
 const GET_REPORTS = gql`
     query Reports{
@@ -42,13 +45,6 @@ interface IProps {
     children: React.ReactNode
 }
 
-interface IProduct {
-    id: string
-    name: string
-    currentAmount: number
-    lastAmount: number
-    categoryId: string
-}
 
 interface IProductInReport {
     productId: string

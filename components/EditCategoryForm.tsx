@@ -12,10 +12,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
-interface ICategory {
-    id: string
-    name: string
-}
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;

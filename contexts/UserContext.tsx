@@ -5,15 +5,13 @@ import { createContext, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_CURRENT_USER } from '../graphql/queries'
 
+//Types
+import { IUser } from '../types/types'
 //save my user
 interface IProps {
     children: React.ReactNode
 }
 
-interface IUser {
-    id: string
-    email: string
-}
 
 interface IContext {
     currentUser: IUser

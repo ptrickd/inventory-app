@@ -16,10 +16,7 @@ interface IRegister {
     password: string
 }
 
-interface IUser {
-    email: String
-    password: String
-}
+
 
 export const typeDef = `
     type User {

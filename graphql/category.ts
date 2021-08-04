@@ -5,11 +5,11 @@ import { gql } from 'apollo-server'
 import dbConnect from '../utils/dbConnect'
 import { Category } from '../models/category.model'
 
+//Types
+import { TIds } from '../types/types'
+
 dbConnect()
 
-interface IIds {
-    [propName: string]: string
-}
 
 interface ICategory {
     categoryId: string
@@ -38,7 +38,7 @@ export const typeDef = gql`
 
 export const resolvers = {
     Query: {
-        category: async (_: any, { categoryId }: IIds, { user }: any) => {
+        category: async (_: any, { categoryId }: TIds, { user }: any) => {
             try {
                 console.log('categoryId', categoryId)
                 if (!user) throw new Error("Not Authenticated")
@@ -70,7 +70,7 @@ export const resolvers = {
         },
     },
     Mutation: {
-        createCategory: async (_: any, { name, userId }: IIds, { user }: any) => {
+        createCategory: async (_: any, { name, userId }: TIds, { user }: any) => {
             try {
                 console.log('createCategory name', name)
                 console.log('createCategory userId', userId)
@@ -100,7 +100,7 @@ export const resolvers = {
             }
 
         },
-        deleteCategory: async (_: any, { categoryId }: IIds, { user }: any) => {
+        deleteCategory: async (_: any, { categoryId }: TIds, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 let deletedCategory = await Category.findById(categoryId)

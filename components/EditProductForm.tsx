@@ -19,11 +19,12 @@ import InputLabel from '@material-ui/core/InputLabel'
 //Form 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
-
 //GraphQL
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES } from '../graphql/queries'
 
+//Types
+import { TCategory } from '../types/types'
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
@@ -37,10 +38,6 @@ interface IForm {
     categoryId: string
 }
 
-interface ICategory {
-    id: string
-    name: string
-}
 
 const useStyle = makeStyles({
     content: {
@@ -119,7 +116,7 @@ function EditProductForm({ open, handleCloseModal, categoryId, productName, prod
                             label="Category"
                             autoComplete="off"
                         >
-                            {data.categories.map((category: ICategory) => (
+                            {data.categories.map((category: TCategory) => (
                                 <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
                             ))}
 

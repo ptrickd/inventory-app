@@ -17,6 +17,9 @@ import { DateTime } from 'luxon'
 //Context
 import { ReportsContext } from '../contexts/ReportsContext'
 import { ProductsContext } from '../contexts/ProductsContext'
+
+//Types
+import { IProduct } from '../types/types'
 interface IProps {
     open: boolean
     handleCloseModal: () => void
@@ -55,7 +58,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
         if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
             console.log('in the if newReportModal')
             let productsForReport: any[] = []
-            let newProduct = {
+            let newProduct: IProduct = {
                 productId: '',
                 amount: 0,
                 name: '',

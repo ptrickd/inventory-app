@@ -22,6 +22,9 @@ import EditIcon from '@material-ui/icons/Edit';
 //Graphql
 import { gql, useMutation } from '@apollo/client'
 
+//Types
+import { IProduct } from '../types/types'
+
 const UPDATE_AMOUNT = gql`
     mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!){
         saveAmountProduct(productId: $productId, updatedAmount: $updatedAmount){
@@ -39,13 +42,6 @@ type IProps = {
     showAmounts: boolean
 }
 
-interface IProduct {
-    id: string
-    name: string
-    currentAmount: number
-    previousAmount: number
-    categoryId: string
-}
 
 const useStyles = makeStyles((theme) => ({
     root: {

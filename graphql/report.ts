@@ -8,14 +8,12 @@ import { gql } from 'apollo-server-micro'
 //Time
 import { DateTime } from 'luxon'
 
+//Types
+import { TIds } from '../types/types'
+
 dbConnect()
 
-interface IProduct {
-    productId: string
-    currentAmount: number
-    lastAmount: number
-    name: string
-}
+
 interface IProductInReport {
     productId: string
     amount: number
@@ -25,10 +23,6 @@ interface ICreateReport {
     date: DateTime
     products: IProductInReport[]
     createdDate: DateTime
-}
-
-interface IIds {
-    [propName: string]: string
 }
 
 export const typeDef = gql`
@@ -84,7 +78,7 @@ export const typeDef = gql`
 `
 export const resolvers = {
     Query: {
-        report: async (_: any, { reportId }: IIds, { user }: any) => {
+        report: async (_: any, { reportId }: TIds, { user }: any) => {
             try {
                 if (!user) throw new Error('Not Authenticated')
                 const report = await Report.findById(reportId)

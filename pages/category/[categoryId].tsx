@@ -28,19 +28,9 @@ import { DateTime } from 'luxon'
 import { useLazyQuery } from '@apollo/client'
 import { GET_CATEGORY } from '../../graphql/queries'
 
+//Types
+import { IProduct, TCategory } from '../../types/types'
 
-interface IProduct {
-    id: string
-    name: string
-    currentAmount: number
-    previousAmount: number
-    categoryId: string
-}
-
-interface ICategory {
-    id: string
-    name: string
-}
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -78,7 +68,7 @@ const ProductsPage: React.FC = () => {
     const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false)
 
     //Get set by the useQuery below
-    const [category, setCategory] = useState<ICategory>({ id: '', name: '' })
+    const [category, setCategory] = useState<TCategory>({ id: '', name: '' })
 
 
     //Get the data from the backend using the categoryId
@@ -88,9 +78,7 @@ const ProductsPage: React.FC = () => {
         if (!loggedIn) router.push('/')
     }, [loggedIn])
 
-
     useEffect(() => {
-        // console.log('data', data)
         if (categoryId && data?.category.id === categoryId) setCategory(data.category)
         else getCategory({ variables: { categoryId: categoryId } })
     }, [data, categoryId])
@@ -115,9 +103,9 @@ const ProductsPage: React.FC = () => {
                 <div>
                     <InputProduct
                         name={product.name}
-                        currentAmount={product.currentAmount}
-                        previousAmount={product.previousAmount}
-                        id={product.id}
+                        currentAmount={product.currentAmount || 0}
+                        previousAmount={product.previousAmount || 0}
+                        id={product.id || ''}
                         categoryId={product.categoryId}
                         showAmounts={true}
                     />

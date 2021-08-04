@@ -2,25 +2,18 @@
 import dbConnect from '../utils/dbConnect'
 import Product from '../models/product.model'
 
+//Types
+import { TIds, IProduct } from '../types/types'
+
 dbConnect()
 
-interface IProduct {
-    id: string
-    name: string
-    currentAmount: number
-    previousAmount: number
-    categoryId: string
-}
+
 
 interface ICreateProduct {
     name: string
     currentAmount: number
     previousAmount: number
     categoryId: string
-}
-
-interface IIds {
-    [propName: string]: string
 }
 
 interface IEditProduct {
@@ -59,7 +52,7 @@ export const resolvers = {
                 if (!user) throw new Error("Not Authenticated")
                 products = await Product.find({})
                 if (!products) throw new Error("Products not found")
-                return products.map(({ id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
+                return products.map(({ productId: id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
                     id,
                     name,
                     currentAmount,
@@ -71,12 +64,12 @@ export const resolvers = {
                 return err
             }
         },
-        productsByCategory: async (_: any, { categoryId }: IIds, { user }: any) => {
+        productsByCategory: async (_: any, { categoryId }: TIds, { user }: any) => {
             try {
                 console.log('getProductsByCategory')
                 let products = await Product.find({ categoryId: categoryId })
                 if (!products) throw new Error('No products found')
-                return products.map(({ id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
+                return products.map(({ productId: id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
                     id,
                     name,
                     currentAmount,
@@ -120,7 +113,7 @@ export const resolvers = {
             }
 
         },
-        deleteProduct: async (_: any, { productId }: IIds, { user }: any) => {
+        deleteProduct: async (_: any, { productId }: TIds, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 const deletedProduct = await Product.findById(productId)
@@ -133,7 +126,7 @@ export const resolvers = {
             }
 
         },
-        saveAmountProduct: async (_: any, { productId, updatedAmount }: IIds, { user }: any) => {
+        saveAmountProduct: async (_: any, { productId, updatedAmount }: TIds, { user }: any) => {
             try {
                 console.log('saveAmounProduct')
                 if (!user) throw new Error("Not Authenticated")
