@@ -1,5 +1,5 @@
 //React
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 //Material UI
@@ -17,6 +17,7 @@ const GET_REPORT = gql`
     query Report($reportId: ID!){
         report(reportId: $reportId) {
                 id  
+                date
                 products{
                     productId
                     name
@@ -48,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     title: {
         marginBottom: 15
     },
+    date: {
+        marginBottom: 15
+    },
     subTitle: {
         marginTop: 10,
         marginBottom: 10
@@ -77,6 +81,7 @@ function report() {
     if (loading || loadingCategories) return <p>Loading...</p>
     if (error || errorCategories) return <p>Error...</p>
     if (!data) return <p>No data...</p>
+    const date = DateTime.fromISO(data.report.date)
     const productsByCategory = (categoryId: string) => {
         return data.report.products.map((product: any) => {
 
@@ -102,7 +107,7 @@ function report() {
                     {category.name}
                 </Typography>
                 {productsByCategory(category.id)}
-                <hr/>
+                <hr />
             </div>
         })
     }
@@ -114,8 +119,11 @@ function report() {
                 variant='h3' align="center"
             >
                 Report
-
-
+            </Typography>
+            <Typography className={classes.date}
+                variant="h6" align="center"
+            >
+                {date.toFormat('dd MMMM, yyyy')}
             </Typography>
             {renderedReport()}
         </Container>
