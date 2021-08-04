@@ -50,9 +50,11 @@ export const resolvers = {
             try {
                 let products = []
                 if (!user) throw new Error("Not Authenticated")
-                products = await Product.find({})
+                products = await Product.find({ userId: user.id })
+                console.log(products)
+                console.log(user)
                 if (!products) throw new Error("Products not found")
-                return products.map(({ productId: id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
+                return products.map(({ id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
                     id,
                     name,
                     currentAmount,
@@ -87,7 +89,13 @@ export const resolvers = {
         createProduct: async (_: any, { name, currentAmount, previousAmount, categoryId }: ICreateProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let product = await Product.create({ name, currentAmount, previousAmount, categoryId })
+                let product = await Product.create({
+                    name,
+                    currentAmount,
+                    previousAmount,
+                    categoryId,
+                    userId: user.id
+                })
                 return product
             } catch (err) {
                 console.log(err)

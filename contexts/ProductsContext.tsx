@@ -61,6 +61,9 @@ const ProductsProvider = ({ children }: IProps) => {
     const updateProducts = (list: IProduct[]) => {
         setProducts(list)
     }
+    useEffect(() => {
+        if (products) console.log('products list on context', products)
+    }, [products])
 
     const productsByCategory = () => {
         let productsToReturn: IProduct[] | [] = []

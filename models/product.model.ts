@@ -5,6 +5,7 @@ interface IProduct {
     currentAmount: Number
     previousAmount: Number
     categoryId: String
+    userId: String
 }
 
 const schema = new mongoose.Schema<IProduct>({
@@ -22,6 +23,10 @@ const schema = new mongoose.Schema<IProduct>({
         default: 0
     },
     categoryId: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    userId: {
         type: mongoose.Types.ObjectId,
         required: true
     }

@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {
     width: '70%',
     marginBottom: '15%',
-
-    // marginLeft: '20%',
-    // marginRight: '20%',
     borderRadius: 15
   }
 }))
