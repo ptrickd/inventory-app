@@ -1,6 +1,7 @@
 //Models
 import dbConnect from "../utils/dbConnect";
 import Report from '../models/report.model'
+import Product from '../models/product.model'
 
 //GraphQl
 import { gql } from 'apollo-server-micro'
@@ -9,7 +10,7 @@ import { gql } from 'apollo-server-micro'
 import { DateTime } from 'luxon'
 
 //Types
-import { TIds } from '../types/types'
+import { TIds, IProduct } from '../types/types'
 
 dbConnect()
 
@@ -110,17 +111,26 @@ export const resolvers = {
             try {
 
                 if (!user) throw new Error("Not Authenticated")
+
                 let report = await Report.create({
                     userId: user.id,
                     date,
                     products,
                     dateSubmitted: createdDate
                 })
+
+                products.map(async (product: IProductInReport) => {
+                    console.log(product)
+                    let productToModify = await Product.findById(product.productId)
+                    productToModify.previousAmount = product.amount
+                    productToModify.currentAmount = 0
+                    await productToModify.save()
+                })
+
                 if (!report) throw new Error("Can't create report")
+
                 return report
             } catch (err) {
-                console.log('createReport mutation')
-                // return { error: err.message }
                 return { error: err.message }
             }
         }

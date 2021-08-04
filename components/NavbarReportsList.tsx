@@ -73,7 +73,7 @@ const NavbarReportsList = () => {
             </MenuItem >
         }
         return data?.reports?.reports.map((report: IReport, index: number) => {
-            console.log(report)
+            // console.log(report)
             const dateTime = DateTime.fromISO(report.date.toString())
             const year = dateTime.year
             const month = dateTime.month

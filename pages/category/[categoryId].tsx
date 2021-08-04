@@ -35,9 +35,11 @@ import { IProduct, TCategory } from '../../types/types'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
+        marginTop: 60,
+        marginLeft: 8,
+        marginRight: 8,
         display: 'flex',
         flexDirection: 'column',
-        marginTop: 60,
         alignItems: 'center',
         justifyContent: 'center'
     },
