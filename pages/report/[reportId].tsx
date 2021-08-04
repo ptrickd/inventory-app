@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState } from 'react'
+import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
 //Material UI
@@ -12,6 +12,9 @@ import { gql, useQuery } from '@apollo/client'
 
 //Date
 import { DateTime } from 'luxon'
+
+//Context
+import { UserContext } from '../../contexts/UserContext'
 
 const GET_REPORT = gql`
     query Report($reportId: ID!){
@@ -67,7 +70,7 @@ function report() {
     const classes = useStyles()
     const router = useRouter()
     const { reportId } = router.query
-
+    const { loggedIn } = useContext(UserContext)
     const { data, loading, error } = useQuery(GET_REPORT, {
         variables: { reportId: reportId },
         skip: !reportId
@@ -77,6 +80,10 @@ function report() {
         loading: loadingCategories,
         error: errorCategories
     } = useQuery(GET_CATEGORIES)
+
+    useEffect(() => {
+        if (!loggedIn) router.push('/')
+    }, [loggedIn])
 
     if (loading || loadingCategories) return <p>Loading...</p>
     if (error || errorCategories) return <p>Error...</p>

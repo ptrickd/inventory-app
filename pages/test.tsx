@@ -2,7 +2,6 @@
 import { Fragment } from 'react'
 
 //Material UI
-import { Container } from "@material-ui/core"
 import { makeStyles, Theme, createStyles } from "@material-ui/core"
 import { DRAWER_WIDTH } from "../constants/dimensions"
 
