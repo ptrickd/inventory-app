@@ -50,13 +50,8 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
     }
 
     const handleClickCreate = async () => {
-        // console.log('selectedDate', selectedDate)
-        console.log('products:', products)
-
-        // console.log('date variable', currentDate.toJSDate())
-
         if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
-            console.log('in the if newReportModal')
+            // console.log('in the if newReportModal')
             let productsForReport: any[] = []
             let newProduct: IProduct = {
                 productId: '',
@@ -65,17 +60,14 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
                 categoryId: ''
             }
             products.map(product => {
-                console.log('product mapping', product)
                 newProduct.productId = product.id
                 newProduct.amount = product.currentAmount
                 newProduct.name = product.name
                 newProduct.categoryId = product.categoryId
                 productsForReport.push({ ...newProduct })
             })
-            console.log('productsForReport:', productsForReport)
-
-
-            await addNewReport(selectedDate, productsForReport, currentDate)
+            let response = await addNewReport(selectedDate, productsForReport, currentDate)
+            if (response === -1) console.log('already report with this date exist')
         }
         handleCloseModal()
 

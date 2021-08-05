@@ -16,6 +16,7 @@ const GET_REPORTS = gql`
         reports{
             reports{
                 id
+                date
             }
         }
         
@@ -61,7 +62,7 @@ interface IInputNewReport {
 interface IReport {
     id: string
     userId: string
-    date: DateTime
+    date: string
     products: IProductInReport[] | []
     hasBeenSubmitted: boolean
     dateCreated: DateTime
@@ -73,9 +74,9 @@ interface IContext {
         selectedDate: DateTime,
         products: IProductInReport[],
         currentDate: DateTime
-    ) => void
+    ) => Promise<number>
 }
-//DateTime.fromISO(datetime, { zone: 'utc-6' }).toString() -7
+
 const ReportsContext = createContext<Partial<IContext>>({})
 
 const ReportsProvider = ({ children }: IProps) => {
@@ -84,7 +85,7 @@ const ReportsProvider = ({ children }: IProps) => {
     const [getReports, { data, loading }] = useLazyQuery(GET_REPORTS)
 
     useEffect(() => {
-        if (data) setReports(data?.reports?.report)
+        if (data) setReports(data?.reports?.reports)
     }, [data])
     useEffect(() => {
         getReports()
@@ -94,11 +95,14 @@ const ReportsProvider = ({ children }: IProps) => {
         products: IProductInReport[] | [],
         createdDate: DateTime
     ) => {
-        // console.log('productsOnCreation', products)
+        let valueToReturn = 0
+        reports?.map(report => {
+            let dateReport = DateTime.fromISO(report.date)
+            if (dateReport.toLocaleString() === date.toLocaleString()) valueToReturn = -1
+        })
         let resp = await createReport({ variables: { date: date.toJSDate(), products, createdDate: createdDate.toJSDate() } })
-        // console.log('response from createReport:', resp)
-        // console.log('datetime local:', typeof date.toJSDate())
         getReports()
+        return valueToReturn
     }
 
     if (loading) return <div><h2>Loading...</h2></div>

@@ -40,14 +40,22 @@ function Dashboard() {
     const { loggedIn, currentUser } = useContext(UserContext)
     const [openModal, setOpenModal] = useState(false)
     const [openCreateNewReport, setOpenCreateNewReport] = useState(false)
+    const [openSubmittingModal, setOpenSubmittingModal] = useState(false)
 
     //Adding categories
     const handleAddCategory = () => setOpenModal(true)
     const handleCloseModal = () => setOpenModal(false)
 
     //create template for new report
-    const handleCreateNewReport = () => setOpenCreateNewReport(true)
+    // const handleCreateNewReport = () => setOpenCreateNewReport(true)
     const handleCloseCreateNewReport = () => setOpenCreateNewReport(false)
+
+    //Submitting report
+    const handleSubmittingReport = () => setOpenSubmittingModal(true)
+    const handleCloseSubmittingModal = () => {
+        setOpenSubmittingModal(false)
+        setOpenCreateNewReport(true)
+    }
 
     useEffect(() => {
         if (!loggedIn) {
@@ -82,7 +90,7 @@ function Dashboard() {
                         <IconButton
                             aria-label='create new report'
                             color='primary'
-                            onClick={handleCreateNewReport}
+                            onClick={handleSubmittingReport}
                         >
                             <AddIcon />
                         </IconButton>
@@ -102,7 +110,10 @@ function Dashboard() {
                     open={openCreateNewReport}
                     handleCloseModal={handleCloseCreateNewReport}
                 />
-                <SubmittingReportModal />
+                <SubmittingReportModal
+                    open={openSubmittingModal}
+                    handleCloseModal={handleCloseSubmittingModal}
+                />
             </div>
 
         </Container >
