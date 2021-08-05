@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 //Components
 import AddCategoryForm from '../components/AddCategoryForm'
 import CreateNewReportModal from '../components/CreateNewReportModal';
+import SubmittingReportModal from '../components/SubmittingReportModal'
 
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -101,6 +102,7 @@ function Dashboard() {
                     open={openCreateNewReport}
                     handleCloseModal={handleCloseCreateNewReport}
                 />
+                <SubmittingReportModal />
             </div>
 
         </Container >

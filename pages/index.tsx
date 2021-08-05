@@ -7,8 +7,9 @@
   /mutations
 */
 //React
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 //Material UI
@@ -19,6 +20,9 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import CssBaseline from '@material-ui/core/CssBaseline'
+
+//Context
+import { UserContext } from '../contexts/UserContext'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -53,6 +57,15 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export default function Home() {
   const classes = useStyles()
+  const { loggedIn } = useContext(UserContext)
+  const router = useRouter()
+
+  // useEffect(() => {
+  //   if (loggedIn !== undefined) {
+  //     router.push('/dashboard')
+  //   }
+  // }, [])
+
   return (
     <Fragment>
       <CssBaseline />

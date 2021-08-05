@@ -31,8 +31,6 @@ import { GET_CATEGORY } from '../../graphql/queries'
 //Types
 import { IProduct, TCategory } from '../../types/types'
 
-
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         marginTop: 60,
@@ -167,7 +165,7 @@ const ProductsPage: React.FC = () => {
                 category={category}
                 setNewCategoryName={name => setCategory({ ...category, name })}
             />
-
+          
         </div>
     )
 }
