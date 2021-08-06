@@ -22,7 +22,7 @@ import { ProductsContext } from '../contexts/ProductsContext'
 import { IProduct } from '../types/types'
 interface IProps {
     open: boolean
-    handleCloseModal: () => void
+    handleCloseModal: (responseStatusSucceed: boolean) => void
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -50,6 +50,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
     }
 
     const handleClickCreate = async () => {
+        let responseStatusSucceed = true
         if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
             // console.log('in the if newReportModal')
             let productsForReport: any[] = []
@@ -67,9 +68,9 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
                 productsForReport.push({ ...newProduct })
             })
             let response = await addNewReport(selectedDate, productsForReport, currentDate)
-            if (response === -1) console.log('already report with this date exist')
+            if (response === -1) responseStatusSucceed = false
         }
-        handleCloseModal()
+        handleCloseModal(responseStatusSucceed)
 
 
     }
@@ -78,7 +79,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
         <Dialog
             open={open}
             aria-labelledby="Create A New Report"
-            onClose={() => handleCloseModal()}
+            onClose={() => handleCloseModal(true)}
             className={classes.root}
         >
             <DialogContent>

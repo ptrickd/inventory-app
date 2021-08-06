@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import AddCategoryForm from '../components/AddCategoryForm'
 import CreateNewReportModal from '../components/CreateNewReportModal';
 import SubmittingReportModal from '../components/SubmittingReportModal'
+import ErrorModal from '../components/ErrorModal'
 
 //Material UI
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -41,14 +42,17 @@ function Dashboard() {
     const [openModal, setOpenModal] = useState(false)
     const [openCreateNewReport, setOpenCreateNewReport] = useState(false)
     const [openSubmittingModal, setOpenSubmittingModal] = useState(false)
+    const [openErrorModal, setOpenErrorModal] = useState(false)
 
     //Adding categories
     const handleAddCategory = () => setOpenModal(true)
     const handleCloseModal = () => setOpenModal(false)
 
     //create template for new report
-    // const handleCreateNewReport = () => setOpenCreateNewReport(true)
-    const handleCloseCreateNewReport = () => setOpenCreateNewReport(false)
+    const handleCloseCreateNewReport = (responseStatusSucceed: boolean) => {
+        setOpenCreateNewReport(false)
+        if (!responseStatusSucceed) setOpenErrorModal(true)
+    }
 
     //Submitting report
     const handleSubmittingReport = () => setOpenSubmittingModal(true)
@@ -56,6 +60,10 @@ function Dashboard() {
         setOpenSubmittingModal(false)
         setOpenCreateNewReport(true)
     }
+
+    //Display Error Message
+    const handleOpenErrorModal = () => setOpenErrorModal(true)
+    const handleCloseErrorModal = () => setOpenErrorModal(false)
 
     useEffect(() => {
         if (!loggedIn) {
@@ -113,6 +121,10 @@ function Dashboard() {
                 <SubmittingReportModal
                     open={openSubmittingModal}
                     handleCloseModal={handleCloseSubmittingModal}
+                />
+                <ErrorModal
+                    open={openErrorModal}
+                    handleCloseModal={handleCloseErrorModal}
                 />
             </div>
 

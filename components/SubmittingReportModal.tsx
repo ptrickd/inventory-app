@@ -35,6 +35,7 @@ const SubmittingReportModal = ({ open, handleCloseModal }: IProps) => {
         <Dialog
             open={open}
             aria-labelledby="Warning Before Submitting"
+            onClose={() => handleCloseModal()}
         >
             <DialogContentText
                 className={classes.text}
@@ -49,7 +50,7 @@ const SubmittingReportModal = ({ open, handleCloseModal }: IProps) => {
             >
                 <Button
                     onClick={handleCloseModal}
-                    variant="outlined"
+                    variant="contained"
                     color="primary"
                 >
                     Submit
