@@ -80,13 +80,20 @@ interface IContext {
 const ReportsContext = createContext<Partial<IContext>>({})
 
 const ReportsProvider = ({ children }: IProps) => {
-    const [reports, setReports] = useState<IReport[] | undefined>(undefined)
+    const [reports, setReports] = useState<IReport[] | []>([])
     const [createReport] = useMutation(CREATE_REPORT)
-    const [getReports, { data, loading }] = useLazyQuery(GET_REPORTS)
+    const [getReports, { data, loading }] = useLazyQuery(GET_REPORTS, {
+        fetchPolicy: 'network-only',
+        onCompleted: data => {
+            // console.log('data reprots', data.reports.reports)
+            setReports(data?.reports.reports); // multiple times
+        }
+    })
 
-    useEffect(() => {
-        if (data) setReports(data?.reports?.reports)
-    }, [data])
+    // useEffect(() => {
+    //     if (data) setReports(data?.reports?.reports)
+    //     console.log('data reports change', data.reports)
+    // }, [data])
     useEffect(() => {
         getReports()
     }, [])
@@ -96,11 +103,18 @@ const ReportsProvider = ({ children }: IProps) => {
         createdDate: DateTime
     ) => {
         let valueToReturn = 0
-        reports?.map(report => {
+
+        // console.log(reports)
+        reports.map(report => {
+
             let dateReport = DateTime.fromISO(report.date)
+            console.log(dateReport.toLocaleString())
+            console.log(date.toLocaleString())
             if (dateReport.toLocaleString() === date.toLocaleString()) valueToReturn = -1
         })
-        let resp = await createReport({ variables: { date: date.toJSDate(), products, createdDate: createdDate.toJSDate() } })
+
+
+        await createReport({ variables: { date: date.toJSDate(), products, createdDate: createdDate.toJSDate() } })
         getReports()
         return valueToReturn
     }
