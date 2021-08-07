@@ -5,21 +5,24 @@ import Product from '../models/product.model'
 //Types
 import { TIds, IProduct } from '../types/types'
 
+//Constants
+import { MEASURE_UNITS } from '../constants/measureUnits'
+
 dbConnect()
-
-
 
 interface ICreateProduct {
     name: string
     currentAmount: number
     previousAmount: number
     categoryId: string
+    measureUnit: number
 }
 
 interface IEditProduct {
     productId: string
     name: string
     categoryId: string
+    measureUnit: number
 }
 
 export const typeDef = `
@@ -29,6 +32,8 @@ export const typeDef = `
         currentAmount: Int
         previousAmount: Int
         categoryId: ID
+        userId: ID
+        measureUnit: Int
     }
 
     type Query {
@@ -37,8 +42,8 @@ export const typeDef = `
     }
 
     type Mutation {
-        createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String): Product
-        editProduct(productId:ID, name:String, currentAmount:Int, previousAmount:Int, categoryId: String): Product
+        createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String, measureUnit: Int): Product
+        editProduct(productId:ID, name:String, currentAmount:Int, previousAmount:Int, categoryId: String, measureUnit: Int): Product
         deleteProduct(productId: ID): Product
         saveAmountProduct(productId: ID, updatedAmount: Int): Product
     }
@@ -54,12 +59,15 @@ export const resolvers = {
                 console.log(products)
                 console.log(user)
                 if (!products) throw new Error("Products not found")
-                return products.map(({ id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
+                return products.map((
+                    { id, currentAmount, previousAmount, name, categoryId, measureUnit }: IProduct
+                ) => ({
                     id,
                     name,
                     currentAmount,
                     previousAmount,
-                    categoryId
+                    categoryId,
+                    unit: MEASURE_UNITS[measureUnit]
                 }))
             } catch (err) {
                 console.log(err)
@@ -71,12 +79,15 @@ export const resolvers = {
                 console.log('getProductsByCategory')
                 let products = await Product.find({ categoryId: categoryId })
                 if (!products) throw new Error('No products found')
-                return products.map(({ productId: id, currentAmount, previousAmount, name, categoryId }: IProduct) => ({
+                return products.map((
+                    { productId: id, currentAmount, previousAmount, name, categoryId, measureUnit }: IProduct
+                ) => ({
                     id,
                     name,
                     currentAmount,
                     previousAmount,
-                    categoryId
+                    categoryId,
+                    unit: MEASURE_UNITS[measureUnit]
                 }))
             }
             catch (err) {
@@ -86,7 +97,7 @@ export const resolvers = {
         },
     },
     Mutation: {
-        createProduct: async (_: any, { name, currentAmount, previousAmount, categoryId }: ICreateProduct, { user }: any) => {
+        createProduct: async (_: any, { name, currentAmount, previousAmount, categoryId, measureUnit }: ICreateProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 let product = await Product.create({
@@ -94,7 +105,8 @@ export const resolvers = {
                     currentAmount,
                     previousAmount,
                     categoryId,
-                    userId: user.id
+                    userId: user.id,
+                    unit: MEASURE_UNITS[measureUnit]
                 })
                 return product
             } catch (err) {
@@ -103,7 +115,7 @@ export const resolvers = {
             }
 
         },
-        editProduct: async (_: any, { productId, name, categoryId }: IEditProduct, { user }: any) => {
+        editProduct: async (_: any, { productId, name, categoryId, measureUnit }: IEditProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 let editedProduct = await Product.findById(productId)
@@ -111,6 +123,7 @@ export const resolvers = {
                 if (!editedProduct) throw new Error('No product found')
                 editedProduct.name = name
                 editedProduct.categoryId = categoryId
+                editedProduct.unit = MEASURE_UNITS[measureUnit]
                 editedProduct = await editedProduct.save()
 
                 return editedProduct

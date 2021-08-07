@@ -29,6 +29,10 @@ const schema = new mongoose.Schema<IProduct>({
     userId: {
         type: mongoose.Types.ObjectId,
         required: true
+    },
+    unit: {
+        type: String,
+        required: true
     }
 })
 
