@@ -50,7 +50,9 @@ function Dashboard() {
 
     //create template for new report
     const handleCloseCreateNewReport = (responseStatusSucceed: boolean) => {
+
         setOpenCreateNewReport(false)
+        // console.log('responseStatusSucceed', responseStatusSucceed)
         if (!responseStatusSucceed) setOpenErrorModal(true)
     }
 
@@ -62,7 +64,6 @@ function Dashboard() {
     }
 
     //Display Error Message
-    const handleOpenErrorModal = () => setOpenErrorModal(true)
     const handleCloseErrorModal = () => setOpenErrorModal(false)
 
     useEffect(() => {

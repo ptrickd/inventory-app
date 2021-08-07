@@ -19,7 +19,6 @@ const GET_REPORTS = gql`
                 date
             }
         }
-        
     }
 `
 
@@ -105,17 +104,20 @@ const ReportsProvider = ({ children }: IProps) => {
         let valueToReturn = 0
 
         // console.log(reports)
-        reports.map(report => {
+        reports.map((report: IReport) => {
 
             let dateReport = DateTime.fromISO(report.date)
-            console.log(dateReport.toLocaleString())
-            console.log(date.toLocaleString())
+            // console.log('dateReport', dateReport.toLocaleString())
+            // console.log('date', date.toLocaleString())
             if (dateReport.toLocaleString() === date.toLocaleString()) valueToReturn = -1
         })
 
+        if (valueToReturn !== -1) {
+            await createReport({ variables: { date: date.toJSDate(), products, createdDate: createdDate.toJSDate() } })
+            getReports()
+        }
 
-        await createReport({ variables: { date: date.toJSDate(), products, createdDate: createdDate.toJSDate() } })
-        getReports()
+
         return valueToReturn
     }
 

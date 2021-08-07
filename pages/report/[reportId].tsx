@@ -75,7 +75,7 @@ function report() {
         variables: { reportId: reportId },
         skip: !reportId
     })
-    const {
+    const {//Aliases for useQuery
         data: dataCategories,
         loading: loadingCategories,
         error: errorCategories

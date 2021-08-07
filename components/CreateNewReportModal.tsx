@@ -70,6 +70,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
             let response = await addNewReport(selectedDate, productsForReport, currentDate)
             if (response === -1) responseStatusSucceed = false
         }
+
         handleCloseModal(responseStatusSucceed)
 
 
