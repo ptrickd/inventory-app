@@ -15,13 +15,21 @@ export interface IProduct {
     amount?: number
     name: string
     categoryId: string
-    measureUnit: number
+    unit: string
+}
+
+export interface IAddProduct {
+    id?: string
+    name: string
+    currentAmount?: number
+    previousAmount?: number
+    categoryId: string
 }
 
 export interface IUser {
     id?: string
-    email: String
-    password?: String
+    email: string
+    password?: string
 }
 
 //Interface to define a new object or method of an object

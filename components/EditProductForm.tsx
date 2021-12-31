@@ -25,6 +25,10 @@ import { GET_CATEGORIES } from '../graphql/queries'
 
 //Types
 import { TCategory } from '../types/types'
+
+//Constants
+import { MEASURE_UNITS } from '../constants/measureUnits'
+
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;

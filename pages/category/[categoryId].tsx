@@ -15,7 +15,6 @@ import EditCategoryForm from '../../components/EditCategoryForm'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
 //Icons
@@ -108,6 +107,7 @@ const ProductsPage: React.FC = () => {
                         id={product.id || ''}
                         categoryId={product.categoryId}
                         showAmounts={true}
+                        measureUnit={product.unit}
                     />
 
                 </div>
@@ -165,7 +165,7 @@ const ProductsPage: React.FC = () => {
                 category={category}
                 setNewCategoryName={name => setCategory({ ...category, name })}
             />
-          
+
         </div>
     )
 }

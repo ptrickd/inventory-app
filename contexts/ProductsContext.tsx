@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect } from 'react'
 //GraphQL
 import { gql, useMutation, useLazyQuery } from '@apollo/client'
 import { CREATE_PRODUCT, DELETE_PRODUCT, EDIT_PRODUCT } from '../graphql/queries'
-import { TCategory, IProduct } from '../types/types'
+import { TCategory, IProduct, IAddProduct } from '../types/types'
 
 //Queries
 const GET_PRODUCTS = gql`
@@ -28,7 +28,7 @@ interface IContext {
     productsByCategory: () => IProduct[] | []
     updateProducts: (list: IProduct[]) => void
     setCategoryId: (categoryId: string) => void
-    addProduct: (product: IProduct) => void
+    addProduct: (product: IAddProduct) => void
     deleteProductApi: (productId: string) => void
     editProductApi: (productId: string, productName: string, categoryId: string) => void
 }
@@ -76,7 +76,7 @@ const ProductsProvider = ({ children }: IProps) => {
         return productsToReturn
     }
 
-    const addProduct = async (product: IProduct) => {
+    const addProduct = async (product: IAddProduct) => {
         await createProduct({ variables: { name: product.name, categoryId: product.categoryId } })
         getProducts({ variables: { categoryId: contextCategoryId } })
     }

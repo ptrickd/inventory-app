@@ -19,7 +19,7 @@ import { ReportsContext } from '../contexts/ReportsContext'
 import { ProductsContext } from '../contexts/ProductsContext'
 
 //Types
-import { IProduct } from '../types/types'
+import { IProduct, IAddProduct } from '../types/types'
 interface IProps {
     open: boolean
     handleCloseModal: (responseStatusSucceed: boolean) => void
@@ -55,8 +55,8 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
             // console.log('in the if newReportModal')
             let productsForReport: any[] = []
             let newProduct: IProduct = {
-                productId: '',
                 amount: 0,
+                unit: '',
                 name: '',
                 categoryId: ''
             }

@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext, Fragment } from 'react'
+import React, { useState, useContext, Fragment, ChangeEvent } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
@@ -14,6 +14,8 @@ import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 
 //Icons
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -24,6 +26,9 @@ import { gql, useMutation } from '@apollo/client'
 
 //Types
 import { IProduct } from '../types/types'
+
+//Constants
+import { MEASURE_UNITS } from '../constants/measureUnits'
 
 const UPDATE_AMOUNT = gql`
     mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!){
@@ -40,6 +45,7 @@ type IProps = {
     id: string
     categoryId: string
     showAmounts: boolean
+    measureUnit: string
 }
 
 
@@ -62,17 +68,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const InputProduct: React.FC<IProps> = ({ name, currentAmount, previousAmount, id, categoryId, showAmounts }) => {
+const InputProduct: React.FC<IProps> = (
+    { name, currentAmount, previousAmount, id, categoryId, showAmounts, measureUnit
+    }) => {
     const classes = useStyles();
     const { products, updateProducts, deleteProductApi } = useContext(ProductsContext)
     const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
+    const [currentMeasureUnit, setCurrentMeasureUnit] = useState<string>(measureUnit)
     const [amount, setAmount] = useState(currentAmount.toString())
     const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
 
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
-
+    const handleUnitChange = (e: any) => setCurrentMeasureUnit(e?.target?.value)
     const saveProductOnBlur = async () => {
-        console.log('id', id)
+        // console.log('id', id)
 
         await saveAmountProduct({
             variables: {
@@ -93,6 +102,7 @@ const InputProduct: React.FC<IProps> = ({ name, currentAmount, previousAmount, i
         if (updateProducts && newProductsList) updateProducts(newProductsList)
     }
 
+
     const bodyWithAmount = () => (
         <Fragment>
 
@@ -108,6 +118,18 @@ const InputProduct: React.FC<IProps> = ({ name, currentAmount, previousAmount, i
                 fullWidth
                 className={classes.textfield}
             />
+            <Select
+                labelId={name + 'labelID-select'}
+                id={name + "select"}
+                value={currentMeasureUnit}
+                onChange={handleUnitChange}
+            >
+                {
+                    MEASURE_UNITS.map((unitName: string) => {
+                        return <MenuItem value={unitName}>{unitName}</MenuItem>
+                    })
+                }
+            </Select>
             <Divider orientation="vertical" flexItem />
             <TextField
 
