@@ -53,6 +53,7 @@ export const typeDef = gql`
     }
 
     type ReportsResponse {
+        id:ID
         reports:[ReportResponse]
         error: String
     }
@@ -87,7 +88,7 @@ export const resolvers = {
                 if (!report) throw new Error('No report found')
                 return report
             }
-            catch (err) {
+            catch (err: any) {
                 console.log(err)
                 return { error: err.message }
             }
@@ -99,7 +100,7 @@ export const resolvers = {
                 return { reports }
 
             }
-            catch (err) {
+            catch (err: any) {
                 return { error: err.message }
             }
         }
@@ -130,7 +131,7 @@ export const resolvers = {
                 if (!report) throw new Error("Can't create report")
 
                 return report
-            } catch (err) {
+            } catch (err: any) {
                 return { error: err.message }
             }
         }

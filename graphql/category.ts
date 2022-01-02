@@ -59,6 +59,7 @@ export const resolvers = {
                 if (!user) throw new Error("Not Authenticated")
                 const categories = await Category.find({ userId: user.id })
                 if (!categories) throw new Error("No Categories Found")
+
                 return categories.map(({ id, name, userId }) => ({
                     id, name, userId
                 }))

@@ -13,11 +13,10 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 
 //Context
-import { UserContext } from '../contexts/UserContext'
+// import { UserContext } from '../contexts/UserContext'
+import { CategoriesContext } from '../contexts/CategoriesContext'
 
-//GraphQL
-import { useMutation } from '@apollo/client'
-import { CREATE_CATEGORY } from '../graphql/queries'
+
 interface IProps {
     open: boolean;
     handleCloseModal: () => void;
@@ -51,14 +50,17 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
     const classes = useStyle()
     const [submitting, setSubmitting] = useState(false)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IForm>()
-    const [createCategory, { data }] = useMutation(CREATE_CATEGORY)
-    const { currentUser } = useContext(UserContext)
+    // const [createCategory, { data }] = useMutation(CREATE_CATEGORY)
+    const { createCategoryApi } = useContext(CategoriesContext)
+    // const { currentUser } = useContext(UserContext)
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {
-        if (currentUser !== undefined) {
+        console.log(typeof createCategoryApi)
+        if (createCategoryApi !== undefined) {
             setSubmitting(true)
-            createCategory({ variables: { name: data.name, userId: currentUser.id } })
-            console.log('currentUser::', currentUser.id)
+            console.log('before createCategoryApi')
+            createCategoryApi({ name: data.name })
+            console.log('after createCategoryApi')
             reset({ name: '' })
             setSubmitting(false)
             handleCloseModal()
