@@ -19,7 +19,7 @@ interface IProps {
 
 interface IContext {
     categories: TCategory[] | []
-    // createCategoryApi: (category: TCategory) => void
+    createCategoryApi: (category: TCategory) => void
 
 }
 
@@ -29,7 +29,7 @@ const CategoriesContext = createContext<Partial<IContext>>({})
 const CategoriesProvider = ({ children }: IProps) => {
 
     const [createCategory] = useMutation(CREATE_CATEGORY)
-    // const { currentUser } = useContext(UserContext)
+    const { currentUser } = useContext(UserContext)
 
     //Get set by the useQuery below
     const [categories, setCategories] = useState<TCategory[] | []>([])
@@ -58,17 +58,16 @@ const CategoriesProvider = ({ children }: IProps) => {
 
     //add a new category 
     const createCategoryApi = async ({ name }: TCategory) => {
-        // console.log(typeof currentUser)
-        // if (currentUser !== undefined) {
-        //     await createCategory({ variables: { name: data.name, userId: currentUser.id } })
-        // }
-        console.log('nothin')
+
+        if (currentUser !== undefined) {
+            await createCategory({ variables: { name: name, userId: currentUser.id } })
+        }
     }
     console.log('CategoriesContextff')
     if (loading) return <div><h2>Loading...</h2></div>
     return (
         <CategoriesContext.Provider value={{
-            // createCategoryApi,
+            createCategoryApi,
             categories
         }}>
             {children}
