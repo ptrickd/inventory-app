@@ -50,6 +50,7 @@ const NavbarDrawer = ({ categories }: IProps) => {
     const handleClickCategories = () => setCategoryMenu(!categoryMenu)
     const renderedCategories = () => {
         return categories.map((category: TCategory) => {
+            // console.log(category)
             return <Link href={`/category/${category.id}`} key={category.id}>
                 <ListItem
                     className={classes.subMenu}

@@ -26,10 +26,8 @@ import indigo from '@material-ui/core/colors/indigo'
 //Icons
 import MenuIcon from '@material-ui/icons/Menu'
 import MoreIcon from '@material-ui/icons/MoreVert'
-
-//GraphQL
-import { useQuery } from '@apollo/client'
-import { GET_CATEGORIES } from '../graphql/queries'
+import { CategoriesContext } from '../contexts/CategoriesContext'
+// 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -87,18 +85,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Navbar = () => {
     const classes = useStyles();
     const { loggedIn, logout, currentUser } = useContext(UserContext)
-
+    const { categories } = useContext(CategoriesContext)
     const [mobileOpen, setMobileOpen] = useState(false)
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-    const { data, loading, error } = useQuery(GET_CATEGORIES, {
-        skip: !loggedIn
-    })
-    if (loading) return null
-    if (error) return <div>`Error! ${error.message}`</div>
+    // const { data, loading, error } = useQuery(GET_CATEGORIES, {
+    //     skip: !loggedIn
+    // })
+    // if (loading) return null
+    // if (error) return <div>`Error! ${error.message}`</div>
     // console.log(data)
-    const categories = data && data.categories ? data.categories : []
+    // const categories = data && data.categories ? data.categories : []
 
     //Keep those for the icon more menu
     const handleClickOnMoreIconMenu = (e: React.MouseEvent<HTMLButtonElement>) => {

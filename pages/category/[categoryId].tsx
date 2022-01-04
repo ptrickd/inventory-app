@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 //Context
 import { ProductsContext } from '../../contexts/ProductsContext'
+import { CategoriesContext } from '../../contexts/CategoriesContext'
 import { UserContext } from '../../contexts/UserContext'
 
 //Components
@@ -24,8 +25,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { DateTime } from 'luxon'
 
 //GraphQL
-import { useLazyQuery } from '@apollo/client'
-import { GET_CATEGORY } from '../../graphql/queries'
+// import { useLazyQuery } from '@apollo/client'
+// import { GET_CATEGORY } from '../../graphql/queries'
 
 //Types
 import { IProduct, TCategory } from '../../types/types'
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const ProductsPage: React.FC = () => {
 
     const { productsByCategory, setCategoryId } = useContext(ProductsContext)
+    const { categories } = useContext(CategoriesContext)
     const { loggedIn } = useContext(UserContext)
     const classes = useStyles()
     const router = useRouter()
@@ -67,26 +69,26 @@ const ProductsPage: React.FC = () => {
     const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false)
 
     //Get set by the useQuery below
-    const [category, setCategory] = useState<TCategory>({ id: '', name: '' })
+    // const [category, setCategory] = useState<TCategory>({ id: '', name: '' })
 
 
     //Get the data from the backend using the categoryId
-    const [getCategory, { loading, data }] = useLazyQuery(GET_CATEGORY)
+    // const [getCategory, { loading, data }] = useLazyQuery(GET_CATEGORY)
     //Redirect to homepage if not login
     useEffect(() => {
         if (!loggedIn) router.push('/')
     }, [loggedIn])
 
-    useEffect(() => {
-        if (categoryId && data?.category.id === categoryId) setCategory(data.category)
-        else getCategory({ variables: { categoryId: categoryId } })
-    }, [data, categoryId])
+    // useEffect(() => {
+    //     if (categoryId && data?.category.id === categoryId) setCategory(data.category)
+    //     else getCategory({ variables: { categoryId: categoryId } })
+    // }, [data, categoryId])
 
-    useEffect(() => {
-        if (typeof categoryId === 'string' && setCategoryId) {
-            setCategoryId(categoryId)
-        }
-    }, [categoryId])
+    // useEffect(() => {
+    //     if (typeof categoryId === 'string' && setCategoryId) {
+    //         setCategoryId(categoryId)
+    //     }
+    // }, [categoryId])
     /*********************************** */
     const renderedProducts = () => {
         let products: IProduct[] | [] = []

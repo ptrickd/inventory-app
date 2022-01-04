@@ -65,7 +65,7 @@ export const resolvers = {
                 }))
             }
             catch (err) {
-                console.log(err)
+                console.log('printing error', err)
                 return err
             }
         },
