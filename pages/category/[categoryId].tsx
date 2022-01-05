@@ -28,6 +28,9 @@ import { DateTime } from 'luxon'
 //Types
 import { IProduct, TCategory } from '../../types/types'
 
+//Constant
+import { MEASURE_UNITS } from '../../constants/measureUnits'
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         marginTop: 60,
@@ -71,9 +74,12 @@ const ProductsPage: React.FC = () => {
     }, [loggedIn])
 
     useEffect(() => {
-        if (categories) {
+        if (categories && setCategoryId !== undefined) {
             categories.map((category: TCategory) => {
-                if (category.id === categoryId) setCurrentCategory(category)
+                if (category.id === categoryId) {
+                    setCurrentCategory(category)
+                    setCategoryId(category.id)
+                }
             })
 
         }
@@ -86,6 +92,7 @@ const ProductsPage: React.FC = () => {
         let products: IProduct[] | [] = []
         if (productsByCategory !== undefined) {
             products = productsByCategory()
+
         }
 
         if (!products) return null
@@ -94,13 +101,14 @@ const ProductsPage: React.FC = () => {
 
                 <div>
                     <InputProduct
+                        key={index}
                         name={product.name}
                         currentAmount={product.currentAmount || 0}
                         previousAmount={product.previousAmount || 0}
                         id={product.id || ''}
                         categoryId={product.categoryId}
                         showAmounts={true}
-                        measureUnit={product.unit}
+                        measureUnit={MEASURE_UNITS[product.unit]}
                     />
 
                 </div>

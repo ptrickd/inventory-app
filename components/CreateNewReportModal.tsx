@@ -56,7 +56,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
             let productsForReport: any[] = []
             let newProduct: IProduct = {
                 amount: 0,
-                unit: '',
+                unit: 0,
                 name: '',
                 categoryId: ''
             }

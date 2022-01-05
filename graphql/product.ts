@@ -81,7 +81,7 @@ export const resolvers = {
                 let products = await Product.find({ categoryId: categoryId })
                 if (!products) throw new Error('No products found')
                 return products.map((
-                    { productId: id, currentAmount, previousAmount, name, categoryId, unit }: IProduct
+                    { id, currentAmount, previousAmount, name, categoryId, unit }: IProduct
                 ) => ({
                     id,
                     name,

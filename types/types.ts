@@ -15,7 +15,7 @@ export interface IProduct {
     amount?: number
     name: string
     categoryId: string
-    unit: string
+    unit: number
 }
 
 export interface IAddProduct {
