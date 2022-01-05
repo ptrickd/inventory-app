@@ -35,7 +35,7 @@ const CategoriesProvider = ({ children }: IProps) => {
     const [categories, setCategories] = useState<TCategory[] | []>([])
 
     //Get the data from the backend using the categoryId
-    const [getCategories, { data, loading }] = useLazyQuery(GET_CATEGORIES)
+    const [getCategories, { data, loading }] = useLazyQuery(GET_CATEGORIES, { fetchPolicy: 'network-only' })
 
     useEffect(() => {
         console.log('getting the categories')
@@ -48,11 +48,13 @@ const CategoriesProvider = ({ children }: IProps) => {
             console.log('the categories are', data.categories)
             // console.log('currentUser ', currentUser)
             setCategories(data.categories)
+
         }
     }, [data])
 
     useEffect(() => {
         console.log('categories updated', categories)
+
     }, [categories])
 
 
@@ -61,8 +63,11 @@ const CategoriesProvider = ({ children }: IProps) => {
 
         if (currentUser !== undefined) {
             await createCategory({ variables: { name: name, userId: currentUser.id } })
+            console.log('get the new category')
+            getCategories()
         }
     }
+
     console.log('CategoriesContextff')
     if (loading) return <div><h2>Loading...</h2></div>
     return (
