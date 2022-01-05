@@ -24,9 +24,6 @@ import EditIcon from '@material-ui/icons/Edit';
 //Time
 import { DateTime } from 'luxon'
 
-//GraphQL
-// import { useLazyQuery } from '@apollo/client'
-// import { GET_CATEGORY } from '../../graphql/queries'
 
 //Types
 import { IProduct, TCategory } from '../../types/types'
@@ -64,31 +61,26 @@ const ProductsPage: React.FC = () => {
     const classes = useStyles()
     const router = useRouter()
     const { categoryId } = router.query
+    const [currentCategory, setCurrentCategory] = useState<TCategory | null>(null)
 
     const [openAddProductModal, setOpenAddProductModal] = useState(false)
     const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false)
 
-    //Get set by the useQuery below
-    // const [category, setCategory] = useState<TCategory>({ id: '', name: '' })
-
-
-    //Get the data from the backend using the categoryId
-    // const [getCategory, { loading, data }] = useLazyQuery(GET_CATEGORY)
-    //Redirect to homepage if not login
     useEffect(() => {
         if (!loggedIn) router.push('/')
     }, [loggedIn])
 
-    // useEffect(() => {
-    //     if (categoryId && data?.category.id === categoryId) setCategory(data.category)
-    //     else getCategory({ variables: { categoryId: categoryId } })
-    // }, [data, categoryId])
+    useEffect(() => {
+        if (categories) {
+            categories.map((category: TCategory) => {
+                if (category.id === categoryId) setCurrentCategory(category)
+            })
 
-    // useEffect(() => {
-    //     if (typeof categoryId === 'string' && setCategoryId) {
-    //         setCategoryId(categoryId)
-    //     }
-    // }, [categoryId])
+        }
+
+    }, [currentCategory, categoryId])
+
+
     /*********************************** */
     const renderedProducts = () => {
         let products: IProduct[] | [] = []
@@ -97,7 +89,6 @@ const ProductsPage: React.FC = () => {
         }
 
         if (!products) return null
-        // console.log(products)
         return products.map((product: IProduct, index: number) => {
             return <Fragment key={index} >
 
@@ -122,7 +113,7 @@ const ProductsPage: React.FC = () => {
     const handleCloseAddProductForm = () => setOpenAddProductModal(false)
     const handleCloseEditCategoryForm = () => setOpenEditCategoryModal(false)
 
-    if (loading) return <div><h2>Loading...</h2></div>
+    if (!currentCategory) return null
 
     return (
         <div className={classes.root}>
@@ -131,7 +122,7 @@ const ProductsPage: React.FC = () => {
                     variant="h2"
                     className={classes.titleText}
                 >
-                    {category.name}
+                    {currentCategory.name}
 
                 </Typography>
                 <IconButton onClick={() => setOpenEditCategoryModal(true)}>
@@ -164,8 +155,8 @@ const ProductsPage: React.FC = () => {
             <EditCategoryForm
                 open={openEditCategoryModal}
                 handleCloseModal={handleCloseEditCategoryForm}
-                category={category}
-                setNewCategoryName={name => setCategory({ ...category, name })}
+                category={currentCategory}
+                setNewCategoryName={name => setCurrentCategory({ ...currentCategory, name })}
             />
 
         </div>

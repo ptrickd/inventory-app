@@ -23,7 +23,7 @@ interface IEditProduct {
     productId: string
     name: string
     categoryId: string
-    measureUnitIndex: number
+    unit: number
 }
 
 export const typeDef = `
@@ -68,7 +68,7 @@ export const resolvers = {
                     currentAmount,
                     previousAmount,
                     categoryId,
-                    unit: MEASURE_UNITS.indexOf(unit)
+                    unit
                 }))
             } catch (err) {
                 console.log(err)
@@ -88,7 +88,7 @@ export const resolvers = {
                     currentAmount,
                     previousAmount,
                     categoryId,
-                    unnit: MEASURE_UNITS.indexOf(unit)
+                    unit
                 }))
             }
             catch (err) {
@@ -98,25 +98,29 @@ export const resolvers = {
         },
     },
     Mutation: {
-        createProduct: async (_: any, { name, currentAmount, previousAmount, categoryId, measureUnitIndex }: ICreateProduct, { user }: any) => {
+        createProduct: async (_: any, { name, currentAmount, previousAmount, categoryId, unit }: ICreateProduct, { user }: any) => {
+            console.log('createProduct function')
             try {
+                console.log('before if in createProduct')
                 if (!user) throw new Error("Not Authenticated")
+                console.log('after if in createProduct')
                 let product = await Product.create({
                     name,
                     currentAmount,
                     previousAmount,
                     categoryId,
                     userId: user.id,
-                    unit: MEASURE_UNITS[measureUnitIndex]
+                    unit
                 })
+                console.log('product::', product)
                 return product
             } catch (err) {
-                console.log(err)
+                console.log('err: createProduct mutation', err)
                 return err
             }
 
         },
-        editProduct: async (_: any, { productId, name, categoryId, measureUnitIndex }: IEditProduct, { user }: any) => {
+        editProduct: async (_: any, { productId, name, categoryId, unit }: IEditProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 let editedProduct = await Product.findById(productId)
@@ -124,7 +128,7 @@ export const resolvers = {
                 if (!editedProduct) throw new Error('No product found')
                 editedProduct.name = name
                 editedProduct.categoryId = categoryId
-                editedProduct.unit = MEASURE_UNITS[measureUnitIndex]
+                editedProduct.unit = unit
                 editedProduct = await editedProduct.save()
 
                 return editedProduct

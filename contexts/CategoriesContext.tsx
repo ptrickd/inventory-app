@@ -11,7 +11,7 @@ import { CREATE_CATEGORY, GET_CATEGORIES } from '../graphql/queries'
 import { UserContext } from './UserContext'
 
 //Types
-import { IProduct, TCategory } from '../types/types'
+import { TCategory } from '../types/types'
 
 interface IProps {
     children: React.ReactNode
@@ -20,9 +20,7 @@ interface IProps {
 interface IContext {
     categories: TCategory[] | []
     createCategoryApi: (category: TCategory) => void
-
 }
-
 
 const CategoriesContext = createContext<Partial<IContext>>({})
 
@@ -46,29 +44,19 @@ const CategoriesProvider = ({ children }: IProps) => {
     useEffect(() => {
         if (data?.categories) {
             console.log('the categories are', data.categories)
-            // console.log('currentUser ', currentUser)
             setCategories(data.categories)
-
         }
     }, [data])
-
-    useEffect(() => {
-        console.log('categories updated', categories)
-
-    }, [categories])
-
 
     //add a new category 
     const createCategoryApi = async ({ name }: TCategory) => {
 
         if (currentUser !== undefined) {
             await createCategory({ variables: { name: name, userId: currentUser.id } })
-            console.log('get the new category')
             getCategories()
         }
     }
 
-    console.log('CategoriesContextff')
     if (loading) return <div><h2>Loading...</h2></div>
     return (
         <CategoriesContext.Provider value={{

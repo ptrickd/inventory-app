@@ -59,7 +59,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
         if (createCategoryApi !== undefined) {
             setSubmitting(true)
             console.log('before createCategoryApi')
-            createCategoryApi({ name: data.name })
+            createCategoryApi({ id: '', name: data.name })
             console.log('after createCategoryApi')
             reset({ name: '' })
             setSubmitting(false)

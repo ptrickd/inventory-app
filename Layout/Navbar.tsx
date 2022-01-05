@@ -109,7 +109,7 @@ const Navbar = () => {
 
 
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
-
+    if (!categories) return null
     return <div className={classes.root}>
         <CssBaseline />
         <AppBar

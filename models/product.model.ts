@@ -6,6 +6,7 @@ interface IProduct {
     previousAmount: Number
     categoryId: String
     userId: String
+    unit: Number
 }
 
 const schema = new mongoose.Schema<IProduct>({
@@ -31,7 +32,7 @@ const schema = new mongoose.Schema<IProduct>({
         required: true
     },
     unit: {
-        type: String,
+        type: Number,
         required: true
     }
 })
