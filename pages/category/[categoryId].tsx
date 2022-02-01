@@ -97,11 +97,11 @@ const ProductsPage: React.FC = () => {
 
         if (!products) return null
         return products.map((product: IProduct, index: number) => {
-            return <Fragment key={index} >
+            return <Fragment key={product.id}>
 
                 <div>
                     <InputProduct
-                        key={index}
+                        key={product.id}
                         name={product.name}
                         currentAmount={product.currentAmount || 0}
                         previousAmount={product.previousAmount || 0}

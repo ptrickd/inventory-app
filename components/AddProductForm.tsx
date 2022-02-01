@@ -56,11 +56,11 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
         setSubmitting(true)
         if (addProduct !== undefined && typeof categoryId === "string") {
             addProduct({
-                id: '',
                 name: data.name,
                 currentAmount: 0,
                 previousAmount: 0,
-                categoryId: categoryId
+                categoryId: categoryId,
+                unit: 0
             })
         }
 

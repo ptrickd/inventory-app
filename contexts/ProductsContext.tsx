@@ -78,8 +78,20 @@ const ProductsProvider = ({ children }: IProps) => {
     }
 
     const addProduct = async (product: IAddProduct) => {
-        await createProduct({ variables: { name: product.name, categoryId: product.categoryId } })
-        getProducts({ variables: { categoryId: contextCategoryId } })
+        console.log('addProduct categoryID', product.categoryId)
+        console.log('addProduct name', product.name)
+        await createProduct({
+            variables: {
+                name: product.name,
+                currentAmount: 0,
+                previousAmount: 0,
+                categoryId: product.categoryId,
+                unit: 0
+            }
+        })
+        // console.log('newProduct:', newProduct)
+        // getProducts({ variables: { categoryId: contextCategoryId } })
+        getProducts()
     }
 
     const deleteProductApi = async (productId: string) => {

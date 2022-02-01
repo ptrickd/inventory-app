@@ -15,8 +15,8 @@ interface ICreateProduct {
     currentAmount: number
     previousAmount: number
     categoryId: string
+    userId: string
     unit: number
-    measureUnitIndex: number
 }
 
 interface IEditProduct {
@@ -57,9 +57,10 @@ export const resolvers = {
                 let products = []
                 if (!user) throw new Error("Not Authenticated")
                 products = await Product.find({ userId: user.id })
-                console.log(products)
-                console.log(user)
+                console.log('products:', products)
+                console.log('user:', user)
                 if (!products) throw new Error("Products not found")
+                console.log('after new Error')
                 return products.map((
                     { id, currentAmount, previousAmount, name, categoryId, unit }: IProduct
                 ) => ({
@@ -71,7 +72,7 @@ export const resolvers = {
                     unit
                 }))
             } catch (err) {
-                console.log(err)
+                console.log('error in products query', err)
                 return err
             }
         },
@@ -98,19 +99,16 @@ export const resolvers = {
         },
     },
     Mutation: {
-        createProduct: async (_: any, { name, currentAmount, previousAmount, categoryId, unit }: ICreateProduct, { user }: any) => {
-            console.log('createProduct function')
+        createProduct: async (_: any, { name, categoryId, unit }: ICreateProduct, { user }: any) => {
             try {
                 console.log('before if in createProduct')
                 if (!user) throw new Error("Not Authenticated")
                 console.log('after if in createProduct')
                 let product = await Product.create({
                     name,
-                    currentAmount,
-                    previousAmount,
                     categoryId,
+                    unit,
                     userId: user.id,
-                    unit
                 })
                 console.log('product::', product)
                 return product

@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel';
 
 //Icons
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -39,6 +40,7 @@ const UPDATE_AMOUNT = gql`
 `
 
 type IProps = {
+    key: string | undefined
     name: string
     currentAmount: number
     previousAmount: number
@@ -55,17 +57,28 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         marginTop: '8px',
+
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center'
     },
-    textfield: {
-        marginLeft: 5,
-        marginRight: 5
-    },
-    productNameWithoutAmount: {
+    innerFormControl: {
+        margin: theme.spacing(1),
 
-    }
+        alignItems: 'center'
+    },
+    textfield: {
+        // marginLeft: 5,
+        // marginRight: 5
+    },
+    selectUnit: {
+        marginLeft: 5,
+        marginRight: 5,
+        minWidth: 50,
+        // margin: theme.spacing(1)
+
+    },
+    productNameWithoutAmount: {}
 }));
 
 const InputProduct: React.FC<IProps> = (
@@ -105,47 +118,67 @@ const InputProduct: React.FC<IProps> = (
 
     const bodyWithAmount = () => (
         <Fragment>
-
-            <TextField
-
-                id={name + 'current'}
-                label={'Current'}
-                color="primary"
-                value={amount}
-                onChange={e => setAmount(e.target.value)}
-                onBlur={saveProductOnBlur}
-                variant='standard'
-                fullWidth
-                className={classes.textfield}
-            />
-            <Select
-                labelId={name + 'labelID-select'}
-                id={name + "select"}
-                value={currentMeasureUnit}
-                onChange={handleUnitChange}
+            <FormControl
+                className={classes.innerFormControl}
             >
-                {
-                    MEASURE_UNITS.map((unitName: string) => {
-                        return <MenuItem value={unitName}>{unitName}</MenuItem>
-                    })
-                }
-            </Select>
-            <Divider orientation="vertical" flexItem />
-            <TextField
+                <TextField
 
-                id={name + 'previous'}
-                label={'Last'}
-                color="primary"
-                value={previousAmount}
-                variant='standard'
-                className={classes.textfield}
-            />
+                    id={name + 'current'}
+                    label={'Current'}
+                    color="primary"
+                    value={amount}
+                    onChange={e => setAmount(e.target.value)}
+                    onBlur={saveProductOnBlur}
+                    variant='standard'
+                    fullWidth
+                    className={classes.textfield}
+                />
+            </FormControl>
+
+            <FormControl
+                className={classes.innerFormControl}
+            >
+
+
+                <InputLabel>Unit</InputLabel>
+                <Select
+                    labelId={name + 'labelID-select'}
+                    id={name + "select"}
+                    // value={'U'}
+                    value={currentMeasureUnit}
+                    onChange={handleUnitChange}
+                    variant='standard'
+                    className={classes.selectUnit}
+                >
+                    {
+                        MEASURE_UNITS.map((unitName: string) => {
+                            return <MenuItem value={unitName}>{unitName}</MenuItem>
+                        })
+                    }
+                </Select>
+            </FormControl>
+
+            {/* <Divider orientation="vertical" flexItem /> */}
+            <FormControl
+                className={classes.innerFormControl}
+            >
+                <TextField
+
+                    id={name + 'previous'}
+                    label={'Last'}
+                    color="primary"
+                    value={previousAmount}
+                    variant='standard'
+                    className={classes.textfield}
+                />
+            </FormControl>
+
         </Fragment>
 
     )
 
     return (
-        <div className={classes.root}>
+        <section className={classes.root}>
             {showAmounts && <Typography variant="h6">{name}</Typography>}
             <FormControl
                 className={classes.formControl}
@@ -177,7 +210,7 @@ const InputProduct: React.FC<IProps> = (
                 productName={name}
             />
 
-        </div>
+        </section>
 
     )
 }

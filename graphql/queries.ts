@@ -84,8 +84,8 @@ export const GET_CATEGORIES = gql`
 `
 
 export const CREATE_CATEGORY = gql`
-   mutation CreateCategory($name: String!, $userId: String!){
-    createCategory(name: $name, userId: $userId){
+   mutation CreateCategory($name: String!){
+    createCategory(name: $name){
         id
         name
     }
