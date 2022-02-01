@@ -52,7 +52,6 @@ export const resolvers = {
         currentUser: async (_: any, _1: any, { user }: any) => {
             try {
                 if (!user) return null
-
                 return User.findOne({ _id: user.id })
             }
             catch (err) {
@@ -77,7 +76,7 @@ export const resolvers = {
                 if (!user) throw new Error("Failed to create user")
                 return { user }
             }
-            catch (err) {
+            catch (err: any) {
                 return { error: err.message }
             }
 
@@ -85,9 +84,9 @@ export const resolvers = {
         login: async (_: any, { email, password }: IRegister) => {
             try {
                 const user = await User.findOne({ email })
-                // console.log('user from login', user)
 
                 if (!user) throw new Error("Invalid Login")
+
                 const passwordMatch = await bcrypt.compare(password, user.password)
                 if (!passwordMatch) throw new Error("Invalid Login")
 

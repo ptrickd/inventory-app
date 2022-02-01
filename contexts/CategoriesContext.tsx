@@ -33,17 +33,19 @@ const CategoriesProvider = ({ children }: IProps) => {
     const [categories, setCategories] = useState<TCategory[] | []>([])
 
     //Get the data from the backend using the categoryId
+    // const [getCategories, { data, loading }] = useLazyQuery(GET_CATEGORIES)
+
     const [getCategories, { data, loading }] = useLazyQuery(GET_CATEGORIES, { fetchPolicy: 'network-only' })
 
     useEffect(() => {
-        console.log('getting the categories')
+        // console.log('getting the categories')
 
         getCategories()
-    }, [])
+    }, [currentUser])
 
     useEffect(() => {
         if (data?.categories) {
-            console.log('the categories are', data.categories)
+            // console.log('the categories are', data.categories)
             setCategories(data.categories)
         }
     }, [data])

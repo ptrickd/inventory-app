@@ -27,7 +27,7 @@ const UserContext = createContext<Partial<IContext>>({})
 const UserProvider = ({ children }: IProps) => {
     const [currentUser, setCurrentUser] = useState<IUser>({ id: '', email: '' })
     const [loggedIn, setLoggedIn] = useState(false)
-    const {  data } = useQuery(GET_CURRENT_USER)
+    const { data } = useQuery(GET_CURRENT_USER)
 
     // useEffect(() => {
     //     console.log('currentUser::', currentUser)
@@ -45,7 +45,6 @@ const UserProvider = ({ children }: IProps) => {
     useEffect(() => {
 
         if (typeof (localStorage.getItem('token')) !== 'undefined' && data && data.currentUser) {
-            // console.log('refetch data on reload:', data.currentUser)
             setCurrentUser({ id: data.currentUser.id, email: data.currentUser.email })
             setLoggedIn(true)
         }

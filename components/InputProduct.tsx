@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         marginTop: '8px',
-
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center'
@@ -67,16 +66,11 @@ const useStyles = makeStyles((theme) => ({
 
         alignItems: 'center'
     },
-    textfield: {
-        // marginLeft: 5,
-        // marginRight: 5
-    },
+    textfield: {},
     selectUnit: {
         marginLeft: 5,
         marginRight: 5,
-        minWidth: 50,
-        // margin: theme.spacing(1)
-
+        minWidth: 50
     },
     productNameWithoutAmount: {}
 }));
@@ -105,7 +99,7 @@ const InputProduct: React.FC<IProps> = (
         let newProductsList = products?.map((product: IProduct) => {
 
             if (product.id === id) {
-                console.log(product)
+                // console.log(product)
                 let newProduct = JSON.parse(JSON.stringify(product))
                 return Object.assign(newProduct, { currentAmount: parseInt(amount) })
             }
@@ -144,7 +138,6 @@ const InputProduct: React.FC<IProps> = (
                 <Select
                     labelId={name + 'labelID-select'}
                     id={name + "select"}
-                    // value={'U'}
                     value={currentMeasureUnit}
                     onChange={handleUnitChange}
                     variant='standard'
@@ -157,8 +150,6 @@ const InputProduct: React.FC<IProps> = (
                     }
                 </Select>
             </FormControl>
-
-            {/* <Divider orientation="vertical" flexItem /> */}
             <FormControl
                 className={classes.innerFormControl}
             >

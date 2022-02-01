@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <ProductsProvider>
             <ReportsProvider>
               <Head>
-                <title>The App Inventory</title>
+                <title>Gruyere: The App Inventory</title>
               </Head>
               <Navbar />
               <ComponentWrapper>
