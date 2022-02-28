@@ -121,7 +121,7 @@ const ReportsProvider = ({ children }: IProps) => {
         return valueToReturn
     }
 
-    if (loading) return <div><h2>Loading...</h2></div>
+    if (loading) null
 
     return (
         <ReportsContext.Provider value={{

@@ -59,7 +59,7 @@ const CategoriesProvider = ({ children }: IProps) => {
         }
     }
 
-    if (loading) return <div><h2>Loading...</h2></div>
+    if (loading) return null
     return (
         <CategoriesContext.Provider value={{
             createCategoryApi,

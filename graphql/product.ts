@@ -8,6 +8,9 @@ import { TIds, IProduct } from '../types/types'
 //Constants
 import { MEASURE_UNITS } from '../constants/measureUnits'
 
+//Validation
+// import Joi from joi
+
 dbConnect()
 
 interface ICreateProduct {

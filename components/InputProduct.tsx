@@ -115,6 +115,7 @@ const InputProduct: React.FC<IProps> = (
             <FormControl
                 className={classes.innerFormControl}
             >
+
                 <TextField
 
                     id={name + 'current'}
@@ -164,7 +165,7 @@ const InputProduct: React.FC<IProps> = (
                 />
             </FormControl>
 
-        </Fragment>
+        </Fragment >
 
     )
 

@@ -105,7 +105,7 @@ const ProductsProvider = ({ children }: IProps) => {
         getProducts({ variables: { categoryId: contextCategoryId } })
     }
 
-    if (loading) return <div><h2>Loading...</h2></div>
+    if (loading) return null
     return (
         <ProductsContext.Provider value={{
             products,
