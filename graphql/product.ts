@@ -19,14 +19,14 @@ interface ICreateProduct {
     previousAmount: number
     categoryId: string
     userId: string
-    unit: number
+    unit: string
 }
 
 interface IEditProduct {
     productId: string
     name: string
     categoryId: string
-    unit: number
+    unit: string
 }
 
 export const typeDef = `
@@ -37,7 +37,7 @@ export const typeDef = `
         previousAmount: Int
         categoryId: ID
         userId: ID
-        unit: Int
+        unit: String
     }
 
     type Query {
@@ -46,8 +46,8 @@ export const typeDef = `
     }
 
     type Mutation {
-        createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String, unit: Int): Product
-        editProduct(productId:ID, name:String, currentAmount:Int, previousAmount:Int, categoryId: String, unit: Int): Product
+        createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String, unit: String): Product
+        editProduct(productId:ID, name:String, currentAmount:Int, previousAmount:Int, categoryId: String, unit: String): Product
         deleteProduct(productId: ID): Product
         saveAmountProduct(productId: ID, updatedAmount: Int): Product
     }
@@ -60,10 +60,7 @@ export const resolvers = {
                 let products = []
                 if (!user) throw new Error("Not Authenticated")
                 products = await Product.find({ userId: user.id })
-                console.log('products:', products)
-                console.log('user:', user)
                 if (!products) throw new Error("Products not found")
-                console.log('after new Error')
                 return products.map((
                     { id, currentAmount, previousAmount, name, categoryId, unit }: IProduct
                 ) => ({
@@ -81,9 +78,12 @@ export const resolvers = {
         },
         productsByCategory: async (_: any, { categoryId }: TIds, { user }: any) => {
             try {
-                console.log('getProductsByCategory')
+                if (!user) throw new Error("Not Authenticated")
                 let products = await Product.find({ categoryId: categoryId })
                 if (!products) throw new Error('No products found')
+                console.log(products[0])
+                console.log(products[1])
+
                 return products.map((
                     { id, currentAmount, previousAmount, name, categoryId, unit }: IProduct
                 ) => ({
@@ -104,16 +104,13 @@ export const resolvers = {
     Mutation: {
         createProduct: async (_: any, { name, categoryId, unit }: ICreateProduct, { user }: any) => {
             try {
-                console.log('before if in createProduct')
                 if (!user) throw new Error("Not Authenticated")
-                console.log('after if in createProduct')
                 let product = await Product.create({
                     name,
                     categoryId,
                     unit,
                     userId: user.id,
                 })
-                console.log('product::', product)
                 return product
             } catch (err) {
                 console.log('err: createProduct mutation', err)
@@ -155,7 +152,6 @@ export const resolvers = {
         },
         saveAmountProduct: async (_: any, { productId, updatedAmount }: TIds, { user }: any) => {
             try {
-                console.log('saveAmounProduct')
                 if (!user) throw new Error("Not Authenticated")
                 const product = await Product.findById(productId)
                 if (!product) throw new Error("No product found")

@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext, Fragment, ChangeEvent } from 'react'
+import React, { useState, useEffect, useContext, Fragment, ChangeEvent } from 'react'
 
 //Context
 import { ProductsContext } from '../contexts/ProductsContext'
@@ -85,6 +85,12 @@ const InputProduct: React.FC<IProps> = (
     const [amount, setAmount] = useState(currentAmount.toString())
     const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
 
+
+    useEffect(() => {
+        console.log('In InputProduct')
+        console.log('measureUnit: ', currentMeasureUnit)
+    }, [currentMeasureUnit])
+
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
     const handleUnitChange = (e: any) => setCurrentMeasureUnit(e?.target?.value)
     const saveProductOnBlur = async () => {
@@ -168,6 +174,7 @@ const InputProduct: React.FC<IProps> = (
         </Fragment >
 
     )
+
 
     return (
         <section className={classes.root}>

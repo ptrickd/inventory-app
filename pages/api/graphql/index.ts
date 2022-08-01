@@ -5,7 +5,6 @@ import { schema } from '../../../graphql/schema'
 
 //Cors
 import Cors from 'micro-cors'
-import { send } from 'micro'
 
 //Models 
 import dbConnect from '../../../utils/dbConnect'

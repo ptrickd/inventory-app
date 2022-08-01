@@ -15,7 +15,7 @@ export interface IProduct {
     amount?: number
     name: string
     categoryId: string
-    unit: number
+    unit: string
 }
 
 export interface IAddProduct {
@@ -24,7 +24,7 @@ export interface IAddProduct {
     currentAmount?: number
     previousAmount?: number
     categoryId: string
-    unit?: number
+    unit?: string
 }
 
 export interface IUser {

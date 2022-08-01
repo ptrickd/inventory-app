@@ -44,6 +44,7 @@ export const GET_PRODUCTS_BY_CATEGORY = gql`
             currentAmount
             previousAmount
             categoryId
+            unit
         }
     }
 `
