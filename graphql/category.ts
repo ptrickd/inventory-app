@@ -7,6 +7,8 @@ import { Category } from '../models/category.model'
 
 //Types
 import { TIds } from '../types/types'
+import mongoose from 'mongoose'
+
 
 dbConnect()
 
@@ -55,11 +57,19 @@ export const resolvers = {
         },
         categories: async (_: any, _1: any, { user }: any) => {
             try {
-                console.log('in getCategories')
-                console.log('user', user)
+                // console.log('\n\nin getCategories')
+                // console.log('user', user)
+
                 if (!user) throw new Error("Not Authenticated")
-                const categories = await Category.find({ userId: user.id })
+
+                // const categories = await Category.find({ userId: "62eda644bc19ad7c77d31f48" })
+                const categories = await Category.find()
+
                 if (!categories) throw new Error("No Categories Found")
+                // console.log('categories: ', categories)
+                // console.log(user.id, '\n\n')
+
+
 
                 return categories.map(({ id, name, userId }) => ({
                     id, name, userId
@@ -72,12 +82,12 @@ export const resolvers = {
         },
     },
     Mutation: {
-        createCategory: async (_: any, { name, userId }: TIds, { user }: any) => {
+        createCategory: async (_: any, { name }: TIds, { user }: any) => {
             try {
                 console.log('createCategory name', name)
-                console.log('createCategory userId', userId)
+                console.log('createCategory userId', user.id)
                 if (!user) throw new Error("Not Authenticated")
-                let category = await Category.create({ name, userId })
+                let category = await Category.create({ name, userId: user.id })
                 console.log('category::', category)
                 if (!category) throw new Error("No Category Created")
                 return category

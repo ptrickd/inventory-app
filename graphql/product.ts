@@ -47,7 +47,14 @@ export const typeDef = `
 
     type Mutation {
         createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String, unit: String): Product
-        editProduct(productId:ID, name:String, currentAmount:Int, previousAmount:Int, categoryId: String, unit: String): Product
+        editProduct(
+            productId:ID, 
+            name:String, 
+            currentAmount:Int, 
+            previousAmount:Int, 
+            categoryId: String, 
+            unit: String
+            ): Product
         deleteProduct(productId: ID): Product
         saveAmountProduct(productId: ID, updatedAmount: Int): Product
     }
@@ -59,6 +66,7 @@ export const resolvers = {
             try {
                 let products = []
                 if (!user) throw new Error("Not Authenticated")
+                // console.log(user)
                 products = await Product.find({ userId: user.id })
                 if (!products) throw new Error("Products not found")
                 return products.map((
@@ -79,10 +87,10 @@ export const resolvers = {
         productsByCategory: async (_: any, { categoryId }: TIds, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
+                console.log('categoryId: ', categoryId)
                 let products = await Product.find({ categoryId: categoryId })
+                console.log(products)
                 if (!products) throw new Error('No products found')
-                console.log(products[0])
-                console.log(products[1])
 
                 return products.map((
                     { id, currentAmount, previousAmount, name, categoryId, unit }: IProduct
@@ -105,6 +113,7 @@ export const resolvers = {
         createProduct: async (_: any, { name, categoryId, unit }: ICreateProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
+                console.log('in create product')
                 let product = await Product.create({
                     name,
                     categoryId,
@@ -121,15 +130,17 @@ export const resolvers = {
         editProduct: async (_: any, { productId, name, categoryId, unit }: IEditProduct, { user }: any) => {
             try {
                 if (!user) throw new Error("Not Authenticated")
-                let editedProduct = await Product.findById(productId)
+                console.log(productId, name, categoryId, unit)
+                // let editedProduct = await Product.findById(productId)
 
-                if (!editedProduct) throw new Error('No product found')
-                editedProduct.name = name
-                editedProduct.categoryId = categoryId
-                editedProduct.unit = unit
-                editedProduct = await editedProduct.save()
+                // if (!editedProduct) throw new Error('No product found')
+                // editedProduct.name = name
+                // editedProduct.categoryId = categoryId
+                // editedProduct.unit = "ea"
+                // editedProduct = await editedProduct.save()
 
-                return editedProduct
+                // return editedProduct
+                // return {}
 
             } catch (err) {
                 console.log(err)

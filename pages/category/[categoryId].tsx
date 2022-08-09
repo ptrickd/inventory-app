@@ -1,5 +1,5 @@
 //React
-import React, { useState, useEffect, useContext, Fragment } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
 //Context
@@ -19,6 +19,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
 //Icons
+import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit';
 
 //Time
@@ -29,7 +30,7 @@ import { DateTime } from 'luxon'
 import { IProduct, TCategory } from '../../types/types'
 
 //Constant
-import { MEASURE_UNITS } from '../../constants/measureUnits'
+// import { MEASURE_UNITS } from '../../constants/measureUnits'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const ProductsPage: React.FC = () => {
 
     const { productsByCategory, setCategoryId } = useContext(ProductsContext)
-    const { categories } = useContext(CategoriesContext)
+    const { categories, deleteCategoryApi } = useContext(CategoriesContext)
     const { loggedIn } = useContext(UserContext)
     const classes = useStyles()
     const router = useRouter()
@@ -96,24 +97,20 @@ const ProductsPage: React.FC = () => {
         }
 
         if (!products) return null
-        return products.map((product: IProduct, index: number) => {
-            return <Fragment key={product.id}>
+        return products.map((product: IProduct) => {
+            return <div>
+                <InputProduct
+                    key={product.id}
+                    name={product.name}
+                    currentAmount={product.currentAmount || 0}
+                    previousAmount={product.previousAmount || 0}
+                    id={product.id || ''}
+                    categoryId={product.categoryId}
+                    showAmounts={true}
+                    measureUnit={product.unit}
+                />
 
-                <div>
-                    <InputProduct
-                        key={product.id}
-                        name={product.name}
-                        currentAmount={product.currentAmount || 0}
-                        previousAmount={product.previousAmount || 0}
-                        id={product.id || ''}
-                        categoryId={product.categoryId}
-                        showAmounts={true}
-                        measureUnit={MEASURE_UNITS[product.unit]}
-                    />
-
-                </div>
-
-            </Fragment>
+            </div>
         })
     }
     /*********************************** */
@@ -135,6 +132,13 @@ const ProductsPage: React.FC = () => {
                 </Typography>
                 <IconButton onClick={() => setOpenEditCategoryModal(true)}>
                     <EditIcon />
+                </IconButton>
+                <IconButton onClick={() => {
+                    if (currentCategory != undefined && deleteCategoryApi != undefined) {
+                        deleteCategoryApi(currentCategory)
+                    }
+                }}>
+                    <DeleteIcon />
                 </IconButton>
             </div>
             <div>

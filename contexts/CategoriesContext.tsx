@@ -4,7 +4,7 @@ import React,
     from 'react'
 
 //GraphQL
-import { useMutation, useLazyQuery } from '@apollo/client'
+import { useMutation, useLazyQuery, gql } from '@apollo/client'
 import { CREATE_CATEGORY, GET_CATEGORIES } from '../graphql/queries'
 
 //Context
@@ -20,13 +20,24 @@ interface IProps {
 interface IContext {
     categories: TCategory[] | []
     createCategoryApi: (category: TCategory) => void
+    deleteCategoryApi: (category: TCategory) => void
 }
+
+const DELETE_CATEGORY = gql`
+    mutation DeleteCategory($categoryId: ID!){
+        deleteCategory(categoryId: $categoryId){
+            id
+            name
+        }
+    }
+    `
 
 const CategoriesContext = createContext<Partial<IContext>>({})
 
 const CategoriesProvider = ({ children }: IProps) => {
 
     const [createCategory] = useMutation(CREATE_CATEGORY)
+    const [deleteCategory] = useMutation(DELETE_CATEGORY)
     const { currentUser } = useContext(UserContext)
 
     //Get set by the useQuery below
@@ -52,17 +63,31 @@ const CategoriesProvider = ({ children }: IProps) => {
 
     //add a new category 
     const createCategoryApi = async ({ name }: TCategory) => {
+        console.log('currentUser', currentUser)
+        console.log('new category name', name)
 
         if (currentUser !== undefined) {
             await createCategory({ variables: { name: name, userId: currentUser.id } })
             getCategories()
         }
     }
+    //Delete a category 
+    const deleteCategoryApi = async (category: TCategory) => {
+        if (category.id != undefined) {
+            await deleteCategory({
+                variables: {
+                    categoryId: category.id
+                }
+            })
+        }
+        else console.log('No category id passed')
+    }
 
     if (loading) return null
     return (
         <CategoriesContext.Provider value={{
             createCategoryApi,
+            deleteCategoryApi,
             categories
         }}>
             {children}

@@ -73,23 +73,22 @@ const ProductsProvider = ({ children }: IProps) => {
         }
 
 
-        console.log('productsToReturn', productsToReturn)
+        // console.log('productsToReturn', productsToReturn)
         return productsToReturn
     }
 
     const addProduct = async (product: IAddProduct) => {
-        console.log('addProduct categoryID', product.categoryId)
-        console.log('addProduct name', product.name)
+        console.log('addProduct ', product)
         await createProduct({
             variables: {
                 name: product.name,
-                currentAmount: 0,
-                previousAmount: 0,
+                currentAmount: product.currentAmount,
+                previousAmount: product.previousAmount,
                 categoryId: product.categoryId,
-                unit: 0
+                unit: product.unit
             }
         })
-        // console.log('newProduct:', newProduct)
+        console.log('newProduct:')
         // getProducts({ variables: { categoryId: contextCategoryId } })
         getProducts()
     }
@@ -100,8 +99,19 @@ const ProductsProvider = ({ children }: IProps) => {
         getProducts({ variables: { categoryId: contextCategoryId } })
     }
 
-    const editProductApi = async (productId: string, productName: string, categoryId: string) => {
-        await editProduct({ variables: { productId, name: productName, categoryId } })
+    const editProductApi = async (
+        productId: string,
+        productName: string,
+        categoryId: string
+    ) => {
+        await editProduct({
+            variables: {
+                productId,
+                name: productName,
+                categoryId,
+                unit: "ea"
+            }
+        })
         getProducts({ variables: { categoryId: contextCategoryId } })
     }
 

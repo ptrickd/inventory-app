@@ -60,7 +60,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
                 currentAmount: 0,
                 previousAmount: 0,
                 categoryId: categoryId,
-                unit: 0
+                unit: 'ea'
             })
         }
 

@@ -40,6 +40,7 @@ interface IProps {
 interface IForm {
     name: string
     categoryId: string
+    unit: string
 }
 
 
