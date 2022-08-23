@@ -6,11 +6,13 @@ import { DateTime } from 'luxon'
 import LuxonUtils from '@date-io/luxon'
 
 //Material UI
+// import { DatePicker as DP } from '@material-ui/pickers'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
 interface IProps {
-    handleSelectedDate: (date: DateTime | null) => void
+    handleSelectedDate: (date: Date | null) => void
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -21,13 +23,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }))
 
 const DatePicker = ({ handleSelectedDate }: IProps) => {
-    const initialDate = DateTime.now()
+    const initialDate: DateTime = DateTime.now()
     const [selectedDate, setSelectedDate] = useState<DateTime | null>(initialDate)
     const classes = useStyles()
 
     useEffect(() => {
         // console.log(selectedDate)
-        handleSelectedDate(selectedDate)
+        if (selectedDate) handleSelectedDate(selectedDate.toJSDate())
     }, [selectedDate])
 
     return (
@@ -39,7 +41,7 @@ const DatePicker = ({ handleSelectedDate }: IProps) => {
                     format="DDDD"
                     margin="normal"
                     value={selectedDate}
-                    onChange={date => setSelectedDate(date)}
+                    onChange={setSelectedDate}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}

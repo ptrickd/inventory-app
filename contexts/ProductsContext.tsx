@@ -82,8 +82,6 @@ const ProductsProvider = ({ children }: IProps) => {
         await createProduct({
             variables: {
                 name: product.name,
-                currentAmount: product.currentAmount,
-                previousAmount: product.previousAmount,
                 categoryId: product.categoryId,
                 unit: product.unit
             }

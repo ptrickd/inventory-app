@@ -68,12 +68,14 @@ const NavbarReportsList = () => {
 
     const renderedReportsMenu = () => {
         if (data?.reports?.reports.length === 0) {
+            console.log('0 report now')
             return <MenuItem onClick={handleCloseMenu} >
                 <Typography variant="body1">No reports saved</Typography>
             </MenuItem >
         }
         return data?.reports?.reports.map((report: IReport, index: number) => {
             // console.log(report)
+
             const dateTime = DateTime.fromISO(report.date.toString())
             const year = dateTime.year
             const month = dateTime.month
@@ -83,6 +85,7 @@ const NavbarReportsList = () => {
             </MenuItem >
         })
     }
+
 
     if (loading) return null
     if (error) return null

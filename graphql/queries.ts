@@ -49,8 +49,16 @@ export const GET_PRODUCTS_BY_CATEGORY = gql`
     }
 `
 export const CREATE_PRODUCT = gql`
-    mutation CreateProduct($name: String!, $amount: Int!, $categoryId: String!){
-        createProduct(name: $name, amount: $amount, categoryId: $categoryId){
+    mutation CreateProduct(
+        $name: String!, 
+        $categoryId: String!,
+        $unit:String!
+        ){
+        createProduct(
+            name: $name, 
+            categoryId: $categoryId,
+            unit:$unit
+             ){
             id
             name
         }

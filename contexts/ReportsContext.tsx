@@ -25,17 +25,15 @@ const GET_REPORTS = gql`
 //Mutation
 const CREATE_REPORT = gql`
     mutation CreateReport(
-        $date: timestamptz,
-        $products: [InputReportProduct], 
-        $createdDate: timestamptz
+        $dateEndingCycle: Date
         ){
             createReport(
-                date: $date, 
-                products: $products, 
-                createdDate: $createdDate
+                dateEndingCycle: $dateEndingCycle
                 ){
                 id
-                error
+                userId
+                dateEndingCycle
+                dateCreated
             }
         }
 `
@@ -52,28 +50,21 @@ interface IProductInReport {
     name: string
     categoryId: string
 }
-interface IInputNewReport {
-    selectedDate: DateTime
-    products: IProduct[] | []
-    currentDate: DateTime
-}
+
 
 interface IReport {
     id: string
     userId: string
-    date: string
-    products: IProductInReport[] | []
+    dateEndingCycle: Date
+    products?: IProductInReport[] | []
     hasBeenSubmitted: boolean
-    dateCreated: DateTime
-    dateSubmitted: DateTime
+    dateCreated: Date
+    dateSubmitted: Date
 }
 interface IContext {
     reports: IReport[]
-    addNewReport: (
-        selectedDate: DateTime,
-        products: IProductInReport[],
-        currentDate: DateTime
-    ) => Promise<number>
+    createNewReport: (dateEndingCycle: Date) => void
+    // createNewReport: (dateEndingCycle: Date) => Promise<number>
 }
 
 const ReportsContext = createContext<Partial<IContext>>({})
@@ -89,44 +80,27 @@ const ReportsProvider = ({ children }: IProps) => {
         }
     })
 
-    // useEffect(() => {
-    //     if (data) setReports(data?.reports?.reports)
-    //     console.log('data reports change', data.reports)
-    // }, [data])
+
     useEffect(() => {
         getReports()
     }, [])
-    const addNewReport = async (
-        date: DateTime,
-        products: IProductInReport[] | [],
-        createdDate: DateTime
-    ) => {
-        let valueToReturn = 0
+    const createNewReport = async (dateEndingCycle: Date) => {
 
-        // console.log(reports)
-        reports.map((report: IReport) => {
-
-            let dateReport = DateTime.fromISO(report.date)
-            // console.log('dateReport', dateReport.toLocaleString())
-            // console.log('date', date.toLocaleString())
-            if (dateReport.toLocaleString() === date.toLocaleString()) valueToReturn = -1
-        })
-
-        if (valueToReturn !== -1) {
-            await createReport({ variables: { date: date.toJSDate(), products, createdDate: createdDate.toJSDate() } })
-            getReports()
-        }
-
-
-        return valueToReturn
+        let report = await createReport({ variables: { dateEndingCycle } })
+        getReports()
+        console.log(report)
     }
 
-    if (loading) null
+
+    // return valueToReturn
+
+
+    // if (loading) null
 
     return (
         <ReportsContext.Provider value={{
             reports,
-            addNewReport
+            createNewReport
         }} >
             {children}
         </ReportsContext.Provider>

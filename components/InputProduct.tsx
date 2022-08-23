@@ -39,8 +39,15 @@ const UPDATE_AMOUNT = gql`
     }
 `
 
+const UPDATE_UNIT = gql`
+    mutation SaveUnitProduct($productId: ID!, $updatedUnit: String!){
+        saveUnitProduct(productId: $productId, updatedUnit: $updatedUnit){
+            id
+        }
+    }
+`
+
 type IProps = {
-    key: string | undefined
     name: string
     currentAmount: number
     previousAmount: number
@@ -84,15 +91,40 @@ const InputProduct: React.FC<IProps> = (
     const [currentMeasureUnit, setCurrentMeasureUnit] = useState<string>(measureUnit)
     const [amount, setAmount] = useState(currentAmount.toString())
     const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
+    const [saveNewUnit] = useMutation(UPDATE_UNIT)
 
-
+    //Use only for print
+    // useEffect(() => {
+    //     console.log('In InputProduct')
+    //     console.log('measureUnit: ', currentMeasureUnit)
+    // }, [currentMeasureUnit])
     useEffect(() => {
-        console.log('In InputProduct')
-        console.log('measureUnit: ', currentMeasureUnit)
+        const updateUnit = async () => {
+            await saveNewUnit({
+                variables: {
+                    productId: id,
+                    updatedUnit: currentMeasureUnit
+                }
+            })
+        }
+        if (measureUnit !== currentMeasureUnit) {
+            updateUnit()
+        }
     }, [currentMeasureUnit])
 
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
-    const handleUnitChange = (e: any) => setCurrentMeasureUnit(e?.target?.value)
+    const handleUnitChange = async (e: any) => {
+
+        console.log('unit changed!')
+        setCurrentMeasureUnit(e?.target?.value)
+        // await saveNewUnit({
+        //     variables: {
+        //         productId: id,
+        //         updatedAmount: currentMeasureUnit
+        //     }
+        // })
+
+    }
     const saveProductOnBlur = async () => {
         // console.log('id', id)
 
@@ -177,8 +209,9 @@ const InputProduct: React.FC<IProps> = (
 
 
     return (
-        <section className={classes.root}>
-            {showAmounts && <Typography variant="h6">{name}</Typography>}
+        < div className={classes.root} >
+            {showAmounts && <Typography variant="h6">{name}</Typography>
+            }
             <FormControl
                 className={classes.formControl}
                 fullWidth
@@ -209,7 +242,8 @@ const InputProduct: React.FC<IProps> = (
                 productName={name}
             />
 
-        </section>
+        </div >
+
 
     )
 }

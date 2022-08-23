@@ -19,16 +19,15 @@ interface IProductInReport {
     productId: string
     amount: number
     name: string
+    categoryId: string
 }
 interface ICreateReport {
-    date: DateTime
-    products: IProductInReport[]
-    createdDate: DateTime
+    dateEndingCycle: Date
 }
 
 export const typeDef = gql`
 
-    scalar timestamptz
+    scalar Date
 
     input InputReportProduct {
         productId: String
@@ -44,11 +43,15 @@ export const typeDef = gql`
         categoryId: String
     }
 
-    type ReportResponse {
+    type createdReportResponse {
         id: ID
         userId: String
-        date: timestamptz
-        products: [ReportProduct]
+        dateEndingCycle: Date
+        dateCreated: Date
+    }
+
+    type ReportResponse {
+        id:ID
         error: String
     }
 
@@ -61,8 +64,8 @@ export const typeDef = gql`
     type Report {
         id: ID
         userId: String
-        date: timestamptz
-        products: [ReportProduct]
+        date: Date
+        dateCreated: Date
     }
 
     extend type Query {
@@ -72,10 +75,8 @@ export const typeDef = gql`
 
     extend type Mutation {
         createReport(
-            date: timestamptz, 
-            products: [InputReportProduct],
-            createdDate: timestamptz
-            ): ReportResponse
+            dateEndingCycle: Date
+            ): createdReportResponse
     }
 `
 export const resolvers = {
@@ -89,7 +90,7 @@ export const resolvers = {
                 return report
             }
             catch (err: any) {
-                console.log(err)
+                console.log(err.message)
                 return { error: err.message }
             }
         },
@@ -108,25 +109,29 @@ export const resolvers = {
     Mutation: {
 
 
-        createReport: async (_: any, { date, products, createdDate }: ICreateReport, { user }: any) => {
+        createReport: async (_: any, { dateEndingCycle }: ICreateReport, { user }: any) => {
             try {
 
                 if (!user) throw new Error("Not Authenticated")
 
                 let report = await Report.create({
                     userId: user.id,
-                    date,
-                    products,
-                    dateSubmitted: createdDate
+                    dateEndingCycle,
+                    dateCreated: DateTime.now().toISO()
                 })
 
-                products.map(async (product: IProductInReport) => {
-                    console.log(product)
-                    let productToModify = await Product.findById(product.productId)
-                    productToModify.previousAmount = product.amount
-                    productToModify.currentAmount = 0
-                    await productToModify.save()
-                })
+
+
+
+                //when submitting
+                //create a routine get currentAmount 
+                //dateSubmitted
+                //hasBeenSubmitting
+                //writing last amount
+                // resetting currentAmount
+                //add products to report
+
+
 
                 if (!report) throw new Error("Can't create report")
 

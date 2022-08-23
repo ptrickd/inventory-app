@@ -46,7 +46,15 @@ export const typeDef = `
     }
 
     type Mutation {
-        createProduct(name:String, currentAmount:Int, previousAmount:Int, categoryId: String, unit: String): Product
+
+        createProduct(
+            name:String, 
+            currentAmount:Int, 
+            previousAmount:Int, 
+            categoryId: String, 
+            unit: String
+            ): Product
+
         editProduct(
             productId:ID, 
             name:String, 
@@ -55,8 +63,10 @@ export const typeDef = `
             categoryId: String, 
             unit: String
             ): Product
+            
         deleteProduct(productId: ID): Product
         saveAmountProduct(productId: ID, updatedAmount: Int): Product
+        saveUnitProduct(productId: ID, updatedUnit: String): Product
     }
 `
 
@@ -121,8 +131,8 @@ export const resolvers = {
                     userId: user.id,
                 })
                 return product
-            } catch (err) {
-                console.log('err: createProduct mutation', err)
+            } catch (err: any) {
+                console.log('err: createProduct mutation', err.message)
                 return err
             }
 
@@ -142,8 +152,8 @@ export const resolvers = {
                 // return editedProduct
                 // return {}
 
-            } catch (err) {
-                console.log(err)
+            } catch (err: any) {
+                console.log(err.message)
                 return err
             }
 
@@ -155,8 +165,8 @@ export const resolvers = {
                 await Product.deleteOne({ _id: productId })
                 if (!deletedProduct) throw new Error('No product found')
                 return deletedProduct
-            } catch (err) {
-                console.log(err)
+            } catch (err: any) {
+                console.log(err.message)
                 return err
             }
 
@@ -165,14 +175,32 @@ export const resolvers = {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 const product = await Product.findById(productId)
-                if (!product) throw new Error("No product found")
+                if (!product) throw new Error("No product found!")
 
                 product.currentAmount = updatedAmount
                 await product.save()
                 return product
             }
-            catch (err) {
-                console.log(err)
+            catch (err: any) {
+                if (err.message) console.log(err.message)
+                return err
+            }
+        },
+        // saveUnitProduct(productId: ID, updatedUnit: String): Product
+        saveUnitProduct: async (_: any, { productId, updatedUnit }: TIds, { user }: any) => {
+            try {
+                if (!user) throw new Error("Not Authenticated")
+                const product = await Product.findById(productId)
+                if (!product) throw new Error("No product found!")
+
+                //Add here control to be sure updatedUnit is  value is valid
+                //throw new Error("Not valid unit")
+                product.unit = updatedUnit
+                await product.save()
+                return product
+            }
+            catch (err: any) {
+                if (err.message) console.log(err.message)
                 return err
             }
         }

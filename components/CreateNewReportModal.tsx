@@ -37,12 +37,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function CreateNewReportModal({ open, handleCloseModal }: IProps) {
     const classes = useStyles()
-    const { addNewReport } = useContext(ReportsContext)
+    const { createNewReport } = useContext(ReportsContext)
     const { products } = useContext(ProductsContext)
-    const [selectedDate, setSelectedDate] = useState<null | DateTime>(null)
-    const [currentDate] = useState(DateTime.now())
+    const [selectedDate, setSelectedDate] = useState<null |Date>(null)
+    // const [currentDate] = useState(DateTime.now())
 
-    const handleSelectedDate = async (date: DateTime | null) => {
+    const handleSelectedDate = async (date: Date| null) => {
         // console.log('selectedDate', typeof date)
         // console.log('currentDate', typeof currentDate)
         setSelectedDate(date)
@@ -51,24 +51,24 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
 
     const handleClickCreate = async () => {
         let responseStatusSucceed = true
-        if (selectedDate !== null && products !== undefined && addNewReport !== undefined) {
+        if (selectedDate !== null && products !== undefined && createNewReport !== undefined) {
             // console.log('in the if newReportModal')
-            let productsForReport: any[] = []
-            let newProduct: IProduct = {
-                amount: 0,
-                unit: 0,
-                name: '',
-                categoryId: ''
-            }
-            products.map(product => {
-                newProduct.productId = product.id
-                newProduct.amount = product.currentAmount
-                newProduct.name = product.name
-                newProduct.categoryId = product.categoryId
-                productsForReport.push({ ...newProduct })
-            })
-            let response = await addNewReport(selectedDate, productsForReport, currentDate)
-            if (response === -1) responseStatusSucceed = false
+            // let productsForReport: any[] = []
+            // let newProduct: IProduct = {
+            //     amount: 0,
+            //     unit: 'ea',
+            //     name: '',
+            //     categoryId: ''
+            // }
+            // products.map(product => {
+            //     newProduct.productId = product.id
+            //     newProduct.amount = product.currentAmount
+            //     newProduct.name = product.name
+            //     newProduct.categoryId = product.categoryId
+            //     productsForReport.push({ ...newProduct })
+            // })
+            let response = await createNewReport(selectedDate)
+            // if (response === -1) responseStatusSucceed = false
         }
 
         handleCloseModal(responseStatusSucceed)

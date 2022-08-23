@@ -29,8 +29,6 @@ import { DateTime } from 'luxon'
 //Types
 import { IProduct, TCategory } from '../../types/types'
 
-//Constant
-// import { MEASURE_UNITS } from '../../constants/measureUnits'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -97,20 +95,24 @@ const ProductsPage: React.FC = () => {
         }
 
         if (!products) return null
-        return products.map((product: IProduct) => {
-            return <div>
-                <InputProduct
-                    key={product.id}
-                    name={product.name}
-                    currentAmount={product.currentAmount || 0}
-                    previousAmount={product.previousAmount || 0}
-                    id={product.id || ''}
-                    categoryId={product.categoryId}
-                    showAmounts={true}
-                    measureUnit={product.unit}
-                />
+        console.log('product: ', products[0])
 
-            </div>
+        return products.map((product: IProduct) => {
+            if (product.id != undefined) {
+                return (
+                    <InputProduct
+                        key={product.id}
+                        name={product.name}
+                        currentAmount={product.currentAmount || 0}
+                        previousAmount={product.previousAmount || 0}
+                        id={product.id || ''}
+                        categoryId={product.categoryId}
+                        showAmounts={true}
+                        measureUnit={product.unit}
+                    />
+                )
+            }
+
         })
     }
     /*********************************** */

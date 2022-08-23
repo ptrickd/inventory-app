@@ -84,10 +84,10 @@ const NavbarDrawer = ({ categories }: IProps) => {
                 </Link>
 
                 <span className={classes.menu}>
-                    {/* <ListItem> */}
-                    {/* <NavbarReportsList /> */}
+                    <ListItem>
+                        <NavbarReportsList />
 
-                    {/* </ListItem> */}
+                    </ListItem>
                 </span>
 
 

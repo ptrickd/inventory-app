@@ -2,11 +2,12 @@ import mongoose from 'mongoose'
 
 interface IReport {
     userId: String
-    date: Date
-    products: IProduct[]
+    dateEndingCycle: Date
+    products?: IProduct[]
+    dateSubmitted?: Date
     hasBeenSubmitted: Boolean
     dateCreated: Date
-    dateSubmitted: Date
+
 }
 
 interface IProduct {
@@ -28,20 +29,19 @@ const reportSchema = new mongoose.Schema<IReport>({
         type: String,
         required: true
     },
-    date: {
+    dateEndingCycle: {
         type: Date,
-        required: true,
-        unique: true
+        required: true
     },
     products: [productSchema],
+    dateSubmitted: {
+        type: Date
+    },
     hasBeenSubmitted: {
         type: Boolean,
         default: false
     },
     dateCreated: {
-        type: Date
-    },
-    dateSubmitted: {
         type: Date,
         required: true
     }
