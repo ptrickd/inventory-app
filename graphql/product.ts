@@ -124,6 +124,7 @@ export const resolvers = {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 console.log('in create product')
+                if (!MEASURE_UNITS.includes(unit)) throw new Error("Not a valid unit")
                 let product = await Product.create({
                     name,
                     categoryId,
@@ -193,8 +194,8 @@ export const resolvers = {
                 const product = await Product.findById(productId)
                 if (!product) throw new Error("No product found!")
 
-                //Add here control to be sure updatedUnit is  value is valid
-                //throw new Error("Not valid unit")
+                if (!MEASURE_UNITS.includes(updatedUnit)) throw new Error("Not a valid unit")
+
                 product.unit = updatedUnit
                 await product.save()
                 return product
