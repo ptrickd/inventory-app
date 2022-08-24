@@ -52,6 +52,7 @@ export const typeDef = gql`
 
     type ReportResponse {
         id:ID
+        dateEndingCycle: Date
         error: String
     }
 
@@ -64,8 +65,8 @@ export const typeDef = gql`
     type Report {
         id: ID
         userId: String
-        date: Date
         dateCreated: Date
+        dateEndingCycle: Date
     }
 
     extend type Query {
@@ -98,6 +99,7 @@ export const resolvers = {
             try {
                 if (!user) throw new Error("Not Authenticated")
                 let reports = await Report.find({ userId: user.id })
+                console.log(reports)
                 return { reports }
 
             }

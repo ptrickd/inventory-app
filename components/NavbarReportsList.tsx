@@ -28,7 +28,7 @@ import { DateTime } from 'luxon'
 interface IReport {
     id: string
     userId: string
-    date: Date
+    dateEndingCycle: Date
 }
 
 const GET_REPORTS = gql`
@@ -36,7 +36,7 @@ const GET_REPORTS = gql`
         reports {
             reports{
                 id
-                date
+                dateEndingCycle
             }
             error
         }
@@ -76,7 +76,7 @@ const NavbarReportsList = () => {
         return data?.reports?.reports.map((report: IReport, index: number) => {
             // console.log(report)
 
-            const dateTime = DateTime.fromISO(report.date.toString())
+            const dateTime = DateTime.fromISO(report?.dateEndingCycle.toString())
             const year = dateTime.year
             const month = dateTime.month
             const day = dateTime.day

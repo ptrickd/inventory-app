@@ -16,7 +16,7 @@ const GET_REPORTS = gql`
         reports{
             reports{
                 id
-                date
+                dateEndingCycle
             }
         }
     }
