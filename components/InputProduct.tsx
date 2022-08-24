@@ -8,8 +8,10 @@ import { ProductsContext } from '../contexts/ProductsContext'
 import EditProductForm from './EditProductForm'
 
 //Material UI
+
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +19,7 @@ import Typography from '@material-ui/core/Typography'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel';
+import Box from '@material-ui/core/Box'
 
 //Icons
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -70,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
     },
     innerFormControl: {
         margin: theme.spacing(1),
-
         alignItems: 'center'
     },
     textfield: {},
@@ -79,7 +81,19 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 5,
         minWidth: 50
     },
-    productNameWithoutAmount: {}
+    box: {
+        margin: theme.spacing(1),
+        alignItems: 'left'
+    },
+    lastAmountName: {
+        color: "rgba(0,0,0,0.54)",
+        width: '100%',
+        paddingLeft: theme.spacing(0.7)
+    },
+    lastAmountValue: {
+        height: 'auto',
+        padding: theme.spacing(0.7)
+    }
 }));
 
 const InputProduct: React.FC<IProps> = (
@@ -93,11 +107,6 @@ const InputProduct: React.FC<IProps> = (
     const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
     const [saveNewUnit] = useMutation(UPDATE_UNIT)
 
-    //Use only for print
-    // useEffect(() => {
-    //     console.log('In InputProduct')
-    //     console.log('measureUnit: ', currentMeasureUnit)
-    // }, [currentMeasureUnit])
     useEffect(() => {
         const updateUnit = async () => {
             await saveNewUnit({
@@ -113,20 +122,11 @@ const InputProduct: React.FC<IProps> = (
     }, [currentMeasureUnit])
 
     const handleEditAddProductForm = () => setOpenEditProductModal(false)
+
     const handleUnitChange = async (e: any) => {
-
-        console.log('unit changed!')
         setCurrentMeasureUnit(e?.target?.value)
-        // await saveNewUnit({
-        //     variables: {
-        //         productId: id,
-        //         updatedAmount: currentMeasureUnit
-        //     }
-        // })
-
     }
     const saveProductOnBlur = async () => {
-        // console.log('id', id)
 
         await saveAmountProduct({
             variables: {
@@ -137,7 +137,6 @@ const InputProduct: React.FC<IProps> = (
         let newProductsList = products?.map((product: IProduct) => {
 
             if (product.id === id) {
-                // console.log(product)
                 let newProduct = JSON.parse(JSON.stringify(product))
                 return Object.assign(newProduct, { currentAmount: parseInt(amount) })
             }
@@ -189,19 +188,13 @@ const InputProduct: React.FC<IProps> = (
                     }
                 </Select>
             </FormControl>
+
             <FormControl
                 className={classes.innerFormControl}
             >
-                <TextField
-
-                    id={name + 'previous'}
-                    label={'Last'}
-                    color="primary"
-                    value={previousAmount}
-                    variant='standard'
-                    className={classes.textfield}
-                />
             </FormControl>
+
+
 
         </Fragment >
 
@@ -219,12 +212,26 @@ const InputProduct: React.FC<IProps> = (
                 {
                     !showAmounts && <Typography
                         variant="h6"
-                        className={classes.productNameWithoutAmount}
                     >{name}</Typography>
                 }
                 {
                     showAmounts && bodyWithAmount()
                 }
+                <Box
+                    className={classes.box}
+                    width="15%"
+                >
+                    <Typography
+                        variant='caption'
+                        className={classes.lastAmountName}
+                    >Last</Typography>
+                    <Typography
+
+                        align='left'
+                        className={classes.lastAmountValue}
+                    >{previousAmount}</Typography>
+
+                </Box>
                 <IconButton onClick={e => setOpenEditProductModal(true)}>
                     <EditIcon />
                 </IconButton>
