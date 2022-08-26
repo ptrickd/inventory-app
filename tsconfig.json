@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "types": [
+      "jest",
+      "node",
+      "@types/jest"
+    ],
     "target": "es5",
     "lib": [
       "es6",
