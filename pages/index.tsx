@@ -60,12 +60,6 @@ export default function Home() {
   const { loggedIn } = useContext(UserContext)
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (loggedIn !== undefined) {
-  //     router.push('/dashboard')
-  //   }
-  // }, [])
-
   return (
     <Fragment>
       <CssBaseline />

@@ -9,5 +9,15 @@ describe('Home', () => {
         const title = screen.getByText("Gruyere")
         expect(title).toBeInTheDocument()
 
+
+
+    })
+
+    it('Got a Start button', () => {
+        render(<Home />)
+
+        const button = screen.getByRole('button')
+        expect(button).toBeInTheDocument()
+
     })
 })
