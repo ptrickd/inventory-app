@@ -8,8 +8,9 @@ import {mockedRouterProps} from './mockedRouter'
 jest.mock('next/router', () => ({
     useRouter() {
         return ({
-            mockedRouterProps
-        });
+            ...mockedRouterProps
+            
+        }        );
     },
 }));
 
@@ -17,7 +18,7 @@ describe('<ProductsPage />', () => {
 
     it('render as intended', async () => {
         const useRouter = jest.spyOn(require("next/router"), "useRouter");
-        useRouter.mockImplementation(() =>           mockedRouterProps        );
+        useRouter.mockImplementation(() =>    mockedRouterProps  );
         render(
             <ProductsPage />
         )

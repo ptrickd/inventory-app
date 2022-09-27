@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, cleanup,RenderOptions } from '@testing-library/react'
 import { MockedProvider } from '@apollo/client/testing'
 import { default as LoginPage } from '../pages/login'
-
-// import { UserContext } from '../contexts/UserContext'
+import {mockedRouterProps} from './mockedRouter'
+import { UserContext } from '../contexts/UserContext'
 
 import { LOGIN } from '../graphql/queries'
+import React from 'react'
 
 const mocks: any = [{
     request: {
@@ -28,14 +29,35 @@ const mocks: any = [{
     }
 }]
 
-// const customRender = (ui: React.FC, { providerProps, ...renderOptions }: any) => {
-//     return render(
-//         <UserContext.Provider{...providerProps}>ui</UserContext.Provider>,
-//         renderOptions
-//     )
-// }
+const AllTheProviders: React.FC<{children: React.ReactNode}> = ({children}) => {
+  return (
+    <MockedProvider mocks={mocks} addTypename={false}>
+        {children}
+      </MockedProvider> 
+  )
+}
+
+const customRender = (
+  ui: React.ReactElement,
+  options?: Omit<RenderOptions, 'wrapper'>,
+) => render(ui, {wrapper: AllTheProviders, ...options})
+
+jest.mock('next/router', () => ({
+    useRouter() {
+        return ({
+            ...mockedRouterProps,
+            pathname:'/register'
+            
+        }        );
+    },
+}));
 
 describe('<Login />', () => {
+
+    afterEach(() => {
+        cleanup()
+    })
+
     it('render as intended', async () => {
 
         render(
@@ -63,6 +85,34 @@ describe('<Login />', () => {
         //need a button for register
         const registerButton = screen.getByRole('button', { name: 'Register' })
         expect(registerButton).toBeVisible()
+
+    })
+
+    it('navigate when clicking REGISTER button', async ( ) => {
+        const useRouter = jest.spyOn(require("next/router"), "useRouter");
+        useRouter.mockImplementation(() =>    ({ 
+            ...mockedRouterProps,
+            pathname:'/register'
+        }));
+
+        // { providerProps, ...renderOptions }
+        // customRender(<LoginPage />,  null )
+        const props = {
+            currentUser:{}, 
+            setCurrentUser:jest.fn(), 
+            loggedIn:false, 
+            setLoggedIn:jest.fn(), 
+            setToken:jest.fn(), 
+            logout:jest.fn()
+        }
+        customRender(
+           
+                <LoginPage />
+        )
+
+        //click on the register button
+        const registerButton = screen.getByRole('button', {name:'Register'})
+        // fireEvent.click(registerButton)
 
     })
 
