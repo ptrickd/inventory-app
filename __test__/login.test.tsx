@@ -29,11 +29,22 @@ const mocks: any = [{
     }
 }]
 
+const props = {
+            currentUser:{ id: '', email: '' }, 
+            setCurrentUser:jest.fn(), 
+            loggedIn:false, 
+            setLoggedIn:jest.fn(), 
+            setToken:jest.fn(), 
+            logout:jest.fn()
+        }
+
 const AllTheProviders: React.FC<{children: React.ReactNode}> = ({children}) => {
   return (
-    <MockedProvider mocks={mocks} addTypename={false}>
-        {children}
-      </MockedProvider> 
+    <UserContext.Provider value={props} >
+        <MockedProvider mocks={mocks} addTypename={false}>
+            {children}
+        </MockedProvider> 
+    </UserContext.Provider>
   )
 }
 
@@ -61,9 +72,9 @@ describe('<Login />', () => {
     it('render as intended', async () => {
 
         render(
-            <MockedProvider mocks={mocks} addTypename={false}>
-                <LoginPage />
-            </MockedProvider>
+                <MockedProvider mocks={mocks} addTypename={false}>
+                    <LoginPage />
+                </MockedProvider>
         )
 
         //need an heading
@@ -95,20 +106,9 @@ describe('<Login />', () => {
             pathname:'/register'
         }));
 
-        // { providerProps, ...renderOptions }
-        // customRender(<LoginPage />,  null )
-        const props = {
-            currentUser:{}, 
-            setCurrentUser:jest.fn(), 
-            loggedIn:false, 
-            setLoggedIn:jest.fn(), 
-            setToken:jest.fn(), 
-            logout:jest.fn()
-        }
-        customRender(
-           
-                <LoginPage />
-        )
+        
+
+        customRender(<LoginPage />)
 
         //click on the register button
         const registerButton = screen.getByRole('button', {name:'Register'})
