@@ -1,11 +1,11 @@
 import { render, screen, fireEvent, cleanup,RenderOptions } from '@testing-library/react'
 import { MockedProvider } from '@apollo/client/testing'
 import { default as LoginPage } from '../pages/login'
-import {mockedRouterProps} from './mockedRouter'
+import {mockedRouter} from './mockedRouter'
 import { UserContext } from '../contexts/UserContext'
-
 import { LOGIN } from '../graphql/queries'
 import React from 'react'
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 const mocks: any = [{
     request: {
@@ -38,13 +38,18 @@ const props = {
             logout:jest.fn()
         }
 
+
+
 const AllTheProviders: React.FC<{children: React.ReactNode}> = ({children}) => {
   return (
-    <UserContext.Provider value={props} >
-        <MockedProvider mocks={mocks} addTypename={false}>
-            {children}
-        </MockedProvider> 
-    </UserContext.Provider>
+    <RouterContext.Provider value={mockedRouter({})}>
+        <UserContext.Provider value={props} >
+            <MockedProvider mocks={mocks} addTypename={false}>
+                {children}
+            </MockedProvider> 
+        </UserContext.Provider>
+    </RouterContext.Provider>
+    
   )
 }
 
@@ -52,16 +57,6 @@ const customRender = (
   ui: React.ReactElement,
   options?: Omit<RenderOptions, 'wrapper'>,
 ) => render(ui, {wrapper: AllTheProviders, ...options})
-
-jest.mock('next/router', () => ({
-    useRouter() {
-        return ({
-            ...mockedRouterProps,
-            pathname:'/register'
-            
-        }        );
-    },
-}));
 
 describe('<Login />', () => {
 
@@ -100,20 +95,14 @@ describe('<Login />', () => {
     })
 
     it('navigate when clicking REGISTER button', async ( ) => {
-        const useRouter = jest.spyOn(require("next/router"), "useRouter");
-        useRouter.mockImplementation(() =>    ({ 
-            ...mockedRouterProps,
-            pathname:'/register'
-        }));
-
-        
 
         customRender(<LoginPage />)
 
         //click on the register button
         const registerButton = screen.getByRole('button', {name:'Register'})
-        // fireEvent.click(registerButton)
-
+        fireEvent.click(registerButton)
+        
+     
     })
 
 })

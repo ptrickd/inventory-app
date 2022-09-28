@@ -99,6 +99,7 @@ const Login: React.FC = () => {
             </Typography>
         }
         <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
+        
         <Link href="/register"><Button color="inherit" variant="contained">Register</Button></Link>
     </Container>
 
