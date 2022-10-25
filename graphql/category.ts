@@ -1,129 +1,136 @@
 //GraphQl
-import { gql } from 'apollo-server-micro'
+import { gql } from "apollo-server-micro";
 
 //Models
-import dbConnect from '../utils/dbConnect'
-import { Category } from '../models/category.model'
+import dbConnect from "../utils/dbConnect";
+import { Category } from "../models/category.model";
 
 //Types
-import { TIds } from '../types/types'
-import mongoose from 'mongoose'
+import { TIds } from "../types/types";
+import mongoose from "mongoose";
 
-
-dbConnect()
-
+dbConnect();
 
 interface ICategory {
-    categoryId: string
-    name: string
-    userId: string
+  categoryId: string;
+  name: string;
+  userId: string;
 }
 
 export const typeDef = gql`
-     type Category {
-        id: ID
-        name: String
-        userId: String
-    }
+  type Category {
+    id: ID
+    name: String
+    userId: String
+  }
 
-    extend type Query {
-        category(categoryId: ID): Category
-        categories: [Category]
-    }
+  extend type Query {
+    category(categoryId: ID): Category
+    categories: [Category]
+    numOfCategories: Int
+  }
 
-    extend type Mutation {
-        createCategory(name:String, userId: String): Category
-        editCategory(categoryId:ID, name:String): Category
-        deleteCategory(categoryId:ID): Category
-    }
-`
+  extend type Mutation {
+    createCategory(name: String, userId: String): Category
+    editCategory(categoryId: ID, name: String): Category
+    deleteCategory(categoryId: ID): Category
+  }
+`;
 
 export const resolvers = {
-    Query: {
-        category: async (_: any, { categoryId }: TIds, { user }: any) => {
-            try {
-                console.log('categoryId', categoryId)
-                if (!user) throw new Error("Not Authenticated")
-                let category = await Category.findById(categoryId)
+  Query: {
+    category: async (_: any, { categoryId }: TIds, { user }: any) => {
+      try {
+        console.log("categoryId", categoryId);
+        if (!user) throw new Error("Not Authenticated");
+        let category = await Category.findById(categoryId);
 
-                if (!category) throw new Error("No Category Found");
+        if (!category) throw new Error("No Category Found");
 
-                return category
-            }
-            catch (err) {
-                console.log(err)
-                return err
-            }
-        },
-        categories: async (_: any, _1: any, { user }: any) => {
-            try {
-                // console.log('\n\nin getCategories')
-                // console.log('user', user)
-
-                if (!user) throw new Error("Not Authenticated")
-
-                // const categories = await Category.find({ userId: "62eda644bc19ad7c77d31f48" })
-                const categories = await Category.find()
-
-                if (!categories) throw new Error("No Categories Found")
-                // console.log('categories: ', categories)
-                // console.log(user.id, '\n\n')
-
-
-
-                return categories.map(({ id, name, userId }) => ({
-                    id, name, userId
-                }))
-            }
-            catch (err) {
-                console.log('printing error', err)
-                return err
-            }
-        },
+        return category;
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
     },
-    Mutation: {
-        createCategory: async (_: any, { name }: TIds, { user }: any) => {
-            try {
-                console.log('createCategory name', name)
-                console.log('createCategory userId', user.id)
-                if (!user) throw new Error("Not Authenticated")
-                let category = await Category.create({ name, userId: user.id })
-                console.log('category::', category)
-                if (!category) throw new Error("No Category Created")
-                return category
-            } catch (err) {
-                console.log(err)
-                return err
-            }
+    categories: async (_: any, _1: any, { user }: any) => {
+      try {
+        // console.log('\n\nin getCategories')
+        // console.log('user', user)
 
+        if (!user) throw new Error("Not Authenticated");
 
-        },
-        editCategory: async (_: any, { categoryId, name }: ICategory, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                let editedCategory = await Category.findById(categoryId)
-                if (!editedCategory) throw new Error("No Category Found")
-                editedCategory.name = name
-                editedCategory = await editedCategory.save()
-                return editedCategory
-            } catch (err) {
-                console.log(err)
-                return err
-            }
+        // const categories = await Category.find({ userId: "62eda644bc19ad7c77d31f48" })
+        const categories = await Category.find();
 
-        },
-        deleteCategory: async (_: any, { categoryId }: TIds, { user }: any) => {
-            try {
-                if (!user) throw new Error("Not Authenticated")
-                let deletedCategory = await Category.findById(categoryId)
-                if (!deletedCategory) throw new Error("No Category Found")
-                await Category.deleteOne({ _id: categoryId })
-                return deletedCategory
-            } catch (err) {
-                console.log(err)
-                return err
-            }
+        if (!categories) throw new Error("No Categories Found");
+        // console.log('categories: ', categories)
+        // console.log(user.id, '\n\n')
 
-        },
-    }
-}
+        return categories.map(({ id, name, userId }) => ({
+          id,
+          name,
+          userId,
+        }));
+      } catch (err) {
+        console.log("printing error", err);
+        return err;
+      }
+    },
+    numOfCategories: async (_: any, _1: any, { user }: any) => {
+      try {
+        if (!user) throw new Error("Not Authenticated");
+
+        return await Category.countDocuments();
+      } catch (err) {
+        console.log("printing error:", err);
+        return err;
+      }
+    },
+  },
+  Mutation: {
+    createCategory: async (_: any, { name }: TIds, { user }: any) => {
+      try {
+        console.log("createCategory name", name);
+        console.log("createCategory userId", user.id);
+        if (!user) throw new Error("Not Authenticated");
+        let category = await Category.create({ name, userId: user.id });
+        console.log("category::", category);
+        if (!category) throw new Error("No Category Created");
+        return category;
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
+    },
+    editCategory: async (
+      _: any,
+      { categoryId, name }: ICategory,
+      { user }: any
+    ) => {
+      try {
+        if (!user) throw new Error("Not Authenticated");
+        let editedCategory = await Category.findById(categoryId);
+        if (!editedCategory) throw new Error("No Category Found");
+        editedCategory.name = name;
+        editedCategory = await editedCategory.save();
+        return editedCategory;
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
+    },
+    deleteCategory: async (_: any, { categoryId }: TIds, { user }: any) => {
+      try {
+        if (!user) throw new Error("Not Authenticated");
+        let deletedCategory = await Category.findById(categoryId);
+        if (!deletedCategory) throw new Error("No Category Found");
+        await Category.deleteOne({ _id: categoryId });
+        return deletedCategory;
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
+    },
+  },
+};
