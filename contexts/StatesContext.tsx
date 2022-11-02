@@ -4,20 +4,18 @@
 //when categories and products
 
 //React
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
 //GraphQL
-import { gql } from "@apollo/client";
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { UserContext } from "./UserContext";
 
 //Queries
 const GET_STATES = gql`
   query States {
-    states {
-      id
-      numOfReports
-      numOfCategories
-      numOfProducts
-    }
+    numOfReports
+    numOfCategories
+    numOfProducts
   }
 `;
 
@@ -35,6 +33,8 @@ interface IContext {
 const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = () => {
+  // const { currentUser } = useContext(UserContext);
+  const { data, error, loading } = useQuery(GET_STATES);
   //states: loading, noReport, noCategory,
   // noProduct, normal, error
   const machine: IStates = {
@@ -43,10 +43,23 @@ const StatesProvider = () => {
     category: 0,
     product: 0,
   };
+  useEffect(() => {
+    console.log("in the states context");
+    if (!loading) {
+      console.log(
+        `states:\n
+      report:${data.numOfReports}\n
+      category:${data.numOfCategories}\n
+      product:${data.numOfReports}\n`
+      );
+    } else {
+      console.log("trying to get the states from the server");
+    }
+  }, [loading]);
 
   ///display loading page
   //request amount of report, categories and products
-  const loading = true;
+
   const states = machine;
   if (loading) return null;
 
@@ -58,3 +71,5 @@ const StatesProvider = () => {
     ></StatesContext.Provider>
   );
 };
+
+export { StatesProvider, StatesContext };
