@@ -4,7 +4,7 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Context
-import { StatesContext } from "../contexts/StatesContext";
+// import { StatesContext } from "../contexts/StatesContext";
 
 //Material UI
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -15,6 +15,7 @@ import Container from "@material-ui/core/Container";
 //Components
 import WaitingModal from "../components/WaitingModal";
 import { UserContext } from "../contexts/UserContext";
+import { StatesContext } from "../contexts/StatesContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,11 +33,11 @@ export default function Loading() {
   const { states } = useContext(StatesContext);
 
   useEffect(() => {
-    // if (states?.state !== "loading") {
-    //   if (states?.report === 0) {
-    //     router.push("/firstReport");
-    //   }
-    // }
+    if (states?.state !== "loading") {
+      if (states?.report === 0) {
+        router.push("/firstReport");
+      }
+    }
     if (!states) {
       console.log("no data from the StatesContext ");
     }

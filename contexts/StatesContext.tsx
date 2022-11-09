@@ -22,53 +22,51 @@ interface IProps {
   children: React.ReactNode;
 }
 
-// interface IStates {
-//   state: string;
-//   report: number;
-//   category: number;
-//   product: number;
-// }
+interface IStates {
+  state: string;
+  report: number;
+  category: number;
+  product: number;
+}
 
 interface IContext {
-  states: string;
+  states: IStates;
 }
 
 const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = ({ children }: IProps) => {
-  // const [states, setStates] = useState<IStates>({
-  //   state: "loading",
-  //   report: 0,
-  //   category: 0,
-  //   product: 0,
-  // });
-  const states = "loading";
-  useEffect(() => {
-    console.log(states);
-  }, []);
-  // const { data, error, loading } = useQuery(GET_STATES);
+  const [states, setStates] = useState<IStates>({
+    state: "loading",
+    report: 0,
+    category: 0,
+    product: 0,
+  });
+
+  const { data, error, loading } = useQuery(GET_STATES);
+
   //states: loading, noReport, noCategory,
   // noProduct, normal, error
 
-  // useEffect(() => {
-  //   console.log("in the states context");
-  //   if (!loading && data) {
-  //     console.log(
-  //       `states:\n
-  //     report:${data.numOfReports}\n
-  //     category:${data.numOfCategories}\n
-  //     product:${data.numOfReports}\n`
-  //     );
-  //     states.state = "";
-  //     states.report = data?.numOfReports;
-  //     states.category = data?.numOfCategories;
-  //     states.product = data?.numOfProducts;
-  //   } else if (!loading && !data) {
-  //     console.log("not loading and not data");
-  //   } else {
-  //     console.log("trying to get the states from the server");
-  //   }
-  // }, [loading]);
+  useEffect(() => {
+    console.log("in the states context");
+    if (!loading && data) {
+      console.log(
+        `states:\n
+      report:${data.numOfReports}\n
+      category:${data.numOfCategories}\n
+      product:${data.numOfReports}\n`
+      );
+      states.state = "";
+      states.report = data?.numOfReports;
+      states.category = data?.numOfCategories;
+      states.product = data?.numOfProducts;
+    } else if (!loading && !data) {
+      console.log("not loading and not data");
+    } else {
+      console.log("trying to get the states from the server");
+    }
+  }, [loading]);
 
   ///display loading page
   //request amount of report, categories and products
