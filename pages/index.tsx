@@ -7,85 +7,89 @@
   /mutations
 */
 //React
-import { Fragment, useContext, useEffect } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
+import { Fragment, useContext, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 //Context
-import { UserContext } from '../contexts/UserContext'
+import { UserContext } from "../contexts/UserContext";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  root: {
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: "space-around"
-  },
-  title: {
-    // marginTop: "15%",
-    marginBottom: 20
-  },
-  subTitle: {
-    marginBottom: 20
-  },
-  section: {
-    marginTop: 50,
-    flexGrow: 1,
-    width: '100%',
-  },
-  image: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  button: {
-    width: '70%',
-    marginBottom: '15%',
-    borderRadius: 15
-  }
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "space-around",
+    },
+    title: {
+      // marginTop: "15%",
+      marginBottom: 20,
+    },
+    subTitle: {
+      marginBottom: 20,
+    },
+    section: {
+      marginTop: 50,
+      flexGrow: 1,
+      width: "100%",
+    },
+    image: {
+      display: "flex",
+      justifyContent: "center",
+    },
+    button: {
+      width: "70%",
+      marginBottom: "15%",
+      borderRadius: 15,
+    },
+  })
+);
 
 export default function Home() {
-  const classes = useStyles()
-  const { loggedIn } = useContext(UserContext)
-  const router = useRouter()
-
+  const classes = useStyles();
+  const { loggedIn } = useContext(UserContext);
+  const router = useRouter();
+  useEffect(() => {
+    console.log("in index.tsx");
+  }, []);
+  useEffect(() => {
+    console.log(`LoggedIn in index.tsx: ${loggedIn}`);
+  }, [loggedIn]);
+  // if (loggedIn) router.push("/loading");
   return (
     <Fragment>
       <CssBaseline />
       <Container maxWidth="md">
         <div className={classes.root}>
-          <Typography
-            className={classes.title}
-            variant="h4"
-            align="center"
-          >
+          <Typography className={classes.title} variant="h4" align="center">
             Gruyere
           </Typography>
-          <Typography
-            className={classes.subTitle}
-            variant="h5"
-            align="center"
-          >
+          <Typography className={classes.subTitle} variant="h5" align="center">
             Your Kitchen Inventory App Management
           </Typography>
-          <Link href="/login"><Button
-            className={classes.button}
-            // fullWidth
-            variant="contained"
-            color="primary"
-            size="large"
-          >Start</Button></Link>
+          <Link href="/login">
+            <Button
+              className={classes.button}
+              // fullWidth
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Start
+            </Button>
+          </Link>
           {/* <Grid
             className={classes.section}
             container
@@ -113,9 +117,7 @@ export default function Home() {
             </Grid>
           </Grid> */}
         </div>
-
       </Container>
     </Fragment>
-
-  )
+  );
 }
