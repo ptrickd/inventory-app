@@ -14,6 +14,7 @@ import AddCategoryForm from "../components/AddCategoryForm";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
+import { StatesContext } from "../contexts/StatesContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,19 +36,31 @@ const FirstCategory: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const router = useRouter();
   const { loggedIn } = useContext(UserContext);
+  const { reloadStates } = useContext(StatesContext);
+
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
   const handleModal = () => {
     setOpenModal(false);
+    if (reloadStates) reloadStates();
+    router.push("/loading");
   };
 
   useEffect(() => {
-    if (!loggedIn) router.push("/");
+    // setTimeout(() => {
+    //   if (!loggedIn) router.push("/");
+    // }, 1000);
+    console.log(`loggedIn in firstCategory is ${loggedIn}`);
+    if (!loggedIn) {
+      router.push("/");
+    } else {
+      router.push("/firstCategory");
+    }
   }, [loggedIn]);
 
-  //make it is own function or add to handleModal??
-  const createdCategory = () => {
-    router.push("/firstProduct");
-  };
+  useEffect(() => {
+    if (reloadStates) reloadStates();
+  }, []);
+
   return (
     <Container maxWidth="md" className={classes.root}>
       <Typography align="center" variant="body1" paragraph>

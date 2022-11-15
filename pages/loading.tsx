@@ -30,18 +30,25 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Loading() {
   const classes = useStyles();
   const router = useRouter();
-  const { states } = useContext(StatesContext);
+  const { states, reloadStates } = useContext(StatesContext);
 
   useEffect(() => {
     if (states?.state !== "loading") {
       if (states?.report === 0) {
         router.push("/firstReport");
+      } else if (states?.category === 0) {
+        router.push("/firstCategory");
+      } else if (states?.product === 0) {
+        router.push("/firstProduct");
       }
     }
     if (!states) {
       console.log("no data from the StatesContext ");
     }
   }, [states]);
+  useEffect(() => {
+    if (reloadStates) reloadStates();
+  }, []);
 
   return (
     <Container className={classes.root} maxWidth="xs">

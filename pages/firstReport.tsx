@@ -14,6 +14,7 @@ import CreateNewReportModal from "../components/CreateNewReportModal";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
+import { StatesContext } from "../contexts/StatesContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +35,7 @@ const FirstReport: React.FC = () => {
   const classes = useStyles();
   const router = useRouter();
   const { loggedIn } = useContext(UserContext);
+  const { reloadStates } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const textBody = `Your first step to start your inventory is to choose the 
   date of your first report.`;
@@ -44,7 +46,8 @@ const FirstReport: React.FC = () => {
   const handleModalClicked = (data: any) => {
     //To add: getting the response from the server if succesful or not
     setOpenModal(false);
-    router.push("/firstCategory");
+    if (reloadStates) reloadStates();
+    router.push("/loading");
   };
   return (
     <Container maxWidth="md" className={classes.root}>

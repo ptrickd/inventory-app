@@ -23,6 +23,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
+import { StatesContext } from "../contexts/StatesContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,12 +61,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Home() {
   const classes = useStyles();
   const { loggedIn } = useContext(UserContext);
+  const { states } = useContext(StatesContext);
   const router = useRouter();
   useEffect(() => {
     console.log("in index.tsx");
   }, []);
   useEffect(() => {
     console.log(`LoggedIn in index.tsx: ${loggedIn}`);
+    if (loggedIn) {
+      router.push("/loading");
+    }
   }, [loggedIn]);
   // if (loggedIn) router.push("/loading");
   return (

@@ -31,6 +31,7 @@ interface IStates {
 
 interface IContext {
   states: IStates;
+  reloadStates: () => void;
 }
 
 const StatesContext = createContext<Partial<IContext>>({});
@@ -44,28 +45,33 @@ const StatesProvider = ({ children }: IProps) => {
   });
 
   const { data, error, loading } = useQuery(GET_STATES);
-
-  //states: loading, noReport, noCategory,
-  // noProduct, normal, error
-
-  useEffect(() => {
-    console.log("in the states context");
+  const reloadStates = () => {
     if (!loading && data) {
       console.log(
         `states:\n
       report:${data.numOfReports}\n
       category:${data.numOfCategories}\n
-      product:${data.numOfReports}\n`
+      product:${data.numOfProducts}\n`
       );
-      states.state = "";
-      states.report = data?.numOfReports;
-      states.category = data?.numOfCategories;
-      states.product = data?.numOfProducts;
+      setStates({
+        state: "",
+        report: data?.numOfReports,
+        category: data?.numOfCategories,
+        product: data?.numOfProducts,
+      });
     } else if (!loading && !data) {
-      console.log("not loading and not data");
+      console.log("!loading && !data");
     } else {
+      setStates({ ...states, state: "loading" });
       console.log("trying to get the states from the server");
     }
+  };
+  //states: loading, noReport, noCategory,
+  // noProduct, normal, error
+
+  useEffect(() => {
+    console.log("in the states context");
+    reloadStates();
   }, [loading]);
 
   ///display loading page
@@ -75,6 +81,7 @@ const StatesProvider = ({ children }: IProps) => {
     <StatesContext.Provider
       value={{
         states,
+        reloadStates,
       }}
     >
       {children}
