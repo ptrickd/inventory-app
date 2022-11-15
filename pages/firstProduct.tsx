@@ -10,9 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 //Components
-import CreateNewReportModal from "../components/CreateNewReportModal";
+import AddCategoryForm from "../components/AddCategoryForm";
 
-//Context
+//Contexts
 import { UserContext } from "../contexts/UserContext";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,27 +30,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FirstReport: React.FC = () => {
+const FirstProduct: React.FC = () => {
   const classes = useStyles();
-  const router = useRouter();
-  const { loggedIn } = useContext(UserContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const textBody = `Your first step to start your inventory is to choose the 
-  date of your first report.`;
+  const router = useRouter();
+  const textBody = `Next you have to create your first product in the category you just created. An example is Romaine in the Produce category. `;
+  const { loggedIn } = useContext(UserContext);
+  const handleModal = () => {
+    setOpenModal(false);
+  };
+
   useEffect(() => {
     if (!loggedIn) router.push("/");
   }, [loggedIn]);
 
-  const handleModalClicked = (data: any) => {
-    //To add: getting the response from the server if succesful or not
-    setOpenModal(false);
-    router.push("/firstCategory");
+  //make it is own function or add to handleModal??
+  const createdProduct = () => {
+    router.push("/dashboard");
   };
   return (
     <Container maxWidth="md" className={classes.root}>
-      <Typography align="center" variant="h3">
-        Welcome to Gruyere
-      </Typography>
       <Typography align="center" variant="body1" paragraph>
         {textBody}
       </Typography>
@@ -63,12 +62,9 @@ const FirstReport: React.FC = () => {
       >
         Do it
       </Button>
-      <CreateNewReportModal
-        open={openModal}
-        handleCloseModal={handleModalClicked}
-      />
+      <AddCategoryForm open={openModal} handleCloseModal={handleModal} />
     </Container>
   );
 };
 
-export default FirstReport;
+export default FirstProduct;

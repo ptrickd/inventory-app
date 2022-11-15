@@ -1,6 +1,6 @@
 //Component inviting the user o choose the date of the first report
 //React
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
@@ -11,6 +11,9 @@ import Button from "@material-ui/core/Button";
 
 //Components
 import AddCategoryForm from "../components/AddCategoryForm";
+
+//Context
+import { UserContext } from "../contexts/UserContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,10 +34,15 @@ const FirstCategory: React.FC = () => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const router = useRouter();
+  const { loggedIn } = useContext(UserContext);
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
   const handleModal = () => {
     setOpenModal(false);
   };
+
+  useEffect(() => {
+    if (!loggedIn) router.push("/");
+  }, [loggedIn]);
 
   //make it is own function or add to handleModal??
   const createdCategory = () => {
