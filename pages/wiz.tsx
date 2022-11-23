@@ -1,5 +1,6 @@
 //React
 import React, { useState, useEffect, useContext, Fragment } from "react";
+import { useRouter } from "next/router";
 
 //GraphQL
 import { gql } from "@apollo/client";
@@ -16,17 +17,9 @@ import FirstProduct from "../components/firstProduct";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
-import { ReportsContext } from "../contexts/ReportsContext";
-import { CategoriesContext } from "../contexts/CategoriesContext";
-import { ProductsContext } from "../contexts/ProductsContext";
-import { useRouter } from "next/router";
+import { StatesContext } from "../contexts/StatesContext";
 
 //Define types
-interface IStates {
-  reports: any[] | null;
-  categories: any[] | null;
-  products: any[] | null;
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,32 +36,26 @@ const useStyles = makeStyles((theme: Theme) =>
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
   const classes = useStyles();
-  const [states, setStates] = useState<IStates>({
-    reports: null,
-    categories: null,
-    products: null,
-  });
+
   const { loggedIn } = useContext(UserContext);
-  const { reports } = useContext(ReportsContext);
-  const { categories } = useContext(CategoriesContext);
-  const { products } = useContext(ProductsContext);
+  const { states } = useContext(StatesContext);
   const router = useRouter();
 
   //Protecting route
   useEffect(() => {
     if (!loggedIn) router.push("/");
-  }, []);
+  }, [loggedIn, router]);
 
   //Updating states
-  useEffect(() => {
-    setStates({
-      reports: reports || null,
-      categories: categories || null,
-      products: products || null,
-    });
-  }, [reports, categories, products]);
+  // useEffect(() => {
+  //   setStates({
+  //     reports: reports || null,
+  //     categories: categories || null,
+  //     products: products || null,
+  //   });
+  // }, [reports, categories, products]);
 
-  if (!states.reports || !states.categories || !states.products)
+  if (!states)
     return (
       <Fragment>
         <CssBaseline />
@@ -78,9 +65,9 @@ const Wiz: React.FC = () => {
       </Fragment>
     );
   const ComponentToDisplay: React.FC = () => {
-    if (states?.reports?.length === 0) return <FirstReport />;
-    else if (states?.categories?.length === 0) return <FirstCategory />;
-    else if (states?.products?.length === 0) return <FirstProduct />;
+    if (states?.report === 0) return <FirstReport />;
+    else if (states?.category === 0) return <FirstCategory />;
+    else if (states?.product === 0) return <FirstProduct />;
     else {
       return (
         <Fragment>

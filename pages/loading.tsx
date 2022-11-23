@@ -3,17 +3,14 @@
 import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
-//Context
-// import { StatesContext } from "../contexts/StatesContext";
-
 //Material UI
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-//GraphQL
-
 //Components
 import WaitingModal from "../components/WaitingModal";
+
+//Context
 import { UserContext } from "../contexts/UserContext";
 import { StatesContext } from "../contexts/StatesContext";
 
@@ -30,25 +27,20 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Loading() {
   const classes = useStyles();
   const router = useRouter();
-  const { states, reloadStates } = useContext(StatesContext);
+  const { loggedIn } = useContext(UserContext);
+  const { states } = useContext(StatesContext);
 
   useEffect(() => {
-    if (states?.state !== "loading") {
-      if (states?.report === 0) {
-        router.push("/firstReport");
-      } else if (states?.category === 0) {
-        router.push("/firstCategory");
-      } else if (states?.product === 0) {
-        router.push("/firstProduct");
-      }
+    if (!loggedIn) {
+      router.push("/");
+    } else if (
+      states?.report === 0 ||
+      states?.category === 0 ||
+      states?.product === 0
+    ) {
+      router.push("/wiz");
     }
-    if (!states) {
-      console.log("no data from the StatesContext ");
-    }
-  }, [states]);
-  useEffect(() => {
-    if (reloadStates) reloadStates();
-  }, []);
+  }, [loggedIn, router, states]);
 
   return (
     <Container className={classes.root} maxWidth="xs">

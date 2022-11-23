@@ -1,7 +1,4 @@
 //Create state machine workflow
-//when first start with no categories
-//when first dateendingcycle but no categories
-//when categories and products
 
 //React
 import React, { createContext, useEffect, useState } from "react";
@@ -18,6 +15,7 @@ const GET_STATES = gql`
   }
 `;
 
+//Typescript Declaration
 interface IProps {
   children: React.ReactNode;
 }
@@ -34,11 +32,19 @@ interface IContext {
   reloadStates: () => void;
 }
 
+//Case sensitive dont change
+enum EStates {
+  loading = "loading",
+  firstReport = "fisrtCategory",
+  firstCategory = "firstCategory",
+  firstProduct = "firstProduct",
+}
+
 const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = ({ children }: IProps) => {
   const [states, setStates] = useState<IStates>({
-    state: "loading",
+    state: EStates.loading,
     report: 0,
     category: 0,
     product: 0,
@@ -62,7 +68,7 @@ const StatesProvider = ({ children }: IProps) => {
     } else if (!loading && !data) {
       console.log("!loading && !data");
     } else {
-      setStates({ ...states, state: "loading" });
+      setStates({ ...states, state: EStates.loading });
       console.log("trying to get the states from the server");
     }
   };
@@ -71,8 +77,8 @@ const StatesProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     console.log("in the states context");
-    reloadStates();
-  }, [loading]);
+    // reloadStates();
+  }, []);
 
   ///display loading page
   //request amount of report, categories and products
