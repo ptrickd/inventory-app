@@ -1,101 +1,94 @@
 //React
-import { useState, useContext } from 'react'
+import { useState, useContext } from "react";
 
 //Component
-import DatePicker from './DatePicker'
+import DatePicker from "./DatePicker";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 //Time
-import { DateTime } from 'luxon'
+import { DateTime } from "luxon";
 
 //Context
-import { ReportsContext } from '../contexts/ReportsContext'
-import { ProductsContext } from '../contexts/ProductsContext'
+import { ReportsContext } from "../contexts/ReportsContext";
+import { ProductsContext } from "../contexts/ProductsContext";
 
 //Types
-import { IProduct, IAddProduct } from '../types/types'
+import { IProduct, IAddProduct } from "../types/types";
 interface IProps {
-    open: boolean
-    handleCloseModal: (responseStatusSucceed: boolean) => void
+  open: boolean;
+  handleCloseModal: (responseStatusSucceed: boolean) => void;
 }
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     root: {
-        margin: theme.spacing(4),
-        padding: theme.spacing(4)
+      margin: theme.spacing(4),
+      padding: theme.spacing(4),
     },
     button: {
-        marginTop: 10
-    }
-}))
+      marginTop: 10,
+    },
+  })
+);
 
 function CreateNewReportModal({ open, handleCloseModal }: IProps) {
-    const classes = useStyles()
-    const { createNewReport } = useContext(ReportsContext)
-    const { products } = useContext(ProductsContext)
-    const [selectedDate, setSelectedDate] = useState<null |Date>(null)
-    // const [currentDate] = useState(DateTime.now())
+  const classes = useStyles();
+  const { createNewReport } = useContext(ReportsContext);
+  const { products } = useContext(ProductsContext);
+  const [selectedDate, setSelectedDate] = useState<null | Date>(null);
+  // const [currentDate] = useState(DateTime.now())
 
-    const handleSelectedDate = async (date: Date| null) => {
-        // console.log('selectedDate', typeof date)
-        // console.log('currentDate', typeof currentDate)
-        setSelectedDate(date)
+  const handleSelectedDate = async (date: Date | null) => {
+    // console.log('selectedDate', typeof date)
+    // console.log('currentDate', typeof currentDate)
+    setSelectedDate(date);
+  };
 
+  const handleClickCreate = async () => {
+    let responseStatusSucceed = true;
+    if (
+      selectedDate !== null &&
+      products !== undefined &&
+      createNewReport !== undefined
+    ) {
+      let response = await createNewReport(selectedDate);
+      console.log("response from the server when creating a new report\n");
+      console.log(response.data);
     }
 
-    const handleClickCreate = async () => {
-        let responseStatusSucceed = true
-        if (selectedDate !== null && products !== undefined && createNewReport !== undefined) {
-            // console.log('in the if newReportModal')
-            // let productsForReport: any[] = []
-            // let newProduct: IProduct = {
-            //     amount: 0,
-            //     unit: 'ea',
-            //     name: '',
-            //     categoryId: ''
-            // }
-            // products.map(product => {
-            //     newProduct.productId = product.id
-            //     newProduct.amount = product.currentAmount
-            //     newProduct.name = product.name
-            //     newProduct.categoryId = product.categoryId
-            //     productsForReport.push({ ...newProduct })
-            // })
-            let response = await createNewReport(selectedDate)
-            // if (response === -1) responseStatusSucceed = false
-        }
+    handleCloseModal(responseStatusSucceed);
+  };
 
-        handleCloseModal(responseStatusSucceed)
-
-
-    }
-
-    return (
-        <Dialog
-            open={open}
-            aria-labelledby="Create A New Report"
-            onClose={() => handleCloseModal(true)}
-            className={classes.root}
+  return (
+    <Dialog
+      open={open}
+      aria-labelledby="Create A New Report"
+      onClose={() => handleCloseModal(true)}
+      className={classes.root}
+    >
+      <DialogContent>
+        <Typography variant="h5">
+          Choose the date for the next report
+        </Typography>
+        <DatePicker handleSelectedDate={handleSelectedDate} />
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleClickCreate}
         >
-            <DialogContent>
-                <Typography variant="h5">Choose the date for the next report</Typography>
-                <DatePicker handleSelectedDate={handleSelectedDate} />
-                <Button
-                    className={classes.button}
-                    variant="contained"
-                    color='primary'
-                    fullWidth
-                    onClick={handleClickCreate}
-                >Create</Button>
-            </DialogContent>
-        </Dialog>
-    )
+          Create
+        </Button>
+      </DialogContent>
+    </Dialog>
+  );
 }
 
-export default CreateNewReportModal
+export default CreateNewReportModal;
