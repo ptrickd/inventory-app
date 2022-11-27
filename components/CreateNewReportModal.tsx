@@ -42,6 +42,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
   const { createNewReport } = useContext(ReportsContext);
   const { products } = useContext(ProductsContext);
   const [selectedDate, setSelectedDate] = useState<null | Date>(null);
+
   // const [currentDate] = useState(DateTime.now())
 
   const handleSelectedDate = async (date: Date | null) => {
@@ -58,8 +59,10 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
       createNewReport !== undefined
     ) {
       let response = await createNewReport(selectedDate);
-      console.log("response from the server when creating a new report\n");
-      console.log(response.data);
+      //if there a report id then the report has been created
+      //if not must show a error message
+      if (!response?.data?.createReport?.id) responseStatusSucceed = false;
+      //updating the report states
     }
 
     handleCloseModal(responseStatusSucceed);

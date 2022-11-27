@@ -66,24 +66,34 @@ const ReportsContext = createContext<Partial<IContext>>({});
 const ReportsProvider = ({ children }: IProps) => {
   const [reports, setReports] = useState<IReport[] | []>([]);
   const [createReport] = useMutation(CREATE_REPORT);
-  const [getReports, { data, loading }] = useLazyQuery(GET_REPORTS, {
-    fetchPolicy: "network-only",
-    onCompleted: (data) => {
-      setReports(data?.reports.reports); // multiple times
-    },
-  });
+  //   const [getReports, { data, loading }] = useLazyQuery(GET_REPORTS, {
+  //     fetchPolicy: "network-only",
+  //     onCompleted: (data) => {
+  //       setReports(data?.reports.reports); // multiple times
+  //     },
+  //   });
 
+  //   useEffect(() => {
+  //     getReports();
+  //   }, [getReports]);
   useEffect(() => {
-    getReports();
-  }, [getReports]);
-  useEffect(() => {
-    console.log(reports);
+    console.log(`reports when reports array is updated${reports}`);
   }, [reports]);
   async function createNewReport(dateEndingCycle: Date) {
     try {
-      return await createReport({ variables: { dateEndingCycle } });
-      getReports();
-      //   console.log(report);
+      const response = await createReport({ variables: { dateEndingCycle } });
+      //   setReports([response.data.createReport, ...reports]);
+
+      console.log(
+        `in createNewReport function \nid ${response.data.createReport.id}\n`
+      );
+      for (let property in response.data.createReport) {
+        console.log(`${property}=${response.data.createReport[property]}`);
+      }
+      //userId
+      //dateCreated
+      //dateEndingCycle
+      return response;
       //   return report;
     } catch (err: any) {
       console.log(err?.message);

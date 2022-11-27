@@ -55,6 +55,12 @@ const Wiz: React.FC = () => {
   //   });
   // }, [reports, categories, products]);
 
+  const handleResponse = (responseSucceed: boolean) => {
+    //report context will be updated in childran
+    //do I need to update states context??
+    console.log(`response for creating report ${responseSucceed}`);
+  };
+
   if (!states)
     return (
       <Fragment>
@@ -65,7 +71,12 @@ const Wiz: React.FC = () => {
       </Fragment>
     );
   const ComponentToDisplay: React.FC = () => {
-    if (states?.report === 0) return <FirstReport />;
+    if (states?.report === 0)
+      return (
+        <FirstReport
+          handleResponse={(responseSucceed) => handleResponse(responseSucceed)}
+        />
+      );
     else if (states?.category === 0) return <FirstCategory />;
     else if (states?.product === 0) return <FirstProduct />;
     else {

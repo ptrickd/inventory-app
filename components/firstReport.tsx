@@ -11,6 +11,10 @@ import Button from "@material-ui/core/Button";
 //Components
 import CreateNewReportModal from "../components/CreateNewReportModal";
 
+interface IProps {
+  handleResponse: (responseSucceed: boolean) => void;
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
@@ -19,15 +23,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FirstReport: React.FC = () => {
+const FirstReport: React.FC<IProps> = ({ handleResponse }) => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const textBody = `Your first step to start your inventory is to choose the 
   date of your first report.`;
 
-  const handleModalClicked = (data: any) => {
-    //To add: getting the response from the server if succesful or not
+  const handleModalClicked = (responseSucceed: boolean) => {
     setOpenModal(false);
+    //getting the response from the server if succesful or not then send it to the parent
+    handleResponse(responseSucceed);
   };
   return (
     <Fragment>
