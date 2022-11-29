@@ -2,13 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 
 //GraphQL
-import { gql, useLazyQuery, useMutation } from "@apollo/client";
-
-//Date
-import { DateTime } from "luxon";
-
-//Types
-import { IProduct } from "../types/types";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 //Queries
 const GET_REPORTS = gql`
@@ -58,49 +52,36 @@ interface IReport {
 interface IContext {
   reports: IReport[];
   createNewReport: (dateEndingCycle: Date) => any;
-  // createNewReport: (dateEndingCycle: Date) => Promise<number>
 }
 
 const ReportsContext = createContext<Partial<IContext>>({});
 
 const ReportsProvider = ({ children }: IProps) => {
   const [reports, setReports] = useState<IReport[] | []>([]);
+  const { data } = useQuery(GET_REPORTS);
   const [createReport] = useMutation(CREATE_REPORT);
-  //   const [getReports, { data, loading }] = useLazyQuery(GET_REPORTS, {
-  //     fetchPolicy: "network-only",
-  //     onCompleted: (data) => {
-  //       setReports(data?.reports.reports); // multiple times
-  //     },
-  //   });
 
-  //   useEffect(() => {
-  //     getReports();
-  //   }, [getReports]);
   useEffect(() => {
-    console.log(`reports when reports array is updated${reports}`);
+    setReports(data?.reports?.reports);
+  }, [data]);
+  useEffect(() => {
+    console.log(reports[0]);
+    console.log(reports[reports.length - 1]);
   }, [reports]);
+
   async function createNewReport(dateEndingCycle: Date) {
     try {
       const response = await createReport({ variables: { dateEndingCycle } });
-      //   setReports([response.data.createReport, ...reports]);
+      setReports([
+        ...reports,
+        response.data.createReport.createdReportResponse,
+      ]);
 
-      console.log(
-        `in createNewReport function \nid ${response.data.createReport.id}\n`
-      );
-      for (let property in response.data.createReport) {
-        console.log(`${property}=${response.data.createReport[property]}`);
-      }
-      //userId
-      //dateCreated
-      //dateEndingCycle
       return response;
-      //   return report;
     } catch (err: any) {
       console.log(err?.message);
     }
   }
-
-  // return valueToReturn
 
   // if (loading) null
 
