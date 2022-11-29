@@ -64,10 +64,7 @@ const ReportsProvider = ({ children }: IProps) => {
   useEffect(() => {
     setReports(data?.reports?.reports);
   }, [data]);
-  useEffect(() => {
-    console.log(reports[0]);
-    console.log(reports[reports.length - 1]);
-  }, [reports]);
+  // useEffect(() => {}, [reports]);
 
   async function createNewReport(dateEndingCycle: Date) {
     try {
