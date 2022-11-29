@@ -79,20 +79,20 @@ export const resolvers = {
       try {
         const user = await User.findOne({ email });
 
-        if (!user) throw new Error("Invalid Login");
+        if (!user) throw new Error("Invalid Login no user");
 
         const passwordMatch = await bcrypt.compare(password, user.password);
-        if (!passwordMatch) throw new Error("Invalid Login");
+        if (!passwordMatch) throw new Error("Invalid Login wrong password");
 
         const token = jwt.sign(
           { id: user.id, email: user.email },
           process.env.RESTO_JWT_SECRET,
-          { expiresIn: "30d" }
+          { expiresIn: "1d" }
         );
 
         return { token, user };
       } catch (err) {
-        return { error: "Invalid Login" };
+        return { error: "Invalid Login: Error has been throw" };
       }
     },
   },

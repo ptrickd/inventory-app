@@ -58,7 +58,7 @@ const ReportsContext = createContext<Partial<IContext>>({});
 
 const ReportsProvider = ({ children }: IProps) => {
   const [reports, setReports] = useState<IReport[] | []>([]);
-  const { data } = useQuery(GET_REPORTS);
+  const { data, loading, error } = useQuery(GET_REPORTS);
   const [createReport] = useMutation(CREATE_REPORT);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const ReportsProvider = ({ children }: IProps) => {
     }
   }
 
-  // if (loading) null
+  if (loading) return null;
 
   return (
     <ReportsContext.Provider
