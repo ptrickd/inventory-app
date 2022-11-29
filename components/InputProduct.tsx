@@ -1,259 +1,237 @@
 //React
-import React, { useState, useEffect, useContext, Fragment, ChangeEvent } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  Fragment,
+  ChangeEvent,
+} from "react";
 
 //Context
-import { ProductsContext } from '../contexts/ProductsContext'
+import { ProductsContext } from "../contexts/ProductsContext";
 
 //Components
-import EditProductForm from './EditProductForm'
+import EditProductForm from "./EditProductForm";
 
 //Material UI
 
-import TextField from '@material-ui/core/TextField'
-import FormControl from '@material-ui/core/FormControl'
-import FormLabel from '@material-ui/core/FormLabel'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel';
-import Box from '@material-ui/core/Box'
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import Box from "@material-ui/core/Box";
 
 //Icons
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 //Graphql
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation } from "@apollo/client";
 
 //Types
-import { IProduct } from '../types/types'
+import { IProduct } from "../types/types";
 
 //Constants
-import { MEASURE_UNITS } from '../constants/measureUnits'
+import { MEASURE_UNITS } from "../constants/measureUnits";
 
 const UPDATE_AMOUNT = gql`
-    mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!){
-        saveAmountProduct(productId: $productId, updatedAmount: $updatedAmount){
-            id
-        }
+  mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!) {
+    saveAmountProduct(productId: $productId, updatedAmount: $updatedAmount) {
+      id
     }
-`
+  }
+`;
 
 const UPDATE_UNIT = gql`
-    mutation SaveUnitProduct($productId: ID!, $updatedUnit: String!){
-        saveUnitProduct(productId: $productId, updatedUnit: $updatedUnit){
-            id
-        }
+  mutation SaveUnitProduct($productId: ID!, $updatedUnit: String!) {
+    saveUnitProduct(productId: $productId, updatedUnit: $updatedUnit) {
+      id
     }
-`
+  }
+`;
 
 type IProps = {
-    name: string
-    currentAmount: number
-    previousAmount: number
-    id: string
-    categoryId: string
-    showAmounts: boolean
-    measureUnit: string
-}
-
+  name: string;
+  currentAmount: number;
+  previousAmount: number;
+  id: string;
+  categoryId: string;
+  showAmounts: boolean;
+  measureUnit: string;
+};
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%'
-    },
-    formControl: {
-        marginTop: '8px',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    innerFormControl: {
-        margin: theme.spacing(1),
-        alignItems: 'center'
-    },
-    textfield: {},
-    selectUnit: {
-        marginLeft: 5,
-        marginRight: 5,
-        minWidth: 50
-    },
-    box: {
-        margin: theme.spacing(1),
-        alignItems: 'left'
-    },
-    lastAmountName: {
-        color: "rgba(0,0,0,0.54)",
-        width: '100%',
-        paddingLeft: theme.spacing(0.7)
-    },
-    lastAmountValue: {
-        height: 'auto',
-        padding: theme.spacing(0.7)
-    }
+  root: {
+    width: "100%",
+  },
+  formControl: {
+    marginTop: "8px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  innerFormControl: {
+    margin: theme.spacing(1),
+    alignItems: "center",
+  },
+  textfield: {},
+  selectUnit: {
+    marginLeft: 5,
+    marginRight: 5,
+    minWidth: 50,
+  },
+  box: {
+    margin: theme.spacing(1),
+    alignItems: "left",
+  },
+  lastAmountName: {
+    color: "rgba(0,0,0,0.54)",
+    width: "100%",
+    paddingLeft: theme.spacing(0.7),
+  },
+  lastAmountValue: {
+    height: "auto",
+    padding: theme.spacing(0.7),
+  },
 }));
 
-const InputProduct: React.FC<IProps> = (
-    { name, currentAmount, previousAmount, id, categoryId, showAmounts, measureUnit
-    }) => {
-    const classes = useStyles();
-    const { products, updateProducts, deleteProductApi } = useContext(ProductsContext)
-    const [openEditProductForm, setOpenEditProductModal] = useState<boolean>(false)
-    const [currentMeasureUnit, setCurrentMeasureUnit] = useState<string>(measureUnit)
-    const [amount, setAmount] = useState(currentAmount.toString())
-    const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT)
-    const [saveNewUnit] = useMutation(UPDATE_UNIT)
+const InputProduct: React.FC<IProps> = ({
+  name,
+  currentAmount,
+  previousAmount,
+  id,
+  categoryId,
+  showAmounts,
+  measureUnit,
+}) => {
+  const classes = useStyles();
+  const { products, updateProducts, deleteProductApi } =
+    useContext(ProductsContext);
+  const [openEditProductForm, setOpenEditProductModal] =
+    useState<boolean>(false);
+  const [currentMeasureUnit, setCurrentMeasureUnit] =
+    useState<string>(measureUnit);
+  const [amount, setAmount] = useState(currentAmount.toString());
+  const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT);
+  const [saveNewUnit] = useMutation(UPDATE_UNIT);
 
-    useEffect(() => {
-        const updateUnit = async () => {
-            await saveNewUnit({
-                variables: {
-                    productId: id,
-                    updatedUnit: currentMeasureUnit
-                }
-            })
-        }
-        if (measureUnit !== currentMeasureUnit) {
-            updateUnit()
-        }
-    }, [currentMeasureUnit])
-
-    const handleEditAddProductForm = () => setOpenEditProductModal(false)
-
-    const handleUnitChange = async (e: any) => {
-        setCurrentMeasureUnit(e?.target?.value)
+  useEffect(() => {
+    const updateUnit = async () => {
+      await saveNewUnit({
+        variables: {
+          productId: id,
+          updatedUnit: currentMeasureUnit,
+        },
+      });
+    };
+    if (measureUnit !== currentMeasureUnit) {
+      updateUnit();
     }
-    const saveProductOnBlur = async () => {
+  }, [currentMeasureUnit, id, measureUnit, saveNewUnit]);
 
-        await saveAmountProduct({
-            variables: {
-                productId: id,
-                updatedAmount: parseInt(amount)
-            }
-        })
-        let newProductsList = products?.map((product: IProduct) => {
+  const handleEditAddProductForm = () => setOpenEditProductModal(false);
 
-            if (product.id === id) {
-                let newProduct = JSON.parse(JSON.stringify(product))
-                return Object.assign(newProduct, { currentAmount: parseInt(amount) })
-            }
-            return product
+  const handleUnitChange = async (e: any) => {
+    setCurrentMeasureUnit(e?.target?.value);
+  };
+  const saveProductOnBlur = async () => {
+    await saveAmountProduct({
+      variables: {
+        productId: id,
+        updatedAmount: parseInt(amount),
+      },
+    });
+    let newProductsList = products?.map((product: IProduct) => {
+      if (product.id === id) {
+        let newProduct = JSON.parse(JSON.stringify(product));
+        return Object.assign(newProduct, { currentAmount: parseInt(amount) });
+      }
+      return product;
+    });
+    if (updateProducts && newProductsList) updateProducts(newProductsList);
+  };
 
-        })
-        if (updateProducts && newProductsList) updateProducts(newProductsList)
-    }
+  const bodyWithAmount = () => (
+    <Fragment>
+      <FormControl className={classes.innerFormControl}>
+        <TextField
+          id={name + "current"}
+          label={"Current"}
+          color="primary"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          onBlur={saveProductOnBlur}
+          variant="standard"
+          fullWidth
+          className={classes.textfield}
+        />
+      </FormControl>
 
+      <FormControl className={classes.innerFormControl}>
+        <InputLabel>Unit</InputLabel>
+        <Select
+          labelId={name + "labelID-select"}
+          id={name + "select"}
+          value={currentMeasureUnit}
+          onChange={handleUnitChange}
+          variant="standard"
+          className={classes.selectUnit}
+        >
+          {MEASURE_UNITS.map((unitName: string) => {
+            return (
+              <MenuItem key={unitName} value={unitName}>
+                {unitName}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
 
-    const bodyWithAmount = () => (
-        <Fragment>
-            <FormControl
-                className={classes.innerFormControl}
-            >
+      <FormControl className={classes.innerFormControl}></FormControl>
+    </Fragment>
+  );
 
-                <TextField
+  return (
+    <div className={classes.root}>
+      {showAmounts && <Typography variant="h6">{name}</Typography>}
+      <FormControl className={classes.formControl} fullWidth>
+        {!showAmounts && <Typography variant="h6">{name}</Typography>}
+        {showAmounts && bodyWithAmount()}
+        <Box className={classes.box} width="15%">
+          <Typography variant="caption" className={classes.lastAmountName}>
+            Last
+          </Typography>
+          <Typography align="left" className={classes.lastAmountValue}>
+            {previousAmount}
+          </Typography>
+        </Box>
+        <IconButton onClick={(e) => setOpenEditProductModal(true)}>
+          <EditIcon />
+        </IconButton>
 
-                    id={name + 'current'}
-                    label={'Current'}
-                    color="primary"
-                    value={amount}
-                    onChange={e => setAmount(e.target.value)}
-                    onBlur={saveProductOnBlur}
-                    variant='standard'
-                    fullWidth
-                    className={classes.textfield}
-                />
-            </FormControl>
+        <IconButton
+          onClick={(e) => {
+            if (deleteProductApi !== undefined) deleteProductApi(id);
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </FormControl>
+      <EditProductForm
+        open={openEditProductForm}
+        handleCloseModal={handleEditAddProductForm}
+        productId={id}
+        categoryId={categoryId}
+        productName={name}
+      />
+    </div>
+  );
+};
 
-            <FormControl
-                className={classes.innerFormControl}
-            >
-
-
-                <InputLabel>Unit</InputLabel>
-                <Select
-                    labelId={name + 'labelID-select'}
-                    id={name + "select"}
-                    value={currentMeasureUnit}
-                    onChange={handleUnitChange}
-                    variant='standard'
-                    className={classes.selectUnit}
-                >
-                    {
-                        MEASURE_UNITS.map((unitName: string) => {
-                            return <MenuItem value={unitName}>{unitName}</MenuItem>
-                        })
-                    }
-                </Select>
-            </FormControl>
-
-            <FormControl
-                className={classes.innerFormControl}
-            >
-            </FormControl>
-
-
-
-        </Fragment >
-
-    )
-
-
-    return (
-        < div className={classes.root} >
-            {showAmounts && <Typography variant="h6">{name}</Typography>
-            }
-            <FormControl
-                className={classes.formControl}
-                fullWidth
-            >
-                {
-                    !showAmounts && <Typography
-                        variant="h6"
-                    >{name}</Typography>
-                }
-                {
-                    showAmounts && bodyWithAmount()
-                }
-                <Box
-                    className={classes.box}
-                    width="15%"
-                >
-                    <Typography
-                        variant='caption'
-                        className={classes.lastAmountName}
-                    >Last</Typography>
-                    <Typography
-
-                        align='left'
-                        className={classes.lastAmountValue}
-                    >{previousAmount}</Typography>
-
-                </Box>
-                <IconButton onClick={e => setOpenEditProductModal(true)}>
-                    <EditIcon />
-                </IconButton>
-
-                <IconButton onClick={e => { if (deleteProductApi !== undefined) deleteProductApi(id) }}>
-                    <DeleteIcon />
-                </IconButton>
-
-            </FormControl >
-            <EditProductForm
-                open={openEditProductForm}
-                handleCloseModal={handleEditAddProductForm}
-                productId={id}
-                categoryId={categoryId}
-                productName={name}
-            />
-
-        </div >
-
-
-    )
-}
-
-export default InputProduct
-
+export default InputProduct;

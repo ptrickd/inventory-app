@@ -61,7 +61,7 @@ const Login: React.FC = () => {
     if (loggedIn) {
       router.push("/loading");
     }
-  }, [loggedIn]);
+  }, [loggedIn, router]);
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);

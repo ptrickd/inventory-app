@@ -71,7 +71,7 @@ export default function Home() {
     if (loggedIn) {
       router.push("/loading");
     }
-  }, [loggedIn]);
+  }, [loggedIn, router]);
   // if (loggedIn) router.push("/loading");
   return (
     <Fragment>

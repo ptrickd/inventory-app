@@ -53,7 +53,7 @@ const Register: React.FC = () => {
     if (loggedIn) {
       router.push("/dashboard");
     }
-  }, [loggedIn]);
+  }, [loggedIn, router]);
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);
