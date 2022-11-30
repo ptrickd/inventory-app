@@ -91,7 +91,8 @@ export const resolvers = {
         );
 
         return { token, user };
-      } catch (err) {
+      } catch (err: any) {
+        console.log(err?.message);
         return { error: "Invalid Login: Error has been throw" };
       }
     },

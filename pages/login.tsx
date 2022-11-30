@@ -21,6 +21,7 @@ import { UserContext } from "../contexts/UserContext";
 
 //Components
 import AuthForm from "../components/AuthForm";
+import DisplayMessage from "../components/DisplayMessage";
 
 interface IForm {
   email: string;
@@ -98,11 +99,10 @@ const Login: React.FC = () => {
       <Typography variant="h2" align="center">
         Login
       </Typography>
-      {serverErrorMess.length > 1 && (
-        <Typography variant="body1" align="center" color="secondary">
-          {serverErrorMess}
-        </Typography>
-      )}
+      <DisplayMessage
+        message={serverErrorMess}
+        show={Boolean(serverErrorMess.length)}
+      />
       <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
 
       <Link href="/register">
