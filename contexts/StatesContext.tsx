@@ -53,7 +53,7 @@ const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = ({ children }: IProps) => {
   //useMemo needed to deal with the useEffect dependencies
-  const STATES = useMemo(() => {
+  const STATES: IStatesConstant = useMemo(() => {
     return {
       isLoading: "isLoading",
       hasNoReport: "hasNoReport",
@@ -75,31 +75,37 @@ const StatesProvider = ({ children }: IProps) => {
   //useCallback needed to deal with the useEffect dependencies
   const updateStates = useCallback(
     (newStates: Partial<IStates>) => {
-      if (data) {
+      if (newStates.report && newStates.category && newStates.product) {
         let state: string = "";
         if (states.report === 0) state = STATES.hasNoReport;
         if (states.category === 0) state = STATES.hasNoCategory;
         if (states.product === 0) state = STATES.hasNoProduct;
         else state = STATES.inNormalMode;
-        setStates({ ...states, ...newStates, state: state });
+        setStates({
+          state: state,
+          report: newStates.report,
+          category: newStates.category,
+          product: newStates.product,
+        });
       }
     },
-    [data, states, STATES]
+    [states, STATES]
   );
-  // if (loading) return null;
-  // useEffect(() => {}, [isFirstLoading]);
 
   useEffect(() => {
-    updateStates({
-      report: data.numOfReports,
-      category: data.numofCategory,
-      product: data.numOfProduct,
-    });
+    if (data) {
+      updateStates({
+        report: data.numOfReports,
+        category: data.numofCategory,
+        product: data.numOfProduct,
+      });
+    }
   }, [updateStates, data]);
 
   ///display loading page
   //request amount of report, categories and products
-
+  // if (loading) return null;
+  //if(error)return null;
   return (
     <StatesContext.Provider
       value={{
