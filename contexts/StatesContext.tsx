@@ -1,10 +1,16 @@
 //Create state machine workflow
 
 //React
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 
 //GraphQL
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
 //Queries
 const GET_STATES = gql`
@@ -16,6 +22,7 @@ const GET_STATES = gql`
 `;
 
 //Typescript Declaration
+
 interface IProps {
   children: React.ReactNode;
 }
@@ -27,58 +34,68 @@ interface IStates {
   product: number;
 }
 
-interface IContext {
-  states: IStates;
-  reloadStates: () => void;
+//Constants of the states
+interface IStatesConstant {
+  isLoading: string;
+  hasNoReport: string;
+  hasNoCategory: string;
+  hasNoProduct: string;
+  inNormalMode: string;
 }
 
-//Case sensitive dont change
-enum EStates {
-  loading = "loading",
-  firstReport = "fisrtCategory",
-  firstCategory = "firstCategory",
-  firstProduct = "firstProduct",
+interface IContext {
+  states: IStates;
+  updateStates: (states: IStates) => void;
+  STATES: IStatesConstant;
 }
 
 const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = ({ children }: IProps) => {
+  //useMemo needed to deal with the useEffect dependencies
+  const STATES = useMemo(() => {
+    return {
+      isLoading: "isLoading",
+      hasNoReport: "hasNoReport",
+      hasNoCategory: "hasNoCategory",
+      hasNoProduct: "hasNoProduct",
+      inNormalMode: "inNormalMode",
+    };
+  }, []);
+
   const [states, setStates] = useState<IStates>({
-    state: EStates.loading,
+    state: "isLoading",
     report: 0,
     category: 0,
     product: 0,
   });
 
+  //Need to add error handling
   const { data, error, loading } = useQuery(GET_STATES);
-  const reloadStates = () => {
-    if (!loading && data) {
-      console.log(
-        `states:\n
-      report:${data.numOfReports}\n
-      category:${data.numOfCategories}\n
-      product:${data.numOfProducts}\n`
-      );
-      setStates({
-        state: "",
-        report: data?.numOfReports,
-        category: data?.numOfCategories,
-        product: data?.numOfProducts,
-      });
-    } else if (!loading && !data) {
-      console.log("!loading && !data");
-    } else {
-      setStates({ ...states, state: EStates.loading });
-      console.log("trying to get the states from the server");
-    }
-  };
-  //states: loading, noReport, noCategory,
-  // noProduct, normal, error
+  //useCallback needed to deal with the useEffect dependencies
+  const updateStates = useCallback(
+    (newStates: Partial<IStates>) => {
+      if (data) {
+        let state: string = "";
+        if (states.report === 0) state = STATES.hasNoReport;
+        if (states.category === 0) state = STATES.hasNoCategory;
+        if (states.product === 0) state = STATES.hasNoProduct;
+        else state = STATES.inNormalMode;
+        setStates({ ...states, ...newStates, state: state });
+      }
+    },
+    [data, states, STATES]
+  );
+  // if (loading) return null;
+  // useEffect(() => {}, [isFirstLoading]);
 
   useEffect(() => {
-    console.log("in the states context");
-    // reloadStates();
-  }, []);
+    updateStates({
+      report: data.numOfReports,
+      category: data.numofCategory,
+      product: data.numOfProduct,
+    });
+  }, [updateStates, data]);
 
   ///display loading page
   //request amount of report, categories and products
@@ -87,7 +104,8 @@ const StatesProvider = ({ children }: IProps) => {
     <StatesContext.Provider
       value={{
         states,
-        reloadStates,
+        updateStates,
+        STATES,
       }}
     >
       {children}
