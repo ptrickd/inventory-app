@@ -48,6 +48,7 @@ interface IContext {
   updateStates: (states: IStates) => void;
   STATES: IStatesConstant;
 }
+// STATES: IStatesConstant;
 
 const StatesContext = createContext<Partial<IContext>>({});
 
@@ -75,11 +76,15 @@ const StatesProvider = ({ children }: IProps) => {
   //useCallback needed to deal with the useEffect dependencies
   const updateStates = useCallback(
     (newStates: Partial<IStates>) => {
-      if (newStates.report && newStates.category && newStates.product) {
+      if (
+        newStates.report !== undefined &&
+        newStates.category !== undefined &&
+        newStates.product !== undefined
+      ) {
         let state: string = "";
         if (states.report === 0) state = STATES.hasNoReport;
-        if (states.category === 0) state = STATES.hasNoCategory;
-        if (states.product === 0) state = STATES.hasNoProduct;
+        else if (states.category === 0) STATES.hasNoCategory;
+        else if (states.product === 0) STATES.hasNoProduct;
         else state = STATES.inNormalMode;
         setStates({
           state: state,
@@ -89,15 +94,15 @@ const StatesProvider = ({ children }: IProps) => {
         });
       }
     },
-    [states, STATES]
+    [states.report, states.category, states.product, STATES]
   );
 
   useEffect(() => {
     if (data) {
       updateStates({
         report: data.numOfReports,
-        category: data.numofCategory,
-        product: data.numOfProduct,
+        category: data.numOfCategories,
+        product: data.numOfProducts,
       });
     }
   }, [updateStates, data]);
