@@ -69,9 +69,6 @@ const ProductsProvider = ({ children }: IProps) => {
   const updateProducts = (list: IProduct[]) => {
     setProducts(list);
   };
-  useEffect(() => {
-    if (products) console.log("products list on context", products);
-  }, [products]);
 
   const productsByCategory = () => {
     let productsToReturn: IProduct[] | [] = [];
@@ -81,12 +78,10 @@ const ProductsProvider = ({ children }: IProps) => {
       );
     }
 
-    // console.log('productsToReturn', productsToReturn)
     return productsToReturn;
   };
 
   const addProduct = async (product: IAddProduct) => {
-    console.log("addProduct ", product);
     await createProduct({
       variables: {
         name: product.name,
@@ -94,7 +89,6 @@ const ProductsProvider = ({ children }: IProps) => {
         unit: product.unit,
       },
     });
-    console.log("newProduct:");
     // getProducts({ variables: { categoryId: contextCategoryId } })
     getProducts();
   };

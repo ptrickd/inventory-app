@@ -43,80 +43,64 @@ interface IStatesConstant {
   inNormalMode: string;
 }
 
+// interface IUpdateStates {
+//   currentStates: IStates;
+//   newStates: Partial<IStates>;
+// }
+
 interface IContext {
-  states: IStates;
-  updateStates: (states: IStates) => void;
-  STATES: IStatesConstant;
+  hasReport: boolean;
+  hasCategory: boolean;
+  hasProduct: boolean;
 }
+// states: IStates;
+// updateStates: (currentStates: IStates, newStates: Partial<IStates>) => void;
 // STATES: IStatesConstant;
 
 const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = ({ children }: IProps) => {
-  //useMemo needed to deal with the useEffect dependencies
-  const STATES: IStatesConstant = useMemo(() => {
-    return {
-      isLoading: "isLoading",
-      hasNoReport: "hasNoReport",
-      hasNoCategory: "hasNoCategory",
-      hasNoProduct: "hasNoProduct",
-      inNormalMode: "inNormalMode",
-    };
-  }, []);
-
-  const [states, setStates] = useState<IStates>({
-    state: "isLoading",
-    report: 0,
-    category: 0,
-    product: 0,
-  });
+  const [state, setState] = useState("isLoading");
+  const [hasReport, setHasReport] = useState(false);
+  const [hasCategory, setHasCategory] = useState(false);
+  const [hasProduct, setHasProduct] = useState(false);
 
   //Need to add error handling
   const { data, error, loading } = useQuery(GET_STATES);
-  //useCallback needed to deal with the useEffect dependencies
-  const updateStates = useCallback(
-    (newStates: Partial<IStates>) => {
-      if (
-        newStates.report !== undefined &&
-        newStates.category !== undefined &&
-        newStates.product !== undefined
-      ) {
-        let state: string = "";
-        if (states.report === 0) state = STATES.hasNoReport;
-        else if (states.category === 0) STATES.hasNoCategory;
-        else if (states.product === 0) STATES.hasNoProduct;
-        else state = STATES.inNormalMode;
-        setStates({
-          state: state,
-          report: newStates.report,
-          category: newStates.category,
-          product: newStates.product,
-        });
-      }
-    },
-    [states.report, states.category, states.product, STATES]
-  );
+  useEffect(() => {
+    console.log(`###################################`);
+    console.log(`state :   ${state}`);
+    console.log(`report :   ${hasReport}`);
+    console.log(`category : ${hasCategory}`);
+    console.log(`product :  ${hasProduct}`);
+    console.log(`###################################`);
+  }, [state, hasReport, hasCategory, hasProduct]);
 
   useEffect(() => {
-    if (data) {
-      updateStates({
-        report: data.numOfReports,
-        category: data.numOfCategories,
-        product: data.numOfProducts,
-      });
+    if (data?.numOfReports) {
+      console.log(`numOfReports ${data.numOfReports}`);
+      setHasReport(true);
     }
-  }, [updateStates, data]);
+    if (data?.numOfCategories) {
+      console.log(`numOfCategories ${data.numOfCategories}`);
+      setHasCategory(true);
+    }
+    if (data?.numOfProducts) {
+      console.log(`numOfProducts ${data.numOfProducts}`);
+      setHasProduct(true);
+    }
+  }, [data]);
 
   ///display loading page
   //request amount of report, categories and products
-  // if (loading) return null;
+  if (loading) return null;
   //if(error)return null;
   return (
     <StatesContext.Provider
       value={{
-        states,
-        updateStates,
-        STATES,
+        hasReport,
+        hasCategory,
+        hasProduct,
       }}
     >
       {children}
@@ -125,3 +109,57 @@ const StatesProvider = ({ children }: IProps) => {
 };
 
 export { StatesProvider, StatesContext };
+
+//useMemo needed to deal with the useEffect dependencies
+// const STATES: IStatesConstant = useMemo(() => {
+//   return {
+//     isLoading: "isLoading",
+//     hasNoReport: "hasNoReport",
+//     hasNoCategory: "hasNoCategory",
+//     hasNoProduct: "hasNoProduct",
+//     inNormalMode: "inNormalMode",
+//   };
+// }, []);
+
+// const [states, setStates] = useState<IStates>({
+//   state: "isLoading",
+//   report: 0,
+//   category: 0,
+//   product: 0,
+// });
+
+//useCallback needed to deal with the useEffect dependencies
+// const updateStates = useCallback(
+//   (currentStates: IStates, newStates: Partial<IStates>) => {
+//     console.log(`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&`);
+//     console.log(`newStates.report :   ${newStates.report}`);
+//     console.log(`newStates.category : ${newStates.category}`);
+//     console.log(`newStates.product :  ${newStates.product}`);
+//     console.log(`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&`);
+
+//     if (
+//       newStates.report !== undefined &&
+//       newStates.category !== undefined &&
+//       newStates.product !== undefined
+//     ) {
+//       if (newStates.report === 0) {
+//         setStates({ ...currentStates, state: STATES.hasNoReport, report: 1 });
+//       } else if (newStates.category === 0) {
+//         setStates({
+//           ...currentStates,
+//           state: STATES.hasNoCategory,
+//           category: 1,
+//         });
+//       } else if (newStates.product === 0) {
+//         setStates({
+//           ...currentStates,
+//           state: STATES.hasNoProduct,
+//           product: 1,
+//         });
+//       } else {
+//         setStates({ ...currentStates, state: STATES.inNormalMode });
+//       }
+//     }
+//   },
+//   [STATES]
+// );

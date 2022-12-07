@@ -20,6 +20,9 @@ import { UserContext } from "../contexts/UserContext";
 import { StatesContext } from "../contexts/StatesContext";
 
 //Define types
+interface IFuncProps {
+  currentState: string;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +41,7 @@ const Wiz: React.FC = () => {
   const classes = useStyles();
 
   const { loggedIn } = useContext(UserContext);
-  const { states } = useContext(StatesContext);
+  const { hasReport, hasCategory, hasProduct } = useContext(StatesContext);
   const router = useRouter();
 
   //Protecting route
@@ -46,53 +49,34 @@ const Wiz: React.FC = () => {
     if (!loggedIn) router.push("/");
   }, [loggedIn, router]);
 
-  //Updating states
-  // useEffect(() => {
-  //   setStates({
-  //     reports: reports || null,
-  //     categories: categories || null,
-  //     products: products || null,
-  //   });
-  // }, [reports, categories, products]);
+  //have to add parameters to handle a response from any 3 components
+  const handleResponse = (isResponseSucceed: boolean) => {};
 
-  const handleResponse = (responseSucceed: boolean) => {
-    //report context will be updated in childran
-    //do I need to update states context??
-    console.log(`response for creating report ${responseSucceed}`);
-  };
-
-  if (!states)
+  if (
+    hasReport === undefined ||
+    hasCategory === undefined ||
+    hasProduct === undefined
+  )
     return (
       <Fragment>
-        <CssBaseline />
-        <Container maxWidth="md" className={classes.root}>
-          <Typography>Server Error</Typography>
-        </Container>
+        <Typography>Page Error</Typography>
       </Fragment>
     );
-  const ComponentToDisplay: React.FC = () => {
-    if (states?.report === 0)
-      return (
-        <FirstReport
-          handleResponse={(responseSucceed) => handleResponse(responseSucceed)}
-        />
-      );
-    else if (states?.category === 0) return <FirstCategory />;
-    else if (states?.product === 0) return <FirstProduct />;
-    else {
-      return (
-        <Fragment>
-          <Typography>Page Error</Typography>
-        </Fragment>
-      );
-    }
-  };
-
   return (
     <Fragment>
       <CssBaseline />
       <Container maxWidth="md" className={classes.root}>
-        <ComponentToDisplay />
+        {/* <ComponentToDisplay currentState={states.state} /> */}
+
+        {!hasReport && (
+          <FirstReport
+            handleResponse={(isResponseSucceed) =>
+              handleResponse(isResponseSucceed)
+            }
+          />
+        )}
+        {hasReport && !hasCategory && <FirstCategory />}
+        {hasReport && hasCategory && !hasProduct && <FirstProduct />}
       </Container>
     </Fragment>
   );
