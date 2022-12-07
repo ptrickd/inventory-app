@@ -26,16 +26,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
+const initialDate: DateTime = DateTime.now();
 const DatePicker = ({ handleSelectedDate }: IProps) => {
-  const initialDate: DateTime = DateTime.now();
+  const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState<DateTime | null>(
     initialDate
   );
-  const classes = useStyles();
 
   useEffect(() => {
-    if (selectedDate) handleSelectedDate(selectedDate.toJSDate());
+    if (selectedDate && selectedDate !== initialDate)
+      handleSelectedDate(selectedDate.toJSDate());
   }, [selectedDate, handleSelectedDate]);
 
   return (
