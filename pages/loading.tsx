@@ -28,19 +28,15 @@ export default function Loading() {
   const classes = useStyles();
   const router = useRouter();
   const { loggedIn } = useContext(UserContext);
-  const { states } = useContext(StatesContext);
+  const { hasReport, hasCategory, hasProduct } = useContext(StatesContext);
 
   useEffect(() => {
     if (!loggedIn) {
       router.push("/");
-    } else if (
-      states?.report === 0 ||
-      states?.category === 0 ||
-      states?.product === 0
-    ) {
+    } else if (!hasReport || !hasCategory || !hasProduct) {
       router.push("/wiz");
     }
-  }, [loggedIn, router, states]);
+  }, [loggedIn, router, hasReport, hasCategory, hasProduct]);
 
   return (
     <Container className={classes.root} maxWidth="xs">

@@ -19,6 +19,7 @@ import { UserContext } from "../contexts/UserContext";
 
 //Components
 import AuthForm from "../components/AuthForm";
+import DisplayMessage from "../components/DisplayMessage";
 
 interface IForm {
   email: string;
@@ -43,7 +44,7 @@ const Register: React.FC = () => {
   const { currentUser, setCurrentUser, loggedIn, setLoggedIn } =
     useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
-  const [errorServerMess, setErrorServerMess] = useState("");
+  const [serverErrorMess, setServerErrorMess] = useState("");
 
   const { reset } = useForm<IForm>();
 
@@ -61,9 +62,9 @@ const Register: React.FC = () => {
       variables: { email: data.email, password: data.password },
     });
     if (user.data.register.error) {
-      setErrorServerMess(user.data.register.error);
+      setServerErrorMess(user.data.register.error);
     } else if (user?.data?.register.user) {
-      setErrorServerMess("");
+      setServerErrorMess("");
       router.push("/login");
     }
     setSubmitting(false);
@@ -75,11 +76,10 @@ const Register: React.FC = () => {
       <Typography variant="h2" align="center">
         Register
       </Typography>
-      {errorServerMess.length > 1 && (
-        <Typography align="center" color="secondary">
-          {errorServerMess}
-        </Typography>
-      )}
+      <DisplayMessage
+        message={serverErrorMess}
+        show={Boolean(serverErrorMess.length)}
+      />
       <AuthForm onSubmit={onSubmit} submitting={submitting} label="Register" />
     </Container>
   );

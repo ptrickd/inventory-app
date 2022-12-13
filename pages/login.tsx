@@ -76,7 +76,7 @@ const Login: React.FC = () => {
     if (loginResponse?.data?.login?.error && setLoggedIn && logout) {
       console.log("Error::", loginResponse.data.login.error);
       setServerErrorMess(loginResponse.data.login.error);
-      logout();
+      // logout();
       setLoggedIn(false);
     } else if (
       loginResponse?.data?.login?.user &&
