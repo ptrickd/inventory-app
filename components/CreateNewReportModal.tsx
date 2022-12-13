@@ -45,9 +45,9 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
 
   // const [currentDate] = useState(DateTime.now())
 
-  const handleSelectedDate = async (date: Date | null) => {
+  const datePickerSelectedDate = async (date: Date | null) => {
     // console.log('selectedDate', typeof date)
-    // console.log('currentDate', typeof currentDate)
+    console.log("currentDate", typeof selectedDate);
     setSelectedDate(date);
   };
 
@@ -76,19 +76,30 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
       className={classes.root}
     >
       <DialogContent>
-        <Typography variant="h5">
-          Choose the date for the next report
+        <Typography align="center" variant="body1" paragraph>
+          Date of the next report
         </Typography>
-        <DatePicker handleSelectedDate={handleSelectedDate} />
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleClickCreate}
-        >
-          Create
-        </Button>
+        <DatePicker handleSelectedDate={datePickerSelectedDate} />
+        {selectedDate ? (
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleClickCreate}
+          >
+            Create
+          </Button>
+        ) : (
+          <Button
+            className={classes.button}
+            variant="contained"
+            fullWidth
+            disabled
+          >
+            Create
+          </Button>
+        )}
       </DialogContent>
     </Dialog>
   );

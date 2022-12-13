@@ -29,14 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const initialDate: DateTime = DateTime.now();
 const DatePicker = ({ handleSelectedDate }: IProps) => {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<DateTime | null>(
-    initialDate
-  );
-
-  useEffect(() => {
-    if (selectedDate && selectedDate !== initialDate)
-      handleSelectedDate(selectedDate.toJSDate());
-  }, [selectedDate, handleSelectedDate]);
+  const [selectedDate, setSelectedDate] = useState<DateTime | null>(null);
 
   return (
     <div className={classes.root}>
@@ -48,6 +41,9 @@ const DatePicker = ({ handleSelectedDate }: IProps) => {
           margin="normal"
           value={selectedDate}
           onChange={setSelectedDate}
+          onClose={() => {
+            if (selectedDate) handleSelectedDate(selectedDate?.toJSDate());
+          }}
           KeyboardButtonProps={{
             "aria-label": "change date",
           }}
