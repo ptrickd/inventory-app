@@ -91,6 +91,7 @@ export const GET_CATEGORIES = gql`
     categories {
       id
       name
+      error
     }
   }
 `;
@@ -106,6 +107,7 @@ export const CREATE_CATEGORY = gql`
     createCategory(name: $name) {
       id
       name
+      error
     }
   }
 `;

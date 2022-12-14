@@ -93,15 +93,13 @@ export const resolvers = {
   Mutation: {
     createCategory: async (_: any, { name }: TIds, { user }: any) => {
       try {
-        console.log("createCategory name", name);
-        console.log("createCategory userId", user.id);
         if (!user) throw new Error("Not Authenticated");
-        let sameCategoryName = await Category.find({ name });
-        if (sameCategoryName)
+        let sameCategoryName = await Category.findOne({ name });
+        if (sameCategoryName) {
           throw new Error("That category name already exist!");
+        }
 
         let category = await Category.create({ name, userId: user.id });
-        console.log("category::", category);
         if (!category) throw new Error("No Category Created");
         return category;
       } catch (err: any) {

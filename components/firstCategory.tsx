@@ -1,6 +1,6 @@
 //Component inviting the user o choose the date of the first report
 //React
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 
 //Material UI
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -9,7 +9,14 @@ import Button from "@material-ui/core/Button";
 
 //Components
 import AddCategoryForm from "./AddCategoryForm";
+import DisplayMessage from "./DisplayMessage";
 
+//Interfaces
+interface ICategory {
+  id: string;
+  name: string;
+  error: string;
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
@@ -21,9 +28,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const FirstCategory: React.FC = () => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState<boolean>(false);
-
+  const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
-  const handleModal = () => {
+  const handleModal = (category: ICategory) => {
+    if (category.error) {
+      setMessageError(category.error);
+    }
     setOpenModal(false);
   };
 
@@ -42,6 +52,7 @@ const FirstCategory: React.FC = () => {
         Do it
       </Button>
       <AddCategoryForm open={openModal} handleCloseModal={handleModal} />
+      <DisplayMessage show={messageError.length > 0} message={messageError} />
     </Fragment>
   );
 };
