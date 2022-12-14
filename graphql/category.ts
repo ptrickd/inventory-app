@@ -22,6 +22,7 @@ export const typeDef = gql`
     id: ID
     name: String
     userId: String
+    error: String
   }
 
   extend type Query {
@@ -48,9 +49,10 @@ export const resolvers = {
         if (!category) throw new Error("No Category Found");
 
         return category;
-      } catch (err) {
-        console.log(err);
-        return err;
+      } catch (err: any) {
+        console.log(err.message);
+        const category = { error: err.message };
+        return category;
       }
     },
     categories: async (_: any, _1: any, { user }: any) => {
@@ -98,9 +100,10 @@ export const resolvers = {
         console.log("category::", category);
         if (!category) throw new Error("No Category Created");
         return category;
-      } catch (err) {
-        console.log(err);
-        return err;
+      } catch (err: any) {
+        console.log(err.message);
+        const category = { error: err.message };
+        return category;
       }
     },
     editCategory: async (
