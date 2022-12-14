@@ -38,6 +38,7 @@ export const typeDef = `
         categoryId: ID
         userId: ID
         unit: String
+        error: String
     }
 
     type Query {
@@ -152,6 +153,10 @@ export const resolvers = {
         if (!user) throw new Error("Not Authenticated");
         console.log("in create product");
         if (!MEASURE_UNITS.includes(unit)) throw new Error("Not a valid unit");
+        let sameNameProduct = await Product.find({ name });
+        if (sameNameProduct) {
+          throw new Error("This is already a product of the same name");
+        }
         let product = await Product.create({
           name,
           categoryId,
@@ -160,8 +165,9 @@ export const resolvers = {
         });
         return product;
       } catch (err: any) {
-        console.log("err: createProduct mutation", err.message);
-        return err;
+        console.log(err.message);
+        const product = { error: err.message };
+        return product;
       }
     },
     editProduct: async (

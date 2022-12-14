@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 //Components
-import AddCategoryForm from "../components/AddCategoryForm";
+import AddProductForm from "../components/AddProductForm";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const FirstProduct: React.FC = () => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [categoryId, setCategoryId] = useState<string | null>(null);
   const textBody = `Next you have to create your first product in the category you just created. An example is Romaine in the Produce category. `;
   const handleModal = () => {
     setOpenModal(false);
@@ -42,7 +43,11 @@ const FirstProduct: React.FC = () => {
       >
         Do it
       </Button>
-      <AddCategoryForm open={openModal} handleCloseModal={handleModal} />
+      <AddProductForm
+        open={openModal}
+        handleCloseModal={handleModal}
+        categoryId={null}
+      />
     </Fragment>
   );
 };
