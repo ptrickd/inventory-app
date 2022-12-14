@@ -32,7 +32,7 @@ export const typeDef = gql`
   }
 
   extend type Mutation {
-    createCategory(name: String, userId: String): Category
+    createCategory(name: String): Category
     editCategory(categoryId: ID, name: String): Category
     deleteCategory(categoryId: ID): Category
   }
@@ -96,6 +96,10 @@ export const resolvers = {
         console.log("createCategory name", name);
         console.log("createCategory userId", user.id);
         if (!user) throw new Error("Not Authenticated");
+        let sameCategoryName = await Category.find({ name });
+        if (sameCategoryName)
+          throw new Error("That category name already exist!");
+
         let category = await Category.create({ name, userId: user.id });
         console.log("category::", category);
         if (!category) throw new Error("No Category Created");
