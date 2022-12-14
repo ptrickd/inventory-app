@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FirstReport: React.FC<IProps> = () => {
+const FirstReport: React.FC = () => {
   const classes = useStyles();
   const { setHasReport } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -43,11 +43,10 @@ const FirstReport: React.FC<IProps> = () => {
     //getting the response from the server if succesful update reportContext
     // or not then display error message
     if (responseStatus.succeeded) {
-      setHasReport(true);
+      if (setHasReport) setHasReport(true);
     } else {
       setMessageError(responseStatus.messageError);
     }
-    // handleResponse(responseStatus);
   };
   return (
     <Fragment>

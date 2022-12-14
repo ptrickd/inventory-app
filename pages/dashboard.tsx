@@ -24,6 +24,12 @@ import AddIcon from "@material-ui/icons/Add";
 //Context
 import { UserContext } from "../contexts/UserContext";
 
+//Interface
+interface IResponseStatus {
+  succeeded: boolean;
+  messageError: string;
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -51,10 +57,10 @@ function Dashboard() {
   const handleCloseModal = () => setOpenModal(false);
 
   //create template for new report
-  const handleCloseCreateNewReport = (responseStatusSucceed: boolean) => {
+  const handleCloseCreateNewReport = (responseStatus: IResponseStatus) => {
     setOpenCreateNewReport(false);
     // console.log('responseStatusSucceed', responseStatusSucceed)
-    if (!responseStatusSucceed) setOpenErrorModal(true);
+    if (!responseStatus.succeeded) setOpenErrorModal(true);
   };
 
   //Submitting report
