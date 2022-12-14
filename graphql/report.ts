@@ -95,7 +95,6 @@ export const resolvers = {
       try {
         if (!user) throw new Error("Not Authenticated");
         let reports = await Report.find({ userId: user.id });
-        console.log(reports);
         return { reports };
       } catch (err: any) {
         return { error: err.message };
@@ -105,9 +104,9 @@ export const resolvers = {
       try {
         if (!user) throw new Error("Not Authenticated");
         return await Report.countDocuments();
-      } catch (err) {
-        console.log("Printing error: ", err);
-        return err;
+      } catch (err: any) {
+        console.log("Printing error: ", err.message);
+        return { error: err.message };
       }
     },
   },
@@ -120,9 +119,21 @@ export const resolvers = {
       try {
         if (!user) throw new Error("Not Authenticated");
 
+        const truncatedDateEndingCycle = dateEndingCycle
+          .toString()
+          .substring(0, 10); //year-month-day format
+        const sameDateEndingCycleReport = await Report.findOne({
+          dateEndingCycle: truncatedDateEndingCycle,
+        });
+
+        if (sameDateEndingCycleReport)
+          throw new Error(
+            "Can't create more than one report with the same ending cycle date!"
+          );
+
         let report = await Report.create({
           userId: user.id,
-          dateEndingCycle,
+          dateEndingCycle: dateEndingCycle.toString().substring(0, 10),
           dateCreated: DateTime.now().toISO(),
         });
 
@@ -138,6 +149,7 @@ export const resolvers = {
 
         return report;
       } catch (err: any) {
+        console.log(err.message);
         return { error: err.message };
       }
     },
