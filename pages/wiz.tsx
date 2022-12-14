@@ -23,7 +23,10 @@ import { StatesContext } from "../contexts/StatesContext";
 interface IFuncProps {
   currentState: string;
 }
-
+interface IResponseStatus {
+  succeeded: boolean;
+  messageError: string;
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -50,7 +53,7 @@ const Wiz: React.FC = () => {
   }, [loggedIn, router]);
 
   //have to add parameters to handle a response from any 3 components
-  const handleResponse = (isResponseSucceed: boolean) => {};
+  // const handleResponse = (isResponseSucceed: IResponseStatus) => {};
 
   if (
     hasReport === undefined ||
@@ -68,13 +71,7 @@ const Wiz: React.FC = () => {
       <Container maxWidth="md" className={classes.root}>
         {/* <ComponentToDisplay currentState={states.state} /> */}
 
-        {!hasReport && (
-          <FirstReport
-            handleResponse={(isResponseSucceed) =>
-              handleResponse(isResponseSucceed)
-            }
-          />
-        )}
+        {!hasReport && <FirstReport />}
         {hasReport && !hasCategory && <FirstCategory />}
         {hasReport && hasCategory && !hasProduct && <FirstProduct />}
       </Container>

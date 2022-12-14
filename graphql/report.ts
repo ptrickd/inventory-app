@@ -46,6 +46,7 @@ export const typeDef = gql`
     userId: String
     dateEndingCycle: Date
     dateCreated: Date
+    error: String
   }
 
   type ReportResponse {
@@ -65,6 +66,7 @@ export const typeDef = gql`
     userId: String
     dateCreated: Date
     dateEndingCycle: Date
+    error: String
   }
 
   extend type Query {
@@ -150,7 +152,8 @@ export const resolvers = {
         return report;
       } catch (err: any) {
         console.log(err.message);
-        return { error: err.message };
+        let report = { error: err.message };
+        return report;
       }
     },
   },

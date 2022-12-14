@@ -50,6 +50,7 @@ interface IStatesConstant {
 
 interface IContext {
   hasReport: boolean;
+  setHasReport: (hasReport: boolean) => void;
   hasCategory: boolean;
   hasProduct: boolean;
 }
@@ -67,26 +68,15 @@ const StatesProvider = ({ children }: IProps) => {
 
   //Need to add error handling
   const { data, error, loading } = useQuery(GET_STATES);
-  useEffect(() => {
-    console.log(`###################################`);
-    console.log(`state :   ${state}`);
-    console.log(`report :   ${hasReport}`);
-    console.log(`category : ${hasCategory}`);
-    console.log(`product :  ${hasProduct}`);
-    console.log(`###################################`);
-  }, [state, hasReport, hasCategory, hasProduct]);
 
   useEffect(() => {
     if (data?.numOfReports) {
-      console.log(`numOfReports ${data.numOfReports}`);
       setHasReport(true);
     }
     if (data?.numOfCategories) {
-      console.log(`numOfCategories ${data.numOfCategories}`);
       setHasCategory(true);
     }
     if (data?.numOfProducts) {
-      console.log(`numOfProducts ${data.numOfProducts}`);
       setHasProduct(true);
     }
   }, [data]);
@@ -99,6 +89,7 @@ const StatesProvider = ({ children }: IProps) => {
     <StatesContext.Provider
       value={{
         hasReport,
+        setHasReport,
         hasCategory,
         hasProduct,
       }}

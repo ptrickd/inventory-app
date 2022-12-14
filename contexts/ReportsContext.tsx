@@ -24,6 +24,7 @@ const CREATE_REPORT = gql`
       userId
       dateEndingCycle
       dateCreated
+      error
     }
   }
 `;
@@ -64,7 +65,6 @@ const ReportsProvider = ({ children }: IProps) => {
   useEffect(() => {
     setReports(data?.reports?.reports);
   }, [data]);
-  // useEffect(() => {}, [reports]);
 
   async function createNewReport(dateEndingCycle: Date) {
     try {

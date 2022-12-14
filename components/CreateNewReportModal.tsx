@@ -20,9 +20,14 @@ import { ProductsContext } from "../contexts/ProductsContext";
 
 //Types
 import { IProduct, IAddProduct } from "../types/types";
+
+interface IResponseStatus {
+  succeeded: boolean;
+  messageError: string;
+}
 interface IProps {
   open: boolean;
-  handleCloseModal: (responseStatusSucceed: boolean) => void;
+  handleCloseModal: (responseStatus: IResponseStatus) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,16 +48,12 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
   const { products } = useContext(ProductsContext);
   const [selectedDate, setSelectedDate] = useState<null | Date>(null);
 
-  // const [currentDate] = useState(DateTime.now())
-
   const datePickerSelectedDate = async (date: Date | null) => {
-    // console.log('selectedDate', typeof date)
-    console.log("currentDate", typeof selectedDate);
     setSelectedDate(date);
   };
 
   const handleClickCreate = async () => {
-    let responseStatusSucceed = true;
+    let responseStatus = { succeeded: true, messageError: "" };
     if (
       selectedDate !== null &&
       products !== undefined &&
@@ -61,18 +62,24 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
       let response = await createNewReport(selectedDate);
       //if there a report id then the report has been created
       //if not must show a error message
-      if (!response?.data?.createReport?.id) responseStatusSucceed = false;
+      if (!response?.data?.createReport?.id) {
+        // console.log(response.data);
+        responseStatus = {
+          messageError: response?.data?.createReport?.error,
+          succeeded: false,
+        };
+      }
       //updating the report states
     }
 
-    handleCloseModal(responseStatusSucceed);
+    handleCloseModal(responseStatus);
   };
 
   return (
     <Dialog
       open={open}
       aria-labelledby="Create A New Report"
-      onClose={() => handleCloseModal(true)}
+      onClose={() => handleCloseModal({ succeeded: false, messageError: "" })}
       className={classes.root}
     >
       <DialogContent>

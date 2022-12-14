@@ -1,18 +1,25 @@
 //Component inviting the user o choose the date of the first report
 //React
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useContext, Fragment } from "react";
 
 //Material UI
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
+//Contexts
+import { StatesContext } from "../contexts/StatesContext";
+
 //Components
 import CreateNewReportModal from "../components/CreateNewReportModal";
+import DisplayMessage from "./DisplayMessage";
 
+interface IResponseStatus {
+  succeeded: boolean;
+  messageError: string;
+}
 interface IProps {
-  handleResponse: (responseSucceed: boolean) => void;
+  handleResponse: (responseSucceed: IResponseStatus) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,16 +30,24 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FirstReport: React.FC<IProps> = ({ handleResponse }) => {
+const FirstReport: React.FC<IProps> = () => {
   const classes = useStyles();
+  const { setHasReport } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [messageError, setMessageError] = useState("");
   const textBody = `Your first step to start your inventory is to choose the 
   date of your first report.`;
 
-  const handleModalClicked = (responseSucceed: boolean) => {
+  const handleModalClicked = (responseStatus: IResponseStatus) => {
     setOpenModal(false);
-    //getting the response from the server if succesful or not then send it to the parent
-    handleResponse(responseSucceed);
+    //getting the response from the server if succesful update reportContext
+    // or not then display error message
+    if (responseStatus.succeeded) {
+      setHasReport(true);
+    } else {
+      setMessageError(responseStatus.messageError);
+    }
+    // handleResponse(responseStatus);
   };
   return (
     <Fragment>
@@ -55,6 +70,7 @@ const FirstReport: React.FC<IProps> = ({ handleResponse }) => {
         open={openModal}
         handleCloseModal={handleModalClicked}
       />
+      <DisplayMessage show={messageError.length > 0} message={messageError} />
     </Fragment>
   );
 };
