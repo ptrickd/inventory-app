@@ -23,7 +23,7 @@ interface ICategory {
 }
 interface IProps {
   open: boolean;
-  handleCloseModal: (category: ICategory) => void;
+  handleCloseModal: (category?: ICategory) => void;
 }
 
 interface IForm {
@@ -65,6 +65,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
       //category = id name error
       reset({ name: "" });
       setSubmitting(false);
+      //Need  a category to update the states from the parent components
       handleCloseModal(category);
     }
   };
@@ -92,9 +93,9 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
           variant="contained"
           size="small"
           color="secondary"
-          onClick={() => {
-            handleCloseModal();
-          }}
+          // onClick={() => {
+          //   handleCloseModal();
+          // }}
         >
           Cancel
         </Button>

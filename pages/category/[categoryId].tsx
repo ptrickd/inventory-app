@@ -26,7 +26,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import { DateTime } from "luxon";
 
 //Types
-import { IProduct, TCategory } from "../../types/types";
+import { IProduct, ICategory } from "../../types/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +62,7 @@ const ProductsPage: React.FC = () => {
   const classes = useStyles();
   const router = useRouter();
   const { categoryId } = router.query;
-  const [currentCategory, setCurrentCategory] = useState<TCategory | null>(
+  const [currentCategory, setCurrentCategory] = useState<ICategory | null>(
     null
   );
 
@@ -75,7 +75,7 @@ const ProductsPage: React.FC = () => {
 
   useEffect(() => {
     if (categories && setCategoryId !== undefined) {
-      categories.map((category: TCategory) => {
+      categories.map((category: ICategory) => {
         if (category.id === categoryId) {
           setCurrentCategory(category);
           setCategoryId(category.id);
@@ -155,11 +155,14 @@ const ProductsPage: React.FC = () => {
       >
         Add New Product
       </Button>
-      <AddProductForm
-        open={openAddProductModal}
-        handleCloseModal={handleCloseAddProductForm}
-        categoryId={categoryId}
-      />
+      {typeof categoryId === "string" && (
+        <AddProductForm
+          open={openAddProductModal}
+          handleCloseModal={handleCloseAddProductForm}
+          categoryId={categoryId}
+        />
+      )}
+
       <EditCategoryForm
         open={openEditCategoryModal}
         handleCloseModal={handleCloseEditCategoryForm}

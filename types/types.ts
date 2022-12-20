@@ -1,36 +1,36 @@
-export type TCategory = {
-    id: string
-    name: string
+export interface ICategory {
+  id: string;
+  name: string;
 }
 
 export type TIds = {
-    [propName: string]: string
-}
+  [propName: string]: string;
+};
 
 export interface IProduct {
-    id?: string
-    productId?: string
-    currentAmount?: number
-    previousAmount?: number
-    amount?: number
-    name: string
-    categoryId: string
-    unit: string
+  id?: string;
+  productId?: string;
+  currentAmount?: number;
+  previousAmount?: number;
+  amount?: number;
+  name: string;
+  categoryId: string;
+  unit: string;
 }
 
 export interface IAddProduct {
-    id?: string
-    name: string
-    currentAmount?: number
-    previousAmount?: number
-    categoryId: string
-    unit?: string
+  id?: string;
+  name: string;
+  currentAmount?: number;
+  previousAmount?: number;
+  categoryId: string;
+  unit?: string;
 }
 
 export interface IUser {
-    id?: string
-    email: string
-    password?: string
+  id?: string;
+  email: string;
+  password?: string;
 }
 
 //Interface to define a new object or method of an object

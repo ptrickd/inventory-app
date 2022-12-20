@@ -18,7 +18,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 interface IProps {
   open: boolean;
   handleCloseModal: () => void;
-  categoryId: string | string[] | null;
+  categoryId: string;
 }
 
 interface IForm {

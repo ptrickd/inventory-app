@@ -12,8 +12,8 @@ interface IProps {
   children: React.ReactNode;
 }
 interface ICategory {
-  id: string | null;
-  name: string | null;
+  id: string;
+  name: string;
 }
 interface IContext {
   categories: ICategory[] | [];

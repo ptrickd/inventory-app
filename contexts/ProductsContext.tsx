@@ -8,7 +8,7 @@ import {
   DELETE_PRODUCT,
   EDIT_PRODUCT,
 } from "../graphql/queries";
-import { TCategory, IProduct, IAddProduct } from "../types/types";
+import { ICategory, IProduct, IAddProduct } from "../types/types";
 
 //Queries
 const GET_PRODUCTS = gql`

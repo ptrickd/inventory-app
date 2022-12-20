@@ -63,11 +63,8 @@ export default function Home() {
   const { loggedIn } = useContext(UserContext);
   // const { states } = useContext(StatesContext);
   const router = useRouter();
+
   useEffect(() => {
-    console.log("in index.tsx");
-  }, []);
-  useEffect(() => {
-    console.log(`LoggedIn in index.tsx: ${loggedIn}`);
     if (loggedIn) {
       router.push("/loading");
     }

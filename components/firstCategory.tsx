@@ -30,10 +30,13 @@ const FirstCategory: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
-  const handleModal = (category: ICategory) => {
-    if (category.error) {
-      setMessageError(category.error);
+  const handleModal = (category?: ICategory) => {
+    if (category) {
+      if (category.error) {
+        setMessageError(category.error);
+      }
     }
+
     setOpenModal(false);
   };
 
