@@ -65,7 +65,7 @@ export const resolvers = {
 
         const hashedPassword = await bcrypt.hash(password, 10);
         user = new User({
-          email,
+          email: email.toLowerCase(),
           password: hashedPassword,
         });
         user = await user.save();
