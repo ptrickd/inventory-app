@@ -35,6 +35,8 @@ export default function Loading() {
       router.push("/");
     } else if (!hasReport || !hasCategory || !hasProduct) {
       router.push("/wiz");
+    } else {
+      router.push("/dashboard");
     }
   }, [loggedIn, router, hasReport, hasCategory, hasProduct]);
 

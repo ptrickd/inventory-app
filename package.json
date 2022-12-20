@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "production": "jest && next build",
     "start": "next start -p $PORT",
     "heroku-postbuild": "npm run build",
     "info": "next info",
