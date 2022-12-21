@@ -13,7 +13,8 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Theme, createStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";

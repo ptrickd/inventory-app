@@ -4,7 +4,8 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui0/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Theme, createStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
 
 //Components

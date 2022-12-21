@@ -2,7 +2,8 @@
 import React from "react";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Theme, createStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 

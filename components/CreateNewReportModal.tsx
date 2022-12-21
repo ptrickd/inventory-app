@@ -5,7 +5,8 @@ import { useState, useContext } from "react";
 import DatePicker from "./DatePicker";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Theme, createStyles } from "@mui/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Typography from "@mui/material/Typography";

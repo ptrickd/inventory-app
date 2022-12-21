@@ -2,7 +2,8 @@
 import React, { Fragment } from "react";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Theme, createStyles } from "@mui/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 

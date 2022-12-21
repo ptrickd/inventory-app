@@ -11,7 +11,8 @@ import { UserContext } from "../contexts/UserContext";
 //Material UI
 import clsx from "clsx";
 import { DRAWER_WIDTH } from "../constants/dimensions";
-import { makeStyles, Theme, createStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Theme, createStyles } from "@mui/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";

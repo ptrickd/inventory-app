@@ -16,7 +16,8 @@ import EditCategoryForm from "../../components/EditCategoryForm";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { makeStyles, Theme, createStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Theme, createStyles } from "@mui/styles";
 
 //Icons
 import DeleteIcon from "@mui/icons-material/Delete";

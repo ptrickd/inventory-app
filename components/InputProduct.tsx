@@ -20,7 +20,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import { makeStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
 import Typography from "@mui/material/Typography";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";

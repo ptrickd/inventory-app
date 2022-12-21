@@ -5,7 +5,7 @@ import React, { useState, useContext } from "react";
 import { ProductsContext } from "../contexts/ProductsContext";
 
 //Material UI
-import { makeStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
