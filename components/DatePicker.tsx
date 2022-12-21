@@ -6,13 +6,11 @@ import { DateTime } from "luxon";
 import LuxonUtils from "@date-io/luxon";
 
 //Material UI
-// import { DatePicker as DP } from '@material-ui/pickers'
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 
 interface IProps {
   handleSelectedDate: (date: Date | null) => void;
@@ -33,22 +31,19 @@ const DatePicker = ({ handleSelectedDate }: IProps) => {
 
   return (
     <div className={classes.root}>
-      <MuiPickersUtilsProvider utils={LuxonUtils}>
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="DDDD"
-          margin="normal"
+      <LocalizationProvider dateAdapter={LuxonUtils}>
+        <DesktopDatePicker
+          inputFormat="MM/DD/YYYY"
           value={selectedDate}
-          onChange={setSelectedDate}
+          onChange={(value) => {
+            if (value) setSelectedDate(value);
+          }}
           onClose={() => {
             if (selectedDate) handleSelectedDate(selectedDate?.toJSDate());
           }}
-          KeyboardButtonProps={{
-            "aria-label": "change date",
-          }}
+          renderInput={(props) => <TextField {...props} />}
         />
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     </div>
   );
 };
