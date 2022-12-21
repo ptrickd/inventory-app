@@ -1,6 +1,6 @@
 //React
-import React, { useState, useEffect, useContext } from "react";
-import { styled } from '@mui/material/styles';
+import React, { useState, useContext } from "react";
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
 
 //Components
@@ -20,14 +20,13 @@ import Hidden from "@mui/material/Hidden";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Button from "@mui/material/Button";
-import blueGrey from "@mui/material/colors/blueGrey";
 import { indigo } from "@mui/material/colors";
 
 //Icons
 import MenuIcon from "@mui/icons-material/Menu";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { CategoriesContext } from "../contexts/CategoriesContext";
-const PREFIX = 'Navbar';
+const PREFIX = "Navbar";
 
 const classes = {
   root: `${PREFIX}-root`,
@@ -39,14 +38,10 @@ const classes = {
   toolbar: `${PREFIX}-toolbar`,
   activeSubMenu: `${PREFIX}-activeSubMenu`,
   menuButton: `${PREFIX}-menuButton`,
-  title: `${PREFIX}-title`
+  title: `${PREFIX}-title`,
 };
 
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled("div")(({ theme }) => ({
   [`&.${classes.root}`]: {
     flexGrow: 1,
     height: "100%",
@@ -102,21 +97,15 @@ const Root = styled('div')((
   [`& .${classes.title}`]: {
     flexGrow: 1,
     cursor: "pointer",
-  }
+  },
 }));
 
 const Navbar = () => {
-
   const { loggedIn, logout, currentUser } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  // if (loading) return null
-  // if (error) return <div>`Error! ${error.message}`</div>
-  // console.log(data)
-  // const categories = data && data.categories ? data.categories : []
 
   //Keep those for the icon more menu
   const handleClickOnMoreIconMenu = (
@@ -178,27 +167,25 @@ const Navbar = () => {
       </AppBar>
       {loggedIn && (
         <nav className={classes.drawer} aria-label="menu">
-          <Hidden smUp implementation="css">
-            <Drawer
-              variant="temporary"
-              anchor="left"
-              classes={{ paper: classes.drawerPaper }}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              ModalProps={{ keepMounted: true }}
-            >
-              <NavbarDrawer categories={categories} />
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              open
-              variant="permanent"
-              classes={{ paper: classes.drawerPaper }}
-            >
-              <NavbarDrawer categories={categories} />
-            </Drawer>
-          </Hidden>
+          <Drawer
+            sx={{ display: { xs: "block", sm: "none" } }}
+            variant="temporary"
+            anchor="left"
+            classes={{ paper: classes.drawerPaper }}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{ keepMounted: true }}
+          >
+            <NavbarDrawer categories={categories} />
+          </Drawer>
+          <Drawer
+            sx={{ display: { xs: "none", sm: "block" } }}
+            open
+            variant="permanent"
+            classes={{ paper: classes.drawerPaper }}
+          >
+            <NavbarDrawer categories={categories} />
+          </Drawer>
         </nav>
       )}
     </Root>

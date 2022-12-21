@@ -77,41 +77,37 @@ export default function Home() {
   return (
     <Fragment>
       <CssBaseline />
-      <StyledContainer maxWidth="md">
-        <div className={classes.root}>
-          <StyledTypography
-            className={classes.title}
-            variant="h4"
-            align="center"
+      <StyledContainer className={classes.root} maxWidth="md">
+        {/* <div> */}
+        <StyledTypography className={classes.title} variant="h4" align="center">
+          Gruyere
+        </StyledTypography>
+        <StyledTypography
+          className={classes.subtitle}
+          variant="h5"
+          align="center"
+        >
+          Your Kitchen Inventory App Management
+        </StyledTypography>
+        <Link href="/login">
+          <Button
+            className={classes.button}
+            // fullWidth
+            variant="contained"
+            color="primary"
+            size="large"
           >
-            Gruyere
-          </StyledTypography>
-          <StyledTypography
-            className={classes.subtitle}
-            variant="h5"
-            align="center"
-          >
-            Your Kitchen Inventory App Management
-          </StyledTypography>
-          <Link href="/login">
-            <Button
-              className={classes.button}
-              // fullWidth
-              variant="contained"
-              color="primary"
-              size="large"
-            >
-              Start
-            </Button>
-          </Link>
-          {/* <Grid
+            Start
+          </Button>
+        </Link>
+        {/* <Grid
             className={classes.section}
             container
             justify="center"
             alignItems="center"
             spacing={3}
           > */}
-          {/* <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
               <Paper>
                 <Typography variant="body1">
                   orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more rece Lorem Ipsum
@@ -130,7 +126,7 @@ export default function Home() {
               </Paper>
             </Grid>
           </Grid> */}
-        </div>
+        {/* </div> */}
       </StyledContainer>
     </Fragment>
   );
