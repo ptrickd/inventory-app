@@ -9,7 +9,7 @@ import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import { makeStyles, Theme, createStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";

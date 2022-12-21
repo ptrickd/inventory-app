@@ -9,7 +9,7 @@ import LuxonUtils from "@date-io/luxon";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
-import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import { makeStyles, Theme, createStyles } from "@mui/styles";
 import TextField from "@mui/material/TextField";
 
 interface IProps {

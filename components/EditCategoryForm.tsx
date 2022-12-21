@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 //Material UI
-import { makeStyles } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";

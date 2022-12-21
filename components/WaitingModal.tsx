@@ -1,5 +1,5 @@
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import { makeStyles, Theme, createStyles } from "@mui/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import CircularProgress from "@mui/material/CircularProgress";

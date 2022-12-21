@@ -2,7 +2,7 @@
 import React, { Fragment, useContext } from "react";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import { makeStyles, Theme, createStyles } from "@mui/styles";
 import { DRAWER_WIDTH } from "../constants/dimensions";
 import clsx from "clsx";
 

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import { makeStyles, Theme, createStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";

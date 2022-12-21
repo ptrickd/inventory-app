@@ -3,7 +3,7 @@ import React, { useEffect, Fragment } from "react";
 import Link from "next/link";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import { makeStyles, Theme, createStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
