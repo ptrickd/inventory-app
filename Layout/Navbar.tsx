@@ -22,7 +22,7 @@ import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Button from "@mui/material/Button";
 import blueGrey from "@mui/material/colors/blueGrey";
-import indigo from "@mui/material/colors/indigo";
+import { indigo } from "@mui/material/colors";
 
 //Icons
 import MenuIcon from "@mui/icons-material/Menu";
