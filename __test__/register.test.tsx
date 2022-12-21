@@ -45,8 +45,9 @@ describe("<Register />", () => {
     expect(emailInput).toBeVisible();
 
     //need an password input
-    const passwordInput = screen.getAllByText("Password");
-    expect(passwordInput[0]).toBeVisible();
+    const passwordList = screen.getAllByText("Password");
+    expect(passwordList.length === 2);
+    expect(passwordList[0]).toBeVisible();
 
     //need a register button
     const registerButton = screen.getByRole("button", { name: "Register" });

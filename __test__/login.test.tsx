@@ -86,8 +86,9 @@ describe("<Login />", () => {
     expect(emailInput).toBeVisible();
 
     //need an input for password
-    const passwordInput = screen.getAllByText("Password");
-    expect(passwordInput[0]).toBeVisible();
+    const passwordList = screen.getAllByText("Password");
+    expect(passwordList.length === 2);
+    expect(passwordList[0]).toBeVisible();
 
     //need a button for login
     const loginButton = screen.getByRole("button", { name: "Login" });
