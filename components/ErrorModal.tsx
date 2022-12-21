@@ -1,22 +1,17 @@
-import { styled } from '@mui/material/styles';
-import { Theme } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
-const PREFIX = 'ErrorModal';
+const PREFIX = "ErrorModal";
 
 const classes = {
   text: `${PREFIX}-text`,
-  button: `${PREFIX}-button`
+  button: `${PREFIX}-button`,
 };
 
-const StyledDialog = styled(Dialog)((
-  {
-    theme: Theme
-  }
-) => ({
+const StyledDialog = styled(Dialog)(({ theme: Theme }) => ({
   [`& .${classes.text}`]: {
     marginTop: 10,
     marginLeft: 10,
@@ -26,7 +21,7 @@ const StyledDialog = styled(Dialog)((
   [`& .${classes.button}`]: {
     display: "flex",
     justifyContent: "center",
-  }
+  },
 }));
 
 interface IProps {
@@ -37,7 +32,6 @@ interface IProps {
 const text = "You can't submit two reports with the same date.";
 
 const ErrorModal = ({ open, handleCloseModal }: IProps) => {
-
   return (
     <StyledDialog
       open={open}

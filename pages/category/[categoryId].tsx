@@ -1,6 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
 //Context
@@ -17,7 +17,6 @@ import EditCategoryForm from "../../components/EditCategoryForm";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { Theme } from "@mui/styles";
 
 //Icons
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,21 +28,17 @@ import { DateTime } from "luxon";
 //Types
 import { IProduct, ICategory } from "../../types/types";
 
-const PREFIX = 'ProductsPage';
+const PREFIX = "ProductsPage";
 
 const classes = {
   root: `${PREFIX}-root`,
   button: `${PREFIX}-button`,
   title: `${PREFIX}-title`,
   titleText: `${PREFIX}-titleText`,
-  productContainer: `${PREFIX}-productContainer`
+  productContainer: `${PREFIX}-productContainer`,
 };
 
-const Root = styled('div')((
-  {
-    theme: Theme
-  }
-) => ({
+const Root = styled("div")(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
     marginTop: 60,
     marginLeft: 8,
@@ -69,7 +64,7 @@ const Root = styled('div')((
 
   [`& .${classes.productContainer}`]: {
     flexGrow: 1,
-  }
+  },
 }));
 
 const ProductsPage: React.FC = () => {

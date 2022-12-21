@@ -1,30 +1,25 @@
 //React
 import React from "react";
 
-import { styled } from '@mui/material/styles';
-import { Theme } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const PREFIX = 'DisplayMessage';
+const PREFIX = "DisplayMessage";
 
 const classes = {
-  root: `${PREFIX}-root`
+  root: `${PREFIX}-root`,
 };
 
-const StyledBox = styled(Box)((
-  {
-    theme: Theme
-  }
-) => ({
+const StyledBox = styled(Box)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
+    margin: Theme.spacing(1),
+    padding: Theme.spacing(1),
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "red",
     borderRadius: 5,
-  }
+  },
 }));
 
 //Types definitions
@@ -34,7 +29,6 @@ interface IProps {
 }
 
 const DisplayMessage: React.FC<IProps> = ({ message, show }: IProps) => {
-
   if (!show) return null;
   return (
     <StyledBox className={classes.root}>

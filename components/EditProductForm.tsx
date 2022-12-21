@@ -1,7 +1,7 @@
 //React
 import React, { useState, useContext, Fragment } from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
@@ -26,13 +26,13 @@ import { GET_CATEGORIES } from "../graphql/queries";
 //Constants
 import { MEASURE_UNITS } from "../constants/measureUnits";
 
-const PREFIX = 'EditProductForm';
+const PREFIX = "EditProductForm";
 
 const classes = {
   content: `${PREFIX}-content`,
   buttons: `${PREFIX}-buttons`,
   input: `${PREFIX}-input`,
-  category: `${PREFIX}-category`
+  category: `${PREFIX}-category`,
 };
 
 const StyledDialog = styled(Dialog)({
@@ -55,6 +55,10 @@ const StyledDialog = styled(Dialog)({
 });
 
 //Types
+interface ICategory {
+  id: string;
+  name: string;
+}
 
 interface IProps {
   open: boolean;
@@ -70,25 +74,6 @@ interface IForm {
   unit: string;
 }
 
-const useStyle = makeStyles({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.category}`]: {
-    marginTop: 10,
-  },
-});
-
 function EditProductForm({
   open,
   handleCloseModal,
@@ -96,7 +81,6 @@ function EditProductForm({
   productName,
   productId,
 }: IProps) {
-  const classes = useStyle();
   const { editProductApi } = useContext(ProductsContext);
   const { currentUser } = useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);

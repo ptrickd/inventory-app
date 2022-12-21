@@ -1,9 +1,8 @@
 //React
 import { useEffect, useContext } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
-import { Theme } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
@@ -16,21 +15,17 @@ import { DateTime } from "luxon";
 //Context
 import { UserContext } from "../../contexts/UserContext";
 
-const PREFIX = 'Report';
+const PREFIX = "Report";
 
 const classes = {
   root: `${PREFIX}-root`,
   title: `${PREFIX}-title`,
   date: `${PREFIX}-date`,
   subTitle: `${PREFIX}-subTitle`,
-  dataFormat: `${PREFIX}-dataFormat`
+  dataFormat: `${PREFIX}-dataFormat`,
 };
 
-const StyledContainer = styled(Container)((
-  {
-    theme: Theme
-  }
-) => ({
+const StyledContainer = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
     width: "100%",
     marginLeft: 10,
@@ -57,7 +52,7 @@ const StyledContainer = styled(Container)((
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-  }
+  },
 }));
 
 const GET_REPORT = gql`
@@ -85,7 +80,6 @@ const GET_CATEGORIES = gql`
 `;
 
 const Report: React.FC = () => {
-
   const router = useRouter();
   const { reportId } = router.query;
   const { loggedIn } = useContext(UserContext);

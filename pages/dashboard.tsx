@@ -1,6 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
 //Components
@@ -9,7 +9,6 @@ import CreateNewReportModal from "../components/CreateNewReportModal";
 import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
 
-import { Theme } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -24,18 +23,14 @@ import AddIcon from "@mui/icons-material/Add";
 //Context
 import { UserContext } from "../contexts/UserContext";
 
-const PREFIX = 'Dashboard';
+const PREFIX = "Dashboard";
 
 const classes = {
   root: `${PREFIX}-root`,
-  divider: `${PREFIX}-divider`
+  divider: `${PREFIX}-divider`,
 };
 
-const StyledContainer = styled(Container)((
-  {
-    theme: Theme
-  }
-) => ({
+const StyledContainer = styled(Container)(({ theme: Theme }) => ({
   [`& .${classes.root}`]: {
     display: "flex",
     marginTop: 60,
@@ -44,7 +39,7 @@ const StyledContainer = styled(Container)((
 
   [`& .${classes.divider}`]: {
     marginTop: 10,
-  }
+  },
 }));
 
 //Interface
@@ -54,7 +49,6 @@ interface IResponseStatus {
 }
 
 function Dashboard() {
-
   const router = useRouter();
   const { loggedIn, currentUser } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);

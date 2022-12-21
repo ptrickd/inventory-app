@@ -2,8 +2,7 @@
 //React
 import React, { useState, Fragment } from "react";
 
-import { styled } from '@mui/material/styles';
-import { Theme } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
@@ -11,21 +10,17 @@ import Button from "@mui/material/Button";
 import AddCategoryForm from "./AddCategoryForm";
 import DisplayMessage from "./DisplayMessage";
 
-const PREFIX = 'FirstCategory';
+const PREFIX = "FirstCategory";
 
 const classes = {
-  button: `${PREFIX}-button`
+  button: `${PREFIX}-button`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme: Theme
-  }
-) => ({
+const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.button}`]: {
     width: "70%",
-  }
+  },
 }));
 
 //Interfaces
@@ -36,7 +31,6 @@ interface ICategory {
 }
 
 const FirstCategory: React.FC = () => {
-
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;

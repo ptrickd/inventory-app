@@ -1,10 +1,9 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-import { Theme } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -23,24 +22,20 @@ import { UserContext } from "../contexts/UserContext";
 import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
 
-const PREFIX = 'Login';
+const PREFIX = "Login";
 
 const classes = {
-  root: `${PREFIX}-root`
+  root: `${PREFIX}-root`,
 };
 
-const StyledContainer = styled(Container)((
-  {
-    theme: Theme
-  }
-) => ({
+const StyledContainer = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
     display: "flex",
     minHeight: "70vh",
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",
-  }
+  },
 }));
 
 interface IForm {
@@ -49,7 +44,6 @@ interface IForm {
 }
 
 const Login: React.FC = () => {
-
   const router = useRouter();
   const {
     currentUser,

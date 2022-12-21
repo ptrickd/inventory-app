@@ -1,9 +1,8 @@
 //React
 import React, { useEffect, Fragment } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
 
-import { Theme } from "@mui/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -25,23 +24,19 @@ import { gql, useQuery } from "@apollo/client";
 //Date
 import { DateTime } from "luxon";
 
-const PREFIX = 'NavbarReportsList';
+const PREFIX = "NavbarReportsList";
 
 const classes = {
-  menuText: `${PREFIX}-menuText`
+  menuText: `${PREFIX}-menuText`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme: Theme
-  }
-) => ({
+const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.menuText}`]: {
     // color: TEXT_MENU_COLOR,
     textTransform: "none",
-    marginLeft: theme.spacing(1),
-  }
+    marginLeft: Theme.spacing(1),
+  },
 }));
 
 interface IReport {
@@ -63,7 +58,6 @@ const GET_REPORTS = gql`
 `;
 
 const NavbarReportsList = () => {
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { data, loading, error } = useQuery(GET_REPORTS);
 

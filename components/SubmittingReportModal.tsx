@@ -1,27 +1,22 @@
 //React
 import { useState } from "react";
 
-import { styled } from '@mui/material/styles';
-import { Theme } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 import Button from "@mui/material/Button";
 
-const PREFIX = 'SubmittingReportModal';
+const PREFIX = "SubmittingReportModal";
 
 const classes = {
   root: `${PREFIX}-root`,
   text: `${PREFIX}-text`,
   actions: `${PREFIX}-actions`,
-  button: `${PREFIX}-button`
+  button: `${PREFIX}-button`,
 };
 
-const StyledDialog = styled(Dialog)((
-  {
-    theme: Theme
-  }
-) => ({
+const StyledDialog = styled(Dialog)(({ theme: Theme }) => ({
   [`& .${classes.root}`]: {},
 
   [`& .${classes.text}`]: {
@@ -36,7 +31,7 @@ const StyledDialog = styled(Dialog)((
     alignItems: "center",
   },
 
-  [`& .${classes.button}`]: {}
+  [`& .${classes.button}`]: {},
 }));
 
 interface IProps {
@@ -45,8 +40,6 @@ interface IProps {
 }
 
 const SubmittingReportModal = ({ open, handleCloseModal }: IProps) => {
-
-
   return (
     <StyledDialog
       open={open}

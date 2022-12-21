@@ -1,7 +1,7 @@
 //React
 import React, { useState, useContext } from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
@@ -15,12 +15,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-const PREFIX = 'AddProductForm';
+const PREFIX = "AddProductForm";
 
 const classes = {
   content: `${PREFIX}-content`,
   buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`
+  input: `${PREFIX}-input`,
 };
 
 const StyledDialog = styled(Dialog)({
@@ -49,24 +49,7 @@ interface IForm {
   name: string;
 }
 
-const useStyle = makeStyles({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-});
-
 function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
-  const classes = useStyle();
   const { addProduct } = useContext(ProductsContext);
   const [submitting, setSubmitting] = useState(false);
   const {

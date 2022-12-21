@@ -29,6 +29,9 @@ import { StatesContext } from "../contexts/StatesContext";
 const PREFIX = "index";
 const classes = {
   root: `${PREFIX}--root`,
+  title: `$(PREFIX)--title`,
+  subtitle: `$(PREFIX)--subtitle`,
+  button: `$(PREFIX)--button`,
 };
 const StyledContainer = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
@@ -39,23 +42,18 @@ const StyledContainer = styled(Container)(({ theme: Theme }) => ({
     justifyContent: "space-around",
   },
 }));
-// declare module "@mui/material/styles" {
-//   interface Theme {
-//     root: {
-//       minHeight: "100vh";
-//       display: "flex";
-//       flexDirection: "column";
-//       alignItems: "center";
-//       justifyContent: "space-around";
-//     };
-//     title: {
-//       // marginTop: "15%",
-//       marginBottom: 20;
-//     };
-//     subTitle: {
-//       marginBottom: 20;
-//     };
-//     section: {
+const StyledTypography = styled(Typography)(({ theme: Theme }) => ({
+  [`&.${classes.title}`]: { marginBottom: 20 },
+  [`&.${classes.subtitle}`]: { marginBottom: 20 },
+}));
+const StyledButton = styled(Button)(({ theme: Theme }) => ({
+  [`&.${classes.button}`]: {
+    width: "70%",
+    marginBottom: "15%",
+    borderRadius: 15,
+  },
+}));
+//  section: {
 //       marginTop: 50;
 //       flexGrow: 1;
 //       width: "100%";
@@ -64,13 +62,6 @@ const StyledContainer = styled(Container)(({ theme: Theme }) => ({
 //       display: "flex";
 //       justifyContent: "center";
 //     };
-//     button: {
-//       width: "70%";
-//       marginBottom: "15%";
-//       borderRadius: 15;
-//     };
-//   }
-// }
 
 export default function Home() {
   const { loggedIn } = useContext(UserContext);
@@ -88,12 +79,20 @@ export default function Home() {
       <CssBaseline />
       <StyledContainer maxWidth="md">
         <div className={classes.root}>
-          <Typography className={classes.title} variant="h4" align="center">
+          <StyledTypography
+            className={classes.title}
+            variant="h4"
+            align="center"
+          >
             Gruyere
-          </Typography>
-          <Typography className={classes.subTitle} variant="h5" align="center">
+          </StyledTypography>
+          <StyledTypography
+            className={classes.subtitle}
+            variant="h5"
+            align="center"
+          >
             Your Kitchen Inventory App Management
-          </Typography>
+          </StyledTypography>
           <Link href="/login">
             <Button
               className={classes.button}

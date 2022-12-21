@@ -2,8 +2,7 @@
 //React
 import React, { useState, useContext, Fragment } from "react";
 
-import { styled } from '@mui/material/styles';
-import { Theme } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
@@ -14,21 +13,17 @@ import { StatesContext } from "../contexts/StatesContext";
 import CreateNewReportModal from "../components/CreateNewReportModal";
 import DisplayMessage from "./DisplayMessage";
 
-const PREFIX = 'FirstReport';
+const PREFIX = "FirstReport";
 
 const classes = {
-  button: `${PREFIX}-button`
+  button: `${PREFIX}-button`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme: Theme
-  }
-) => ({
+const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.button}`]: {
     width: "70%",
-  }
+  },
 }));
 
 interface IResponseStatus {
@@ -40,7 +35,6 @@ interface IProps {
 }
 
 const FirstReport: React.FC = () => {
-
   const { setHasReport } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");

@@ -1,9 +1,8 @@
 //React
 import { Fragment, useState } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
 
-import { Theme } from "@mui/styles";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -21,21 +20,17 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 //Components
 import NavbarReportsList from "./NavbarReportsList";
-const PREFIX = 'NavbarDrawer';
+const PREFIX = "NavbarDrawer";
 
 const classes = {
   menu: `${PREFIX}-menu`,
   menuIcon: `${PREFIX}-menuIcon`,
   subMenu: `${PREFIX}-subMenu`,
-  toolbar: `${PREFIX}-toolbar`
+  toolbar: `${PREFIX}-toolbar`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme: Theme
-  }
-) => ({
+const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.menu}`]: {
     color: TEXT_MENU_COLOR,
   },
@@ -45,12 +40,12 @@ const Root = styled('div')((
   },
 
   [`& .${classes.subMenu}`]: {
-    marginLeft: theme.spacing(2),
+    marginLeft: Theme.spacing(2),
     color: TEXT_MENU_COLOR,
   },
 
   // necessary for content to be below app bar
-  [`& .${classes.toolbar}`]: theme.mixins.toolbar
+  [`& .${classes.toolbar}`]: Theme.mixins.toolbar,
 }));
 
 //Types
@@ -64,7 +59,6 @@ interface IProps {
 }
 
 const NavbarDrawer = ({ categories }: IProps) => {
-
   const [categoryMenu, setCategoryMenu] = useState(false);
   const handleClickCategories = () => setCategoryMenu(!categoryMenu);
   const renderedCategories = () => {

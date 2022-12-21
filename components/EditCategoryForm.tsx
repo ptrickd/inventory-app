@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,12 +11,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-const PREFIX = 'EditCategoryForm';
+const PREFIX = "EditCategoryForm";
 
 const classes = {
   content: `${PREFIX}-content`,
   buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`
+  input: `${PREFIX}-input`,
 };
 
 const StyledDialog = styled(Dialog)({
@@ -50,29 +50,12 @@ interface IForm {
   name: string;
 }
 
-const useStyle = makeStyles({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-});
-
 function EditCategoryForm({
   open,
   handleCloseModal,
   category,
   setNewCategoryName,
 }: IProps) {
-  const classes = useStyle();
   const [submitting, setSubmitting] = useState(false);
   const {
     control,

@@ -1,7 +1,7 @@
 //React
 import React, { useState, useContext } from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
@@ -15,12 +15,12 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 // import { UserContext } from '../contexts/UserContext'
 import { CategoriesContext } from "../contexts/CategoriesContext";
 
-const PREFIX = 'AddCategoryForm';
+const PREFIX = "AddCategoryForm";
 
 const classes = {
   content: `${PREFIX}-content`,
   buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`
+  input: `${PREFIX}-input`,
 };
 
 const StyledDialog = styled(Dialog)({
@@ -53,24 +53,7 @@ interface IForm {
   name: string;
 }
 
-const useStyle = makeStyles({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-});
-
 function AddCategoryForm({ open, handleCloseModal }: IProps) {
-  const classes = useStyle();
   const [submitting, setSubmitting] = useState(false);
   const {
     control,

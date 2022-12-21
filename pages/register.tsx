@@ -1,9 +1,9 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
-import { Theme } from "@mui/styles";
+//Material UI
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
@@ -21,24 +21,20 @@ import { UserContext } from "../contexts/UserContext";
 import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
 
-const PREFIX = 'Register';
+const PREFIX = "Register";
 
 const classes = {
-  root: `${PREFIX}-root`
+  root: `${PREFIX}-root`,
 };
 
-const StyledContainer = styled(Container)((
-  {
-    theme: Theme
-  }
-) => ({
+const StyledContainer = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
     display: "flex",
     minHeight: "70vh",
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",
-  }
+  },
 }));
 
 interface IForm {
@@ -47,7 +43,6 @@ interface IForm {
 }
 
 const Register: React.FC = () => {
-
   const router = useRouter();
   const { currentUser, setCurrentUser, loggedIn, setLoggedIn } =
     useContext(UserContext);
