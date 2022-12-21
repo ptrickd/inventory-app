@@ -2,9 +2,8 @@
 //React
 import React, { useState, Fragment } from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
+import { Theme } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
@@ -12,22 +11,32 @@ import Button from "@mui/material/Button";
 import AddCategoryForm from "./AddCategoryForm";
 import DisplayMessage from "./DisplayMessage";
 
+const PREFIX = 'FirstCategory';
+
+const classes = {
+  button: `${PREFIX}-button`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.button}`]: {
+    width: "70%",
+  }
+}));
+
 //Interfaces
 interface ICategory {
   id: string;
   name: string;
   error: string;
 }
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      width: "70%",
-    },
-  })
-);
 
 const FirstCategory: React.FC = () => {
-  const classes = useStyles();
+
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
@@ -42,7 +51,7 @@ const FirstCategory: React.FC = () => {
   };
 
   return (
-    <Fragment>
+    <Root>
       <Typography align="center" variant="body1" paragraph>
         {textBody}
       </Typography>
@@ -57,7 +66,7 @@ const FirstCategory: React.FC = () => {
       </Button>
       <AddCategoryForm open={openModal} handleCloseModal={handleModal} />
       <DisplayMessage show={messageError.length > 0} message={messageError} />
-    </Fragment>
+    </Root>
   );
 };
 

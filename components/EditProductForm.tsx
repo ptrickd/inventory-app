@@ -1,12 +1,12 @@
 //React
 import React, { useState, useContext, Fragment } from "react";
 
+import { styled } from '@mui/material/styles';
+
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
 import { UserContext } from "../contexts/UserContext";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
@@ -26,6 +26,34 @@ import { GET_CATEGORIES } from "../graphql/queries";
 //Constants
 import { MEASURE_UNITS } from "../constants/measureUnits";
 
+const PREFIX = 'EditProductForm';
+
+const classes = {
+  content: `${PREFIX}-content`,
+  buttons: `${PREFIX}-buttons`,
+  input: `${PREFIX}-input`,
+  category: `${PREFIX}-category`
+};
+
+const StyledDialog = styled(Dialog)({
+  [`& .${classes.content}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  [`& .${classes.buttons}`]: {
+    marginTop: 5,
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  [`& .${classes.input}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  [`& .${classes.category}`]: {
+    marginTop: 10,
+  },
+});
+
 //Types
 
 interface IProps {
@@ -43,20 +71,20 @@ interface IForm {
 }
 
 const useStyle = makeStyles({
-  content: {
+  [`& .${classes.content}`]: {
     display: "flex",
     flexDirection: "column",
   },
-  buttons: {
+  [`& .${classes.buttons}`]: {
     marginTop: 5,
     display: "flex",
     justifyContent: "space-around",
   },
-  input: {
+  [`& .${classes.input}`]: {
     display: "flex",
     flexDirection: "column",
   },
-  category: {
+  [`& .${classes.category}`]: {
     marginTop: 10,
   },
 });
@@ -155,7 +183,7 @@ function EditProductForm({
   if (error) return <div>`Error! ${error.message}`</div>;
 
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
@@ -164,7 +192,7 @@ function EditProductForm({
       <DialogContent className={classes.content}>
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </Dialog>
+    </StyledDialog>
   );
 }
 

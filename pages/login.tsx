@@ -1,11 +1,10 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
+import { styled } from '@mui/material/styles';
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { Theme } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -24,25 +23,33 @@ import { UserContext } from "../contexts/UserContext";
 import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
 
+const PREFIX = 'Login';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const StyledContainer = styled(Container)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    display: "flex",
+    minHeight: "70vh",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+  }
+}));
+
 interface IForm {
   email: string;
   password: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      minHeight: "70vh",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignContent: "center",
-    },
-  })
-);
-
 const Login: React.FC = () => {
-  const classes = useStyles();
+
   const router = useRouter();
   const {
     currentUser,
@@ -96,7 +103,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Container className={classes.root} maxWidth="xs">
+    <StyledContainer className={classes.root} maxWidth="xs">
       <Typography variant="h2" align="center">
         Login
       </Typography>
@@ -111,7 +118,7 @@ const Login: React.FC = () => {
           Register
         </Button>
       </Link>
-    </Container>
+    </StyledContainer>
   );
 };
 

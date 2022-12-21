@@ -1,11 +1,11 @@
 //React
 import React, { useState, useContext } from "react";
 
+import { styled } from '@mui/material/styles';
+
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
@@ -14,6 +14,30 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+
+const PREFIX = 'AddProductForm';
+
+const classes = {
+  content: `${PREFIX}-content`,
+  buttons: `${PREFIX}-buttons`,
+  input: `${PREFIX}-input`
+};
+
+const StyledDialog = styled(Dialog)({
+  [`& .${classes.content}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  [`& .${classes.buttons}`]: {
+    marginTop: 5,
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  [`& .${classes.input}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+});
 
 interface IProps {
   open: boolean;
@@ -26,16 +50,16 @@ interface IForm {
 }
 
 const useStyle = makeStyles({
-  content: {
+  [`& .${classes.content}`]: {
     display: "flex",
     flexDirection: "column",
   },
-  buttons: {
+  [`& .${classes.buttons}`]: {
     marginTop: 5,
     display: "flex",
     justifyContent: "space-around",
   },
-  input: {
+  [`& .${classes.input}`]: {
     display: "flex",
     flexDirection: "column",
   },
@@ -103,7 +127,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
   );
 
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
@@ -112,7 +136,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
       <DialogContent className={classes.content}>
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </Dialog>
+    </StyledDialog>
   );
 }
 

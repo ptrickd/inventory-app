@@ -1,12 +1,11 @@
 //React
 import React, { useState, useEffect, useContext, Fragment } from "react";
+import { styled } from '@mui/material/styles';
 import { useRouter } from "next/router";
 
 //GraphQL
 import { gql } from "@apollo/client";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
 import { Theme, createStyles, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,6 +19,27 @@ import FirstProduct from "../components/firstProduct";
 import { UserContext } from "../contexts/UserContext";
 import { StatesContext } from "../contexts/StatesContext";
 
+const PREFIX = 'Wiz';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.root}`]: {
+    padding: 20,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+  }
+}));
+
 //Define types
 interface IFuncProps {
   currentState: string;
@@ -28,21 +48,10 @@ interface IResponseStatus {
   succeeded: boolean;
   messageError: string;
 }
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      padding: 20,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "space-around",
-    },
-  })
-);
 
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
-  const classes = useStyles();
+
 
   const { loggedIn } = useContext(UserContext);
   const { hasReport, hasCategory, hasProduct } = useContext(StatesContext);
@@ -62,9 +71,9 @@ const Wiz: React.FC = () => {
     hasProduct === undefined
   )
     return (
-      <Fragment>
+      <Root>
         <Typography>Page Error</Typography>
-      </Fragment>
+      </Root>
     );
   return (
     <Fragment>

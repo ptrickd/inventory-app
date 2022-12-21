@@ -1,8 +1,7 @@
 //React
 import React, { useState, useContext } from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from '@mui/material/styles';
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
@@ -15,6 +14,30 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 //Context
 // import { UserContext } from '../contexts/UserContext'
 import { CategoriesContext } from "../contexts/CategoriesContext";
+
+const PREFIX = 'AddCategoryForm';
+
+const classes = {
+  content: `${PREFIX}-content`,
+  buttons: `${PREFIX}-buttons`,
+  input: `${PREFIX}-input`
+};
+
+const StyledDialog = styled(Dialog)({
+  [`& .${classes.content}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  [`& .${classes.buttons}`]: {
+    marginTop: 5,
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  [`& .${classes.input}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+});
 
 interface ICategory {
   id: string;
@@ -31,16 +54,16 @@ interface IForm {
 }
 
 const useStyle = makeStyles({
-  content: {
+  [`& .${classes.content}`]: {
     display: "flex",
     flexDirection: "column",
   },
-  buttons: {
+  [`& .${classes.buttons}`]: {
     marginTop: 5,
     display: "flex",
     justifyContent: "space-around",
   },
-  input: {
+  [`& .${classes.input}`]: {
     display: "flex",
     flexDirection: "column",
   },
@@ -104,7 +127,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
   );
 
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
@@ -113,7 +136,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
       <DialogContent className={classes.content}>
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </Dialog>
+    </StyledDialog>
   );
 }
 

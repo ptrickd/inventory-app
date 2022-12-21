@@ -1,12 +1,11 @@
 //React
 import { useState, useContext } from "react";
 
+import { styled } from '@mui/material/styles';
+
 //Component
 import DatePicker from "./DatePicker";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Typography from "@mui/material/Typography";
@@ -22,6 +21,28 @@ import { ProductsContext } from "../contexts/ProductsContext";
 //Types
 import { IProduct, IAddProduct } from "../types/types";
 
+const PREFIX = 'CreateNewReportModal';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  button: `${PREFIX}-button`
+};
+
+const StyledDialog = styled(Dialog)((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    margin: theme.spacing(4),
+    padding: theme.spacing(4),
+  },
+
+  [`& .${classes.button}`]: {
+    marginTop: 10,
+  }
+}));
+
 interface IResponseStatus {
   succeeded: boolean;
   messageError: string;
@@ -31,20 +52,8 @@ interface IProps {
   handleCloseModal: (responseStatus: IResponseStatus) => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      margin: theme.spacing(4),
-      padding: theme.spacing(4),
-    },
-    button: {
-      marginTop: 10,
-    },
-  })
-);
-
 function CreateNewReportModal({ open, handleCloseModal }: IProps) {
-  const classes = useStyles();
+
   const { createNewReport } = useContext(ReportsContext);
   const { products } = useContext(ProductsContext);
   const [selectedDate, setSelectedDate] = useState<null | Date>(null);
@@ -77,7 +86,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
   };
 
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       aria-labelledby="Create A New Report"
       onClose={() => handleCloseModal({ succeeded: false, messageError: "" })}
@@ -109,7 +118,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
           </Button>
         )}
       </DialogContent>
-    </Dialog>
+    </StyledDialog>
   );
 }
 

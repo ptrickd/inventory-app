@@ -1,10 +1,9 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
+import { styled } from '@mui/material/styles';
 import { useRouter } from "next/router";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { Theme } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
@@ -22,25 +21,33 @@ import { UserContext } from "../contexts/UserContext";
 import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
 
+const PREFIX = 'Register';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const StyledContainer = styled(Container)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    display: "flex",
+    minHeight: "70vh",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+  }
+}));
+
 interface IForm {
   email: string;
   password: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      minHeight: "70vh",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignContent: "center",
-    },
-  })
-);
-
 const Register: React.FC = () => {
-  const classes = useStyles();
+
   const router = useRouter();
   const { currentUser, setCurrentUser, loggedIn, setLoggedIn } =
     useContext(UserContext);
@@ -73,7 +80,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Container className={classes.root} maxWidth="xs">
+    <StyledContainer className={classes.root} maxWidth="xs">
       <Typography variant="h2" align="center">
         Register
       </Typography>
@@ -82,7 +89,7 @@ const Register: React.FC = () => {
         show={Boolean(serverErrorMess.length)}
       />
       <AuthForm onSubmit={onSubmit} submitting={submitting} label="Register" />
-    </Container>
+    </StyledContainer>
   );
 };
 

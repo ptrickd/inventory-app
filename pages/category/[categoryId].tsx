@@ -1,5 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
+import { styled } from '@mui/material/styles';
 import { useRouter } from "next/router";
 
 //Context
@@ -16,8 +17,7 @@ import EditCategoryForm from "../../components/EditCategoryForm";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { Theme } from "@mui/styles";
 
 //Icons
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,38 +29,54 @@ import { DateTime } from "luxon";
 //Types
 import { IProduct, ICategory } from "../../types/types";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      marginTop: 60,
-      marginLeft: 8,
-      marginRight: 8,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    button: {
-      marginTop: "10px",
-    },
-    title: {
-      marginTop: 12,
-      display: "flex",
-    },
-    titleText: {
-      marginRight: 10,
-    },
-    productContainer: {
-      flexGrow: 1,
-    },
-  })
-);
+const PREFIX = 'ProductsPage';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  button: `${PREFIX}-button`,
+  title: `${PREFIX}-title`,
+  titleText: `${PREFIX}-titleText`,
+  productContainer: `${PREFIX}-productContainer`
+};
+
+const Root = styled('div')((
+  {
+    theme: Theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    marginTop: 60,
+    marginLeft: 8,
+    marginRight: 8,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  [`& .${classes.button}`]: {
+    marginTop: "10px",
+  },
+
+  [`& .${classes.title}`]: {
+    marginTop: 12,
+    display: "flex",
+  },
+
+  [`& .${classes.titleText}`]: {
+    marginRight: 10,
+  },
+
+  [`& .${classes.productContainer}`]: {
+    flexGrow: 1,
+  }
+}));
 
 const ProductsPage: React.FC = () => {
   const { productsByCategory, setCategoryId } = useContext(ProductsContext);
   const { categories, deleteCategoryApi } = useContext(CategoriesContext);
   const { loggedIn } = useContext(UserContext);
-  const classes = useStyles();
+
   const router = useRouter();
   const { categoryId } = router.query;
   const [currentCategory, setCurrentCategory] = useState<ICategory | null>(
@@ -120,7 +136,7 @@ const ProductsPage: React.FC = () => {
   if (!currentCategory) return null;
 
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <div className={classes.title}>
         <Typography variant="h2" className={classes.titleText}>
           {currentCategory.name}
@@ -172,7 +188,7 @@ const ProductsPage: React.FC = () => {
           setCurrentCategory({ ...currentCategory, name })
         }
       />
-    </div>
+    </Root>
   );
 };
 

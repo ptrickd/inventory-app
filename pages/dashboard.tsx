@@ -1,5 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
+import { styled } from '@mui/material/styles';
 import { useRouter } from "next/router";
 
 //Components
@@ -8,9 +9,7 @@ import CreateNewReportModal from "../components/CreateNewReportModal";
 import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { Theme } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -25,27 +24,37 @@ import AddIcon from "@mui/icons-material/Add";
 //Context
 import { UserContext } from "../contexts/UserContext";
 
+const PREFIX = 'Dashboard';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  divider: `${PREFIX}-divider`
+};
+
+const StyledContainer = styled(Container)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.root}`]: {
+    display: "flex",
+    marginTop: 60,
+    justifyContent: "center",
+  },
+
+  [`& .${classes.divider}`]: {
+    marginTop: 10,
+  }
+}));
+
 //Interface
 interface IResponseStatus {
   succeeded: boolean;
   messageError: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      marginTop: 60,
-      justifyContent: "center",
-    },
-    divider: {
-      marginTop: 10,
-    },
-  })
-);
-
 function Dashboard() {
-  const classes = useStyles();
+
   const router = useRouter();
   const { loggedIn, currentUser } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
@@ -81,7 +90,7 @@ function Dashboard() {
   }, [loggedIn, router]);
 
   return (
-    <Container>
+    <StyledContainer>
       <div className={classes.root}>
         <List>
           <Typography variant="h4">
@@ -125,7 +134,7 @@ function Dashboard() {
           handleCloseModal={handleCloseErrorModal}
         />
       </div>
-    </Container>
+    </StyledContainer>
   );
 }
 

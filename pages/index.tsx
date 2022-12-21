@@ -13,8 +13,8 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 //Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -26,41 +26,53 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { UserContext } from "../contexts/UserContext";
 import { StatesContext } from "../contexts/StatesContext";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "space-around",
-    },
-    title: {
-      // marginTop: "15%",
-      marginBottom: 20,
-    },
-    subTitle: {
-      marginBottom: 20,
-    },
-    section: {
-      marginTop: 50,
-      flexGrow: 1,
-      width: "100%",
-    },
-    image: {
-      display: "flex",
-      justifyContent: "center",
-    },
-    button: {
-      width: "70%",
-      marginBottom: "15%",
-      borderRadius: 15,
-    },
-  })
-);
+const PREFIX = "index";
+const classes = {
+  root: `${PREFIX}--root`,
+};
+const StyledContainer = styled(Container)(({ theme: Theme }) => ({
+  [`&.${classes.root}`]: {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+}));
+// declare module "@mui/material/styles" {
+//   interface Theme {
+//     root: {
+//       minHeight: "100vh";
+//       display: "flex";
+//       flexDirection: "column";
+//       alignItems: "center";
+//       justifyContent: "space-around";
+//     };
+//     title: {
+//       // marginTop: "15%",
+//       marginBottom: 20;
+//     };
+//     subTitle: {
+//       marginBottom: 20;
+//     };
+//     section: {
+//       marginTop: 50;
+//       flexGrow: 1;
+//       width: "100%";
+//     };
+//     image: {
+//       display: "flex";
+//       justifyContent: "center";
+//     };
+//     button: {
+//       width: "70%";
+//       marginBottom: "15%";
+//       borderRadius: 15;
+//     };
+//   }
+// }
 
 export default function Home() {
-  const classes = useStyles();
   const { loggedIn } = useContext(UserContext);
   // const { states } = useContext(StatesContext);
   const router = useRouter();
@@ -74,7 +86,7 @@ export default function Home() {
   return (
     <Fragment>
       <CssBaseline />
-      <Container maxWidth="md">
+      <StyledContainer maxWidth="md">
         <div className={classes.root}>
           <Typography className={classes.title} variant="h4" align="center">
             Gruyere
@@ -120,7 +132,7 @@ export default function Home() {
             </Grid>
           </Grid> */}
         </div>
-      </Container>
+      </StyledContainer>
     </Fragment>
   );
 }

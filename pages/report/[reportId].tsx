@@ -1,10 +1,9 @@
 //React
 import { useEffect, useContext } from "react";
+import { styled } from '@mui/material/styles';
 import { useRouter } from "next/router";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { Theme } from "@mui/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
@@ -16,6 +15,50 @@ import { DateTime } from "luxon";
 
 //Context
 import { UserContext } from "../../contexts/UserContext";
+
+const PREFIX = 'Report';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  title: `${PREFIX}-title`,
+  date: `${PREFIX}-date`,
+  subTitle: `${PREFIX}-subTitle`,
+  dataFormat: `${PREFIX}-dataFormat`
+};
+
+const StyledContainer = styled(Container)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    width: "100%",
+    marginLeft: 10,
+    marginRight: 10,
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+
+  [`& .${classes.title}`]: {
+    marginBottom: 15,
+  },
+
+  [`& .${classes.date}`]: {
+    marginBottom: 15,
+  },
+
+  [`& .${classes.subTitle}`]: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+
+  [`& .${classes.dataFormat}`]: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  }
+}));
 
 const GET_REPORT = gql`
   query Report($reportId: ID!) {
@@ -41,36 +84,8 @@ const GET_CATEGORIES = gql`
   }
 `;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: "100%",
-      marginLeft: 10,
-      marginRight: 10,
-      display: "flex",
-      justifyContent: "center",
-      flexDirection: "column",
-    },
-    title: {
-      marginBottom: 15,
-    },
-    date: {
-      marginBottom: 15,
-    },
-    subTitle: {
-      marginTop: 10,
-      marginBottom: 10,
-    },
-    dataFormat: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-  })
-);
-
 const Report: React.FC = () => {
-  const classes = useStyles();
+
   const router = useRouter();
   const { reportId } = router.query;
   const { loggedIn } = useContext(UserContext);
@@ -119,7 +134,7 @@ const Report: React.FC = () => {
   };
 
   return (
-    <Container className={classes.root}>
+    <StyledContainer className={classes.root}>
       <Typography className={classes.title} variant="h3" align="center">
         Report
       </Typography>
@@ -127,7 +142,7 @@ const Report: React.FC = () => {
         {date.toFormat("dd MMMM, yyyy")}
       </Typography>
       {renderedReport()}
-    </Container>
+    </StyledContainer>
   );
 };
 

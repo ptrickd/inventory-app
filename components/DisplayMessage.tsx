@@ -1,11 +1,31 @@
 //React
 import React from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
+import { Theme } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+
+const PREFIX = 'DisplayMessage';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const StyledBox = styled(Box)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "red",
+    borderRadius: 5,
+  }
+}));
 
 //Types definitions
 interface IProps {
@@ -13,28 +33,15 @@ interface IProps {
   show: boolean;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      margin: theme.spacing(1),
-      padding: theme.spacing(1),
-      borderStyle: "solid",
-      borderWidth: 1,
-      borderColor: "red",
-      borderRadius: 5,
-    },
-  })
-);
-
 const DisplayMessage: React.FC<IProps> = ({ message, show }: IProps) => {
-  const classes = useStyles();
+
   if (!show) return null;
   return (
-    <Box className={classes.root}>
+    <StyledBox className={classes.root}>
       <Typography color="error" align="center" variant="subtitle1">
         {message}
       </Typography>
-    </Box>
+    </StyledBox>
   );
 };
 

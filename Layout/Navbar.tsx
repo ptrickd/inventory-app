@@ -1,5 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 
 //Components
@@ -11,8 +12,6 @@ import { UserContext } from "../contexts/UserContext";
 //Material UI
 import clsx from "clsx";
 import { DRAWER_WIDTH } from "../constants/dimensions";
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -28,62 +27,86 @@ import { indigo } from "@mui/material/colors";
 import MenuIcon from "@mui/icons-material/Menu";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { CategoriesContext } from "../contexts/CategoriesContext";
-//
+const PREFIX = 'Navbar';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-      height: "100%",
+const classes = {
+  root: `${PREFIX}-root`,
+  drawer: `${PREFIX}-drawer`,
+  drawerPaper: `${PREFIX}-drawerPaper`,
+  hide: `${PREFIX}-hide`,
+  appBar: `${PREFIX}-appBar`,
+  appBarShift: `${PREFIX}-appBarShift`,
+  toolbar: `${PREFIX}-toolbar`,
+  activeSubMenu: `${PREFIX}-activeSubMenu`,
+  menuButton: `${PREFIX}-menuButton`,
+  title: `${PREFIX}-title`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    flexGrow: 1,
+    height: "100%",
+  },
+
+  [`& .${classes.drawer}`]: {
+    width: DRAWER_WIDTH,
+    flexShrink: 0,
+  },
+
+  [`& .${classes.drawerPaper}`]: {
+    width: DRAWER_WIDTH,
+    background: indigo[800],
+  },
+
+  [`& .${classes.hide}`]: {
+    display: "none",
+  },
+
+  [`& .${classes.appBar}`]: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+
+  [`& .${classes.appBarShift}`]: {
+    [theme.breakpoints.up("sm")]: {
+      width: `calc(100% - ${DRAWER_WIDTH}px)`,
+      marginLeft: DRAWER_WIDTH,
     },
-    drawer: {
-      width: DRAWER_WIDTH,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: DRAWER_WIDTH,
-      background: indigo[800],
-    },
-    hide: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+
+  // necessary for content to be below app bar
+  [`& .${classes.toolbar}`]: theme.mixins.toolbar,
+
+  [`& .${classes.activeSubMenu}`]: {
+    marginLeft: theme.spacing(2),
+    backgroundColor: "#f4f4f4",
+  },
+
+  [`& .${classes.menuButton}`]: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
       display: "none",
     },
-    appBar: {
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      [theme.breakpoints.up("sm")]: {
-        width: `calc(100% - ${DRAWER_WIDTH}px)`,
-        marginLeft: DRAWER_WIDTH,
-      },
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    activeSubMenu: {
-      marginLeft: theme.spacing(2),
-      backgroundColor: "#f4f4f4",
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
-        display: "none",
-      },
-    },
-    title: {
-      flexGrow: 1,
-      cursor: "pointer",
-    },
-  })
-);
+  },
+
+  [`& .${classes.title}`]: {
+    flexGrow: 1,
+    cursor: "pointer",
+  }
+}));
 
 const Navbar = () => {
-  const classes = useStyles();
+
   const { loggedIn, logout, currentUser } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -111,7 +134,7 @@ const Navbar = () => {
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
   if (!categories) return null;
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <CssBaseline />
       <AppBar
         className={clsx(classes.appBar, { [classes.appBarShift]: loggedIn })}
@@ -178,7 +201,7 @@ const Navbar = () => {
           </Hidden>
         </nav>
       )}
-    </div>
+    </Root>
   );
 };
 

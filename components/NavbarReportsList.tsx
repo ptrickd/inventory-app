@@ -1,10 +1,9 @@
 //React
 import React, { useEffect, Fragment } from "react";
+import { styled } from '@mui/material/styles';
 import Link from "next/link";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { Theme } from "@mui/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -26,6 +25,25 @@ import { gql, useQuery } from "@apollo/client";
 //Date
 import { DateTime } from "luxon";
 
+const PREFIX = 'NavbarReportsList';
+
+const classes = {
+  menuText: `${PREFIX}-menuText`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.menuText}`]: {
+    // color: TEXT_MENU_COLOR,
+    textTransform: "none",
+    marginLeft: theme.spacing(1),
+  }
+}));
+
 interface IReport {
   id: string;
   userId: string;
@@ -44,18 +62,8 @@ const GET_REPORTS = gql`
   }
 `;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menuText: {
-      // color: TEXT_MENU_COLOR,
-      textTransform: "none",
-      marginLeft: theme.spacing(1),
-    },
-  })
-);
-
 const NavbarReportsList = () => {
-  const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { data, loading, error } = useQuery(GET_REPORTS);
 
@@ -101,7 +109,7 @@ const NavbarReportsList = () => {
   if (error) return null;
 
   return (
-    <Fragment>
+    <Root>
       <Button
         className={classes.menuText}
         color="inherit"
@@ -132,7 +140,7 @@ const NavbarReportsList = () => {
                     </ListItemIcon>
                 </span> : null}
             </ListItem> */}
-    </Fragment>
+    </Root>
   );
 };
 

@@ -2,9 +2,8 @@
 //React
 import React, { useState, useContext, Fragment } from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
+import { Theme } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
@@ -15,6 +14,23 @@ import { StatesContext } from "../contexts/StatesContext";
 import CreateNewReportModal from "../components/CreateNewReportModal";
 import DisplayMessage from "./DisplayMessage";
 
+const PREFIX = 'FirstReport';
+
+const classes = {
+  button: `${PREFIX}-button`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.button}`]: {
+    width: "70%",
+  }
+}));
+
 interface IResponseStatus {
   succeeded: boolean;
   messageError: string;
@@ -23,16 +39,8 @@ interface IProps {
   handleResponse: (responseSucceed: IResponseStatus) => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      width: "70%",
-    },
-  })
-);
-
 const FirstReport: React.FC = () => {
-  const classes = useStyles();
+
   const { setHasReport } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
@@ -50,7 +58,7 @@ const FirstReport: React.FC = () => {
     }
   };
   return (
-    <Fragment>
+    <Root>
       <Typography align="center" variant="h3">
         Welcome to Gruyere
       </Typography>
@@ -71,7 +79,7 @@ const FirstReport: React.FC = () => {
         handleCloseModal={handleModalClicked}
       />
       <DisplayMessage show={messageError.length > 0} message={messageError} />
-    </Fragment>
+    </Root>
   );
 };
 

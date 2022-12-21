@@ -1,9 +1,7 @@
 //React
 import React, { Fragment } from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -16,6 +14,35 @@ import WaitingModal from "../components/WaitingModal";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
+const PREFIX = 'AuthForm';
+
+const classes = {
+  form: `${PREFIX}-form`,
+  input: `${PREFIX}-input`,
+  button: `${PREFIX}-button`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.form}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+
+  [`& .${classes.input}`]: {
+    marginBottom: 15,
+  },
+
+  [`& .${classes.button}`]: {
+    marginTop: 15,
+    marginBottom: 15,
+  }
+}));
+
 interface IForm {
   email: string;
   password: string;
@@ -27,24 +54,8 @@ interface IProps {
   label: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: {
-      display: "flex",
-      flexDirection: "column",
-    },
-    input: {
-      marginBottom: 15,
-    },
-    button: {
-      marginTop: 15,
-      marginBottom: 15,
-    },
-  })
-);
-
 const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
-  const classes = useStyles();
+
   const {
     control,
     handleSubmit,
@@ -52,7 +63,7 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
   } = useForm<IForm>();
 
   return (
-    <Fragment>
+    <Root>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <Controller
           name="email"
@@ -99,7 +110,7 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
         </Button>
       </form>
       <WaitingModal open={submitting} />
-    </Fragment>
+    </Root>
   );
 };
 

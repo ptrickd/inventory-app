@@ -1,11 +1,10 @@
 //page handling the loading state and managing the navigation in some cases
 //React
 import React, { useEffect, useContext } from "react";
+
 import { useRouter } from "next/router";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 
 //Components
@@ -15,18 +14,21 @@ import WaitingModal from "../components/WaitingModal";
 import { UserContext } from "../contexts/UserContext";
 import { StatesContext } from "../contexts/StatesContext";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      height: "100%",
-      width: "100%",
-      display: "flex",
-    },
-  })
-);
+const PREFIX = "loading";
+
+const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const StyledContainer = styled(Container)(({ theme: Theme }) => ({
+  [`&.${classes.root}`]: {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+  },
+}));
 
 export default function Loading() {
-  const classes = useStyles();
   const router = useRouter();
   const { loggedIn } = useContext(UserContext);
   const { hasReport, hasCategory, hasProduct } = useContext(StatesContext);
@@ -42,8 +44,8 @@ export default function Loading() {
   }, [loggedIn, router, hasReport, hasCategory, hasProduct]);
 
   return (
-    <Container className={classes.root} maxWidth="xs">
+    <StyledContainer className={classes.root} maxWidth="xs">
       <WaitingModal open={true} />
-    </Container>
+    </StyledContainer>
   );
 }

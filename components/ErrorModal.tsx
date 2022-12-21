@@ -1,35 +1,45 @@
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
+import { Theme } from "@mui/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+
+const PREFIX = 'ErrorModal';
+
+const classes = {
+  text: `${PREFIX}-text`,
+  button: `${PREFIX}-button`
+};
+
+const StyledDialog = styled(Dialog)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.text}`]: {
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+
+  [`& .${classes.button}`]: {
+    display: "flex",
+    justifyContent: "center",
+  }
+}));
 
 interface IProps {
   open: boolean;
   handleCloseModal: () => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    text: {
-      marginTop: 10,
-      marginLeft: 10,
-      marginRight: 10,
-    },
-    button: {
-      display: "flex",
-      justifyContent: "center",
-    },
-  })
-);
 const text = "You can't submit two reports with the same date.";
 
 const ErrorModal = ({ open, handleCloseModal }: IProps) => {
-  const classes = useStyles();
+
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       aria-labelledby="Error"
       onClose={() => handleCloseModal()}
@@ -47,7 +57,7 @@ const ErrorModal = ({ open, handleCloseModal }: IProps) => {
           Close
         </Button>
       </DialogActions>
-    </Dialog>
+    </StyledDialog>
   );
 };
 

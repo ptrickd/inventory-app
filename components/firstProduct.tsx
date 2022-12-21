@@ -2,9 +2,8 @@
 //React
 import React, { useState, useEffect, useContext, Fragment } from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
+import { Theme } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -16,16 +15,25 @@ import { ProductsContext } from "../contexts/ProductsContext";
 //Components
 import AddProductForm from "../components/AddProductForm";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      width: "70%",
-    },
-  })
-);
+const PREFIX = 'FirstProduct';
+
+const classes = {
+  button: `${PREFIX}-button`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.button}`]: {
+    width: "70%",
+  }
+}));
 
 const FirstProduct: React.FC = () => {
-  const classes = useStyles();
+
   const { categories } = useContext(CategoriesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -42,7 +50,7 @@ const FirstProduct: React.FC = () => {
   }, [categories, setCategoryId]);
   if (categories === undefined) return null;
   return (
-    <Fragment>
+    <Root>
       <Typography align="center" variant="body1" paragraph>
         {textBody}
       </Typography>
@@ -66,7 +74,7 @@ const FirstProduct: React.FC = () => {
           categoryId={categoryId}
         />
       )}
-    </Fragment>
+    </Root>
   );
 };
 

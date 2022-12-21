@@ -7,6 +7,8 @@ import React, {
   ChangeEvent,
 } from "react";
 
+import { styled } from '@mui/material/styles';
+
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
 
@@ -20,7 +22,6 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import makeStyles from "@mui/styles/makeStyles";
 import Typography from "@mui/material/Typography";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -39,6 +40,65 @@ import { IProduct } from "../types/types";
 
 //Constants
 import { MEASURE_UNITS } from "../constants/measureUnits";
+
+const PREFIX = 'InputProduct';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  formControl: `${PREFIX}-formControl`,
+  innerFormControl: `${PREFIX}-innerFormControl`,
+  textfield: `${PREFIX}-textfield`,
+  selectUnit: `${PREFIX}-selectUnit`,
+  box: `${PREFIX}-box`,
+  lastAmountName: `${PREFIX}-lastAmountName`,
+  lastAmountValue: `${PREFIX}-lastAmountValue`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    width: "100%",
+  },
+
+  [`& .${classes.formControl}`]: {
+    marginTop: "8px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  [`& .${classes.innerFormControl}`]: {
+    margin: theme.spacing(1),
+    alignItems: "center",
+  },
+
+  [`& .${classes.textfield}`]: {},
+
+  [`& .${classes.selectUnit}`]: {
+    marginLeft: 5,
+    marginRight: 5,
+    minWidth: 50,
+  },
+
+  [`& .${classes.box}`]: {
+    margin: theme.spacing(1),
+    alignItems: "left",
+  },
+
+  [`& .${classes.lastAmountName}`]: {
+    color: "rgba(0,0,0,0.54)",
+    width: "100%",
+    paddingLeft: theme.spacing(0.7),
+  },
+
+  [`& .${classes.lastAmountValue}`]: {
+    height: "auto",
+    padding: theme.spacing(0.7),
+  }
+}));
 
 const UPDATE_AMOUNT = gql`
   mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!) {
@@ -66,41 +126,6 @@ type IProps = {
   measureUnit: string;
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  formControl: {
-    marginTop: "8px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  innerFormControl: {
-    margin: theme.spacing(1),
-    alignItems: "center",
-  },
-  textfield: {},
-  selectUnit: {
-    marginLeft: 5,
-    marginRight: 5,
-    minWidth: 50,
-  },
-  box: {
-    margin: theme.spacing(1),
-    alignItems: "left",
-  },
-  lastAmountName: {
-    color: "rgba(0,0,0,0.54)",
-    width: "100%",
-    paddingLeft: theme.spacing(0.7),
-  },
-  lastAmountValue: {
-    height: "auto",
-    padding: theme.spacing(0.7),
-  },
-}));
-
 const InputProduct: React.FC<IProps> = ({
   name,
   currentAmount,
@@ -110,7 +135,7 @@ const InputProduct: React.FC<IProps> = ({
   showAmounts,
   measureUnit,
 }) => {
-  const classes = useStyles();
+
   const { products, updateProducts, deleteProductApi } =
     useContext(ProductsContext);
   const [openEditProductForm, setOpenEditProductModal] =
@@ -198,7 +223,7 @@ const InputProduct: React.FC<IProps> = ({
   );
 
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       {showAmounts && <Typography variant="h6">{name}</Typography>}
       <FormControl className={classes.formControl} fullWidth>
         {!showAmounts && <Typography variant="h6">{name}</Typography>}
@@ -230,7 +255,7 @@ const InputProduct: React.FC<IProps> = ({
         categoryId={categoryId}
         productName={name}
       />
-    </div>
+    </Root>
   );
 };
 

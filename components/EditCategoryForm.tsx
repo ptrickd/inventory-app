@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from '@mui/material/styles';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,6 +10,30 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+
+const PREFIX = 'EditCategoryForm';
+
+const classes = {
+  content: `${PREFIX}-content`,
+  buttons: `${PREFIX}-buttons`,
+  input: `${PREFIX}-input`
+};
+
+const StyledDialog = styled(Dialog)({
+  [`& .${classes.content}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  [`& .${classes.buttons}`]: {
+    marginTop: 5,
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  [`& .${classes.input}`]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+});
 
 interface IProps {
   open: boolean;
@@ -28,16 +51,16 @@ interface IForm {
 }
 
 const useStyle = makeStyles({
-  content: {
+  [`& .${classes.content}`]: {
     display: "flex",
     flexDirection: "column",
   },
-  buttons: {
+  [`& .${classes.buttons}`]: {
     marginTop: 5,
     display: "flex",
     justifyContent: "space-around",
   },
-  input: {
+  [`& .${classes.input}`]: {
     display: "flex",
     flexDirection: "column",
   },
@@ -111,7 +134,7 @@ function EditCategoryForm({
 
   if (!category.name) return null;
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
@@ -120,7 +143,7 @@ function EditCategoryForm({
       <DialogContent className={classes.content}>
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </Dialog>
+    </StyledDialog>
   );
 }
 

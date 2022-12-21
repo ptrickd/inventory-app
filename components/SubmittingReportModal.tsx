@@ -1,41 +1,54 @@
 //React
 import { useState } from "react";
 
-//Material UI
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme, createStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
+import { Theme } from "@mui/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 import Button from "@mui/material/Button";
+
+const PREFIX = 'SubmittingReportModal';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  text: `${PREFIX}-text`,
+  actions: `${PREFIX}-actions`,
+  button: `${PREFIX}-button`
+};
+
+const StyledDialog = styled(Dialog)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.root}`]: {},
+
+  [`& .${classes.text}`]: {
+    marginTop: 10,
+    marginLeft: 10,
+    marginRigth: 10,
+  },
+
+  [`& .${classes.actions}`]: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  [`& .${classes.button}`]: {}
+}));
 
 interface IProps {
   open: boolean;
   handleCloseModal: () => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-    text: {
-      marginTop: 10,
-      marginLeft: 10,
-      marginRigth: 10,
-    },
-    actions: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    button: {},
-  })
-);
-
 const SubmittingReportModal = ({ open, handleCloseModal }: IProps) => {
-  const classes = useStyles();
+
 
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       aria-labelledby="Warning Before Submitting"
       onClose={() => handleCloseModal()}
@@ -49,7 +62,7 @@ const SubmittingReportModal = ({ open, handleCloseModal }: IProps) => {
           Submit
         </Button>
       </DialogActions>
-    </Dialog>
+    </StyledDialog>
   );
 };
 
