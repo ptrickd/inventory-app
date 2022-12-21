@@ -19,8 +19,8 @@ import Typography from "@mui/material/Typography";
 import { makeStyles, Theme, createStyles } from "@mui/material/styles";
 
 //Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 //Time
 import { DateTime } from "luxon";

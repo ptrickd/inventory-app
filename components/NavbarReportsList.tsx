@@ -16,8 +16,8 @@ import Typography from "@mui/material/Typography";
 import { TEXT_MENU_COLOR } from "../constants/colors";
 
 //Icons
-import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 //GraphQL
 import { gql, useQuery } from "@apollo/client";

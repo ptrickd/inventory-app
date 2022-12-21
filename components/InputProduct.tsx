@@ -28,8 +28,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
 
 //Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 //Graphql
 import { gql, useMutation } from "@apollo/client";

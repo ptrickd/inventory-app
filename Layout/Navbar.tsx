@@ -24,8 +24,8 @@ import blueGrey from "@mui/material/colors/blueGrey";
 import indigo from "@mui/material/colors/indigo";
 
 //Icons
-import MenuIcon from "@material-ui/icons/Menu";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import MenuIcon from "@mui/icons-material/Menu";
+import MoreIcon from "@mui/icons-material/MoreVert";
 import { CategoriesContext } from "../contexts/CategoriesContext";
 //
 

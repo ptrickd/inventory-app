@@ -19,7 +19,7 @@ import ListItem from "@mui/material/ListItem";
 
 //Icons
 import IconButton from "@mui/material/IconButton";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 
 //Context
 import { UserContext } from "../contexts/UserContext";

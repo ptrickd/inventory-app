@@ -15,9 +15,9 @@ import Slide from "@mui/material/Slide";
 import { TEXT_MENU_COLOR } from "../constants/colors";
 
 //Icons
-import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 //Components
 import NavbarReportsList from "./NavbarReportsList";
