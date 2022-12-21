@@ -4,8 +4,8 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Container from "@mui/material/Container";
 
 //Components
 import WaitingModal from "../components/WaitingModal";

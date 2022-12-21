@@ -2,9 +2,9 @@
 import React from "react";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 //Types definitions
 interface IProps {

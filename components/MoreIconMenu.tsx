@@ -1,24 +1,23 @@
 //Material Ui
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 interface IProps {
-    anchorEl: null | HTMLElement
-    handleOnClose: () => void
+  anchorEl: null | HTMLElement;
+  handleOnClose: () => void;
 }
 
 const MoreIconMenu = ({ anchorEl, handleOnClose }: IProps) => {
-    return (
-        <Menu
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
-            onClose={handleOnClose}
-            keepMounted
-        >
-            <MenuItem>Logout</MenuItem>
-        </Menu>
-    )
+  return (
+    <Menu
+      open={Boolean(anchorEl)}
+      anchorEl={anchorEl}
+      onClose={handleOnClose}
+      keepMounted
+    >
+      <MenuItem>Logout</MenuItem>
+    </Menu>
+  );
+};
 
-}
-
-export default MoreIconMenu
+export default MoreIconMenu;

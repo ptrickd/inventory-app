@@ -3,13 +3,13 @@ import { Fragment, useState } from "react";
 import Link from "next/link";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Divider from "@material-ui/core/Divider";
-import Slide from "@material-ui/core/Slide";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import Slide from "@mui/material/Slide";
 
 //Color
 import { TEXT_MENU_COLOR } from "../constants/colors";

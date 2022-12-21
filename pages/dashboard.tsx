@@ -9,16 +9,16 @@ import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
 
 //Icons
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 
 //Context

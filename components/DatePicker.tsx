@@ -9,8 +9,8 @@ import LuxonUtils from "@date-io/luxon";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
 
 interface IProps {
   handleSelectedDate: (date: Date | null) => void;

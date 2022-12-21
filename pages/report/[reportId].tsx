@@ -3,9 +3,9 @@ import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 //GraphQL
 import { gql, useQuery } from "@apollo/client";

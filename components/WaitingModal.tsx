@@ -1,8 +1,8 @@
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import CircularProgress from "@mui/material/CircularProgress";
 import { DRAWER_WIDTH } from "../constants/dimensions";
 
 interface IProps {

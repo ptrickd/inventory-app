@@ -1,9 +1,9 @@
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 
 interface IProps {
   open: boolean;

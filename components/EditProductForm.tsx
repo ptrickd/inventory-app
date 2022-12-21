@@ -6,15 +6,15 @@ import { ProductsContext } from "../contexts/ProductsContext";
 import { UserContext } from "../contexts/UserContext";
 
 //Material UI
-import { makeStyles } from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
+import { makeStyles } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -27,11 +27,7 @@ import { GET_CATEGORIES } from "../graphql/queries";
 import { MEASURE_UNITS } from "../constants/measureUnits";
 
 //Types
-interface ICategory {
-  id: string;
-  name: string;
-  error: string;
-}
+
 interface IProps {
   open: boolean;
   handleCloseModal: () => void;

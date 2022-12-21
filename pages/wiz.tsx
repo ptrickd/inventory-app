@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 import { gql } from "@apollo/client";
 
 //Material UI
-import { makeStyles, Theme, createStyles, Typography } from "@material-ui/core";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { makeStyles, Theme, createStyles, Typography } from "@mui/material";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
 
 //Components
 import FirstReport from "../components/firstReport";

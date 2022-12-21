@@ -1,3 +1,3 @@
-import indigo from '@material-ui/core/colors/indigo'
+import indigo from "@mui/material/colors/indigo";
 
-export const TEXT_MENU_COLOR = indigo[100]
+export const TEXT_MENU_COLOR = indigo[100];

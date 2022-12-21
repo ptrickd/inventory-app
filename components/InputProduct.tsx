@@ -15,17 +15,17 @@ import EditProductForm from "./EditProductForm";
 
 //Material UI
 
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import Box from "@material-ui/core/Box";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import { makeStyles } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import Box from "@mui/material/Box";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";

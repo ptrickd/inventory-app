@@ -3,9 +3,9 @@
 import React, { useState, useContext, Fragment } from "react";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 //Contexts
 import { StatesContext } from "../contexts/StatesContext";

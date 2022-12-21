@@ -5,11 +5,11 @@ import { useState, useContext } from "react";
 import DatePicker from "./DatePicker";
 
 //Material UI
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 //Time
 import { DateTime } from "luxon";

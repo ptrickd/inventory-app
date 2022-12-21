@@ -13,10 +13,10 @@ import AddProductForm from "../../components/AddProductForm";
 import EditCategoryForm from "../../components/EditCategoryForm";
 
 //Material UI
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { makeStyles, Theme, createStyles } from "@mui/material/styles";
 
 //Icons
 import DeleteIcon from "@material-ui/icons/Delete";
