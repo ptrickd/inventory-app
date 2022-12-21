@@ -1,7 +1,7 @@
 //React
 import React, { Fragment } from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -14,20 +14,16 @@ import WaitingModal from "../components/WaitingModal";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-const PREFIX = 'AuthForm';
+const PREFIX = "AuthForm";
 
 const classes = {
   form: `${PREFIX}-form`,
   input: `${PREFIX}-input`,
-  button: `${PREFIX}-button`
+  button: `${PREFIX}-button`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled("div")(({ theme }) => ({
   [`& .${classes.form}`]: {
     display: "flex",
     flexDirection: "column",
@@ -40,7 +36,7 @@ const Root = styled('div')((
   [`& .${classes.button}`]: {
     marginTop: 15,
     marginBottom: 15,
-  }
+  },
 }));
 
 interface IForm {
@@ -55,7 +51,6 @@ interface IProps {
 }
 
 const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
-
   const {
     control,
     handleSubmit,
