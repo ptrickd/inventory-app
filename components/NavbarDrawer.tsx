@@ -7,6 +7,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemButton from "@mui/material/ListItemButton";
+
 import Divider from "@mui/material/Divider";
 import Slide from "@mui/material/Slide";
 
@@ -87,12 +89,12 @@ const NavbarDrawer = ({ categories }: IProps) => {
       <List>
         <Link href="/dashboard">
           <span className={classes.menu}>
-            <ListItem button key="dashboard">
+            <ListItemButton key="dashboard">
               <ListItemText primary="Dashboard" />
               <ListItemIcon className={classes.menuIcon}>
                 <ArrowForwardIcon />
               </ListItemIcon>
-            </ListItem>
+            </ListItemButton>
           </span>
         </Link>
 
@@ -104,12 +106,12 @@ const NavbarDrawer = ({ categories }: IProps) => {
 
         <Divider />
         <span className={classes.menu}>
-          <ListItem button onClick={handleClickCategories} key="category">
+          <ListItemButton onClick={handleClickCategories} key="category">
             <ListItemText primary="Categories" />
             <ListItemIcon className={classes.menuIcon}>
               {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
             </ListItemIcon>
-          </ListItem>
+          </ListItemButton>
         </span>
 
         {categoryMenu && (

@@ -16,7 +16,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import Hidden from "@mui/material/Hidden";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Button from "@mui/material/Button";
@@ -84,7 +83,8 @@ const Root = styled("div")(({ theme }) => ({
 
   [`& .${classes.activeSubMenu}`]: {
     marginLeft: theme.spacing(2),
-    backgroundColor: "#f4f4f4",
+    // backgroundColor: "#f4f4f4",
+    backgroundColor: indigo[500],
   },
 
   [`& .${classes.menuButton}`]: {
@@ -120,7 +120,21 @@ const Navbar = () => {
     if (logout !== undefined) logout();
   };
 
-  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+  // const renderedIconButton = () => {
+  //   return (
+  //     <IconButton
+  //       color="inherit"
+  //       arial-label="open drawer"
+  //       edge="start"
+  //       className={clsx(classes.menuButton, mobileOpen && classes.hide)}
+  //       // disableRipple
+  //       onClick={() => setMobileOpen(true)}
+  //     >
+  //       <MenuIcon />
+  //     </IconButton>
+  //   );
+  // };
+  // const MemoIconButton = React.memo(renderedIconButton);
   if (!categories) return null;
   return (
     <Root className={classes.root}>
@@ -129,12 +143,17 @@ const Navbar = () => {
         className={clsx(classes.appBar, { [classes.appBarShift]: loggedIn })}
       >
         <Toolbar>
+          {/*https://github.com/mui/material-ui/issues/4532*
+          To try React.memo the button
+  */}
+          {/* <MemoIconButton /> */}
           <IconButton
             color="inherit"
             arial-label="open drawer"
             edge="start"
             className={clsx(classes.menuButton, mobileOpen && classes.hide)}
-            onClick={handleDrawerToggle}
+            // disableRipple
+            onClick={() => setMobileOpen(true)}
           >
             <MenuIcon />
           </IconButton>
@@ -173,7 +192,7 @@ const Navbar = () => {
             anchor="left"
             classes={{ paper: classes.drawerPaper }}
             open={mobileOpen}
-            onClose={handleDrawerToggle}
+            onClose={() => setMobileOpen(false)}
             ModalProps={{ keepMounted: true }}
           >
             <NavbarDrawer categories={categories} />

@@ -1,3 +1,3 @@
-import { red } from "@mui/material/colors";
+import { indigo } from "@mui/material/colors";
 
-export const TEXT_MENU_COLOR = red["100"];
+export const TEXT_MENU_COLOR = indigo["100"];
