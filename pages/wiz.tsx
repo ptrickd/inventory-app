@@ -1,6 +1,6 @@
 //React
 import React, { useState, useEffect, useContext, Fragment } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
 //GraphQL
@@ -19,25 +19,21 @@ import FirstProduct from "../components/firstProduct";
 import { UserContext } from "../contexts/UserContext";
 import { StatesContext } from "../contexts/StatesContext";
 
-const PREFIX = 'Wiz';
+const PREFIX = "Wiz";
 
 const classes = {
-  root: `${PREFIX}-root`
+  root: `${PREFIX}-root`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme: Theme
-  }
-) => ({
+const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.root}`]: {
     padding: 20,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
-  }
+  },
 }));
 
 //Define types
@@ -51,8 +47,6 @@ interface IResponseStatus {
 
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
-
-
   const { loggedIn } = useContext(UserContext);
   const { hasReport, hasCategory, hasProduct } = useContext(StatesContext);
   const router = useRouter();
@@ -76,7 +70,7 @@ const Wiz: React.FC = () => {
       </Root>
     );
   return (
-    <Fragment>
+    <Root>
       <CssBaseline />
       <Container maxWidth="md" className={classes.root}>
         {/* <ComponentToDisplay currentState={states.state} /> */}
@@ -85,7 +79,7 @@ const Wiz: React.FC = () => {
         {hasReport && !hasCategory && <FirstCategory />}
         {hasReport && hasCategory && !hasProduct && <FirstProduct />}
       </Container>
-    </Fragment>
+    </Root>
   );
 };
 

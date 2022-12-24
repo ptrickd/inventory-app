@@ -18,6 +18,7 @@ const PREFIX = "FirstReport";
 const classes = {
   button: `${PREFIX}-button`,
   root: `${PREFIX}-root`,
+  items: `${PREFIX}-items`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
@@ -25,10 +26,14 @@ const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.button}`]: {
     width: "70%",
   },
+  [`& .${classes.items}`]: { flexGrow: 2 },
   [`& .${classes.root}`]: {
     display: "flex",
+    minHeight: "70vh",
+    flexDirection: "column",
     justifyContent: "center",
-    alignContent: "space-around",
+    alignItems: "center",
+    padding: "10%",
   },
 }));
 
@@ -58,27 +63,34 @@ const FirstReport: React.FC = () => {
     }
   };
   return (
-    <Root className={classes.root}>
-      <Typography align="center" variant="h3">
-        Welcome to Gruyere
-      </Typography>
-      <Typography align="center" variant="body1" paragraph>
-        {textBody}
-      </Typography>
-      <Button
-        onClick={() => setOpenModal(true)}
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        size="large"
-      >
-        Do it
-      </Button>
-      <CreateNewReportModal
-        open={openModal}
-        handleCloseModal={handleModalClicked}
-      />
-      <DisplayMessage show={messageError.length > 0} message={messageError} />
+    <Root>
+      <div className={classes.root}>
+        <Typography align="center" variant="h3" className={classes.items}>
+          Welcome to Gruyere
+        </Typography>
+        <Typography
+          align="center"
+          variant="body1"
+          paragraph
+          className={classes.items}
+        >
+          {textBody}
+        </Typography>
+        <Button
+          onClick={() => setOpenModal(true)}
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          size="large"
+        >
+          Do it
+        </Button>
+        <CreateNewReportModal
+          open={openModal}
+          handleCloseModal={handleModalClicked}
+        />
+        <DisplayMessage show={messageError.length > 0} message={messageError} />
+      </div>
     </Root>
   );
 };
