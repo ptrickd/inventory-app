@@ -17,12 +17,18 @@ const PREFIX = "FirstReport";
 
 const classes = {
   button: `${PREFIX}-button`,
+  root: `${PREFIX}-root`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.button}`]: {
     width: "70%",
+  },
+  [`& .${classes.root}`]: {
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "space-around",
   },
 }));
 
@@ -52,7 +58,7 @@ const FirstReport: React.FC = () => {
     }
   };
   return (
-    <Root>
+    <Root className={classes.root}>
       <Typography align="center" variant="h3">
         Welcome to Gruyere
       </Typography>

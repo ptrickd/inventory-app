@@ -153,8 +153,9 @@ export const resolvers = {
         if (!user) throw new Error("Not Authenticated");
         console.log("in create product");
         if (!MEASURE_UNITS.includes(unit)) throw new Error("Not a valid unit");
+
         let sameNameProduct = await Product.find({ name });
-        if (sameNameProduct) {
+        if (Boolean(sameNameProduct.length)) {
           throw new Error("This is already a product of the same name");
         }
         let product = await Product.create({
