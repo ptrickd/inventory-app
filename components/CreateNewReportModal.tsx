@@ -1,7 +1,7 @@
 //React
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 //Component
 import DatePicker from "./DatePicker";
@@ -21,18 +21,14 @@ import { ProductsContext } from "../contexts/ProductsContext";
 //Types
 import { IProduct, IAddProduct } from "../types/types";
 
-const PREFIX = 'CreateNewReportModal';
+const PREFIX = "CreateNewReportModal";
 
 const classes = {
   root: `${PREFIX}-root`,
-  button: `${PREFIX}-button`
+  button: `${PREFIX}-button`,
 };
 
-const StyledDialog = styled(Dialog)((
-  {
-    theme
-  }
-) => ({
+const StyledDialog = styled(Dialog)(({ theme }) => ({
   [`&.${classes.root}`]: {
     margin: theme.spacing(4),
     padding: theme.spacing(4),
@@ -40,7 +36,7 @@ const StyledDialog = styled(Dialog)((
 
   [`& .${classes.button}`]: {
     marginTop: 10,
-  }
+  },
 }));
 
 interface IResponseStatus {
@@ -53,7 +49,6 @@ interface IProps {
 }
 
 function CreateNewReportModal({ open, handleCloseModal }: IProps) {
-
   const { createNewReport } = useContext(ReportsContext);
   const { products } = useContext(ProductsContext);
   const [selectedDate, setSelectedDate] = useState<null | Date>(null);
@@ -61,7 +56,6 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
   const datePickerSelectedDate = async (date: Date | null) => {
     setSelectedDate(date);
   };
-
   const handleClickCreate = async () => {
     let responseStatus = { succeeded: true, messageError: "" };
     if (
@@ -96,7 +90,10 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
         <Typography align="center" variant="body1" paragraph>
           Date of the next report
         </Typography>
-        <DatePicker handleSelectedDate={datePickerSelectedDate} />
+        <DatePicker
+          handleSelectedDate={datePickerSelectedDate}
+          initialDate={selectedDate}
+        />
         {selectedDate ? (
           <Button
             className={classes.button}
