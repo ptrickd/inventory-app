@@ -18,12 +18,23 @@ const PREFIX = "FirstProduct";
 
 const classes = {
   button: `${PREFIX}-button`,
+  root: `${PREFIX}-root`,
+  items: `${PREFIX}-items`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.button}`]: {
     width: "70%",
+  },
+  [`& .${classes.items}`]: { flexGrow: 2 },
+  [`& .${classes.root}`]: {
+    display: "flex",
+    minHeight: "70vh",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10%",
   },
 }));
 
@@ -45,29 +56,36 @@ const FirstProduct: React.FC = () => {
   if (categories === undefined) return null;
   return (
     <Root>
-      <Typography align="center" variant="body1" paragraph>
-        {textBody}
-      </Typography>
-      <Typography>
-        Your first category is
-        <Box component="span">{"categories[0].name"}</Box> &&
-      </Typography>
-      <Button
-        onClick={() => setOpenModal(true)}
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        size="large"
-      >
-        Do it
-      </Button>
-      {typeof categoryId === "string" && (
-        <AddProductForm
-          open={openModal}
-          handleCloseModal={handleModal}
-          categoryId={categoryId}
-        />
-      )}
+      <div className={classes.root}>
+        <Typography
+          align="center"
+          variant="body1"
+          paragraph
+          className={classes.items}
+        >
+          {textBody}
+        </Typography>
+        <Typography className={classes.items}>
+          Your first category is
+          <Box component="span"> {categories[0].name}</Box>
+        </Typography>
+        <Button
+          onClick={() => setOpenModal(true)}
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          size="large"
+        >
+          Do it
+        </Button>
+        {typeof categoryId === "string" && (
+          <AddProductForm
+            open={openModal}
+            handleCloseModal={handleModal}
+            categoryId={categoryId}
+          />
+        )}
+      </div>
     </Root>
   );
 };

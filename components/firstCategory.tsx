@@ -14,12 +14,23 @@ const PREFIX = "FirstCategory";
 
 const classes = {
   button: `${PREFIX}-button`,
+  root: `${PREFIX}-root`,
+  items: `${PREFIX}-items`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")(({ theme: Theme }) => ({
   [`& .${classes.button}`]: {
     width: "70%",
+  },
+  [`& .${classes.items}`]: { flexGrow: 2 },
+  [`& .${classes.root}`]: {
+    display: "flex",
+    minHeight: "70vh",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10%",
   },
 }));
 
@@ -46,20 +57,27 @@ const FirstCategory: React.FC = () => {
 
   return (
     <Root>
-      <Typography align="center" variant="body1" paragraph>
-        {textBody}
-      </Typography>
-      <Button
-        onClick={() => setOpenModal(true)}
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        size="large"
-      >
-        Do it
-      </Button>
-      <AddCategoryForm open={openModal} handleCloseModal={handleModal} />
-      <DisplayMessage show={messageError.length > 0} message={messageError} />
+      <div className={classes.root}>
+        <Typography
+          align="center"
+          variant="body1"
+          paragraph
+          className={classes.items}
+        >
+          {textBody}
+        </Typography>
+        <Button
+          onClick={() => setOpenModal(true)}
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          size="large"
+        >
+          Do it
+        </Button>
+        <AddCategoryForm open={openModal} handleCloseModal={handleModal} />
+        <DisplayMessage show={messageError.length > 0} message={messageError} />
+      </div>
     </Root>
   );
 };
