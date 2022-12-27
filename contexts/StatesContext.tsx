@@ -83,6 +83,13 @@ const StatesProvider = ({ children }: IProps) => {
     }
   }, [data]);
 
+  // useEffect(() => {
+  //   console.log(`hasReport ${hasReport}`);
+  //   console.log(`hasCategory ${hasCategory}`);
+
+  //   console.log(`hasProduct ${hasProduct}`);
+  // }, [hasReport, hasCategory, hasProduct]);
+
   ///display loading page
   //request amount of report, categories and products
   if (loading) return null;

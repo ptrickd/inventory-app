@@ -79,10 +79,10 @@ export const resolvers = {
       try {
         const user = await User.findOne({ email });
 
-        if (!user) throw new Error("Invalid Login no user");
+        if (!user) throw new Error("Invalid Login");
 
         const passwordMatch = await bcrypt.compare(password, user.password);
-        if (!passwordMatch) throw new Error("Invalid Login wrong password");
+        if (!passwordMatch) throw new Error("Invalid Login");
 
         const token = jwt.sign(
           { id: user.id, email: user.email },
@@ -93,7 +93,7 @@ export const resolvers = {
         return { token, user };
       } catch (err: any) {
         console.log(err?.message);
-        return { error: "Invalid Login: Error has been throw" };
+        return { error: "Invalid Login" };
       }
     },
   },
