@@ -55,6 +55,7 @@ interface IForm {
 
 function AddCategoryForm({ open, handleCloseModal }: IProps) {
   const [submitting, setSubmitting] = useState(false);
+  const [categoryName, setCategoryName] = useState("");
   const {
     control,
     handleSubmit,
@@ -99,9 +100,9 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
           variant="contained"
           size="small"
           color="secondary"
-          // onClick={() => {
-          //   handleCloseModal();
-          // }}
+          onClick={() => {
+            handleCloseModal();
+          }}
         >
           Cancel
         </Button>

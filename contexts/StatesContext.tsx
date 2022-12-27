@@ -52,7 +52,9 @@ interface IContext {
   hasReport: boolean;
   setHasReport: (hasReport: boolean) => void;
   hasCategory: boolean;
+  setHasCategory: (hasCategory: boolean) => void;
   hasProduct: boolean;
+  setHasProduct: (hasProduct: boolean) => void;
 }
 // states: IStates;
 // updateStates: (currentStates: IStates, newStates: Partial<IStates>) => void;
@@ -91,7 +93,9 @@ const StatesProvider = ({ children }: IProps) => {
         hasReport,
         setHasReport,
         hasCategory,
+        setHasCategory,
         hasProduct,
+        setHasProduct,
       }}
     >
       {children}

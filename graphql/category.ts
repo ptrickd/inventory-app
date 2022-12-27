@@ -74,8 +74,8 @@ export const resolvers = {
           name,
           userId,
         }));
-      } catch (err) {
-        console.log("printing error", err);
+      } catch (err: any) {
+        console.log("printing error", err.message);
         return err;
       }
     },
@@ -84,8 +84,8 @@ export const resolvers = {
         if (!user) throw new Error("Not Authenticated");
 
         return await Category.countDocuments();
-      } catch (err) {
-        console.log("printing error:", err);
+      } catch (err: any) {
+        console.log("printing error:", err.message);
         return err;
       }
     },

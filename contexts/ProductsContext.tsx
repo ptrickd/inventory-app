@@ -1,5 +1,5 @@
 //React
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
 //GraphQL
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
@@ -20,10 +20,10 @@ const GET_PRODUCTS = gql`
       previousAmount
       categoryId
       unit
+      error
     }
   }
 `;
-
 interface IProps {
   children: React.ReactNode;
 }
@@ -33,7 +33,7 @@ interface IContext {
   productsByCategory: () => IProduct[] | [];
   updateProducts: (list: IProduct[]) => void;
   setCategoryId: (categoryId: string) => void;
-  addProduct: (product: IAddProduct) => void;
+  addProduct: (product: IAddProduct) => any;
   deleteProductApi: (productId: string) => void;
   editProductApi: (
     productId: string,
@@ -81,17 +81,30 @@ const ProductsProvider = ({ children }: IProps) => {
     return productsToReturn;
   };
 
-  const addProduct = async (product: IAddProduct) => {
-    await createProduct({
-      variables: {
-        name: product.name,
-        categoryId: product.categoryId,
-        unit: product.unit,
-      },
-    });
-    // getProducts({ variables: { categoryId: contextCategoryId } })
-    getProducts();
-  };
+  async function addProduct({ name, categoryId, unit }: IAddProduct) {
+    try {
+      let response = await createProduct({
+        variables: {
+          name: name,
+          categoryId: categoryId,
+          unit: unit,
+        },
+      });
+      if (response.data.createProduct.id) {
+        // getProducts({ variables: { categoryId: contextCategoryId } })
+        await getProducts();
+      }
+
+      if (response) return response.data.createProduct;
+      else
+        return {
+          error: "No response from the server.",
+        };
+    } catch (err: any) {
+      console.log(err.message);
+      return { error: err.message };
+    }
+  }
 
   const deleteProductApi = async (productId: string) => {
     await deleteProduct({ variables: { productId: productId } });

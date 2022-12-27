@@ -55,6 +55,14 @@ const Wiz: React.FC = () => {
   useEffect(() => {
     if (!loggedIn) router.push("/");
   }, [loggedIn, router]);
+  useEffect(() => {
+    console.log(`hasReport ${hasReport}`);
+    console.log(`hasCategory ${hasCategory}`);
+    console.log(`hasProduct ${hasProduct}`);
+  }, [hasReport, hasCategory, hasProduct]);
+  useEffect(() => {
+    if (hasProduct) router.push("/dashboard");
+  }, [hasProduct, router]);
 
   //have to add parameters to handle a response from any 3 components
   // const handleResponse = (isResponseSucceed: IResponseStatus) => {};

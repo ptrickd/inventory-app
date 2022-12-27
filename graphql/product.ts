@@ -54,7 +54,8 @@ export const typeDef = `
             currentAmount:Int, 
             previousAmount:Int, 
             categoryId: String, 
-            unit: String
+            unit: String,
+            error: String
             ): Product
 
         editProduct(
@@ -164,11 +165,11 @@ export const resolvers = {
           unit,
           userId: user.id,
         });
+        console.log(`Product created ${product}`);
         return product;
       } catch (err: any) {
         console.log(err.message);
-        const product = { error: err.message };
-        return product;
+        return { error: err.message };
       }
     },
     editProduct: async (

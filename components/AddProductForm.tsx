@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
+import { StatesContext } from "../contexts/StatesContext";
 
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -41,7 +42,7 @@ const StyledDialog = styled(Dialog)({
 
 interface IProps {
   open: boolean;
-  handleCloseModal: () => void;
+  handleCloseModal: (response: string) => void;
   categoryId: string;
 }
 
@@ -51,6 +52,7 @@ interface IForm {
 
 function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
   const { addProduct } = useContext(ProductsContext);
+  const { setHasProduct } = useContext(StatesContext);
   const [submitting, setSubmitting] = useState(false);
   const {
     control,
@@ -62,18 +64,22 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);
     if (addProduct !== undefined && typeof categoryId === "string") {
-      addProduct({
+      //response id name error
+      const response = await addProduct({
         name: data.name,
         currentAmount: 0,
         previousAmount: 0,
         categoryId: categoryId,
         unit: "ea",
       });
-    }
 
-    reset({ name: "" });
-    setSubmitting(false);
-    handleCloseModal();
+      if (setHasProduct && response.id) setHasProduct(true);
+
+      reset({ name: "" });
+      setSubmitting(false);
+      if (response.error) handleCloseModal(response.error);
+      else handleCloseModal("");
+    }
   };
 
   const formBody = (
@@ -100,7 +106,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
           size="small"
           color="secondary"
           onClick={() => {
-            handleCloseModal();
+            handleCloseModal("");
           }}
         >
           Cancel
@@ -113,7 +119,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
     <StyledDialog
       open={open}
       aria-labelledby="Add Category Form"
-      onClose={() => handleCloseModal()}
+      onClose={() => handleCloseModal("")}
     >
       {/* <DialogTitle>Add a category</DialogTitle> */}
       <DialogContent className={classes.content}>

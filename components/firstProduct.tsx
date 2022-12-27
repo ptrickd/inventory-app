@@ -13,6 +13,7 @@ import { ProductsContext } from "../contexts/ProductsContext";
 
 //Components
 import AddProductForm from "../components/AddProductForm";
+import DisplayMessage from "./DisplayMessage";
 
 const PREFIX = "FirstProduct";
 
@@ -42,8 +43,10 @@ const FirstProduct: React.FC = () => {
   const { categories } = useContext(CategoriesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [categoryId, setCategoryId] = useState<string | null>(null);
+  const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first product in the category you just created. An example is Romaine in the Produce category. `;
-  const handleModal = () => {
+  const handleModal = (response: string) => {
+    if (Boolean(response.length)) setMessageError(response);
     setOpenModal(false);
   };
 
@@ -53,6 +56,7 @@ const FirstProduct: React.FC = () => {
       setCategoryId(categories[0].id);
     }
   }, [categories, setCategoryId]);
+  //To fix: when no categories do something
   if (categories === undefined) return null;
   return (
     <Root>
@@ -85,6 +89,10 @@ const FirstProduct: React.FC = () => {
             categoryId={categoryId}
           />
         )}
+        <DisplayMessage
+          show={Boolean(messageError.length > 0)}
+          message={messageError}
+        />
       </div>
     </Root>
   );
