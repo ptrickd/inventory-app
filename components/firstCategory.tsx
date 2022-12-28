@@ -1,7 +1,8 @@
 //Component inviting the user o choose the date of the first report
 //React
-import React, { useState, Fragment } from "react";
+import React, { useState, useContext } from "react";
 
+//Material UI
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -9,6 +10,9 @@ import Button from "@mui/material/Button";
 //Components
 import AddCategoryForm from "./AddCategoryForm";
 import DisplayMessage from "./DisplayMessage";
+
+//Context
+import { StatesContext } from "../contexts/StatesContext";
 
 const PREFIX = "FirstCategory";
 
@@ -42,6 +46,7 @@ interface ICategory {
 }
 
 const FirstCategory: React.FC = () => {
+  const { setHasCategory } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
@@ -49,6 +54,8 @@ const FirstCategory: React.FC = () => {
     if (category) {
       if (category.error) {
         setMessageError(category.error);
+      } else if (category.id) {
+        if (setHasCategory) setHasCategory(true);
       }
     }
 
