@@ -69,6 +69,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     const responseTimeout = setTimeout(() => {
       setServerErrorMess("Server not responding");
+      setSubmitting(false);
     }, 5000);
     if (!submitting) {
       clearTimeout(responseTimeout);
