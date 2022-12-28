@@ -67,13 +67,13 @@ const Login: React.FC = () => {
   }, [loggedIn, router]);
 
   useEffect(() => {
-    const responseTimeout = setTimeout(() => {
-      setServerErrorMess("Server not responding");
-      setSubmitting(false);
-    }, 5000);
-    if (!submitting) {
-      clearTimeout(responseTimeout);
-      setServerErrorMess("");
+    // let responseTimeout: any = null;
+    if (submitting) {
+      const responseTimeout = setTimeout(() => {
+        console.log("6 seconds wait");
+        setServerErrorMess("Server not responding");
+        setSubmitting(false);
+      }, 6000);
     }
   }, [submitting]);
 
@@ -82,10 +82,7 @@ const Login: React.FC = () => {
     const loginResponse = await login({
       variables: { email: data.email, password: data.password },
     });
-    // console.log('user on login', loginResponse.data.login.user)
-    // console.log('error on login', loginResponse.data.errors)
-    console.log("login response", loginResponse.data.login);
-
+    console.log(loginResponse?.data?.login?.user);
     if (loginResponse?.data?.login?.error && setLoggedIn && logout) {
       console.log("Error::", loginResponse.data.login.error);
       setServerErrorMess(loginResponse.data.login.error);
@@ -98,11 +95,13 @@ const Login: React.FC = () => {
       setLoggedIn !== undefined &&
       setToken !== undefined
     ) {
+      console.log("in else if");
       setCurrentUser(loginResponse.data.login.user);
       setToken(loginResponse.data.login.token);
       setLoggedIn(true);
       setServerErrorMess("");
     }
+    console.log("after all if");
     setSubmitting(false);
     reset({ email: "", password: "" });
   };
