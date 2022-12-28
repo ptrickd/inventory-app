@@ -13,7 +13,7 @@ import Divider from "@mui/material/Divider";
 import Slide from "@mui/material/Slide";
 
 //Color
-import { TEXT_MENU_COLOR } from "../constants/colors";
+import { TEXT_MENU_COLOR, BACKGROUND_MENU_COLOR } from "../constants/colors";
 
 //Icons
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
@@ -25,6 +25,7 @@ import NavbarReportsList from "./NavbarReportsList";
 const PREFIX = "NavbarDrawer";
 
 const classes = {
+  root: `${PREFIX}-root`,
   menu: `${PREFIX}-menu`,
   menuIcon: `${PREFIX}-menuIcon`,
   subMenu: `${PREFIX}-subMenu`,
@@ -33,8 +34,13 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")(({ theme: Theme }) => ({
+  [`& .${classes.root}`]: {
+    height: "100vh",
+    background: BACKGROUND_MENU_COLOR,
+  },
   [`& .${classes.menu}`]: {
     color: TEXT_MENU_COLOR,
+    background: BACKGROUND_MENU_COLOR,
   },
 
   [`& .${classes.menuIcon}`]: {
@@ -81,46 +87,52 @@ const NavbarDrawer = ({ categories }: IProps) => {
   return (
     <Root>
       {/* //Add the primary color on the top on the sidebar side */}
+      <div className={classes.root}>
+        <div className={classes.toolbar} />
 
-      <div className={classes.toolbar} />
+        <Divider />
 
-      <Divider />
+        <List>
+          <Link href="/dashboard">
+            <span className={classes.menu}>
+              <ListItemButton key="dashboard">
+                <ListItemText primary="Dashboard" />
+                <ListItemIcon className={classes.menuIcon}>
+                  <ArrowForwardIcon />
+                </ListItemIcon>
+              </ListItemButton>
+            </span>
+          </Link>
 
-      <List>
-        <Link href="/dashboard">
           <span className={classes.menu}>
-            <ListItemButton key="dashboard">
-              <ListItemText primary="Dashboard" />
+            <ListItem>
+              <NavbarReportsList />
+            </ListItem>
+          </span>
+
+          <Divider />
+          <span className={classes.menu}>
+            <ListItemButton onClick={handleClickCategories} key="category">
+              <ListItemText primary="Categories" />
               <ListItemIcon className={classes.menuIcon}>
-                <ArrowForwardIcon />
+                {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
               </ListItemIcon>
             </ListItemButton>
           </span>
-        </Link>
 
-        <span className={classes.menu}>
-          <ListItem>
-            <NavbarReportsList />
-          </ListItem>
-        </span>
-
+          {categoryMenu && (
+            <Slide
+              direction="down"
+              in={categoryMenu}
+              mountOnEnter
+              unmountOnExit
+            >
+              <List>{renderedCategories()}</List>
+            </Slide>
+          )}
+        </List>
         <Divider />
-        <span className={classes.menu}>
-          <ListItemButton onClick={handleClickCategories} key="category">
-            <ListItemText primary="Categories" />
-            <ListItemIcon className={classes.menuIcon}>
-              {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
-            </ListItemIcon>
-          </ListItemButton>
-        </span>
-
-        {categoryMenu && (
-          <Slide direction="down" in={categoryMenu} mountOnEnter unmountOnExit>
-            <List>{renderedCategories()}</List>
-          </Slide>
-        )}
-      </List>
-      <Divider />
+      </div>
     </Root>
   );
 };
