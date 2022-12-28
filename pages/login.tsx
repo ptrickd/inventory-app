@@ -66,6 +66,16 @@ const Login: React.FC = () => {
     }
   }, [loggedIn, router]);
 
+  useEffect(() => {
+    const responseTimeout = setTimeout(() => {
+      setServerErrorMess("Server not responding");
+    }, 5000);
+    if (!submitting) {
+      clearTimeout(responseTimeout);
+      setServerErrorMess("");
+    }
+  }, [submitting]);
+
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);
     const loginResponse = await login({

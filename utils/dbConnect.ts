@@ -23,6 +23,7 @@ async function dbConnect() {
     connection.isConnected = db.connections[0].readyState;
   } else if (process.env.NODE_ENV === "production") {
     const db = await mongoose.connect(process.env.RESTO_MONGO_URI_PROD || "");
+    connection.isConnected = db.connections[0].readyState;
   }
 }
 
