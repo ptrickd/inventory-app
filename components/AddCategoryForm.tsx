@@ -65,7 +65,6 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
   const { createCategoryApi } = useContext(CategoriesContext);
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
-    console.log(typeof createCategoryApi);
     if (createCategoryApi !== undefined) {
       setSubmitting(true);
       let category = await createCategoryApi({ id: "", name: data.name });
@@ -79,18 +78,22 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
 
   const formBody = (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={classes.input}>
-        <Controller
-          name="name"
-          control={control}
-          defaultValue=""
-          rules={{ required: true }}
-          render={({ field }) => (
-            <TextField {...field} label="Add a category" autoComplete="off" />
-          )}
-        />
-        {errors.name && <span>*Required</span>}
-      </div>
+      <Controller
+        name="name"
+        control={control}
+        defaultValue=""
+        rules={{ required: true }}
+        render={({ field }) => (
+          <TextField
+            className={classes.input}
+            {...field}
+            label="Add a category"
+            autoComplete="off"
+            type="text"
+          />
+        )}
+      />
+      {errors.name && <span>*Required</span>}
 
       <div className={classes.buttons}>
         <Button variant="contained" size="small" color="primary" type="submit">

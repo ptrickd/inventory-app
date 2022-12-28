@@ -70,7 +70,7 @@ const Login: React.FC = () => {
     // let responseTimeout: any = null;
     if (submitting) {
       const responseTimeout = setTimeout(() => {
-        console.log("6 seconds wait");
+        // console.log("6 seconds wait");
         setServerErrorMess("Server not responding");
         setSubmitting(false);
       }, 6000);
@@ -82,7 +82,7 @@ const Login: React.FC = () => {
     const loginResponse = await login({
       variables: { email: data.email, password: data.password },
     });
-    console.log(loginResponse?.data?.login?.user);
+    // console.log(loginResponse?.data?.login?.user);
     if (loginResponse?.data?.login?.error && setLoggedIn && logout) {
       console.log("Error::", loginResponse.data.login.error);
       setServerErrorMess(loginResponse.data.login.error);
@@ -95,13 +95,13 @@ const Login: React.FC = () => {
       setLoggedIn !== undefined &&
       setToken !== undefined
     ) {
-      console.log("in else if");
+      // console.log("in else if");
       setCurrentUser(loginResponse.data.login.user);
       setToken(loginResponse.data.login.token);
       setLoggedIn(true);
       setServerErrorMess("");
     }
-    console.log("after all if");
+    // console.log("after all if");
     setSubmitting(false);
     reset({ email: "", password: "" });
   };
