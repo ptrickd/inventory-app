@@ -89,6 +89,12 @@ export default function Home() {
         >
           Your Kitchen Inventory App Management
         </StyledTypography>
+        <Image
+          alt="stock photo"
+          src="/../public/nathan-dumlao-g8gOnhMRckw-unsplash_working.jpg"
+          width={500}
+          height={300}
+        />
         <Link href="/login">
           <Button
             className={classes.button}
