@@ -48,7 +48,8 @@ interface IResponseStatus {
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
   const { loggedIn } = useContext(UserContext);
-  const { hasReport, hasCategory, hasProduct } = useContext(StatesContext);
+  const { hasReport, hasCategory, hasProduct, loadingStates } =
+    useContext(StatesContext);
   const router = useRouter();
 
   //Protecting route
@@ -77,6 +78,7 @@ const Wiz: React.FC = () => {
         <Typography>Page Error</Typography>
       </Root>
     );
+  if (loadingStates) return null;
   return (
     <Root>
       <CssBaseline />

@@ -7,10 +7,14 @@ import React, {
   useState,
   useCallback,
   useMemo,
+  useContext,
 } from "react";
 
 //GraphQL
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery } from "@apollo/client";
+
+//Context
+import { UserContext } from "./UserContext";
 
 //Queries
 const GET_STATES = gql`
@@ -55,6 +59,7 @@ interface IContext {
   setHasCategory: (hasCategory: boolean) => void;
   hasProduct: boolean;
   setHasProduct: (hasProduct: boolean) => void;
+  loadingStates: boolean;
 }
 // states: IStates;
 // updateStates: (currentStates: IStates, newStates: Partial<IStates>) => void;
@@ -63,14 +68,21 @@ interface IContext {
 const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = ({ children }: IProps) => {
+  const { loggedIn } = useContext(UserContext);
   const [state, setState] = useState("isLoading");
   const [hasReport, setHasReport] = useState(false);
   const [hasCategory, setHasCategory] = useState(false);
   const [hasProduct, setHasProduct] = useState(false);
+  const [loadingStates, setLoadingStates] = useState(false);
 
   //Need to add error handling
-  const { data, error, loading } = useQuery(GET_STATES);
+  //Use to refetch when user login
+  const [getStates, { data, error, loading }] = useLazyQuery(GET_STATES);
 
+  //Fetch states when user logged in
+  useEffect(() => {
+    if (loggedIn) getStates();
+  }, [loggedIn, getStates]);
   useEffect(() => {
     if (data?.numOfReports) {
       setHasReport(true);
@@ -82,13 +94,13 @@ const StatesProvider = ({ children }: IProps) => {
       setHasProduct(true);
     }
   }, [data]);
-
-  // useEffect(() => {
-  //   console.log(`hasReport ${hasReport}`);
-  //   console.log(`hasCategory ${hasCategory}`);
-
-  //   console.log(`hasProduct ${hasProduct}`);
-  // }, [hasReport, hasCategory, hasProduct]);
+  useEffect(() => {
+    if (loading) setLoadingStates(true);
+    else setLoadingStates(false);
+  }, [loading]);
+  useEffect(() => {
+    console.log(`loadingStates ${loadingStates}`);
+  }, [loadingStates]);
 
   ///display loading page
   //request amount of report, categories and products
@@ -103,6 +115,7 @@ const StatesProvider = ({ children }: IProps) => {
         setHasCategory,
         hasProduct,
         setHasProduct,
+        loadingStates,
       }}
     >
       {children}

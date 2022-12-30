@@ -31,18 +31,19 @@ const StyledContainer = styled(Container)(({ theme: Theme }) => ({
 export default function Loading() {
   const router = useRouter();
   const { loggedIn } = useContext(UserContext);
-  const { hasReport, hasCategory, hasProduct } = useContext(StatesContext);
+  const { hasReport, hasCategory, hasProduct, loadingStates } =
+    useContext(StatesContext);
 
   useEffect(() => {
     if (!loggedIn) {
       router.push("/");
-    } else if (!hasReport || !hasCategory || !hasProduct) {
+    } else if (!loadingStates && (!hasReport || !hasCategory || !hasProduct)) {
       router.push("/wiz");
-    } else {
+    } else if (!loadingStates) {
       router.push("/dashboard");
     }
-  }, [loggedIn, router, hasReport, hasCategory, hasProduct]);
-
+  }, [loggedIn, router, hasReport, hasCategory, hasProduct, loadingStates]);
+  if (loadingStates) return null;
   return (
     <StyledContainer className={classes.root} maxWidth="xs">
       <WaitingModal open={true} />
