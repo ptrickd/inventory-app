@@ -52,6 +52,7 @@ const Login: React.FC = () => {
     setLoggedIn,
     setToken,
     logout,
+    setTheme,
   } = useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
   const [serverErrorMess, setServerErrorMess] = useState("");
@@ -93,11 +94,15 @@ const Login: React.FC = () => {
       currentUser !== undefined &&
       setCurrentUser !== undefined &&
       setLoggedIn !== undefined &&
-      setToken !== undefined
+      setToken !== undefined &&
+      setTheme !== undefined
     ) {
-      // console.log("in else if");
-      setCurrentUser(loginResponse.data.login.user);
+      setCurrentUser({
+        id: loginResponse.data.login.user.id,
+        email: loginResponse.data.login.user.email,
+      });
       setToken(loginResponse.data.login.token);
+      setTheme(loginResponse.data.login.user.theme);
       setLoggedIn(true);
       setServerErrorMess("");
     }

@@ -31,11 +31,6 @@ const UserProvider = ({ children }: IProps) => {
   const [theme, setTheme] = useState("Light");
   const { data } = useQuery(GET_CURRENT_USER);
 
-  //   useEffect(() => {
-  //     console.log("currentUser::", currentUser);
-  //     console.log("theme :: " + theme);
-  //   }, [currentUser, theme]);
-
   /*
     check If LoggedIn on reload 
     */

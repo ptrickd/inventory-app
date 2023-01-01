@@ -16,8 +16,8 @@ const Themes: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   //Function taking theme choive from a string and returning a Theme
   const themeSelector = (theme: any) => {
-    if (theme === "light") return LIGHT_THEME;
-    else return DARK_THEME;
+    if (theme === "dark") return DARK_THEME;
+    else return LIGHT_THEME;
   };
   return <ThemeProvider theme={themeSelector(theme)}>{children}</ThemeProvider>;
 };
