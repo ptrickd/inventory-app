@@ -19,6 +19,7 @@ import client from "../apollo-client";
 //Styles
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import Themes from "../styles/Themes";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -28,13 +29,15 @@ function MyApp({ Component, pageProps }: AppProps) {
           <ProductsProvider>
             <ReportsProvider>
               <StatesProvider>
-                <Head>
-                  <title>Gruyere: The App Inventory</title>
-                </Head>
-                <Navbar />
-                <ComponentWrapper>
-                  <Component {...pageProps} />
-                </ComponentWrapper>
+                <Themes>
+                  <Head>
+                    <title>Gruyere: The App Inventory</title>
+                  </Head>
+                  <Navbar />
+                  <ComponentWrapper>
+                    <Component {...pageProps} />
+                  </ComponentWrapper>
+                </Themes>
               </StatesProvider>
             </ReportsProvider>
           </ProductsProvider>
