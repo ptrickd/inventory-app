@@ -16,6 +16,10 @@ interface IRegister {
   password: string;
 }
 
+interface IUpdate {
+  theme: string;
+}
+
 export const typeDef = `
     type User {
         id: ID
@@ -35,6 +39,11 @@ export const typeDef = `
         error: String
     }
 
+    type UpdateResponse{
+        theme: String
+        error: String
+    }
+
     extend type Query {
         currentUser: User
     }
@@ -42,6 +51,7 @@ export const typeDef = `
     extend type Mutation {
         register(email: String!, password: String!): RegisterResponse
         login(email: String!, password: String!): LoginResponse
+        updateUser(theme: String!): UpdateResponse
 
     }
 `;
@@ -86,7 +96,7 @@ export const resolvers = {
 
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) throw new Error("Invalid Login");
-
+        if (!process.env.RESTO_JWT_SECRET) throw new Error("Server Error");
         const token = jwt.sign(
           { id: user.id, email: user.email },
           process.env.RESTO_JWT_SECRET,
@@ -97,6 +107,21 @@ export const resolvers = {
       } catch (err: any) {
         console.log(err?.message);
         return { error: "Invalid Login" };
+      }
+    },
+    updateUser: async (_: any, { theme }: IUpdate, { user }: any) => {
+      try {
+        if (!user) throw new Error("Not Authenticated");
+        if (theme === "light" || theme === "dark") {
+          await User.updateOne({ _id: user.id }, { $set: { theme: theme } });
+        } else {
+          throw new Error("Theme value  is not a valid option");
+        }
+
+        return { theme: theme };
+      } catch (err: any) {
+        console.log(err.message);
+        return { error: err.message };
       }
     },
   },
