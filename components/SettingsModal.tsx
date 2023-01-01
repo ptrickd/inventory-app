@@ -5,6 +5,7 @@ import React, { useEffect, useContext } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 //Material UI
+import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -35,6 +36,20 @@ const UPDATE_THEME = gql`
   }
 `;
 
+const PREFIX = "SettingsModals";
+
+const classes = {
+  root: `${PREFIX}--root`,
+  arrow: `${PREFIX}--arrow`,
+};
+
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  [`& .${classes.arrow}`]: {
+    display: "flex",
+    justifyContent: "flex-start",
+  },
+}));
+
 const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
   const { theme, setTheme } = useContext(UserContext);
   const [updateUser] = useMutation(UPDATE_THEME);
@@ -47,8 +62,8 @@ const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
   };
 
   return (
-    <Dialog open={open} aria-labelledby="settings">
-      <DialogActions>
+    <StyledDialog open={open} aria-labelledby="settings">
+      <DialogActions className={classes.arrow}>
         <IconButton onClick={(e) => handleArrowClicked()}>
           <ArrowBackIcon />
         </IconButton>
@@ -68,7 +83,7 @@ const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
           </Select>
         </FormControl>
       </DialogContent>
-    </Dialog>
+    </StyledDialog>
   );
 };
 
