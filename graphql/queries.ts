@@ -8,6 +8,7 @@ export const REGISTER = gql`
       user {
         id
         email
+        theme
       }
       error
     }
@@ -32,6 +33,7 @@ export const GET_CURRENT_USER = gql`
     currentUser {
       id
       email
+      theme
     }
   }
 `;

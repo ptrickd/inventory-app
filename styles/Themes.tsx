@@ -107,6 +107,6 @@ const darkTheme = createTheme({
 });
 
 const Themes: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>;
+  return <ThemeProvider theme={darkTheme}>{children}</ThemeProvider>;
 };
 export default Themes;

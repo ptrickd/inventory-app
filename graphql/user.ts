@@ -68,7 +68,7 @@ export const resolvers = {
         user = new User({
           email: email.toLowerCase(),
           password: hashedPassword,
-          theme: "Light",
+          theme: "light",
         });
         user = await user.save();
         if (!user) throw new Error("Failed to create user");

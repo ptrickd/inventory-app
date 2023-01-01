@@ -17,7 +17,7 @@ const schema = new Schema<IUser>({
     type: String,
     required: true,
   },
-  theme: { type: String, required: true, default: "Light" },
+  theme: { type: String, required: true, default: "light" },
 });
 
 export default mongoose.models.User || mongoose.model<IUser>("User", schema);

@@ -8,7 +8,9 @@ import AddCategoryForm from "../components/AddCategoryForm";
 import CreateNewReportModal from "../components/CreateNewReportModal";
 import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
+import SettingsModal from "../components/SettingsModal";
 
+//Material UI
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -19,6 +21,7 @@ import ListItem from "@mui/material/ListItem";
 //Icons
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
@@ -112,6 +115,16 @@ function Dashboard() {
             </IconButton>
             <ListItemText primary="Create Inventory Report" />
           </ListItem>
+          <ListItem>
+            <IconButton
+              aria-label="settings"
+              color="primary"
+              onClick={handleSubmittingReport}
+            >
+              <SettingsIcon />
+            </IconButton>
+            <ListItemText primary="Settings" />
+          </ListItem>
         </List>
 
         <AddCategoryForm open={openModal} handleCloseModal={handleCloseModal} />
@@ -127,6 +140,7 @@ function Dashboard() {
           open={openErrorModal}
           handleCloseModal={handleCloseErrorModal}
         />
+        <SettingsModal open={true} />
       </div>
     </StyledContainer>
   );
