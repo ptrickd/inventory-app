@@ -42,7 +42,6 @@ export const resolvers = {
   Query: {
     category: async (_: any, { categoryId }: TIds, { user }: any) => {
       try {
-        console.log("categoryId", categoryId);
         if (!user) throw new Error("Not Authenticated");
         let category = await Category.findById(categoryId);
 

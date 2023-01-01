@@ -1,38 +1,59 @@
 //React
 import React, { useEffect, useContext } from "react";
 
+//GraphQl
+import { useMutation, gql } from "@apollo/client";
+
 //Material UI
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-
 import MenuItem from "@mui/material/MenuItem";
-
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
+//Icons
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
 
 interface IProps {
   open: boolean;
+  handleArrowClicked: () => void;
 }
 
-const SettingsModal = ({ open }: IProps) => {
+const UPDATE_THEME = gql`
+  mutation updateUser($theme: String!) {
+    updateUser(theme: $theme) {
+      theme
+      error
+    }
+  }
+`;
+
+const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
   const { theme, setTheme } = useContext(UserContext);
-  useEffect(() => {
-    if (theme) console.log(`theme:${theme}`);
-  }, [theme]);
+  const [updateUser] = useMutation(UPDATE_THEME);
+
   const handleChange = (event: SelectChangeEvent) => {
-    if (setTheme) setTheme(event.target.value);
+    if (setTheme) {
+      setTheme(event.target.value);
+      updateUser({ variables: { theme: event.target.value } });
+    }
   };
+
   return (
-    <Dialog open={open} aria-labelledby="Settings">
+    <Dialog open={open} aria-labelledby="settings">
+      <DialogActions>
+        <IconButton onClick={(e) => handleArrowClicked()}>
+          <ArrowBackIcon />
+        </IconButton>
+      </DialogActions>
+
       <DialogTitle>Settings</DialogTitle>
       <DialogContent>
         <FormControl sx={{ mt: 2, minWidth: 120 }}>

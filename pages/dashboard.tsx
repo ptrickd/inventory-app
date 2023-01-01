@@ -58,6 +58,7 @@ function Dashboard() {
   const [openCreateNewReport, setOpenCreateNewReport] = useState(false);
   const [openSubmittingModal, setOpenSubmittingModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
+  const [openSettingsModal, setOpenSettingsModal] = useState(false);
 
   //Adding categories
   const handleAddCategory = () => setOpenModal(true);
@@ -80,6 +81,9 @@ function Dashboard() {
   //Display Error Message
   const handleCloseErrorModal = () => setOpenErrorModal(false);
 
+  //Settings Modal
+  const handleCloseSettingsModal = () => setOpenSettingsModal(false);
+  const handleOpenSettingsModal = () => setOpenSettingsModal(true);
   useEffect(() => {
     if (!loggedIn) {
       router.push("/");
@@ -119,7 +123,7 @@ function Dashboard() {
             <IconButton
               aria-label="settings"
               color="primary"
-              onClick={handleSubmittingReport}
+              onClick={handleOpenSettingsModal}
             >
               <SettingsIcon />
             </IconButton>
@@ -140,7 +144,10 @@ function Dashboard() {
           open={openErrorModal}
           handleCloseModal={handleCloseErrorModal}
         />
-        <SettingsModal open={true} />
+        <SettingsModal
+          open={openSettingsModal}
+          handleArrowClicked={handleCloseSettingsModal}
+        />
       </div>
     </StyledContainer>
   );
