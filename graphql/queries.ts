@@ -20,6 +20,7 @@ export const LOGIN = gql`
       user {
         id
         email
+        theme
       }
       error
     }

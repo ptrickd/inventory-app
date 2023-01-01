@@ -6,8 +6,8 @@ import dbConnect from "../utils/dbConnect";
 import User from "../models/user.model";
 
 //Auth
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 dbConnect();
 
@@ -20,6 +20,7 @@ export const typeDef = `
     type User {
         id: ID
         email: String
+        theme: String
         error: String
     }
 
@@ -67,11 +68,13 @@ export const resolvers = {
         user = new User({
           email: email.toLowerCase(),
           password: hashedPassword,
+          theme: "Light",
         });
         user = await user.save();
         if (!user) throw new Error("Failed to create user");
         return { user };
       } catch (err: any) {
+        console.log(err.message);
         return { error: err.message };
       }
     },

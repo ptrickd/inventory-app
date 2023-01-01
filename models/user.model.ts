@@ -1,20 +1,23 @@
-import mongoose from 'mongoose'
+import mongoose, { Types, Model, Schema } from "mongoose";
 
+//Documents definitions
 interface IUser {
-    email: string
-    password: string
+  email: string;
+  password: string;
+  theme: string;
 }
 
-const schema = new mongoose.Schema<IUser>({
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
-})
+const schema = new Schema<IUser>({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  theme: { type: String, required: true, default: "Light" },
+});
 
-export default mongoose.models.User || mongoose.model<IUser>('User', schema)
+export default mongoose.models.User || mongoose.model<IUser>("User", schema);
