@@ -39,7 +39,6 @@ const UPDATE_THEME = gql`
 const PREFIX = "SettingsModals";
 
 const classes = {
-  root: `${PREFIX}--root`,
   arrow: `${PREFIX}--arrow`,
 };
 
