@@ -91,7 +91,8 @@ export default function Home() {
         </StyledTypography>
         <Image
           alt="stock photo"
-          src="/../public/nathan-dumlao-g8gOnhMRckw-unsplash_working.jpg"
+          src="/nathan-dumlao-g8gOnhMRckw-unsplash_working.jpg"
+          // src={require("./../public/nathan-dumlao-g8gOnhMRckw-unsplash_working.jpg")}
           width={500}
           height={300}
         />
