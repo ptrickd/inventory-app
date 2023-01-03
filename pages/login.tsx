@@ -67,16 +67,16 @@ const Login: React.FC = () => {
     }
   }, [loggedIn, router]);
 
-  useEffect(() => {
-    // let responseTimeout: any = null;
-    if (submitting) {
-      const responseTimeout = setTimeout(() => {
-        // console.log("6 seconds wait");
-        setServerErrorMess("Server not responding");
-        setSubmitting(false);
-      }, 6000);
-    }
-  }, [submitting]);
+  // useEffect(() => {
+  //   // let responseTimeout: any = null;
+  //   if (submitting) {
+  //     const responseTimeout = setTimeout(() => {
+  //       // console.log("6 seconds wait");
+  //       setServerErrorMess("Server not responding");
+  //       setSubmitting(false);
+  //     }, 6000);
+  //   }
+  // }, [submitting]);
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);
@@ -97,14 +97,14 @@ const Login: React.FC = () => {
       setToken !== undefined &&
       setTheme !== undefined
     ) {
+      setToken(loginResponse.data.login.token);
+      setTheme(loginResponse.data.login.user.theme);
+      setServerErrorMess("");
       setCurrentUser({
         id: loginResponse.data.login.user.id,
         email: loginResponse.data.login.user.email,
       });
-      setToken(loginResponse.data.login.token);
-      setTheme(loginResponse.data.login.user.theme);
-      setLoggedIn(true);
-      setServerErrorMess("");
+      // setLoggedIn(true);
     }
     // console.log("after all if");
     setSubmitting(false);

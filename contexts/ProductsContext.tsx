@@ -8,6 +8,11 @@ import {
   DELETE_PRODUCT,
   EDIT_PRODUCT,
 } from "../graphql/queries";
+
+//Context
+import { UserContext } from "./UserContext";
+
+//Types
 import { ICategory, IProduct, IAddProduct } from "../types/types";
 
 //Queries

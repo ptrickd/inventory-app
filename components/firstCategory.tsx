@@ -52,14 +52,15 @@ const FirstCategory: React.FC = () => {
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
   const handleModal = (category?: ICategory) => {
     if (category) {
+      setOpenModal(false);
       if (category.error) {
         setMessageError(category.error);
       } else if (category.id) {
-        if (setHasCategory) setHasCategory(true);
+        if (setHasCategory) {
+          setHasCategory(true);
+        }
       }
     }
-
-    setOpenModal(false);
   };
 
   return (

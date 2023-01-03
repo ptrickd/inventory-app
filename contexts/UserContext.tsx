@@ -49,6 +49,10 @@ const UserProvider = ({ children }: IProps) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (currentUser && currentUser?.id !== "") setLoggedIn(true);
+  }, [currentUser]);
+
   const setToken = (token: string) => {
     localStorage.setItem("token", token);
   };

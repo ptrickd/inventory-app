@@ -43,6 +43,7 @@ export default function Loading() {
       router.push("/dashboard");
     }
   }, [loggedIn, router, hasReport, hasCategory, hasProduct, loadingStates]);
+
   if (loadingStates) return null;
   return (
     <StyledContainer className={classes.root} maxWidth="xs">

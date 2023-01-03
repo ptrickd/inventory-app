@@ -1,8 +1,11 @@
 //React
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 //GraphQL
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
+
+//COntext
+import { UserContext } from "./UserContext";
 
 //Queries
 const GET_REPORTS = gql`
@@ -51,6 +54,7 @@ interface IReport {
   dateSubmitted: Date;
 }
 interface IContext {
+  hasReport: boolean;
   reports: IReport[];
   createNewReport: (dateEndingCycle: Date) => any;
 }
@@ -58,13 +62,22 @@ interface IContext {
 const ReportsContext = createContext<Partial<IContext>>({});
 
 const ReportsProvider = ({ children }: IProps) => {
+  const { loggedIn } = useContext(UserContext);
+  const [hasReport, setHasReport] = useState(false);
   const [reports, setReports] = useState<IReport[] | []>([]);
-  const { data, loading, error } = useQuery(GET_REPORTS);
+  const [getReports, { data, loading, error }] = useLazyQuery(GET_REPORTS);
   const [createReport] = useMutation(CREATE_REPORT);
 
   useEffect(() => {
-    setReports(data?.reports?.reports);
+    if (data) {
+      setReports(data?.reports?.reports);
+      setHasReport(true);
+    }
   }, [data]);
+
+  useEffect(() => {
+    if (loggedIn) getReports();
+  }, [loggedIn, getReports]);
 
   async function createNewReport(dateEndingCycle: Date) {
     try {
@@ -73,10 +86,11 @@ const ReportsProvider = ({ children }: IProps) => {
         ...reports,
         response.data.createReport.createdReportResponse,
       ]);
-
+      setHasReport(true);
       return response;
     } catch (err: any) {
       console.log(err?.message);
+      return err.message;
     }
   }
 
@@ -85,6 +99,7 @@ const ReportsProvider = ({ children }: IProps) => {
   return (
     <ReportsContext.Provider
       value={{
+        hasReport,
         reports,
         createNewReport,
       }}

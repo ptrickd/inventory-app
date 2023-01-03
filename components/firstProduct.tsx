@@ -51,13 +51,13 @@ const FirstProduct: React.FC = () => {
   };
 
   useEffect(() => {
-    if (categories && setCategoryId) {
+    if (categories && setCategoryId && categories[0]) {
       console.log(categories[0].name);
       setCategoryId(categories[0].id);
     }
   }, [categories, setCategoryId]);
   //To fix: when no categories do something
-  if (categories === undefined) return null;
+  if (categories === undefined || categories[0] === undefined) return null;
   return (
     <Root>
       <div className={classes.root}>
