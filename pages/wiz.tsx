@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 //GraphQL
 import { gql } from "@apollo/client";
 
-import { Theme, createStyles, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -39,9 +39,6 @@ const Root = styled("div")(({ theme: Theme }) => ({
 }));
 
 //Define types
-interface IFuncProps {
-  currentState: string;
-}
 interface IResponseStatus {
   succeeded: boolean;
   messageError: string;

@@ -69,7 +69,7 @@ const ProductsProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     if (data) {
-      setHasProduct(true);
+      if (data.products.length > 0) setHasProduct(true);
       setProducts(data.products);
     }
   }, [data]);
@@ -101,6 +101,7 @@ const ProductsProvider = ({ children }: IProps) => {
       if (response.data.createProduct.id) {
         // getProducts({ variables: { categoryId: contextCategoryId } })
         await getProducts();
+        setHasProduct(true);
       }
 
       if (response) return response.data.createProduct;

@@ -124,7 +124,7 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
 
   return (
     <StyledDialog
-      open={open}
+      open={openModal}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal("")}
     >

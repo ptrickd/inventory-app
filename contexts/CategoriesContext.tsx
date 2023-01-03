@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 //GraphQL
-import { useMutation, useQuery, gql } from "@apollo/client";
+import { useMutation, useLazyQuery, gql } from "@apollo/client";
 import { CREATE_CATEGORY, GET_CATEGORIES } from "../graphql/queries";
 
 //Context
@@ -37,19 +37,26 @@ const CategoriesContext = createContext<Partial<IContext>>({});
 const CategoriesProvider = ({ children }: IProps) => {
   const [createCategory] = useMutation(CREATE_CATEGORY);
   const [deleteCategory] = useMutation(DELETE_CATEGORY);
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, loggedIn } = useContext(UserContext);
   const [hasCategory, setHasCategory] = useState(false);
 
   //Get set by the useQuery below
   const [categories, setCategories] = useState<ICategory[] | []>([]);
 
-  const { data, loading, error } = useQuery(GET_CATEGORIES);
+  const [getCategories, { data, loading, error }] =
+    useLazyQuery(GET_CATEGORIES);
 
   useEffect(() => {
     if (data?.categories) {
       setCategories(data.categories);
+      console.log(data.categories);
+      if (data.categories.length > 0) setHasCategory(true);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (loggedIn) getCategories();
+  }, [loggedIn, getCategories]);
 
   //add a new category
   async function createCategoryApi({ name }: ICategory) {
