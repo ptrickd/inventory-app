@@ -1,6 +1,3 @@
-//GraphQl
-import { gql } from "apollo-server-micro";
-
 //Models
 import dbConnect from "../utils/dbConnect";
 import User from "../models/user.model";
@@ -9,8 +6,12 @@ import User from "../models/user.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+//Validation
+import Joi from "joi";
+
 dbConnect();
 
+//Types
 interface IRegister {
   email: string;
   password: string;
@@ -20,6 +21,7 @@ interface IUpdate {
   theme: string;
 }
 
+//GraphQl Schema
 export const typeDef = `
     type User {
         id: ID
@@ -56,6 +58,12 @@ export const typeDef = `
     }
 `;
 
+//Validation Schema
+const schemaValidation = Joi.object({
+  email: Joi.string().email({ minDomainSegments: 2 }).required(),
+  password: Joi.string().min(6).required(),
+});
+
 export const resolvers = {
   Query: {
     currentUser: async (_: any, _1: any, { user }: any) => {
@@ -73,6 +81,11 @@ export const resolvers = {
       try {
         let user = await User.findOne({ email });
         if (user) throw new Error("Failed to create user");
+
+        await schemaValidation.validateAsync({
+          email,
+          password,
+        });
 
         const hashedPassword = await bcrypt.hash(password, 10);
         user = new User({
@@ -93,6 +106,11 @@ export const resolvers = {
         const user = await User.findOne({ email });
 
         if (!user) throw new Error("Invalid Login");
+
+        await schemaValidation.validateAsync({
+          email,
+          password,
+        });
 
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) throw new Error("Invalid Login");
