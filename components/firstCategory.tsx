@@ -46,7 +46,6 @@ interface ICategory {
 }
 
 const FirstCategory: React.FC = () => {
-  const { setHasCategory } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
@@ -55,10 +54,6 @@ const FirstCategory: React.FC = () => {
       setOpenModal(false);
       if (category.error) {
         setMessageError(category.error);
-      } else if (category.id) {
-        if (setHasCategory) {
-          setHasCategory(true);
-        }
       }
     }
   };

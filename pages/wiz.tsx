@@ -18,6 +18,9 @@ import FirstProduct from "../components/firstProduct";
 //Context
 import { UserContext } from "../contexts/UserContext";
 import { StatesContext } from "../contexts/StatesContext";
+import { ReportsContext } from "../contexts/ReportsContext";
+import { CategoriesContext } from "../contexts/CategoriesContext";
+import { ProductsContext } from "../contexts/ProductsContext";
 
 const PREFIX = "Wiz";
 
@@ -48,8 +51,11 @@ interface IResponseStatus {
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
   const { loggedIn } = useContext(UserContext);
-  const { hasReport, hasCategory, hasProduct, loadingStates } =
-    useContext(StatesContext);
+  const { loadingStates } = useContext(StatesContext);
+  const { hasReport } = useContext(ReportsContext);
+  const { hasCategory } = useContext(CategoriesContext);
+  const { hasProduct } = useContext(ProductsContext);
+
   const router = useRouter();
 
   //Protecting route

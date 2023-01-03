@@ -32,10 +32,6 @@ interface IProps {
 }
 
 interface IContext {
-  hasCategory: boolean;
-  setHasCategory: (hasCategory: boolean) => void;
-  hasProduct: boolean;
-  setHasProduct: (hasProduct: boolean) => void;
   loadingStates: boolean;
 }
 
@@ -43,7 +39,6 @@ const StatesContext = createContext<Partial<IContext>>({});
 
 const StatesProvider = ({ children }: IProps) => {
   const { loggedIn } = useContext(UserContext);
-  const [hasCategory, setHasCategory] = useState(false);
   const [hasProduct, setHasProduct] = useState(false);
   const [loadingStates, setLoadingStates] = useState(false);
 
@@ -56,9 +51,6 @@ const StatesProvider = ({ children }: IProps) => {
     if (loggedIn) getStates();
   }, [loggedIn, getStates]);
   useEffect(() => {
-    if (data?.numOfCategories) {
-      setHasCategory(true);
-    }
     if (data?.numOfProducts) {
       setHasProduct(true);
     }
@@ -78,10 +70,6 @@ const StatesProvider = ({ children }: IProps) => {
   return (
     <StatesContext.Provider
       value={{
-        hasCategory,
-        setHasCategory,
-        hasProduct,
-        setHasProduct,
         loadingStates,
       }}
     >

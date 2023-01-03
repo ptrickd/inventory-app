@@ -70,8 +70,10 @@ const ReportsProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     if (data) {
-      setReports(data?.reports?.reports);
-      setHasReport(true);
+      const currentsReports = data?.reports?.reports;
+      setReports(currentsReports);
+      console.log(currentsReports);
+      if (currentsReports.length > 0) setHasReport(true);
     }
   }, [data]);
 

@@ -34,6 +34,8 @@ interface IProps {
 }
 
 interface IContext {
+  hasProduct: boolean;
+
   products: IProduct[];
   productsByCategory: () => IProduct[] | [];
   updateProducts: (list: IProduct[]) => void;
@@ -55,7 +57,7 @@ const ProductsProvider = ({ children }: IProps) => {
     (categoryId: string) => void
   ] = useState("");
   const [products, setProducts] = useState<IProduct[] | []>([]);
-
+  const [hasProduct, setHasProduct] = useState(false);
   const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS);
   const [createProduct] = useMutation(CREATE_PRODUCT);
   const [deleteProduct] = useMutation(DELETE_PRODUCT);
@@ -67,6 +69,7 @@ const ProductsProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     if (data) {
+      setHasProduct(true);
       setProducts(data.products);
     }
   }, [data]);
@@ -137,6 +140,7 @@ const ProductsProvider = ({ children }: IProps) => {
   return (
     <ProductsContext.Provider
       value={{
+        hasProduct,
         products,
         productsByCategory,
         updateProducts,

@@ -6,9 +6,6 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-//Contexts
-import { StatesContext } from "../contexts/StatesContext";
-
 //Components
 import CreateNewReportModal from "../components/CreateNewReportModal";
 import DisplayMessage from "./DisplayMessage";
@@ -46,7 +43,6 @@ interface IProps {
 }
 
 const FirstReport: React.FC = () => {
-  const { setHasReport } = useContext(StatesContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Your first step to start your inventory is to choose the 
@@ -56,9 +52,7 @@ const FirstReport: React.FC = () => {
     setOpenModal(false);
     //getting the response from the server if succesful update reportContext
     // or not then display error message
-    if (responseStatus.succeeded) {
-      if (setHasReport) setHasReport(true);
-    } else {
+    if (!responseStatus.succeeded) {
       setMessageError(responseStatus.messageError);
     }
   };

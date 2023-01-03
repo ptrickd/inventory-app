@@ -52,7 +52,6 @@ interface IForm {
 
 function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
   const { addProduct } = useContext(ProductsContext);
-  const { setHasProduct } = useContext(StatesContext);
   const [submitting, setSubmitting] = useState(false);
   const {
     control,
@@ -72,8 +71,6 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
         categoryId: categoryId,
         unit: "ea",
       });
-
-      if (setHasProduct && response.id) setHasProduct(true);
 
       reset({ name: "" });
       setSubmitting(false);

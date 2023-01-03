@@ -16,6 +16,7 @@ interface ICategory {
   name: string;
 }
 interface IContext {
+  hasCategory: boolean;
   categories: ICategory[] | [];
   createCategoryApi: (category: ICategory) => any;
   deleteCategoryApi: (category: ICategory) => void;
@@ -37,6 +38,7 @@ const CategoriesProvider = ({ children }: IProps) => {
   const [createCategory] = useMutation(CREATE_CATEGORY);
   const [deleteCategory] = useMutation(DELETE_CATEGORY);
   const { currentUser } = useContext(UserContext);
+  const [hasCategory, setHasCategory] = useState(false);
 
   //Get set by the useQuery below
   const [categories, setCategories] = useState<ICategory[] | []>([]);
@@ -66,6 +68,7 @@ const CategoriesProvider = ({ children }: IProps) => {
           ...categories,
           { id: response.data.createCategory.id, name },
         ]);
+        setHasCategory(true);
       }
       return (
         response.data.createCategory || {
@@ -92,6 +95,7 @@ const CategoriesProvider = ({ children }: IProps) => {
   return (
     <CategoriesContext.Provider
       value={{
+        hasCategory,
         createCategoryApi,
         deleteCategoryApi,
         categories,
