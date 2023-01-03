@@ -1,6 +1,6 @@
 //Component inviting the user o choose the date of the first report
 //React
-import React, { useState, useEffect, useContext, Fragment } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -45,6 +45,13 @@ const FirstProduct: React.FC = () => {
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first product in the category you just created. An example is Romaine in the Produce category. `;
+
+  useEffect(() => {
+    return () => {
+      setOpenModal(false);
+    };
+  }, []);
+
   const handleModal = (response: string) => {
     if (Boolean(response.length)) setMessageError(response);
     setOpenModal(false);

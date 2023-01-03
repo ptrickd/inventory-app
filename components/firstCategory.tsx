@@ -1,6 +1,6 @@
 //Component inviting the user o choose the date of the first report
 //React
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 //Material UI
 import { styled } from "@mui/material/styles";
@@ -46,6 +46,13 @@ const FirstCategory: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Next you have to create your first category. Example are "Cooler" or "Dry Storage". `;
+
+  useEffect(() => {
+    return () => {
+      setOpenModal(false);
+    };
+  }, []);
+
   const handleModal = (category?: ICategory) => {
     if (category) {
       setOpenModal(false);

@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { styled } from "@mui/material/styles";
 
@@ -52,12 +52,23 @@ interface IForm {
 function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
   const { addProduct } = useContext(ProductsContext);
   const [submitting, setSubmitting] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<IForm>();
+
+  useEffect(() => {
+    return () => {
+      setOpenModal(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (open !== undefined) setOpenModal(open);
+  }, [open]);
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);

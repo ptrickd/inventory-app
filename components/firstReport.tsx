@@ -1,6 +1,6 @@
 //Component inviting the user o choose the date of the first report
 //React
-import React, { useState, useContext, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -38,15 +38,18 @@ interface IResponseStatus {
   succeeded: boolean;
   messageError: string;
 }
-interface IProps {
-  handleResponse: (responseSucceed: IResponseStatus) => void;
-}
 
 const FirstReport: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [messageError, setMessageError] = useState("");
   const textBody = `Your first step to start your inventory is to choose the 
   date of your first report.`;
+
+  useEffect(() => {
+    return () => {
+      setOpenModal(false);
+    };
+  }, []);
 
   const handleModalClicked = (responseStatus: IResponseStatus) => {
     setOpenModal(false);
