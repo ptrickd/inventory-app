@@ -11,9 +11,6 @@ import Button from "@mui/material/Button";
 import AddCategoryForm from "./AddCategoryForm";
 import DisplayMessage from "./DisplayMessage";
 
-//Context
-import { StatesContext } from "../contexts/StatesContext";
-
 const PREFIX = "FirstCategory";
 
 const classes = {

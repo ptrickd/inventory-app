@@ -24,7 +24,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
-import { StatesContext } from "../contexts/StatesContext";
 
 const PREFIX = "index";
 const classes = {

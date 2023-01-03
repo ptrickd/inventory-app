@@ -10,7 +10,6 @@ import { ProductsProvider } from "../contexts/ProductsContext";
 import { UserProvider } from "../contexts/UserContext";
 import { ReportsProvider } from "../contexts/ReportsContext";
 import { CategoriesProvider } from "../contexts/CategoriesContext";
-import { StatesProvider } from "../contexts/StatesContext";
 
 //GraphQL
 import { ApolloProvider } from "@apollo/client";
@@ -28,17 +27,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CategoriesProvider>
           <ProductsProvider>
             <ReportsProvider>
-              <StatesProvider>
-                <Themes>
-                  <Head>
-                    <title>Gruyere: The App Inventory</title>
-                  </Head>
-                  <Navbar />
-                  <ComponentWrapper>
-                    <Component {...pageProps} />
-                  </ComponentWrapper>
-                </Themes>
-              </StatesProvider>
+              <Themes>
+                <Head>
+                  <title>Gruyere: The App Inventory</title>
+                </Head>
+                <Navbar />
+                <ComponentWrapper>
+                  <Component {...pageProps} />
+                </ComponentWrapper>
+              </Themes>
             </ReportsProvider>
           </ProductsProvider>
         </CategoriesProvider>

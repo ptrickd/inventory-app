@@ -5,7 +5,6 @@ import { styled } from "@mui/material/styles";
 
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
-import { StatesContext } from "../contexts/StatesContext";
 
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";

@@ -12,7 +12,6 @@ import WaitingModal from "../components/WaitingModal";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
-import { StatesContext } from "../contexts/StatesContext";
 import { ReportsContext } from "../contexts/ReportsContext";
 import { CategoriesContext } from "../contexts/CategoriesContext";
 import { ProductsContext } from "../contexts/ProductsContext";
@@ -34,7 +33,6 @@ const StyledContainer = styled(Container)(({ theme: Theme }) => ({
 export default function Loading() {
   const router = useRouter();
   const { loggedIn } = useContext(UserContext);
-  const { loadingStates } = useContext(StatesContext);
   const { hasReport } = useContext(ReportsContext);
   const { hasCategory } = useContext(CategoriesContext);
   const { hasProduct } = useContext(ProductsContext);
@@ -42,14 +40,13 @@ export default function Loading() {
   useEffect(() => {
     if (!loggedIn) {
       router.push("/");
-    } else if (!loadingStates && (!hasReport || !hasCategory || !hasProduct)) {
+    } else if (!hasReport || !hasCategory || !hasProduct) {
       router.push("/wiz");
-    } else if (!loadingStates) {
+    } else {
       router.push("/dashboard");
     }
-  }, [loggedIn, router, hasReport, hasCategory, hasProduct, loadingStates]);
+  }, [loggedIn, router, hasReport, hasCategory, hasProduct]);
 
-  if (loadingStates) return null;
   return (
     <StyledContainer className={classes.root} maxWidth="xs">
       <WaitingModal open={true} />

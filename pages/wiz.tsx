@@ -17,7 +17,6 @@ import FirstProduct from "../components/firstProduct";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
-import { StatesContext } from "../contexts/StatesContext";
 import { ReportsContext } from "../contexts/ReportsContext";
 import { CategoriesContext } from "../contexts/CategoriesContext";
 import { ProductsContext } from "../contexts/ProductsContext";
@@ -51,7 +50,6 @@ interface IResponseStatus {
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
   const { loggedIn } = useContext(UserContext);
-  const { loadingStates } = useContext(StatesContext);
   const { hasReport } = useContext(ReportsContext);
   const { hasCategory } = useContext(CategoriesContext);
   const { hasProduct } = useContext(ProductsContext);
@@ -84,7 +82,7 @@ const Wiz: React.FC = () => {
         <Typography>Page Error</Typography>
       </Root>
     );
-  if (loadingStates) return null;
+
   return (
     <Root>
       <CssBaseline />
