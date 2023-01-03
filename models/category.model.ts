@@ -9,7 +9,6 @@ const schema = new mongoose.Schema<ICategory>({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   userId: {
     type: String,

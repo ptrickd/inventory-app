@@ -125,6 +125,7 @@ export const resolvers = {
           .toString()
           .substring(0, 10); //year-month-day format
         const sameDateEndingCycleReport = await Report.findOne({
+          userId: user.id,
           dateEndingCycle: truncatedDateEndingCycle,
         });
 

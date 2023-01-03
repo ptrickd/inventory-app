@@ -7,7 +7,6 @@ import { Category } from "../models/category.model";
 
 //Types
 import { TIds } from "../types/types";
-import mongoose from "mongoose";
 
 dbConnect();
 
@@ -95,7 +94,10 @@ export const resolvers = {
     createCategory: async (_: any, { name }: TIds, { user }: any) => {
       try {
         if (!user) throw new Error("Not Authenticated");
-        let sameCategoryName = await Category.findOne({ name });
+        let sameCategoryName = await Category.findOne({
+          userId: user.id,
+          name,
+        });
         if (sameCategoryName) {
           throw new Error("That category name already exist!");
         }

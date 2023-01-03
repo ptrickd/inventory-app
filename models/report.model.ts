@@ -31,7 +31,6 @@ const reportSchema = new mongoose.Schema<IReport>({
   dateEndingCycle: {
     type: Date,
     required: true,
-    unique: true,
   },
   products: [productSchema],
   dateSubmitted: {
