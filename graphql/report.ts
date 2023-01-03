@@ -105,7 +105,7 @@ export const resolvers = {
     numOfReports: async (_: any, _1: any, { user }: any) => {
       try {
         if (!user) throw new Error("Not Authenticated");
-        return await Report.countDocuments();
+        return await Report.countDocuments({ userId: user.id });
       } catch (err: any) {
         console.log("Printing error: ", err.message);
         return { error: err.message };

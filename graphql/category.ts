@@ -61,8 +61,10 @@ export const resolvers = {
 
         if (!user) throw new Error("Not Authenticated");
 
-        // const categories = await Category.find({ userId: "62eda644bc19ad7c77d31f48" })
-        const categories = await Category.find();
+        const categories = await Category.find({
+          userId: user.id,
+        });
+        // const categories = await Category.find();
 
         if (!categories) throw new Error("No Categories Found");
         // console.log('categories: ', categories)
@@ -82,7 +84,7 @@ export const resolvers = {
       try {
         if (!user) throw new Error("Not Authenticated");
 
-        return await Category.countDocuments();
+        return await Category.countDocuments({ userId: user.id });
       } catch (err: any) {
         console.log("printing error:", err.message);
         return err;
