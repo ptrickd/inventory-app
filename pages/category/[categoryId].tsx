@@ -22,9 +22,6 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-//Time
-import { DateTime } from "luxon";
-
 //Types
 import { IProduct, ICategory } from "../../types/types";
 
@@ -77,7 +74,7 @@ const ProductsPage: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<ICategory | null>(
     null
   );
-
+  const [listOfProducts, setListOfProducts] = useState<IProduct[] | []>([]);
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false);
 
@@ -96,17 +93,15 @@ const ProductsPage: React.FC = () => {
     }
   }, [currentCategory, categoryId, categories, setCategoryId]);
 
+  useEffect(() => {
+    if (productsByCategory !== undefined) setListOfProducts(productsByCategory);
+  }, [productsByCategory]);
+
   /*********************************** */
   const renderedProducts = () => {
-    let products: IProduct[] | [] = [];
-    if (productsByCategory !== undefined) {
-      products = productsByCategory();
-    }
+    if (!listOfProducts) return null;
 
-    if (!products) return null;
-    console.log("product: ", products[0]);
-
-    return products.map((product: IProduct) => {
+    return listOfProducts.map((product: IProduct) => {
       if (product.id != undefined) {
         return (
           <InputProduct

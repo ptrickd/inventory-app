@@ -9,11 +9,8 @@ import {
   EDIT_PRODUCT,
 } from "../graphql/queries";
 
-//Context
-import { UserContext } from "./UserContext";
-
 //Types
-import { ICategory, IProduct, IAddProduct } from "../types/types";
+import { IProduct, IAddProduct } from "../types/types";
 
 //Queries
 const GET_PRODUCTS = gql`
@@ -37,7 +34,7 @@ interface IContext {
   hasProduct: boolean;
 
   products: IProduct[];
-  productsByCategory: () => IProduct[] | [];
+  productsByCategory: IProduct[] | [];
   updateProducts: (list: IProduct[]) => void;
   setCategoryId: (categoryId: string) => void;
   addProduct: (product: IAddProduct) => any;
@@ -56,6 +53,9 @@ const ProductsProvider = ({ children }: IProps) => {
     string,
     (categoryId: string) => void
   ] = useState("");
+  const [productsByCategory, setProductsByCategory] = useState<IProduct[] | []>(
+    []
+  );
   const [products, setProducts] = useState<IProduct[] | []>([]);
   const [hasProduct, setHasProduct] = useState(false);
   const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS);
@@ -65,28 +65,28 @@ const ProductsProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     getProducts();
-  }, [contextCategoryId, getProducts]);
+  }, [getProducts]);
 
   useEffect(() => {
     if (data) {
       if (data.products.length > 0) setHasProduct(true);
+
       setProducts(data.products);
     }
   }, [data]);
 
-  const updateProducts = (list: IProduct[]) => {
-    setProducts(list);
-  };
-
-  const productsByCategory = () => {
+  useEffect(() => {
     let productsToReturn: IProduct[] | [] = [];
-    if (contextCategoryId.length) {
+    if (contextCategoryId.length > 0) {
       productsToReturn = products.filter(
         (product) => product.categoryId === contextCategoryId
       );
+      setProductsByCategory(productsToReturn);
     }
+  }, [contextCategoryId, products]);
 
-    return productsToReturn;
+  const updateProducts = (list: IProduct[]) => {
+    setProducts(list);
   };
 
   async function addProduct({ name, categoryId, unit }: IAddProduct) {
@@ -99,8 +99,16 @@ const ProductsProvider = ({ children }: IProps) => {
         },
       });
       if (response.data.createProduct.id) {
-        // getProducts({ variables: { categoryId: contextCategoryId } })
-        await getProducts();
+        //set product here add the response to current products
+        setProducts([
+          ...products,
+          {
+            id: response.data.createProduct.id,
+            name: response.data.createProduct.name,
+            categoryId: response.data.createProduct.categoryId,
+            unit: response.data.createProduct.unit,
+          },
+        ]);
         setHasProduct(true);
       }
 
