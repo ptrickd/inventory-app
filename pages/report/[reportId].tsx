@@ -1,12 +1,12 @@
 //React
 import { useEffect, useContext } from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
 //Material UI
+
+import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";

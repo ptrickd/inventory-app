@@ -9,6 +9,7 @@ import CreateNewReportModal from "../components/CreateNewReportModal";
 import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
 import SettingsModal from "../components/SettingsModal";
+import Footer from "../Layout/Footer";
 
 //Material UI
 import Container from "@mui/material/Container";
@@ -148,6 +149,7 @@ function Dashboard() {
           open={openSettingsModal}
           handleArrowClicked={handleCloseSettingsModal}
         />
+        <Footer />
       </div>
     </StyledContainer>
   );
