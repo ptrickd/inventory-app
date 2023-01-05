@@ -102,7 +102,6 @@ const Report: React.FC = () => {
     if (products) {
       return products.map((product: any) => {
         if (categoryId === product.categoryId) {
-          console.log(product);
           return (
             <TableBody key={product.id}>
               <TableRow
@@ -115,6 +114,8 @@ const Report: React.FC = () => {
                   {product.name}
                 </TableCell>
                 <TableCell align="right">{product.currentAmount}</TableCell>
+                <TableCell align="right">{product.previousAmount}</TableCell>
+
                 <TableCell align="right">{product.unit}</TableCell>
               </TableRow>
             </TableBody>
@@ -137,7 +138,8 @@ const Report: React.FC = () => {
                 <TableHead className={classes.category}>
                   <TableRow>
                     <TableCell>{category.name}</TableCell>
-                    <TableCell align="right">Current Amount</TableCell>
+                    <TableCell align="right">Current </TableCell>
+                    <TableCell align="right">Last</TableCell>
                     <TableCell align="right">Unit</TableCell>
                   </TableRow>
                 </TableHead>

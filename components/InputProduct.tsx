@@ -7,7 +7,7 @@ import React, {
   ChangeEvent,
 } from "react";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 //Context
 import { ProductsContext } from "../contexts/ProductsContext";
@@ -41,7 +41,7 @@ import { IProduct } from "../types/types";
 //Constants
 import { MEASURE_UNITS } from "../constants/measureUnits";
 
-const PREFIX = 'InputProduct';
+const PREFIX = "InputProduct";
 
 const classes = {
   root: `${PREFIX}-root`,
@@ -51,14 +51,10 @@ const classes = {
   selectUnit: `${PREFIX}-selectUnit`,
   box: `${PREFIX}-box`,
   lastAmountName: `${PREFIX}-lastAmountName`,
-  lastAmountValue: `${PREFIX}-lastAmountValue`
+  lastAmountValue: `${PREFIX}-lastAmountValue`,
 };
 
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled("div")(({ theme }) => ({
   [`&.${classes.root}`]: {
     width: "100%",
   },
@@ -97,7 +93,7 @@ const Root = styled('div')((
   [`& .${classes.lastAmountValue}`]: {
     height: "auto",
     padding: theme.spacing(0.7),
-  }
+  },
 }));
 
 const UPDATE_AMOUNT = gql`
@@ -135,7 +131,6 @@ const InputProduct: React.FC<IProps> = ({
   showAmounts,
   measureUnit,
 }) => {
-
   const { products, updateProducts, deleteProductApi } =
     useContext(ProductsContext);
   const [openEditProductForm, setOpenEditProductModal] =
@@ -157,8 +152,23 @@ const InputProduct: React.FC<IProps> = ({
     };
     if (measureUnit !== currentMeasureUnit) {
       updateUnit();
+      if (products) {
+        const newProductsList = products.map((product) => {
+          if (product.id === id) {
+            return { ...product, unit: currentMeasureUnit };
+          } else return product;
+        });
+        if (updateProducts) updateProducts(newProductsList);
+      }
     }
-  }, [currentMeasureUnit, id, measureUnit, saveNewUnit]);
+  }, [
+    currentMeasureUnit,
+    id,
+    measureUnit,
+    saveNewUnit,
+    products,
+    updateProducts,
+  ]);
 
   const handleEditAddProductForm = () => setOpenEditProductModal(false);
 
