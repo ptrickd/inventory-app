@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 //Material UI
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -20,21 +21,38 @@ import { UserContext } from "../contexts/UserContext";
 //Components
 import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
+import Footer from "../Layout/Footer";
 
 const PREFIX = "Register";
 
 const classes = {
   root: `${PREFIX}-root`,
+  main: `${PREFIX}-main`,
+  title: `${PREFIX}-title`,
 };
 
-const StyledContainer = styled(Container)(({ theme: Theme }) => ({
+const Root = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
     display: "flex",
-    minHeight: "70vh",
+    minHeight: "calc(100vh - 120px)",
     flexDirection: "column",
-    justifyContent: "center",
-    alignContent: "center",
+    width: "100%",
   },
+}));
+
+const Main = styled(Box)(() => ({
+  [`&.${classes.main}`]: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "15%",
+    width: "100%",
+    minHeight: "70vh",
+    alignContent: "space-between",
+  },
+}));
+
+const Title = styled(Typography)(() => ({
+  [`&.${classes.title}`]: { marginBottom: 15 },
 }));
 
 interface IForm {
@@ -75,16 +93,23 @@ const Register: React.FC = () => {
   };
 
   return (
-    <StyledContainer className={classes.root} maxWidth="xs">
-      <Typography variant="h2" align="center">
-        Register
-      </Typography>
-      <DisplayMessage
-        message={serverErrorMess}
-        show={Boolean(serverErrorMess.length)}
-      />
-      <AuthForm onSubmit={onSubmit} submitting={submitting} label="Register" />
-    </StyledContainer>
+    <Root className={classes.root} maxWidth="xs">
+      <Main className={classes.main}>
+        <Title variant="h2" align="center" className={classes.title}>
+          Register
+        </Title>
+        <DisplayMessage
+          message={serverErrorMess}
+          show={Boolean(serverErrorMess.length)}
+        />
+        <AuthForm
+          onSubmit={onSubmit}
+          submitting={submitting}
+          label="Register"
+        />
+      </Main>
+      <Footer />
+    </Root>
   );
 };
 

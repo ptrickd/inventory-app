@@ -41,6 +41,7 @@ const Root = styled(Container)(({ theme: Theme }) => ({
     width: "100%",
   },
 }));
+
 const Main = styled(Box)(() => ({
   [`&.${classes.main}`]: {
     display: "flex",
@@ -51,6 +52,7 @@ const Main = styled(Box)(() => ({
     alignContent: "space-between",
   },
 }));
+
 const Title = styled(Typography)(() => ({
   [`&.${classes.title}`]: { marginBottom: 15 },
 }));
