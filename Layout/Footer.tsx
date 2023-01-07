@@ -24,17 +24,11 @@ const classes = {
 //Add position:relative to all parent container
 const StyledContainer = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
-    minHeight: 50,
-    marginBottom: -60,
-    width: "100%",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
+    marginTop: "auto",
   },
   [`&.${classes.contact}`]: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
   },
 }));
 
