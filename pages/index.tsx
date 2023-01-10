@@ -18,6 +18,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
@@ -28,24 +29,37 @@ import Footer from "../Layout/Footer";
 const PREFIX = "index";
 const classes = {
   root: `${PREFIX}--root`,
+  main: `${PREFIX}-main`,
   title: `$(PREFIX)--title`,
   subtitle: `$(PREFIX)--subtitle`,
   button: `$(PREFIX)--button`,
 };
-const StyledContainer = styled(Container)(({ theme: Theme }) => ({
+const Root = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
-    position: "relative",
-    minHeight: "100vh",
     display: "flex",
+    minHeight: "calc(100vh - 120px)",
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-around",
+    width: "100%",
   },
 }));
+
+const Main = styled(Box)(() => ({
+  [`&.${classes.main}`]: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "15%",
+    marginBottom: "10%",
+    width: "100%",
+    minHeight: "70vh",
+    alignContent: "space-between",
+  },
+}));
+
 const StyledTypography = styled(Typography)(({ theme: Theme }) => ({
   [`&.${classes.title}`]: { marginBottom: 20 },
   [`&.${classes.subtitle}`]: { marginBottom: 20 },
 }));
+
 const StyledButton = styled(Button)(({ theme: Theme }) => ({
   [`&.${classes.button}`]: {
     width: "70%",
@@ -66,10 +80,8 @@ export default function Home() {
   }, [loggedIn, router]);
   // if (loggedIn) router.push("/loading");
   return (
-    <Fragment>
-      <CssBaseline />
-      <StyledContainer className={classes.root} maxWidth="md">
-        {/* <div> */}
+    <Root className={classes.root} maxWidth="md">
+      <Main className={classes.main}>
         <StyledTypography className={classes.title} variant="h4" align="center">
           Gruyere
         </StyledTypography>
@@ -77,6 +89,7 @@ export default function Home() {
           className={classes.subtitle}
           variant="h5"
           align="center"
+          sx={{ marginTop: 10, marginBottom: 10 }}
         >
           Your Kitchen Inventory App Management
         </StyledTypography>
@@ -87,7 +100,7 @@ export default function Home() {
           height={300}
         />
         <Link href="/login">
-          <Button
+          <StyledButton
             className={classes.button}
             // fullWidth
             variant="contained"
@@ -95,10 +108,10 @@ export default function Home() {
             size="large"
           >
             Start
-          </Button>
+          </StyledButton>
         </Link>
-        <Footer />
-      </StyledContainer>
-    </Fragment>
+      </Main>
+      <Footer />
+    </Root>
   );
 }
