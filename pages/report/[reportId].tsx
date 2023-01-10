@@ -27,10 +27,14 @@ import { UserContext } from "../../contexts/UserContext";
 import { CategoriesContext } from "../../contexts/CategoriesContext";
 import { ProductsContext } from "../../contexts/ProductsContext";
 
+//Component
+import Footer from "../../Layout/Footer";
+
 const PREFIX = "Report";
 
 const classes = {
   root: `${PREFIX}-root`,
+  main: `${PREFIX}-main`,
   title: `${PREFIX}-title`,
   date: `${PREFIX}-date`,
   category: `${PREFIX}-category`,
@@ -38,12 +42,12 @@ const classes = {
   categoryDiv: `${PREFIX}-categoryDiv`,
 };
 
-const StyledContainer = styled(Container)(({ theme: Theme }) => ({
+const Root = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
-    width: "100%",
     display: "flex",
-    justifyContent: "center",
+    minHeight: "calc(100vh - 120px)",
     flexDirection: "column",
+    width: "100%",
   },
 
   [`& .${classes.title}`]: {
@@ -60,6 +64,18 @@ const StyledContainer = styled(Container)(({ theme: Theme }) => ({
 
   [`& .${classes.date}`]: {
     marginBottom: 15,
+  },
+}));
+
+const Main = styled(Box)(() => ({
+  [`&.${classes.main}`]: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "15%",
+    marginBottom: "10%",
+    width: "100%",
+    minHeight: "70vh",
+    alignContent: "space-between",
   },
 }));
 
@@ -153,16 +169,19 @@ const Report: React.FC = () => {
   };
 
   return (
-    <StyledContainer className={classes.root}>
-      <Typography className={classes.title} variant="h3" align="center">
-        Report
-      </Typography>
-      <Typography className={classes.date} variant="h6" align="center">
-        {date.toFormat("dd MMMM, yyyy")}
-      </Typography>
+    <Root className={classes.root}>
+      <Main component="xs" className={classes.main}>
+        <Typography className={classes.title} variant="h3" align="center">
+          Report
+        </Typography>
+        <Typography className={classes.date} variant="h6" align="center">
+          {date.toFormat("dd MMMM, yyyy")}
+        </Typography>
 
-      {renderedReport()}
-    </StyledContainer>
+        {renderedReport()}
+      </Main>
+      <Footer />
+    </Root>
   );
 };
 
