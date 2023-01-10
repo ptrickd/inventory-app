@@ -1,19 +1,21 @@
 //React
 import React, { useState, useEffect, useContext, Fragment } from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
 //GraphQL
 import { gql } from "@apollo/client";
 
+//Material UI
+import { styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 
 //Components
 import FirstReport from "../components/firstReport";
 import FirstCategory from "../components/firstCategory";
 import FirstProduct from "../components/firstProduct";
+import Footer from "../Layout/Footer";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
@@ -25,16 +27,30 @@ const PREFIX = "Wiz";
 
 const classes = {
   root: `${PREFIX}-root`,
+  main: `${PREFIX}-main`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled("div")(({ theme: Theme }) => ({
-  [`& .${classes.root}`]: {
+const Root = styled(Container)(({ theme: Theme }) => ({
+  [`&.${classes.root}`]: {
     padding: 20,
     display: "flex",
+    minHeight: "calc(100vh - 120px)",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
+  },
+}));
+
+const Main = styled(Box)(() => ({
+  [`&.${classes.main}`]: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "15%",
+    marginBottom: "10%",
+    width: "100%",
+    minHeight: "70vh",
+    alignContent: "space-between",
   },
 }));
 
@@ -81,15 +97,15 @@ const Wiz: React.FC = () => {
     );
 
   return (
-    <Root>
-      <CssBaseline />
-      <Container maxWidth="md" className={classes.root}>
+    <Root maxWidth="md" className={classes.root}>
+      <Main>
         {/* <ComponentToDisplay currentState={states.state} /> */}
 
         {!hasReport && <FirstReport />}
         {hasReport && !hasCategory && <FirstCategory />}
         {hasReport && hasCategory && !hasProduct && <FirstProduct />}
-      </Container>
+      </Main>
+      <Footer />
     </Root>
   );
 };
