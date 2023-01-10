@@ -12,6 +12,9 @@ import {
 //Types
 import { IProduct, IAddProduct } from "../types/types";
 
+//Context
+import { UserContext } from "./UserContext";
+
 //Queries
 const GET_PRODUCTS = gql`
   query Product {
@@ -49,6 +52,7 @@ interface IContext {
 const ProductsContext = createContext<Partial<IContext>>({});
 
 const ProductsProvider = ({ children }: IProps) => {
+  const { loggedIn } = useContext(UserContext);
   const [contextCategoryId, setCategoryId]: [
     string,
     (categoryId: string) => void
@@ -64,8 +68,8 @@ const ProductsProvider = ({ children }: IProps) => {
   const [editProduct] = useMutation(EDIT_PRODUCT);
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    if (loggedIn) getProducts();
+  }, [getProducts, loggedIn]);
 
   useEffect(() => {
     if (data) {
