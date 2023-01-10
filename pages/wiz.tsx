@@ -98,7 +98,7 @@ const Wiz: React.FC = () => {
 
   return (
     <Root maxWidth="md" className={classes.root}>
-      <Main>
+      <Main component="div" className={classes.main}>
         {/* <ComponentToDisplay currentState={states.state} /> */}
 
         {!hasReport && <FirstReport />}
