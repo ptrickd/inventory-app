@@ -18,6 +18,7 @@ import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
+import Box from "@mui/material/Box";
 
 //Icons
 import IconButton from "@mui/material/IconButton";
@@ -31,18 +32,33 @@ const PREFIX = "Dashboard";
 
 const classes = {
   root: `${PREFIX}-root`,
+  main: `${PREFIX}-main`,
   divider: `${PREFIX}-divider`,
 };
 
-const StyledContainer = styled(Container)(({ theme: Theme }) => ({
-  [`& .${classes.root}`]: {
+const Root = styled(Container)(({ theme: Theme }) => ({
+  [`&.${classes.root}`]: {
     display: "flex",
-    marginTop: 60,
-    justifyContent: "center",
+    minHeight: "calc(100vh - 120px)",
+    flexDirection: "column",
+    width: "100%",
   },
-
-  [`& .${classes.divider}`]: {
-    marginTop: 10,
+}));
+const Main = styled(Box)(() => ({
+  [`&.${classes.main}`]: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "15%",
+    marginBottom: "10%",
+    width: "100%",
+    minHeight: "70vh",
+    alignContent: "space-between",
+  },
+}));
+const StyledDivider = styled(Divider)(() => ({
+  [`&.${classes.divider}`]: {
+    // marginTop: 10,
+    marginBottom: 10,
   },
 }));
 
@@ -92,13 +108,12 @@ function Dashboard() {
   }, [loggedIn, router]);
 
   return (
-    <StyledContainer>
-      <div className={classes.root}>
+    <Root className={classes.root} maxWidth="xs">
+      <Main component="div" className={classes.main}>
+        <Typography variant="h4">{currentUser && currentUser.email}</Typography>
+        <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+
         <List>
-          <Typography variant="h4">
-            {currentUser && currentUser.email}
-          </Typography>
-          <Divider className={classes.divider} />
           <ListItem>
             <IconButton
               aria-label="add category"
@@ -149,9 +164,9 @@ function Dashboard() {
           open={openSettingsModal}
           handleArrowClicked={handleCloseSettingsModal}
         />
-        <Footer />
-      </div>
-    </StyledContainer>
+      </Main>
+      <Footer />
+    </Root>
   );
 }
 
