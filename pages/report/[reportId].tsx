@@ -1,5 +1,5 @@
 //React
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
@@ -88,8 +88,23 @@ const GET_REPORT = gql`
   }
 `;
 
+// Types
+
+interface IProduct {
+  id: string;
+  name: string;
+  currentAmount: number;
+  previousAmount: number;
+  unit: string;
+}
+interface IReport {
+  categoryName: string;
+  productsList: IProduct[] | [];
+}
+
 const Report: React.FC = () => {
   const router = useRouter();
+  const [reportList, setReportList] = useState<[] | IReport[]>([]);
   const { reportId } = router.query;
   const { loggedIn } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
@@ -98,12 +113,40 @@ const Report: React.FC = () => {
     variables: { reportId: reportId },
     skip: !reportId,
   });
-  // const {
-  //   //Aliases for useQuery
-  //   data: dataCategories,
-  //   loading: loadingCategories,
-  //   error: errorCategories,
-  // } = useQuery(GET_CATEGORIES);
+
+  //Create list in useEffect to limit computation on rerender
+  useEffect(() => {
+    const newReportList = categories?.map((category) => {
+      const listProductsByCategory: IProduct[] = [];
+
+      products?.forEach((product) => {
+        if (category.id === product.categoryId) {
+          if (
+            product.id !== undefined &&
+            product.name !== undefined &&
+            product.currentAmount !== undefined &&
+            product.previousAmount !== undefined &&
+            product.unit !== undefined
+          ) {
+            listProductsByCategory.push({
+              id: product.id,
+              name: product.name,
+              currentAmount: product.currentAmount,
+              previousAmount: product.previousAmount,
+              unit: product.unit,
+            });
+          }
+        }
+      });
+      return {
+        categoryName: category.name,
+        productsList: listProductsByCategory,
+      };
+    });
+
+    if (newReportList !== undefined) setReportList(newReportList);
+    else setReportList([]);
+  }, [categories, products, setReportList]);
 
   useEffect(() => {
     if (!loggedIn) router.push("/");
@@ -114,58 +157,52 @@ const Report: React.FC = () => {
   if (!data) return <p>No data...</p>;
   const date = DateTime.fromISO(data.report.dateEndingCycle);
 
-  const productsByCategory = (categoryId: string) => {
-    if (products) {
-      return products.map((product: any) => {
-        if (categoryId === product.categoryId) {
-          return (
-            <TableBody key={product.id}>
-              <TableRow
-                key={product.id}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  {product.name}
-                </TableCell>
-                <TableCell align="right">{product.currentAmount}</TableCell>
-                <TableCell align="right">{product.previousAmount}</TableCell>
+  const productsByCategory = (productList: IProduct[]) => {
+    return productList.map((product: IProduct) => {
+      return (
+        <TableBody key={product.name}>
+          <TableRow
+            key={product.id}
+            sx={{
+              "&:last-child td, &:last-child th": { border: 0 },
+            }}
+          >
+            <TableCell component="th" scope="row">
+              {product.name}
+            </TableCell>
+            <TableCell align="right">{product.currentAmount}</TableCell>
+            <TableCell align="right">{product.previousAmount}</TableCell>
 
-                <TableCell align="right">{product.unit}</TableCell>
-              </TableRow>
-            </TableBody>
-          );
-        }
-      });
-    } else return null;
+            <TableCell align="right">{product.unit}</TableCell>
+          </TableRow>
+        </TableBody>
+      );
+    });
   };
   const renderedReport = () => {
-    if (categories) {
-      return categories.map((category: any) => {
-        return (
-          <Box
-            component="div"
-            key={category.id}
-            className={classes.categoryDiv}
-          >
-            <TableContainer component={Paper}>
-              <Table aria-label="report table">
-                <TableHead className={classes.category}>
-                  <TableRow>
-                    <TableCell>{category.name}</TableCell>
-                    <TableCell align="right">Current </TableCell>
-                    <TableCell align="right">Last</TableCell>
-                    <TableCell align="right">Unit</TableCell>
-                  </TableRow>
-                </TableHead>
-                {productsByCategory(category.id)}
-              </Table>
-            </TableContainer>
-          </Box>
-        );
-      });
-    } else return null;
+    return reportList.map((report: IReport) => {
+      return (
+        <Box
+          component="div"
+          key={report.categoryName}
+          className={classes.categoryDiv}
+        >
+          <TableContainer component={Paper}>
+            <Table aria-label="report table">
+              <TableHead className={classes.category}>
+                <TableRow>
+                  <TableCell>{report.categoryName}</TableCell>
+                  <TableCell align="right">Current </TableCell>
+                  <TableCell align="right">Last</TableCell>
+                  <TableCell align="right">Unit</TableCell>
+                </TableRow>
+              </TableHead>
+              {productsByCategory(report.productsList)}
+            </Table>
+          </TableContainer>
+        </Box>
+      );
+    });
   };
 
   return (

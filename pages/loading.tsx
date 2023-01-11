@@ -38,15 +38,23 @@ export default function Loading() {
   const { hasProduct } = useContext(ProductsContext);
 
   useEffect(() => {
-    if (!loggedIn) {
-      router.push("/");
-    } else if (!hasReport || !hasCategory || !hasProduct) {
-      router.push("/wiz");
-    } else {
-      router.push("/dashboard");
+    if (
+      loggedIn !== undefined &&
+      hasReport !== undefined &&
+      hasCategory !== undefined &&
+      hasProduct !== undefined
+    ) {
+      if (!loggedIn) {
+        router.push("/");
+      } else if (!hasReport || !hasCategory || !hasProduct) {
+        router.push("/wiz");
+      } else {
+        router.push("/dashboard");
+      }
     }
   }, [loggedIn, router, hasReport, hasCategory, hasProduct]);
 
+  return null;
   return (
     <StyledContainer className={classes.root} maxWidth="xs">
       <WaitingModal open={true} />
