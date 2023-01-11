@@ -75,10 +75,9 @@ export default function Home() {
 
   useEffect(() => {
     if (loggedIn) {
-      router.push("/loading");
+      router.push("/wiz");
     }
   }, [loggedIn, router]);
-  // if (loggedIn) router.push("/loading");
   return (
     <Root className={classes.root} maxWidth="md">
       <Main className={classes.main}>

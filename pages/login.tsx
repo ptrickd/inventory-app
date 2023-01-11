@@ -81,8 +81,9 @@ const Login: React.FC = () => {
   const [login] = useMutation(LOGIN);
 
   useEffect(() => {
+    //Push to wiz wiz will redirect if incorrect
     if (loggedIn) {
-      router.push("/loading");
+      router.push("/wiz");
     }
   }, [loggedIn, router]);
 
