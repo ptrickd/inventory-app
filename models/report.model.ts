@@ -12,15 +12,13 @@ interface IReport {
 interface IProduct {
   productId: String;
   amount: Number;
-  name: String;
-  categoryId: String;
+  unit: String;
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
   productId: String,
   amount: Number,
-  name: String,
-  categoryId: String,
+  unit: String,
 });
 
 const reportSchema = new mongoose.Schema<IReport>({

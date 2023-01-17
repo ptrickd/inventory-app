@@ -1,6 +1,7 @@
 //Models
 import dbConnect from "../utils/dbConnect";
 import Report from "../models/report.model";
+// import Category from "../models/category.model";
 import Product from "../models/product.model";
 
 //GraphQl
@@ -10,7 +11,7 @@ import { gql } from "apollo-server-micro";
 import { DateTime } from "luxon";
 
 //Types
-import { TIds, IProduct } from "../types/types";
+import { TIds } from "../types/types";
 
 dbConnect();
 
@@ -20,6 +21,11 @@ interface IProductInReport {
   name: string;
   categoryId: string;
 }
+
+interface ISubmitReport {
+  reportId: string;
+}
+
 interface ICreateReport {
   dateEndingCycle: Date;
 }
@@ -69,6 +75,11 @@ export const typeDef = gql`
     error: String
   }
 
+  type SubmitedReportResponse {
+    success: Boolean
+    error: String
+  }
+
   extend type Query {
     report(reportId: ID): Report
     reports: ReportsResponse
@@ -77,6 +88,7 @@ export const typeDef = gql`
 
   extend type Mutation {
     createReport(dateEndingCycle: Date): createdReportResponse
+    submitReport(reportId: ID): SubmitedReportResponse
   }
 `;
 export const resolvers = {
@@ -140,14 +152,6 @@ export const resolvers = {
           dateCreated: DateTime.now().toISO(),
         });
 
-        //when submitting
-        //create a routine get currentAmount
-        //dateSubmitted
-        //hasBeenSubmitting
-        //writing last amount
-        // resetting currentAmount
-        //add products to report
-
         if (!report) throw new Error("Can't create report");
 
         return report;
@@ -155,6 +159,60 @@ export const resolvers = {
         console.log(err.message);
         let report = { error: err.message };
         return report;
+      }
+    },
+    submitReport: async (
+      _: any,
+      { reportId }: ISubmitReport,
+      { user }: any
+    ) => {
+      try {
+        if (!user) throw new Error("Not Authenticated");
+        let report = await Report.findOne({ _id: reportId });
+        if (!report) throw new Error("This report do not exist!");
+
+        //when submitting
+        const allProducts = await Product.find({ userId: user.id });
+        let listOfProductsForReport = allProducts.map((product) => {
+          //create a routine get currentAmount
+          const productObj = {
+            productId: product.id,
+            amount: product.currentAmount,
+            unit: product.unit,
+          };
+          return productObj;
+        });
+
+        //dateSubmitted
+        const dateSubmitted = DateTime.now().toISO();
+        report.dateSubmitted = dateSubmitted;
+
+        //Modify products, writing previousAmount, resetting currentAmount
+
+        //add products to report
+        report.products = listOfProductsForReport;
+
+        //hasBeenSubmitting
+        report.hasBeenSubmitted = true;
+
+        //Save products new amounts
+
+        Product.find({ userId: user.id })
+          .cursor()
+          .map((product) => product)
+          .on("data", (product) => {
+            const newPreviousAmount = product.currentAmount;
+            product.currentAmount = 0;
+            product.previousAmount = newPreviousAmount;
+            product.save();
+          });
+        //Save report
+        report.save();
+
+        return { success: true };
+      } catch (err: any) {
+        console.log(err.message);
+        return { error: err.message };
       }
     },
   },
