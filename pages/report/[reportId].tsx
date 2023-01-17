@@ -15,9 +15,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 //GraphQL
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 //Date
 import { DateTime } from "luxon";
@@ -40,6 +41,8 @@ const classes = {
   category: `${PREFIX}-category`,
   product: `${PREFIX}-product`,
   categoryDiv: `${PREFIX}-categoryDiv`,
+  button: `${PREFIX}-button`,
+  status: `${PREFIX}-status`,
 };
 
 const Root = styled(Container)(({ theme: Theme }) => ({
@@ -79,11 +82,34 @@ const Main = styled(Box)(() => ({
   },
 }));
 
+const StyledButton = styled(Button)(() => ({
+  [`&.${classes.button}`]: {
+    width: "70%",
+    alignSelf: "center",
+    marginTop: 10,
+  },
+}));
+
+const Status = styled(Typography)(() => ({
+  [`&.${classes.status}`]: {
+    marginBottom: 10,
+  },
+}));
+
+//GraphQl Query
 const GET_REPORT = gql`
   query Report($reportId: ID!) {
     report(reportId: $reportId) {
       id
       dateEndingCycle
+    }
+  }
+`; //
+const SUBMIT_REPORT = gql`
+  mutation SubmitReport($reportId: ID!) {
+    submitReport(reportId: $reportId) {
+      success
+      error
     }
   }
 `;
@@ -105,6 +131,9 @@ interface IReport {
 const Report: React.FC = () => {
   const router = useRouter();
   const [reportList, setReportList] = useState<[] | IReport[]>([]);
+  const [status, setStatus] = useState<"Not Submitted" | "Submitted">(
+    "Not Submitted"
+  );
   const { reportId } = router.query;
   const { loggedIn } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
@@ -113,7 +142,15 @@ const Report: React.FC = () => {
     variables: { reportId: reportId },
     skip: !reportId,
   });
+  const [submitReport, { data: dataSubmitReport }] = useMutation(SUBMIT_REPORT);
 
+  //for testing/////////////
+  useEffect(() => {
+    console.log(dataSubmitReport);
+  }, [dataSubmitReport]);
+
+  // useEffect(() => {}, [reportId]);
+  /////////////////////////////
   //Create list in useEffect to limit computation on rerender
   useEffect(() => {
     const newReportList = categories?.map((category) => {
@@ -214,8 +251,27 @@ const Report: React.FC = () => {
         <Typography className={classes.date} variant="h6" align="center">
           {date.toFormat("dd MMMM, yyyy")}
         </Typography>
-
+        <Status className={classes.status} variant="body1" align="center">
+          Status: {status}
+        </Status>
         {renderedReport()}
+        <StyledButton
+          variant="contained"
+          className={classes.button}
+          onClick={async (event) => {
+            try {
+              if (reportId) {
+                await submitReport({
+                  variables: { reportId },
+                });
+              }
+            } catch (err: any) {
+              console.log(err.message);
+            }
+          }}
+        >
+          Submit
+        </StyledButton>
       </Main>
       <Footer />
     </Root>

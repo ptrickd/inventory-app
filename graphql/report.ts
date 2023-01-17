@@ -167,8 +167,9 @@ export const resolvers = {
       { user }: any
     ) => {
       try {
+        console.log("first line try submit report");
         if (!user) throw new Error("Not Authenticated");
-        let report = await Report.findOne({ _id: reportId });
+        let report = await Report.findOne({ _id: reportId, userId: user.id });
         if (!report) throw new Error("This report do not exist!");
 
         //when submitting
