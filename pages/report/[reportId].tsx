@@ -30,6 +30,8 @@ import { ProductsContext } from "../../contexts/ProductsContext";
 
 //Component
 import Footer from "../../Layout/Footer";
+import WaitingModal from "../../components/WaitingModal";
+import MessageModal from "../../components/MessageModal";
 
 const PREFIX = "Report";
 
@@ -102,6 +104,7 @@ const GET_REPORT = gql`
     report(reportId: $reportId) {
       id
       dateEndingCycle
+      hasBeenSubmitted
     }
   }
 `; //
@@ -131,6 +134,7 @@ interface IReport {
 const Report: React.FC = () => {
   const router = useRouter();
   const [reportList, setReportList] = useState<[] | IReport[]>([]);
+  const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<"Not Submitted" | "Submitted">(
     "Not Submitted"
   );
@@ -144,13 +148,11 @@ const Report: React.FC = () => {
   });
   const [submitReport, { data: dataSubmitReport }] = useMutation(SUBMIT_REPORT);
 
-  //for testing/////////////
+  //Update status
   useEffect(() => {
-    console.log(dataSubmitReport);
-  }, [dataSubmitReport]);
+    if (data && data.report.hasBeenSubmitted) setStatus("Submitted");
+  }, [data]);
 
-  // useEffect(() => {}, [reportId]);
-  /////////////////////////////
   //Create list in useEffect to limit computation on rerender
   useEffect(() => {
     const newReportList = categories?.map((category) => {
@@ -259,19 +261,26 @@ const Report: React.FC = () => {
           variant="contained"
           className={classes.button}
           onClick={async (event) => {
+            setSubmitting(true);
             try {
               if (reportId) {
-                await submitReport({
+                let response = await submitReport({
                   variables: { reportId },
                 });
+                if (response.data.submitReport.success) {
+                  setStatus("Submitted");
+                }
               }
             } catch (err: any) {
               console.log(err.message);
             }
+            setSubmitting(false);
           }}
         >
           Submit
         </StyledButton>
+        <WaitingModal open={submitting} />
+        <MessageModal open={true} message={"This is a test!"} isError={true} />
       </Main>
       <Footer />
     </Root>
