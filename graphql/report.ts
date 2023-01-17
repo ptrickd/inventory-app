@@ -72,6 +72,7 @@ export const typeDef = gql`
     userId: String
     dateCreated: Date
     dateEndingCycle: Date
+    hasBeenSubmitted: Boolean
     error: String
   }
 

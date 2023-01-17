@@ -131,10 +131,21 @@ interface IReport {
   productsList: IProduct[] | [];
 }
 
+interface IServerResponse {
+  message: null | string;
+  isSuccess: boolean;
+  isError: boolean;
+}
+
 const Report: React.FC = () => {
   const router = useRouter();
   const [reportList, setReportList] = useState<[] | IReport[]>([]);
   const [submitting, setSubmitting] = useState(false);
+  const [serverResponse, setServerResponse] = useState<IServerResponse>({
+    message: null,
+    isSuccess: false,
+    isError: false,
+  });
   const [status, setStatus] = useState<"Not Submitted" | "Submitted">(
     "Not Submitted"
   );
@@ -195,6 +206,14 @@ const Report: React.FC = () => {
   if (error) return <p>Error...</p>;
   if (!data) return <p>No data...</p>;
   const date = DateTime.fromISO(data.report.dateEndingCycle);
+
+  const handleCloseMessageModal = () => {
+    setServerResponse({
+      message: null,
+      isSuccess: false,
+      isError: false,
+    });
+  };
 
   const productsByCategory = (productList: IProduct[]) => {
     return productList.map((product: IProduct) => {
@@ -269,6 +288,19 @@ const Report: React.FC = () => {
                 });
                 if (response.data.submitReport.success) {
                   setStatus("Submitted");
+                  setServerResponse({
+                    ...serverResponse,
+                    isSuccess: true,
+                    message: "This report has been successfully submit!",
+                  });
+                } else {
+                  setServerResponse({
+                    ...serverResponse,
+                    isError: true,
+                    message:
+                      response.data.submitReport.error ||
+                      "Something went wrong",
+                  });
                 }
               }
             } catch (err: any) {
@@ -280,7 +312,12 @@ const Report: React.FC = () => {
           Submit
         </StyledButton>
         <WaitingModal open={submitting} />
-        <MessageModal open={true} message={"This is a test!"} isError={true} />
+        <MessageModal
+          open={Boolean(typeof serverResponse.message === "string")}
+          message={serverResponse.message || ""}
+          isError={serverResponse.isError}
+          handleClick={handleCloseMessageModal}
+        />
       </Main>
       <Footer />
     </Root>

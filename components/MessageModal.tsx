@@ -18,10 +18,19 @@ const classes = {
   root: `${PREFIX}-root`,
   typo: `${PREFIX}-typo`,
   button: `${PREFIX}-button`,
+  dialogContent: `${PREFIX}-dialog-content`,
 };
 
 const StyledDialog = styled(Dialog)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {},
+}));
+
+const StyledDialogContent = styled(DialogContent)(({ theme: Theme }) => ({
+  [`&.${classes.dialogContent}`]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
 }));
 
 const StyledMessage = styled(Box)(({ theme: Theme }) => ({
@@ -34,6 +43,7 @@ const StyledMessage = styled(Box)(({ theme: Theme }) => ({
 const StyledButton = styled(Button)(({ theme: Theme }) => ({
   [`&.${classes.button}`]: {
     width: "100%",
+    maxWidth: 50,
   },
 }));
 
@@ -41,9 +51,10 @@ interface IProps {
   open: boolean;
   message: string;
   isError: boolean;
+  handleClick: () => void;
 }
 
-const MessageModal = ({ open, message, isError }: IProps) => {
+const MessageModal = ({ open, message, isError, handleClick }: IProps) => {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
@@ -53,18 +64,21 @@ const MessageModal = ({ open, message, isError }: IProps) => {
   return (
     <StyledDialog
       open={openModal}
-      aria-labelledby="Wait Response From server"
+      aria-labelledby="message display"
       className={classes.root}
     >
-      <DialogContent>
+      <StyledDialogContent className={classes.dialogContent}>
         {isError ? (
-          <StyledMessage className={classes.typo}>
+          <StyledMessage component="span" className={classes.typo}>
+            <Typography color="error" align="center" variant="h5">
+              Error
+            </Typography>
             <Typography color="error" align="center" variant="subtitle1">
               {message}
             </Typography>
           </StyledMessage>
         ) : (
-          <StyledMessage className={classes.typo}>
+          <StyledMessage component="span" className={classes.typo}>
             <Typography color="success" align="center" variant="subtitle1">
               {message}
             </Typography>
@@ -74,10 +88,11 @@ const MessageModal = ({ open, message, isError }: IProps) => {
           className={classes.button}
           variant="contained"
           size="medium"
+          onClick={handleClick}
         >
           OK
         </StyledButton>
-      </DialogContent>
+      </StyledDialogContent>
     </StyledDialog>
   );
 };
