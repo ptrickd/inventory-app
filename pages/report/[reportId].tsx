@@ -6,13 +6,6 @@ import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
@@ -31,7 +24,7 @@ import { ProductsContext } from "../../contexts/ProductsContext";
 import Footer from "../../Layout/Footer";
 import WaitingModal from "../../components/WaitingModal";
 import MessageModal from "../../components/MessageModal";
-import ListProductsByCategory from "../../components/ListProductsByCategory";
+import ListReports from "../../components/ListReports";
 
 const PREFIX = "Report";
 
@@ -42,13 +35,12 @@ const classes = {
   date: `${PREFIX}-date`,
   category: `${PREFIX}-category`,
   product: `${PREFIX}-product`,
-  categoryDiv: `${PREFIX}-categoryDiv`,
   button: `${PREFIX}-button`,
   status: `${PREFIX}-status`,
 };
 
-const Root = styled(Container)(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
+const Root = styled(Container)(() => ({
+  [`& .${classes.root}`]: {
     display: "flex",
     minHeight: "calc(100vh - 120px)",
     flexDirection: "column",
@@ -57,10 +49,6 @@ const Root = styled(Container)(({ theme: Theme }) => ({
 
   [`& .${classes.title}`]: {
     marginBottom: 15,
-  },
-
-  [`& .${classes.category}`]: {
-    backgroundColor: Theme.palette.common.black,
   },
 
   [`& .${classes.product}`]: {
@@ -157,7 +145,7 @@ const Report: React.FC = () => {
     variables: { reportId: reportId },
     skip: !reportId,
   });
-  const [submitReport, { data: dataSubmitReport }] = useMutation(SUBMIT_REPORT);
+  const [submitReport] = useMutation(SUBMIT_REPORT);
 
   //Update status
   useEffect(() => {
@@ -217,34 +205,7 @@ const Report: React.FC = () => {
 
   const renderedReport = () => {
     return reportList.map((report: IReport) => {
-      return (
-        <Box
-          component="div"
-          key={report.categoryName}
-          className={classes.categoryDiv}
-        >
-          <TableContainer component={Paper}>
-            <Table aria-label="report table">
-              <TableHead className={classes.category}>
-                <TableRow>
-                  <TableCell>{report.categoryName}</TableCell>
-                  <TableCell align="right">Current </TableCell>
-                  <TableCell align="right">Last</TableCell>
-                  <TableCell align="right">Unit</TableCell>
-                </TableRow>
-              </TableHead>
-              {report.productsList.map((product: IProduct) => {
-                return (
-                  <ListProductsByCategory
-                    key={product.name}
-                    product={product}
-                  />
-                );
-              })}
-            </Table>
-          </TableContainer>
-        </Box>
-      );
+      return <ListReports key={report.categoryName} report={report} />;
     });
   };
 
@@ -260,6 +221,7 @@ const Report: React.FC = () => {
         <Status className={classes.status} variant="body1" align="center">
           Status: {status}
         </Status>
+
         {renderedReport()}
         <StyledButton
           variant="contained"
