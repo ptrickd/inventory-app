@@ -3,11 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 
 //GraphQL
 import { gql, useQuery, useMutation } from "@apollo/client";
@@ -26,65 +22,14 @@ import WaitingModal from "../../components/WaitingModal";
 import MessageModal from "../../components/MessageModal";
 import ListReports from "../../components/ListReports";
 
-const PREFIX = "Report";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  main: `${PREFIX}-main`,
-  title: `${PREFIX}-title`,
-  date: `${PREFIX}-date`,
-  category: `${PREFIX}-category`,
-  product: `${PREFIX}-product`,
-  button: `${PREFIX}-button`,
-  status: `${PREFIX}-status`,
-};
-
-const Root = styled(Container)(() => ({
-  [`& .${classes.root}`]: {
-    display: "flex",
-    minHeight: "calc(100vh - 120px)",
-    flexDirection: "column",
-    width: "100%",
-  },
-
-  [`& .${classes.title}`]: {
-    marginBottom: 15,
-  },
-
-  [`& .${classes.product}`]: {
-    width: "100%",
-  },
-
-  [`& .${classes.date}`]: {
-    marginBottom: 15,
-  },
-}));
-
-const Main = styled(Box)(() => ({
-  [`&.${classes.main}`]: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "15%",
-    marginBottom: "10%",
-    width: "100%",
-    minHeight: "70vh",
-    alignContent: "space-between",
-  },
-}));
-
-const StyledButton = styled(Button)(() => ({
-  [`&.${classes.button}`]: {
-    width: "70%",
-    alignSelf: "center",
-    marginTop: 10,
-  },
-}));
-
-const Status = styled(Typography)(() => ({
-  [`&.${classes.status}`]: {
-    marginBottom: 10,
-  },
-}));
+//Styles
+import {
+  classes,
+  Root,
+  Main,
+  StyledButton,
+  Status,
+} from "../../styles/reportId.style";
 
 //GraphQl Query
 const GET_REPORT = gql`
