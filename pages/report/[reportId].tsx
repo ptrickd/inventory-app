@@ -168,41 +168,47 @@ const Report: React.FC = () => {
         </Status>
 
         {renderedReport()}
-        <StyledButton
-          variant="contained"
-          className={classes.button}
-          onClick={async (event) => {
-            setSubmitting(true);
-            try {
-              if (reportId) {
-                let response = await submitReport({
-                  variables: { reportId },
-                });
-                if (response.data.submitReport.success) {
-                  setStatus("Submitted");
-                  setServerResponse({
-                    ...serverResponse,
-                    isSuccess: true,
-                    message: "This report has been successfully submit!",
+        {Boolean(status === "Not Submitted") ? (
+          <StyledButton
+            variant="contained"
+            className={classes.button}
+            onClick={async (event) => {
+              setSubmitting(true);
+              try {
+                if (reportId) {
+                  let response = await submitReport({
+                    variables: { reportId },
                   });
-                } else {
-                  setServerResponse({
-                    ...serverResponse,
-                    isError: true,
-                    message:
-                      response.data.submitReport.error ||
-                      "Something went wrong",
-                  });
+                  if (response.data.submitReport.success) {
+                    setStatus("Submitted");
+                    setServerResponse({
+                      ...serverResponse,
+                      isSuccess: true,
+                      message: "This report has been successfully submit!",
+                    });
+                  } else {
+                    setServerResponse({
+                      ...serverResponse,
+                      isError: true,
+                      message:
+                        response.data.submitReport.error ||
+                        "Something went wrong",
+                    });
+                  }
                 }
+              } catch (err: any) {
+                console.log(err.message);
               }
-            } catch (err: any) {
-              console.log(err.message);
-            }
-            setSubmitting(false);
-          }}
-        >
-          Submit
-        </StyledButton>
+              setSubmitting(false);
+            }}
+          >
+            Submit
+          </StyledButton>
+        ) : (
+          <StyledButton variant="contained" className={classes.button} disabled>
+            Submit
+          </StyledButton>
+        )}
         <WaitingModal open={submitting} />
         <MessageModal
           open={Boolean(typeof serverResponse.message === "string")}
