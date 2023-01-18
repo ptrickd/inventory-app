@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -32,6 +31,7 @@ import { ProductsContext } from "../../contexts/ProductsContext";
 import Footer from "../../Layout/Footer";
 import WaitingModal from "../../components/WaitingModal";
 import MessageModal from "../../components/MessageModal";
+import ListProductsByCategory from "../../components/ListProductsByCategory";
 
 const PREFIX = "Report";
 
@@ -215,28 +215,6 @@ const Report: React.FC = () => {
     });
   };
 
-  const productsByCategory = (productList: IProduct[]) => {
-    return productList.map((product: IProduct) => {
-      return (
-        <TableBody key={product.name}>
-          <TableRow
-            key={product.id}
-            sx={{
-              "&:last-child td, &:last-child th": { border: 0 },
-            }}
-          >
-            <TableCell component="th" scope="row">
-              {product.name}
-            </TableCell>
-            <TableCell align="right">{product.currentAmount}</TableCell>
-            <TableCell align="right">{product.previousAmount}</TableCell>
-
-            <TableCell align="right">{product.unit}</TableCell>
-          </TableRow>
-        </TableBody>
-      );
-    });
-  };
   const renderedReport = () => {
     return reportList.map((report: IReport) => {
       return (
@@ -255,7 +233,14 @@ const Report: React.FC = () => {
                   <TableCell align="right">Unit</TableCell>
                 </TableRow>
               </TableHead>
-              {productsByCategory(report.productsList)}
+              {report.productsList.map((product: IProduct) => {
+                return (
+                  <ListProductsByCategory
+                    key={product.name}
+                    product={product}
+                  />
+                );
+              })}
             </Table>
           </TableContainer>
         </Box>
