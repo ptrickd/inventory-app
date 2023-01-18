@@ -12,7 +12,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Typography from "@mui/material/Typography";
 
 //Color
-import { TEXT_MENU_COLOR } from "../constants/colors";
+import { TEXT_MENU_COLOR, BACKGROUND_MENU_COLOR } from "../constants/colors";
 
 //Icons
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
@@ -28,14 +28,23 @@ const PREFIX = "NavbarReportsList";
 
 const classes = {
   menuText: `${PREFIX}-menuText`,
+  list: `${PREFIX}-list`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")(({ theme: Theme }) => ({
-  [`& .${classes.menuText}`]: {
+  [`&.${classes.menuText}`]: {
     // color: TEXT_MENU_COLOR,
     textTransform: "none",
     marginLeft: Theme.spacing(1),
+    margin: 0,
+  },
+}));
+
+const StyledMenuItem = styled(MenuItem)(({ theme: Theme }) => ({
+  [`&.${classes.list}`]: {
+    background: BACKGROUND_MENU_COLOR,
+    margin: 0,
   },
 }));
 
@@ -61,10 +70,6 @@ const NavbarReportsList = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { data, loading, error } = useQuery(GET_REPORTS);
 
-  useEffect(() => {
-    if (data?.reports?.reports) console.log(data.reports.reports);
-  }, [data]);
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event?.currentTarget);
   };
@@ -75,26 +80,28 @@ const NavbarReportsList = () => {
 
   const renderedReportsMenu = () => {
     if (data?.reports?.reports.length === 0) {
-      console.log("0 report now");
       return (
         <MenuItem onClick={handleCloseMenu}>
-          <Typography variant="body1">No reports saved</Typography>
+          <Typography variant="body1">No reports</Typography>
         </MenuItem>
       );
     }
     return data?.reports?.reports.map((report: IReport, index: number) => {
-      // console.log(report)
-
       const dateTime = DateTime.fromISO(report?.dateEndingCycle.toString());
       const year = dateTime.year;
       const month = dateTime.month;
       const day = dateTime.day;
       return (
-        <MenuItem onClick={handleCloseMenu} key={index}>
-          <Link
-            href={`/report/${report.id}`}
-          >{`${year}-${month}-${day} `}</Link>
-        </MenuItem>
+        <StyledMenuItem
+          onClick={handleCloseMenu}
+          key={index}
+          className={classes.list}
+        >
+          {" "}
+          <Link href={`/report/${report.id}`}>
+            <Typography variant="body1">{`${year}-${month}-${day} `}</Typography>
+          </Link>
+        </StyledMenuItem>
       );
     });
   };
@@ -105,7 +112,6 @@ const NavbarReportsList = () => {
   return (
     <Root>
       <Button
-        className={classes.menuText}
         color="inherit"
         aria-controls="report-menu"
         aria-haspopup="true"
