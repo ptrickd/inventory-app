@@ -52,16 +52,23 @@ interface IContext {
 const ProductsContext = createContext<Partial<IContext>>({});
 
 const ProductsProvider = ({ children }: IProps) => {
+  //Context
   const { loggedIn } = useContext(UserContext);
+
+  //useState
   const [contextCategoryId, setCategoryId]: [
     string,
     (categoryId: string) => void
   ] = useState("");
+
   const [productsByCategory, setProductsByCategory] = useState<IProduct[] | []>(
     []
   );
+
   const [products, setProducts] = useState<IProduct[] | []>([]);
   const [hasProduct, setHasProduct] = useState(false);
+
+  // /GraphQL
   const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS);
   const [createProduct] = useMutation(CREATE_PRODUCT);
   const [deleteProduct] = useMutation(DELETE_PRODUCT);

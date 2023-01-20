@@ -71,7 +71,11 @@ interface IServerResponse {
 }
 
 const Report: React.FC = () => {
+  //Router
   const router = useRouter();
+  const { reportId } = router.query;
+
+  //useState
   const [reportList, setReportList] = useState<[] | IReport[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [serverResponse, setServerResponse] = useState<IServerResponse>({
@@ -82,10 +86,13 @@ const Report: React.FC = () => {
   const [status, setStatus] = useState<"Not Submitted" | "Submitted">(
     "Not Submitted"
   );
-  const { reportId } = router.query;
+
+  //Context
   const { loggedIn } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
-  const { products } = useContext(ProductsContext);
+  const { products, updateProducts } = useContext(ProductsContext);
+
+  //GraphQL
   const { data, loading, error } = useQuery(GET_REPORT, {
     variables: { reportId: reportId },
     skip: !reportId,
@@ -154,6 +161,46 @@ const Report: React.FC = () => {
     });
   };
 
+  const handleSubmitClick = async () => {
+    try {
+      if (reportId) {
+        let response = await submitReport({
+          variables: { reportId },
+        });
+        if (response.data.submitReport.success) {
+          setStatus("Submitted");
+          setServerResponse({
+            ...serverResponse,
+            isSuccess: true,
+            message: "This report has been successfully submit!",
+          });
+        } else {
+          setServerResponse({
+            ...serverResponse,
+            isError: true,
+            message: response.data.submitReport.error || "Something went wrong",
+          });
+        }
+      }
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  const updateProductsToContext = () => {
+    if (products) {
+      const newProductsList = products.map((product) => {
+        return {
+          ...product,
+          currentAmount: 0,
+          previousAmount: product.currentAmount,
+        };
+      });
+
+      if (updateProducts) updateProducts(newProductsList);
+    }
+  };
+
   return (
     <Root className={classes.root}>
       <Main component="div" className={classes.main}>
@@ -172,33 +219,10 @@ const Report: React.FC = () => {
           <StyledButton
             variant="contained"
             className={classes.button}
-            onClick={async (event) => {
+            onClick={() => {
               setSubmitting(true);
-              try {
-                if (reportId) {
-                  let response = await submitReport({
-                    variables: { reportId },
-                  });
-                  if (response.data.submitReport.success) {
-                    setStatus("Submitted");
-                    setServerResponse({
-                      ...serverResponse,
-                      isSuccess: true,
-                      message: "This report has been successfully submit!",
-                    });
-                  } else {
-                    setServerResponse({
-                      ...serverResponse,
-                      isError: true,
-                      message:
-                        response.data.submitReport.error ||
-                        "Something went wrong",
-                    });
-                  }
-                }
-              } catch (err: any) {
-                console.log(err.message);
-              }
+              handleSubmitClick();
+              updateProductsToContext();
               setSubmitting(false);
             }}
           >
