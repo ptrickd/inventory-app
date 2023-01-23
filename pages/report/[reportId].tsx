@@ -15,12 +15,14 @@ import { DateTime } from "luxon";
 import { UserContext } from "../../contexts/UserContext";
 import { CategoriesContext } from "../../contexts/CategoriesContext";
 import { ProductsContext } from "../../contexts/ProductsContext";
+import { ReportsContext } from "../../contexts/ReportsContext";
 
 //Component
 import Footer from "../../Layout/Footer";
 import WaitingModal from "../../components/WaitingModal";
 import MessageModal from "../../components/MessageModal";
 import ListReports from "../../components/ListReports";
+import UserChoiceModal from "../../components/UserChoiceModal";
 
 //Styles
 import {
@@ -44,6 +46,15 @@ const GET_REPORT = gql`
 const SUBMIT_REPORT = gql`
   mutation SubmitReport($reportId: ID!) {
     submitReport(reportId: $reportId) {
+      success
+      error
+    }
+  }
+`;
+
+const DELETE_REPORT = gql`
+  mutation DeleteReport($reportId: ID!) {
+    deleteReport(reportId: $reportId) {
       success
       error
     }
@@ -86,11 +97,13 @@ const Report: React.FC = () => {
   const [status, setStatus] = useState<"Not Submitted" | "Submitted">(
     "Not Submitted"
   );
+  const [openUserChoiceModal, setOpenUserChoiceModal] = useState(false);
 
   //Context
   const { loggedIn } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
   const { products, updateProducts } = useContext(ProductsContext);
+  const { deleteLocalReport } = useContext(ReportsContext);
 
   //GraphQL
   const { data, loading, error } = useQuery(GET_REPORT, {
@@ -98,6 +111,9 @@ const Report: React.FC = () => {
     skip: !reportId,
   });
   const [submitReport] = useMutation(SUBMIT_REPORT);
+  const [deleteReport] = useMutation(DELETE_REPORT, {
+    variables: { reportId },
+  });
 
   //Update status
   useEffect(() => {
@@ -148,11 +164,20 @@ const Report: React.FC = () => {
   const date = DateTime.fromISO(data.report.dateEndingCycle);
 
   const handleCloseMessageModal = () => {
+    const message = serverResponse.message;
     setServerResponse({
       message: null,
       isSuccess: false,
       isError: false,
     });
+    if (message === "This report has been successfully deleted!") {
+      // change page after clicking the message modal
+      //only go that route if successfully delete
+      router.push("/dashboard");
+    }
+  };
+  const handleCloseUserChoiceModal = () => {
+    setOpenUserChoiceModal(false);
   };
 
   const renderedReport = () => {
@@ -183,6 +208,7 @@ const Report: React.FC = () => {
         }
       }
     } catch (err: any) {
+      //should show message to the user
       console.log(err.message);
     }
   };
@@ -199,6 +225,46 @@ const Report: React.FC = () => {
 
       if (updateProducts) updateProducts(newProductsList);
     }
+  };
+  const handleDeleteClick = async () => {
+    setOpenUserChoiceModal(true);
+  };
+
+  const handleUserResponseOnDelete = async (choice: boolean) => {
+    setSubmitting(true);
+    if (choice) {
+      try {
+        const response = await deleteReport();
+
+        if (response.data.deleteReport.success) {
+          setServerResponse({
+            ...serverResponse,
+            isSuccess: true,
+            message: "This report has been successfully deleted!",
+          });
+        } else {
+          setServerResponse({
+            ...serverResponse,
+            isError: true,
+            message: response.data.deleteReport.error || "Something went wrong",
+          });
+        }
+        if (deleteLocalReport && typeof reportId === "string") {
+          deleteLocalReport(reportId);
+        }
+
+        updateProductsToContext();
+        setOpenUserChoiceModal(false);
+      } catch (err: any) {
+        //should show error to the user
+        console.log(err.message);
+      }
+    } else {
+      //close modal
+      setOpenUserChoiceModal(false);
+    }
+
+    setSubmitting(false);
   };
 
   return (
@@ -220,10 +286,7 @@ const Report: React.FC = () => {
             variant="contained"
             className={classes.button}
             onClick={() => {
-              setSubmitting(true);
               handleSubmitClick();
-              updateProductsToContext();
-              setSubmitting(false);
             }}
           >
             Submit
@@ -233,12 +296,28 @@ const Report: React.FC = () => {
             Submit
           </StyledButton>
         )}
+        {Boolean(status === "Submitted") ? (
+          <StyledButton
+            variant="contained"
+            color="error"
+            className={classes.button}
+            onClick={handleDeleteClick}
+          >
+            Delete
+          </StyledButton>
+        ) : null}
         <WaitingModal open={submitting} />
         <MessageModal
           open={Boolean(typeof serverResponse.message === "string")}
           message={serverResponse.message || ""}
           isError={serverResponse.isError}
           handleClick={handleCloseMessageModal}
+        />
+        <UserChoiceModal
+          open={openUserChoiceModal}
+          message="Are you sure you want to delete that report?"
+          handleCloseModal={handleCloseUserChoiceModal}
+          handleUserResponse={handleUserResponseOnDelete}
         />
       </Main>
       <Footer />

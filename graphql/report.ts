@@ -12,6 +12,7 @@ import { DateTime } from "luxon";
 
 //Types
 import { TIds } from "../types/types";
+import { convertLength } from "@mui/material/styles/cssUtils";
 
 dbConnect();
 
@@ -76,7 +77,12 @@ export const typeDef = gql`
     error: String
   }
 
-  type SubmitedReportResponse {
+  type SubmittedReportResponse {
+    success: Boolean
+    error: String
+  }
+
+  type DeletedReportResponse {
     success: Boolean
     error: String
   }
@@ -89,7 +95,8 @@ export const typeDef = gql`
 
   extend type Mutation {
     createReport(dateEndingCycle: Date): createdReportResponse
-    submitReport(reportId: ID): SubmitedReportResponse
+    submitReport(reportId: ID): SubmittedReportResponse
+    deleteReport(reportId: ID): DeletedReportResponse
   }
 `;
 export const resolvers = {
@@ -212,6 +219,22 @@ export const resolvers = {
         //Save report
         report.save();
 
+        return { success: true };
+      } catch (err: any) {
+        console.log(err.message);
+        return { error: err.message };
+      }
+    },
+    deleteReport: async (
+      _: any,
+      { reportId }: ISubmitReport,
+      { user }: any
+    ) => {
+      try {
+        if (!user) throw new Error("Not Authenticated");
+        const deletedReport = await Report.deleteOne({ _id: reportId });
+        if (!deletedReport.deletedCount)
+          throw new Error("This report do not exist!");
         return { success: true };
       } catch (err: any) {
         console.log(err.message);

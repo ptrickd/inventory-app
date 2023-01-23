@@ -57,6 +57,7 @@ interface IContext {
   hasReport: boolean;
   reports: IReport[];
   createNewReport: (dateEndingCycle: Date) => any;
+  deleteLocalReport: (reportId: string) => void;
 }
 
 const ReportsContext = createContext<Partial<IContext>>({});
@@ -96,6 +97,13 @@ const ReportsProvider = ({ children }: IProps) => {
     }
   }
 
+  const deleteLocalReport = (reportId: string) => {
+    const newReportList = reports.filter((report) => {
+      if (report.id !== reportId) return report;
+    });
+    setReports(newReportList);
+  };
+
   if (loading) return null;
 
   return (
@@ -104,6 +112,7 @@ const ReportsProvider = ({ children }: IProps) => {
         hasReport,
         reports,
         createNewReport,
+        deleteLocalReport,
       }}
     >
       {children}
