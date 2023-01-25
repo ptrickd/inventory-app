@@ -24,6 +24,9 @@ import MessageModal from "../../components/MessageModal";
 import ListReports from "../../components/ListReports";
 import UserChoiceModal from "../../components/UserChoiceModal";
 
+//Function
+import { organizeByCategories } from "../../utils/formatingList";
+
 //Styles
 import {
   classes,
@@ -32,7 +35,6 @@ import {
   StyledButton,
   Status,
 } from "../../styles/reportId.style";
-import ListProductsByCategory from "../../components/ListProductsByCategory";
 
 //GraphQl Query
 const GET_REPORT = gql`
@@ -113,7 +115,7 @@ const Report: React.FC = () => {
   );
   const [openUserChoiceModal, setOpenUserChoiceModal] = useState(false);
   const [submittedProductList, setSubmittedProductList] = useState<
-    IProduct | []
+    IProduct[] | []
   >([]);
 
   //Context
@@ -145,47 +147,18 @@ const Report: React.FC = () => {
   //export as customHook
   useEffect(() => {
     let newReportList: IReport[] | [] = [];
-    const organizeByCategories = (list: any) => {
-      const finalList = categories?.map((category) => {
-        const listProductsByCategory: IProduct[] = [];
 
-        list?.forEach((product: any) => {
-          if (category.id === product.categoryId) {
-            if (
-              product.id !== undefined &&
-              product.name !== undefined &&
-              product.currentAmount !== undefined &&
-              product.previousAmount !== undefined &&
-              product.unit !== undefined
-            ) {
-              listProductsByCategory.push({
-                id: product.id,
-                name: product.name,
-                currentAmount: product.currentAmount,
-                previousAmount: product.previousAmount,
-                unit: product.unit,
-              });
-            }
-          }
-        });
-        return {
-          categoryName: category.name,
-          productsList: listProductsByCategory,
-        };
-      });
-      return finalList;
-    };
     const getReportListFromContext = () => {
-      if (products) return organizeByCategories(products);
+      if (products) return organizeByCategories(categories, products);
       else return [];
     };
-
+    //format list from report to be the same shape then products list from context
     const getReportListSubmittedReport = () => {
       if (data && products) {
         //data => productId, amount, unit
         //context =>name
         let newArrayOfProducts: any = [];
-        data.report.products.map(
+        submittedProductList.map(
           (product: { productId: string; amount: number; unit: string }) => {
             const { productId, amount, unit } = product;
             products.forEach((product) => {
@@ -202,7 +175,7 @@ const Report: React.FC = () => {
             });
           }
         );
-        return organizeByCategories(newArrayOfProducts);
+        return organizeByCategories(categories, newArrayOfProducts);
       } else return [];
     };
 
