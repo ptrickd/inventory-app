@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 
 //GraphQL
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
 
 //Date
 import { DateTime } from "luxon";
@@ -55,6 +55,11 @@ const SUBMIT_REPORT = gql`
   mutation SubmitReport($reportId: ID!) {
     submitReport(reportId: $reportId) {
       success
+      products {
+        productId
+        amount
+        unit
+      }
       error
     }
   }
@@ -97,6 +102,7 @@ const Report: React.FC = () => {
   //useState
   const [reportList, setReportList] = useState<[] | IReport[]>([]);
   const [submitting, setSubmitting] = useState(false);
+
   const [serverResponse, setServerResponse] = useState<IServerResponse>({
     message: null,
     isSuccess: false,
@@ -106,6 +112,9 @@ const Report: React.FC = () => {
     "Not Submitted"
   );
   const [openUserChoiceModal, setOpenUserChoiceModal] = useState(false);
+  const [submittedProductList, setSubmittedProductList] = useState<
+    IProduct | []
+  >([]);
 
   //Context
   const { loggedIn } = useContext(UserContext);
@@ -118,6 +127,7 @@ const Report: React.FC = () => {
     variables: { reportId: reportId },
     skip: !reportId,
   });
+
   const [submitReport] = useMutation(SUBMIT_REPORT);
   const [deleteReport] = useMutation(DELETE_REPORT, {
     variables: { reportId },
@@ -125,10 +135,14 @@ const Report: React.FC = () => {
 
   //Update status
   useEffect(() => {
-    if (data && data.report.hasBeenSubmitted) setStatus("Submitted");
+    if (data && data.report.hasBeenSubmitted) {
+      setStatus("Submitted");
+      setSubmittedProductList(data.report.products);
+    }
   }, [data]);
 
   //Create list in useEffect to limit computation on rerender
+  //export as customHook
   useEffect(() => {
     let newReportList: IReport[] | [] = [];
     const organizeByCategories = (list: any) => {
@@ -250,6 +264,7 @@ const Report: React.FC = () => {
             isSuccess: true,
             message: "This report has been successfully submit!",
           });
+          setSubmittedProductList(response.data.submitReport.products);
         } else {
           setServerResponse({
             ...serverResponse,

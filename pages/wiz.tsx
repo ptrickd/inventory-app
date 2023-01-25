@@ -73,11 +73,7 @@ const Wiz: React.FC = () => {
   useEffect(() => {
     if (!loggedIn) router.push("/");
   }, [loggedIn, router]);
-  useEffect(() => {
-    console.log(`hasReport ${hasReport}`);
-    console.log(`hasCategory ${hasCategory}`);
-    console.log(`hasProduct ${hasProduct}`);
-  }, [hasReport, hasCategory, hasProduct]);
+
   useEffect(() => {
     if (hasProduct) router.push("/dashboard");
   }, [hasProduct, router]);

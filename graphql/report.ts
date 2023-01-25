@@ -77,6 +77,7 @@ export const typeDef = gql`
 
   type SubmittedReportResponse {
     success: Boolean
+    products: [ReportProduct]
     error: String
   }
 
@@ -215,9 +216,8 @@ export const resolvers = {
             product.save();
           });
         //Save report
-        report.save();
-
-        return { success: true };
+        await report.save();
+        return { success: true, products: report.products };
       } catch (err: any) {
         console.log(err.message);
         return { error: err.message };
