@@ -32,6 +32,7 @@ import {
   StyledButton,
   Status,
 } from "../../styles/reportId.style";
+import ListProductsByCategory from "../../components/ListProductsByCategory";
 
 //GraphQl Query
 const GET_REPORT = gql`
@@ -40,9 +41,16 @@ const GET_REPORT = gql`
       id
       dateEndingCycle
       hasBeenSubmitted
+      products {
+        productId
+        amount
+        unit
+      }
+      error
     }
   }
-`; //
+`;
+
 const SUBMIT_REPORT = gql`
   mutation SubmitReport($reportId: ID!) {
     submitReport(reportId: $reportId) {
@@ -122,37 +130,80 @@ const Report: React.FC = () => {
 
   //Create list in useEffect to limit computation on rerender
   useEffect(() => {
-    const newReportList = categories?.map((category) => {
-      const listProductsByCategory: IProduct[] = [];
+    let newReportList: IReport[] | [] = [];
+    const organizeByCategories = (list: any) => {
+      const finalList = categories?.map((category) => {
+        const listProductsByCategory: IProduct[] = [];
 
-      products?.forEach((product) => {
-        if (category.id === product.categoryId) {
-          if (
-            product.id !== undefined &&
-            product.name !== undefined &&
-            product.currentAmount !== undefined &&
-            product.previousAmount !== undefined &&
-            product.unit !== undefined
-          ) {
-            listProductsByCategory.push({
-              id: product.id,
-              name: product.name,
-              currentAmount: product.currentAmount,
-              previousAmount: product.previousAmount,
-              unit: product.unit,
+        list?.forEach((product: any) => {
+          if (category.id === product.categoryId) {
+            if (
+              product.id !== undefined &&
+              product.name !== undefined &&
+              product.currentAmount !== undefined &&
+              product.previousAmount !== undefined &&
+              product.unit !== undefined
+            ) {
+              listProductsByCategory.push({
+                id: product.id,
+                name: product.name,
+                currentAmount: product.currentAmount,
+                previousAmount: product.previousAmount,
+                unit: product.unit,
+              });
+            }
+          }
+        });
+        return {
+          categoryName: category.name,
+          productsList: listProductsByCategory,
+        };
+      });
+      return finalList;
+    };
+    const getReportListFromContext = () => {
+      if (products) return organizeByCategories(products);
+      else return [];
+    };
+
+    const getReportListSubmittedReport = () => {
+      if (data && products) {
+        //data => productId, amount, unit
+        //context =>name
+        let newArrayOfProducts: any = [];
+        data.report.products.map(
+          (product: { productId: string; amount: number; unit: string }) => {
+            const { productId, amount, unit } = product;
+            products.forEach((product) => {
+              if (product.id === productId) {
+                newArrayOfProducts.push({
+                  id: productId,
+                  name: product.name,
+                  currentAmount: amount,
+                  previousAmount: 0,
+                  categoryId: product.categoryId,
+                  unit: unit,
+                });
+              }
             });
           }
-        }
-      });
-      return {
-        categoryName: category.name,
-        productsList: listProductsByCategory,
-      };
-    });
+        );
+        return organizeByCategories(newArrayOfProducts);
+      } else return [];
+    };
+
+    //need to verify if report has been submitted
+    if (status === "Submitted") {
+      newReportList = getReportListSubmittedReport() || [];
+    } else if (status === "Not Submitted") {
+      newReportList = getReportListFromContext() || [];
+    }
+    //if no, keep that method
+    // if yes, use the values in the report fetched insteads
 
     if (newReportList !== undefined) setReportList(newReportList);
     else setReportList([]);
-  }, [categories, products, setReportList]);
+  }, [categories, products, setReportList, status, data]);
 
   useEffect(() => {
     if (!loggedIn) router.push("/");

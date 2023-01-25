@@ -1,7 +1,6 @@
 //Models
 import dbConnect from "../utils/dbConnect";
 import Report from "../models/report.model";
-// import Category from "../models/category.model";
 import Product from "../models/product.model";
 
 //GraphQl
@@ -12,7 +11,6 @@ import { DateTime } from "luxon";
 
 //Types
 import { TIds } from "../types/types";
-import { convertLength } from "@mui/material/styles/cssUtils";
 
 dbConnect();
 
@@ -44,8 +42,7 @@ export const typeDef = gql`
   type ReportProduct {
     productId: String
     amount: Int
-    name: String
-    categoryId: String
+    unit: String
   }
 
   type createdReportResponse {
@@ -74,6 +71,7 @@ export const typeDef = gql`
     dateCreated: Date
     dateEndingCycle: Date
     hasBeenSubmitted: Boolean
+    products: [ReportProduct]
     error: String
   }
 
