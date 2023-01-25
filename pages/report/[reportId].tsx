@@ -25,7 +25,10 @@ import ListReports from "../../components/ListReports";
 import UserChoiceModal from "../../components/UserChoiceModal";
 
 //Function
-import { organizeByCategories } from "../../utils/formatingList";
+import {
+  organizeByCategories,
+  getReportListSubmittedReport,
+} from "../../utils/formatingList";
 
 //Styles
 import {
@@ -85,6 +88,13 @@ interface IProduct {
   previousAmount: number;
   unit: string;
 }
+
+interface ISubmittedProduct {
+  productId: string;
+  amount: number;
+  unit: string;
+}
+
 interface IReport {
   categoryName: string;
   productsList: IProduct[] | [];
@@ -115,7 +125,7 @@ const Report: React.FC = () => {
   );
   const [openUserChoiceModal, setOpenUserChoiceModal] = useState(false);
   const [submittedProductList, setSubmittedProductList] = useState<
-    IProduct[] | []
+    ISubmittedProduct[] | []
   >([]);
 
   //Context
@@ -153,35 +163,17 @@ const Report: React.FC = () => {
       else return [];
     };
     //format list from report to be the same shape then products list from context
-    const getReportListSubmittedReport = () => {
-      if (data && products) {
-        //data => productId, amount, unit
-        //context =>name
-        let newArrayOfProducts: any = [];
-        submittedProductList.map(
-          (product: { productId: string; amount: number; unit: string }) => {
-            const { productId, amount, unit } = product;
-            products.forEach((product) => {
-              if (product.id === productId) {
-                newArrayOfProducts.push({
-                  id: productId,
-                  name: product.name,
-                  currentAmount: amount,
-                  previousAmount: 0,
-                  categoryId: product.categoryId,
-                  unit: unit,
-                });
-              }
-            });
-          }
-        );
-        return organizeByCategories(categories, newArrayOfProducts);
-      } else return [];
-    };
+    getReportListSubmittedReport;
 
     //need to verify if report has been submitted
     if (status === "Submitted") {
-      newReportList = getReportListSubmittedReport() || [];
+      newReportList =
+        getReportListSubmittedReport(
+          data,
+          categories,
+          products,
+          submittedProductList
+        ) || [];
     } else if (status === "Not Submitted") {
       newReportList = getReportListFromContext() || [];
     }
@@ -190,7 +182,7 @@ const Report: React.FC = () => {
 
     if (newReportList !== undefined) setReportList(newReportList);
     else setReportList([]);
-  }, [categories, products, setReportList, status, data]);
+  }, [categories, products, setReportList, status, data, submittedProductList]);
 
   useEffect(() => {
     if (!loggedIn) router.push("/");
