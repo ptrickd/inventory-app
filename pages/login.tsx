@@ -1,14 +1,10 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
 //Material UI
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 
 //Form
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -25,37 +21,8 @@ import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
 import Footer from "../Layout/Footer";
 
-const PREFIX = "Login";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  main: `${PREFIX}-main`,
-  title: `${PREFIX}-title`,
-};
-
-const Root = styled(Container)(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
-    display: "flex",
-    minHeight: "calc(100vh - 120px)",
-    flexDirection: "column",
-    width: "100%",
-  },
-}));
-
-const Main = styled(Box)(() => ({
-  [`&.${classes.main}`]: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "15%",
-    width: "100%",
-    minHeight: "70vh",
-    alignContent: "space-between",
-  },
-}));
-
-const Title = styled(Typography)(() => ({
-  [`&.${classes.title}`]: { marginBottom: 15 },
-}));
+//Styles
+import { classes, Root, Main, Title } from "../styles/login.style";
 
 interface IForm {
   email: string;
@@ -64,6 +31,7 @@ interface IForm {
 
 const Login: React.FC = () => {
   const router = useRouter();
+
   const {
     currentUser,
     setCurrentUser,
@@ -73,6 +41,7 @@ const Login: React.FC = () => {
     logout,
     setTheme,
   } = useContext(UserContext);
+
   const [submitting, setSubmitting] = useState(false);
   const [serverErrorMess, setServerErrorMess] = useState("");
 
