@@ -162,8 +162,6 @@ const Report: React.FC = () => {
       if (products) return organizeByCategories(categories, products);
       else return [];
     };
-    //format list from report to be the same shape then products list from context
-    getReportListSubmittedReport;
 
     //need to verify if report has been submitted
     if (status === "Submitted") {

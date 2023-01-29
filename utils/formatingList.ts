@@ -77,3 +77,5 @@ export const getReportListSubmittedReport = (
     return organizeByCategories(categoriesList, newArrayOfProducts);
   } else return [];
 };
+
+//

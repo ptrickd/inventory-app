@@ -42,13 +42,14 @@ const DatePicker = ({ handleSelectedDate, initialDate }: IProps) => {
     <Root className={classes.root}>
       <LocalizationProvider dateAdapter={LuxonUtils}>
         <DesktopDatePicker
-          inputFormat="MM/DD/YYYY"
+          inputFormat="EEE DD"
           value={selectedDate}
           onChange={(date) => {
             if (date) {
               setSelectedDate(date);
               setIsSelectedDate(true);
               handleSelectedDate(date?.toJSDate());
+              // handleSelectedDate(date?.toJSDate());
             }
           }}
           onError={(err) => {
