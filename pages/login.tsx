@@ -37,10 +37,19 @@ const logicToRedirect = (
   hasCategory: boolean,
   hasProduct: boolean
 ) => {
-  if (!hasReport) return "/firstReport";
-  else if (hasReport && !hasCategory) return "/firstCategory";
-  else if (hasReport && hasCategory && !hasProduct) return "/firstProduct";
-  else return "/wiz";
+  if (!hasReport) {
+    return { pathname: "/wiz", query: { l: "firstReport" } };
+  } else if (hasReport && !hasCategory) {
+    return { pathname: "/wiz", query: { l: "firstCategory" } };
+  } else if (hasReport && hasCategory && !hasProduct) {
+    return { pathname: "/wiz", query: { l: "firstProduct" } };
+  } else {
+    return {
+      // pathname: "/dashboard",
+      pathname: "/wiz",
+      query: { l: "firstReport" },
+    };
+  }
 };
 
 const Login: React.FC = () => {
@@ -79,12 +88,8 @@ const Login: React.FC = () => {
       hasProduct !== undefined &&
       hasProduct !== null
     ) {
-      console.log(hasReport);
-      console.log(hasCategory);
-      console.log(hasProduct);
       const url = logicToRedirect(hasReport, hasCategory, hasProduct);
-      // router.push(url);\
-      console.log(url);
+      router.push(url);
     }
   }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
 

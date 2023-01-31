@@ -65,10 +65,6 @@ const Wiz: React.FC = () => {
     if (!loggedIn) router.push("/");
   }, [loggedIn, router]);
 
-  useEffect(() => {
-    console.log(router.pathname);
-  }, [router]);
-
   //have to add parameters to handle a response from any 3 components
   // const handleResponse = (isResponseSucceed: IResponseStatus) => {};
 
@@ -77,9 +73,9 @@ const Wiz: React.FC = () => {
       <Main component="div" className={classes.main}>
         {/* <ComponentToDisplay currentState={states.state} /> */}
 
-        {false && <FirstReport />}
-        {false && <FirstCategory />}
-        {false && <FirstProduct />}
+        {router.query.l === "firstReport" && <FirstReport />}
+        {router.query.l === "firstCategory" && <FirstCategory />}
+        {router.query.l === "firstProduct" && <FirstProduct />}
       </Main>
       <Footer />
     </Root>
