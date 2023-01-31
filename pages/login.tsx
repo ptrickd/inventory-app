@@ -15,6 +15,9 @@ import { LOGIN } from "../graphql/queries";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
+import { ReportsContext } from "../contexts/ReportsContext";
+import { CategoriesContext } from "../contexts/CategoriesContext";
+import { ProductsContext } from "../contexts/ProductsContext";
 
 //Components
 import AuthForm from "../components/AuthForm";
@@ -29,6 +32,17 @@ interface IForm {
   password: string;
 }
 
+const logicToRedirect = (
+  hasReport: boolean,
+  hasCategory: boolean,
+  hasProduct: boolean
+) => {
+  if (!hasReport) return "/firstReport";
+  else if (hasReport && !hasCategory) return "/firstCategory";
+  else if (hasReport && hasCategory && !hasProduct) return "/firstProduct";
+  else return "/wiz";
+};
+
 const Login: React.FC = () => {
   const router = useRouter();
 
@@ -42,6 +56,10 @@ const Login: React.FC = () => {
     setTheme,
   } = useContext(UserContext);
 
+  const { hasReport } = useContext(ReportsContext);
+  const { hasCategory } = useContext(CategoriesContext);
+  const { hasProduct } = useContext(ProductsContext);
+
   const [submitting, setSubmitting] = useState(false);
   const [serverErrorMess, setServerErrorMess] = useState("");
 
@@ -51,10 +69,24 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     //Push to wiz wiz will redirect if incorrect
-    if (loggedIn) {
-      router.push("/wiz");
+    //When loggedIn wait to be connected to all context
+    if (
+      loggedIn &&
+      hasReport !== undefined &&
+      hasReport !== null &&
+      hasCategory !== undefined &&
+      hasCategory !== null &&
+      hasProduct !== undefined &&
+      hasProduct !== null
+    ) {
+      console.log(hasReport);
+      console.log(hasCategory);
+      console.log(hasProduct);
+      const url = logicToRedirect(hasReport, hasCategory, hasProduct);
+      // router.push(url);\
+      console.log(url);
     }
-  }, [loggedIn, router]);
+  }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
 
   // useEffect(() => {
   //   // let responseTimeout: any = null;

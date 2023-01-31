@@ -34,7 +34,7 @@ interface IProps {
 }
 
 interface IContext {
-  hasProduct: boolean;
+  hasProduct: boolean | null;
 
   products: IProduct[];
   productsByCategory: IProduct[] | [];
@@ -66,7 +66,7 @@ const ProductsProvider = ({ children }: IProps) => {
   );
 
   const [products, setProducts] = useState<IProduct[] | []>([]);
-  const [hasProduct, setHasProduct] = useState(false);
+  const [hasProduct, setHasProduct] = useState<boolean | null>(null);
 
   // /GraphQL
   const [getProducts, { data, loading }] = useLazyQuery(GET_PRODUCTS);

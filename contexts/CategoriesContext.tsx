@@ -16,7 +16,7 @@ interface ICategory {
   name: string;
 }
 interface IContext {
-  hasCategory: boolean;
+  hasCategory: boolean | null;
   categories: ICategory[] | [];
   createCategoryApi: (category: ICategory) => any;
   deleteCategoryApi: (category: ICategory) => void;
@@ -38,7 +38,7 @@ const CategoriesProvider = ({ children }: IProps) => {
   const [createCategory] = useMutation(CREATE_CATEGORY);
   const [deleteCategory] = useMutation(DELETE_CATEGORY);
   const { currentUser, loggedIn } = useContext(UserContext);
-  const [hasCategory, setHasCategory] = useState(false);
+  const [hasCategory, setHasCategory] = useState<boolean | null>(null);
 
   //Get set by the useQuery below
   const [categories, setCategories] = useState<ICategory[] | []>([]);

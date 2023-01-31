@@ -2,9 +2,6 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
 import { useRouter } from "next/router";
 
-//GraphQL
-import { gql } from "@apollo/client";
-
 //Material UI
 import { styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
@@ -19,9 +16,6 @@ import Footer from "../Layout/Footer";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
-import { ReportsContext } from "../contexts/ReportsContext";
-import { CategoriesContext } from "../contexts/CategoriesContext";
-import { ProductsContext } from "../contexts/ProductsContext";
 
 const PREFIX = "Wiz";
 
@@ -63,9 +57,6 @@ interface IResponseStatus {
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
   const { loggedIn } = useContext(UserContext);
-  const { hasReport } = useContext(ReportsContext);
-  const { hasCategory } = useContext(CategoriesContext);
-  const { hasProduct } = useContext(ProductsContext);
 
   const router = useRouter();
 
@@ -75,31 +66,20 @@ const Wiz: React.FC = () => {
   }, [loggedIn, router]);
 
   useEffect(() => {
-    if (hasProduct) router.push("/dashboard");
-  }, [hasProduct, router]);
+    console.log(router.pathname);
+  }, [router]);
 
   //have to add parameters to handle a response from any 3 components
   // const handleResponse = (isResponseSucceed: IResponseStatus) => {};
-
-  if (
-    hasReport === undefined ||
-    hasCategory === undefined ||
-    hasProduct === undefined
-  )
-    return (
-      <Root>
-        <Typography>Page Error</Typography>
-      </Root>
-    );
 
   return (
     <Root maxWidth="md" className={classes.root}>
       <Main component="div" className={classes.main}>
         {/* <ComponentToDisplay currentState={states.state} /> */}
 
-        {!hasReport && <FirstReport />}
-        {hasReport && !hasCategory && <FirstCategory />}
-        {hasReport && hasCategory && !hasProduct && <FirstProduct />}
+        {false && <FirstReport />}
+        {false && <FirstCategory />}
+        {false && <FirstProduct />}
       </Main>
       <Footer />
     </Root>

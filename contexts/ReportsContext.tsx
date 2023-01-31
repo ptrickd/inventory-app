@@ -54,7 +54,7 @@ interface IReport {
   dateSubmitted: Date;
 }
 interface IContext {
-  hasReport: boolean;
+  hasReport: boolean | null;
   reports: IReport[];
   createNewReport: (dateEndingCycle: Date) => any;
   deleteLocalReport: (reportId: string) => void;
@@ -64,7 +64,7 @@ const ReportsContext = createContext<Partial<IContext>>({});
 
 const ReportsProvider = ({ children }: IProps) => {
   const { loggedIn } = useContext(UserContext);
-  const [hasReport, setHasReport] = useState(false);
+  const [hasReport, setHasReport] = useState<boolean | null>(null);
   const [reports, setReports] = useState<IReport[] | []>([]);
   const [getReports, { data, loading, error }] = useLazyQuery(GET_REPORTS);
   const [createReport] = useMutation(CREATE_REPORT);
