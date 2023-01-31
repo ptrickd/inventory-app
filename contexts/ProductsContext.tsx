@@ -81,7 +81,7 @@ const ProductsProvider = ({ children }: IProps) => {
   useEffect(() => {
     if (data) {
       if (data.products.length > 0) setHasProduct(true);
-
+      else setHasProduct(false);
       setProducts(data.products);
     }
   }, [data]);

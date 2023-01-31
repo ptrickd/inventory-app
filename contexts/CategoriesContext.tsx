@@ -51,6 +51,7 @@ const CategoriesProvider = ({ children }: IProps) => {
       setCategories(data.categories);
       console.log(data.categories);
       if (data.categories.length > 0) setHasCategory(true);
+      else setHasCategory(false);
     }
   }, [data]);
 
