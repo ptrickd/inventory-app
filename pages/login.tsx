@@ -24,6 +24,9 @@ import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
 import Footer from "../Layout/Footer";
 
+//Function
+import { redirectOnLogin } from "../utils/redirect";
+
 //Styles
 import { classes, Root, Main, Title } from "../styles/login.style";
 
@@ -31,26 +34,6 @@ interface IForm {
   email: string;
   password: string;
 }
-
-const logicToRedirect = (
-  hasReport: boolean,
-  hasCategory: boolean,
-  hasProduct: boolean
-) => {
-  if (!hasReport) {
-    return { pathname: "/wiz", query: { l: "firstReport" } };
-  } else if (hasReport && !hasCategory) {
-    return { pathname: "/wiz", query: { l: "firstCategory" } };
-  } else if (hasReport && hasCategory && !hasProduct) {
-    return { pathname: "/wiz", query: { l: "firstProduct" } };
-  } else {
-    return {
-      // pathname: "/dashboard",
-      pathname: "/wiz",
-      query: { l: "firstReport" },
-    };
-  }
-};
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -88,7 +71,7 @@ const Login: React.FC = () => {
       hasProduct !== undefined &&
       hasProduct !== null
     ) {
-      const url = logicToRedirect(hasReport, hasCategory, hasProduct);
+      const url = redirectOnLogin(hasReport, hasCategory, hasProduct);
       router.push(url);
     }
   }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
