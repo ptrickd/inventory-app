@@ -22,9 +22,15 @@ import Box from "@mui/material/Box";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
+import { ReportsContext } from "../contexts/ReportsContext";
+import { CategoriesContext } from "../contexts/CategoriesContext";
+import { ProductsContext } from "../contexts/ProductsContext";
 
 //Component
 import Footer from "../Layout/Footer";
+
+//Function
+import { redirectOnLogin } from "../utils/redirect";
 
 const PREFIX = "index";
 const classes = {
@@ -69,15 +75,20 @@ const StyledButton = styled(Button)(({ theme: Theme }) => ({
 }));
 
 export default function Home() {
+  //Context
   const { loggedIn } = useContext(UserContext);
-  // const { states } = useContext(StatesContext);
+  const { hasReport } = useContext(ReportsContext);
+  const { hasCategory } = useContext(CategoriesContext);
+  const { hasProduct } = useContext(ProductsContext);
+
   const router = useRouter();
 
   useEffect(() => {
     if (loggedIn) {
-      router.push("/wiz");
+      const url = redirectOnLogin(hasReport, hasCategory, hasProduct);
+      if (url) router.push(url);
     }
-  }, [loggedIn, router]);
+  }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
   return (
     <Root className={classes.root} maxWidth="md">
       <Main className={classes.main}>
