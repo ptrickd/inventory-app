@@ -3,7 +3,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Components
-import AddCategoryForm from "../components/AddCategoryForm";
 import CreateNewReportModal from "../components/CreateNewReportModal";
 import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
@@ -16,7 +15,6 @@ import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
-import Box from "@mui/material/Box";
 
 //Icons
 import IconButton from "@mui/material/IconButton";
@@ -38,7 +36,6 @@ interface IResponseStatus {
 function Dashboard() {
   const router = useRouter();
   const { loggedIn, currentUser } = useContext(UserContext);
-  const [openModal, setOpenModal] = useState(false);
   const [openCreateNewReport, setOpenCreateNewReport] = useState(false);
   const [openSubmittingModal, setOpenSubmittingModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
@@ -46,14 +43,10 @@ function Dashboard() {
 
   const listOfCategories = ["Produce", "Freezer", "Cooler"];
 
-  //Adding categories
-  const handleAddCategory = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
-
   //create template for new report
   const handleCloseCreateNewReport = (responseStatus: IResponseStatus) => {
     setOpenCreateNewReport(false);
-    // console.log('responseStatusSucceed', responseStatusSucceed)
+
     if (!responseStatus.succeeded) setOpenErrorModal(true);
   };
 
@@ -85,18 +78,6 @@ function Dashboard() {
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
         <List>
           <ListItem>
-            {/* <Section className={classes.section}>
-              {/* <IconButton
-                aria-label="add category"
-                color="primary"
-                onClick={handleAddCategory}
-              > */}
-            {/* <AddIcon />
-              {/* </IconButton> */}
-            {/* <ListItemText primary="Add category" />
-            </Section> */}
-          </ListItem>
-          <ListItem>
             <IconButton
               aria-label="create new report"
               color="primary"
@@ -118,7 +99,6 @@ function Dashboard() {
           </ListItem>
         </List>
 
-        <AddCategoryForm open={openModal} handleCloseModal={handleCloseModal} />
         <CreateNewReportModal
           open={openCreateNewReport}
           handleCloseModal={handleCloseCreateNewReport}
