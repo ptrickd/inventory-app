@@ -9,6 +9,7 @@ import SubmittingReportModal from "../components/SubmittingReportModal";
 import ErrorModal from "../components/ErrorModal";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../Layout/Footer";
+import CategoriesSection from "../components/CategoriesSection";
 
 //Material UI
 import Typography from "@mui/material/Typography";
@@ -42,6 +43,8 @@ function Dashboard() {
   const [openSubmittingModal, setOpenSubmittingModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
+
+  const listOfCategories = ["Produce", "Freezer", "Cooler"];
 
   //Adding categories
   const handleAddCategory = () => setOpenModal(true);
@@ -78,19 +81,21 @@ function Dashboard() {
       <Main component="div" className={classes.main}>
         <Typography variant="h4">{currentUser && currentUser.email}</Typography>
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
-
+        <CategoriesSection listOfCategories={listOfCategories} />
+        <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
         <List>
           <ListItem>
-            <IconButton
-              aria-label="add category"
-              color="primary"
-              onClick={handleAddCategory}
-            >
-              <AddIcon />
-            </IconButton>
-            <ListItemText primary="Add category" />
+            {/* <Section className={classes.section}>
+              {/* <IconButton
+                aria-label="add category"
+                color="primary"
+                onClick={handleAddCategory}
+              > */}
+            {/* <AddIcon />
+              {/* </IconButton> */}
+            {/* <ListItemText primary="Add category" />
+            </Section> */}
           </ListItem>
-
           <ListItem>
             <IconButton
               aria-label="create new report"

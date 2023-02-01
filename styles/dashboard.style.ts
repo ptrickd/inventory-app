@@ -35,7 +35,6 @@ export const Main = styled(Box)(() => ({
 
 export const StyledDivider = styled(Divider)(() => ({
   [`&.${classes.divider}`]: {
-    // marginTop: 10,
     marginBottom: 10,
   },
 }));
