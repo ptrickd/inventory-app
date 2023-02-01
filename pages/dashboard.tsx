@@ -23,6 +23,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
+import { CategoriesContext } from "../contexts/CategoriesContext";
 
 //Style
 import { classes, Root, Main, StyledDivider } from "../styles/dashboard.style";
@@ -35,13 +36,16 @@ interface IResponseStatus {
 
 function Dashboard() {
   const router = useRouter();
+
+  //Context
   const { loggedIn, currentUser } = useContext(UserContext);
+  const { categories } = useContext(CategoriesContext);
+
+  //UseState
   const [openCreateNewReport, setOpenCreateNewReport] = useState(false);
   const [openSubmittingModal, setOpenSubmittingModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
-
-  const listOfCategories = ["Produce", "Freezer", "Cooler"];
 
   //create template for new report
   const handleCloseCreateNewReport = (responseStatus: IResponseStatus) => {
@@ -74,7 +78,7 @@ function Dashboard() {
       <Main component="div" className={classes.main}>
         <Typography variant="h4">{currentUser && currentUser.email}</Typography>
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
-        <CategoriesSection listOfCategories={listOfCategories} />
+        <CategoriesSection listOfCategories={categories || []} />
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
         <List>
           <ListItem>

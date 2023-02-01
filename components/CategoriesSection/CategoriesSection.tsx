@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 //Components
 import AddCategoryForm from "../../components/AddCategoryForm";
+import MessageModal from "../MessageModal";
 
 //Material UI
 import Typography from "@mui/material/Typography";
@@ -21,19 +22,44 @@ import {
   StyledCollapse,
   StyledButton,
 } from "./CategoriesSection.style";
+import { Message } from "@mui/icons-material";
 
 //Types
+interface ICategory {
+  id: string;
+  name: string;
+}
 interface IProps {
-  listOfCategories: string[] | [];
+  listOfCategories: ICategory[] | [];
 }
 
 const CategoriesSection = ({ listOfCategories }: IProps) => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [showList, setShowList] = useState(false);
-
+  const [openMessageModal, setOpenMessageModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isMessageError, setIsMessageError] = useState(false);
   //Adding categories
-  const handleAddCategory = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
+  const handleAddCategory = () => setOpenCategoryModal(true);
+  const handleCloseCategoryForm = (data: any) => {
+    console.log(data);
+    if (data.id) {
+      setMessage(`The ${data.name} category as been created.`);
+      setOpenMessageModal(true);
+    } else if (data.error) {
+      setMessage(data.error);
+      setOpenMessageModal(true);
+      setIsMessageError(true);
+    }
+    setOpenCategoryModal(false);
+  };
+
+  //Response message
+  const handleMessageModalClicked = () => {
+    setMessage("");
+    setOpenMessageModal(false);
+    setIsMessageError(false);
+  };
 
   return (
     <Section className={classes.section} component="section">
@@ -64,12 +90,21 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
       <StyledCollapse in={showList} className={classes.styledCollapse}>
         <List>
           {listOfCategories.map((item) => {
-            return <ListItem key={item}>{item}</ListItem>;
+            return <ListItem key={item.id}>{item.name}</ListItem>;
           })}
         </List>
       </StyledCollapse>
 
-      <AddCategoryForm open={openModal} handleCloseModal={handleCloseModal} />
+      <AddCategoryForm
+        open={openCategoryModal}
+        handleCloseModal={handleCloseCategoryForm}
+      />
+      <MessageModal
+        open={openMessageModal}
+        message={message}
+        isError={isMessageError}
+        handleClick={handleMessageModalClicked}
+      />
     </Section>
   );
 };

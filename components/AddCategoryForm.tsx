@@ -67,12 +67,12 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     if (createCategoryApi !== undefined) {
       setSubmitting(true);
-      let category = await createCategoryApi({ id: "", name: data.name });
-      //category = id name error
+      let response = await createCategoryApi({ id: "", name: data.name });
+      //response = id name error
       reset({ name: "" });
       setSubmitting(false);
       //Need  a category to update the states from the parent components
-      handleCloseModal(category);
+      handleCloseModal(response);
     }
   };
 
