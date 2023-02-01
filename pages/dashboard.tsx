@@ -1,6 +1,5 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
 //Components
@@ -12,9 +11,7 @@ import SettingsModal from "../components/SettingsModal";
 import Footer from "../Layout/Footer";
 
 //Material UI
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
@@ -28,39 +25,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 //Context
 import { UserContext } from "../contexts/UserContext";
 
-const PREFIX = "Dashboard";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  main: `${PREFIX}-main`,
-  divider: `${PREFIX}-divider`,
-};
-
-const Root = styled(Container)(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
-    display: "flex",
-    minHeight: "calc(100vh - 120px)",
-    flexDirection: "column",
-    width: "100%",
-  },
-}));
-const Main = styled(Box)(() => ({
-  [`&.${classes.main}`]: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "15%",
-    marginBottom: "10%",
-    width: "100%",
-    minHeight: "70vh",
-    alignContent: "space-between",
-  },
-}));
-const StyledDivider = styled(Divider)(() => ({
-  [`&.${classes.divider}`]: {
-    // marginTop: 10,
-    marginBottom: 10,
-  },
-}));
+//Style
+import { classes, Root, Main, StyledDivider } from "../styles/dashboard.style";
 
 //Interface
 interface IResponseStatus {

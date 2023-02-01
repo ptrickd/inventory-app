@@ -3,9 +3,6 @@ export const redirectOnLogin = (
   hasCategory: boolean | null | undefined,
   hasProduct: boolean | null | undefined
 ) => {
-  console.log(`hasReport ${hasReport}`);
-  console.log(`hasCategoires ${hasCategory}`);
-  console.log(`hasProduct ${hasProduct}`);
   if (
     hasReport === undefined &&
     hasReport === null &&
