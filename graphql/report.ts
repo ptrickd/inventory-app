@@ -147,6 +147,9 @@ export const resolvers = {
           userId: user.id,
           dateEndingCycle: truncatedDateEndingCycle,
         });
+        console.log(user.id);
+        console.log(sameDateEndingCycleReport);
+        console.log(truncatedDateEndingCycle);
 
         if (sameDateEndingCycleReport)
           throw new Error(

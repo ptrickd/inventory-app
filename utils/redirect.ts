@@ -3,15 +3,19 @@ export const redirectOnLogin = (
   hasCategory: boolean | null | undefined,
   hasProduct: boolean | null | undefined
 ) => {
+  console.log(`hasReport ${hasReport}`);
+  console.log(`hasCategoires ${hasCategory}`);
+  console.log(`hasProduct ${hasProduct}`);
   if (
-    hasReport !== undefined &&
-    hasReport !== null &&
-    hasCategory !== undefined &&
-    hasCategory !== null &&
-    hasProduct !== undefined &&
-    hasProduct !== null
+    hasReport === undefined &&
+    hasReport === null &&
+    hasCategory === undefined &&
+    hasCategory === null &&
+    hasProduct === undefined &&
+    hasProduct === null
   )
     return null;
+
   if (!hasReport) {
     return { pathname: "/wiz", query: { l: "firstReport" } };
   } else if (hasReport && !hasCategory) {
