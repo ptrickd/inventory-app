@@ -1,5 +1,5 @@
 //React
-import { createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 //GraphQL
 import { useQuery } from "@apollo/client";
@@ -19,16 +19,19 @@ interface IContext {
   setLoggedIn: (loggedIn: boolean) => void;
   setToken: (token: string) => void;
   logout: () => void;
-  theme: string;
-  setTheme: (theme: string) => void;
+  theme: "light" | "dark";
+  setTheme: (theme: "light" | "dark") => void;
 }
 
 const UserContext = createContext<Partial<IContext>>({});
 
 const UserProvider = ({ children }: IProps) => {
+  //UseState
   const [currentUser, setCurrentUser] = useState<IUser>({ id: "", email: "" });
   const [loggedIn, setLoggedIn] = useState(false);
-  const [theme, setTheme] = useState("Light");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
+
+  //Queries
   const { data } = useQuery(GET_CURRENT_USER);
 
   /*
@@ -56,9 +59,11 @@ const UserProvider = ({ children }: IProps) => {
   const setToken = (token: string) => {
     localStorage.setItem("token", token);
   };
+
   const logout = () => {
     setCurrentUser({ id: "", email: "" });
     setLoggedIn(false);
+    setTheme("light");
     localStorage.removeItem("token");
   };
 

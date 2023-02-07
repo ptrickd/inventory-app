@@ -1,5 +1,6 @@
 //React
 import React, { useState } from "react";
+import Link from "next/link";
 
 //Components
 import MessageModal from "../MessageModal";
@@ -107,7 +108,9 @@ const ReportsSection = ({ list }: IProps) => {
           {list.map((item) => {
             return (
               <ListItem key={item.id}>
-                {formattingDate(item.dateEndingCycle)}
+                <Link href={`/report/${item.id}`}>
+                  {formattingDate(item.dateEndingCycle)}
+                </Link>
               </ListItem>
             );
           })}

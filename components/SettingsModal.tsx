@@ -54,10 +54,11 @@ const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
   const [updateUser] = useMutation(UPDATE_THEME);
 
   const handleChange = (event: SelectChangeEvent) => {
-    if (setTheme) {
-      setTheme(event.target.value);
-      updateUser({ variables: { theme: event.target.value } });
-    }
+    if (event.target.value === "light" || event.target.value === "dark")
+      if (setTheme) {
+        setTheme(event.target.value);
+        updateUser({ variables: { theme: event.target.value } });
+      }
   };
 
   return (

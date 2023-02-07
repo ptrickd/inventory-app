@@ -1,5 +1,6 @@
 //React
 import React, { useState } from "react";
+import Link from "next/link";
 
 //Components
 import AddCategoryForm from "../../components/AddCategoryForm";
@@ -22,7 +23,6 @@ import {
   StyledCollapse,
   StyledButton,
 } from "./CategoriesSection.style";
-import { Message } from "@mui/icons-material";
 
 //Types
 interface ICategory {
@@ -90,7 +90,13 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
       <StyledCollapse in={showList} className={classes.styledCollapse}>
         <List>
           {listOfCategories.map((item) => {
-            return <ListItem key={item.id}>{item.name}</ListItem>;
+            return (
+              <ListItem key={item.id}>
+                <Link href={`/category/${item.id}`} key={item.id}>
+                  {item.name}
+                </Link>
+              </ListItem>
+            );
           })}
         </List>
       </StyledCollapse>
