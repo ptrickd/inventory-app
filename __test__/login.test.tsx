@@ -105,11 +105,7 @@ describe("<Login />", () => {
   });
 
   it("render as intended", async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <LoginPage />
-      </MockedProvider>
-    );
+    customRender(<LoginPage />);
 
     //need an heading
     const loginHeading = screen.getByRole("heading", { name: "Login" });

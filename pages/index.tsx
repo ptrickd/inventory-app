@@ -10,7 +10,7 @@
 import { Fragment, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 //Material UI
 import { styled } from "@mui/material/styles";

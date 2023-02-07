@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
+import { mockedRouter } from "./mockedRouter";
 import Register from "../pages/register";
-
+import { RouterContext } from "next/dist/shared/lib/router-context";
 import { REGISTER } from "../graphql/queries";
 
 const mocks: any = [
@@ -31,9 +32,11 @@ const mocks: any = [
 describe("<Register />", () => {
   it("render as intended", async () => {
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Register />
-      </MockedProvider>
+      <RouterContext.Provider value={mockedRouter({})}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Register />
+        </MockedProvider>
+      </RouterContext.Provider>
     );
 
     //need  an heading
