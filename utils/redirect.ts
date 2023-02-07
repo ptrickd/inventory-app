@@ -4,11 +4,11 @@ export const redirectOnLogin = (
   hasProduct: boolean | null | undefined
 ) => {
   if (
-    hasReport === undefined &&
-    hasReport === null &&
-    hasCategory === undefined &&
-    hasCategory === null &&
-    hasProduct === undefined &&
+    hasReport === undefined ||
+    hasReport === null ||
+    hasCategory === undefined ||
+    hasCategory === null ||
+    hasProduct === undefined ||
     hasProduct === null
   )
     return null;
