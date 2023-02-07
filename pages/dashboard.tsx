@@ -9,6 +9,7 @@ import ErrorModal from "../components/ErrorModal";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../Layout/Footer";
 import CategoriesSection from "../components/CategoriesSection";
+import ReportsSection from "../components/ReportsSection";
 
 //Material UI
 import Typography from "@mui/material/Typography";
@@ -18,12 +19,12 @@ import ListItem from "@mui/material/ListItem";
 
 //Icons
 import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
 import { CategoriesContext } from "../contexts/CategoriesContext";
+import { ReportsContext } from "../contexts/ReportsContext";
 
 //Style
 import { classes, Root, Main, StyledDivider } from "../styles/dashboard.style";
@@ -40,6 +41,7 @@ function Dashboard() {
   //Context
   const { loggedIn, currentUser } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
+  const { reports } = useContext(ReportsContext);
 
   //UseState
   const [openCreateNewReport, setOpenCreateNewReport] = useState(false);
@@ -80,8 +82,10 @@ function Dashboard() {
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
         <CategoriesSection listOfCategories={categories || []} />
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+        <ReportsSection list={reports || []} />
         <List>
-          <ListItem>
+          {/*
+           <ListItem>
             <IconButton
               aria-label="create new report"
               color="primary"
@@ -90,7 +94,7 @@ function Dashboard() {
               <AddIcon />
             </IconButton>
             <ListItemText primary="Create Inventory Report" />
-          </ListItem>
+          </ListItem> */}
           <ListItem>
             <IconButton
               aria-label="settings"
