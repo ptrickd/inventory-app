@@ -9,6 +9,9 @@ import { MockedProvider } from "@apollo/client/testing";
 import { default as LoginPage } from "../pages/login";
 import { mockedRouter } from "./mockedRouter";
 import { UserContext } from "../contexts/UserContext";
+import { ReportsContext } from "../contexts/ReportsContext";
+import { CategoriesContext } from "../contexts/CategoriesContext";
+import { ProductsContext } from "../contexts/ProductsContext";
 import { LOGIN } from "../graphql/queries";
 import React from "react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
@@ -37,7 +40,7 @@ const mocks: any = [
   },
 ];
 
-const props = {
+const UserContextProps = {
   currentUser: { id: "", email: "" },
   setCurrentUser: jest.fn(),
   loggedIn: false,
@@ -46,15 +49,46 @@ const props = {
   logout: jest.fn(),
 };
 
+const ReportsContextProps = {
+  hasReport: true,
+  reports: [],
+  createNewReport: jest.fn(),
+  deleteLocalReport: jest.fn(),
+};
+
+const CategoriesContextProps = {
+  hasCategory: true,
+  categories: [],
+  createCategoryApi: jest.fn(),
+  deleteCategoryApi: jest.fn(),
+};
+
+const ProductsContextProps = {
+  hasProduct: true,
+  products: [],
+  productsByCategory: [],
+  updateProducts: jest.fn(),
+  setCategoryId: jest.fn(),
+  addProduct: jest.fn(),
+  deleteProductApi: jest.fn(),
+  editProductApi: jest.fn(),
+};
+
 const AllTheProviders: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
     <RouterContext.Provider value={mockedRouter({})}>
-      <UserContext.Provider value={props}>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          {children}
-        </MockedProvider>
+      <UserContext.Provider value={UserContextProps}>
+        <ReportsContext.Provider value={ReportsContextProps}>
+          <CategoriesContext.Provider value={CategoriesContextProps}>
+            <ProductsContext.Provider value={ProductsContextProps}>
+              <MockedProvider mocks={mocks} addTypename={false}>
+                {children}
+              </MockedProvider>
+            </ProductsContext.Provider>
+          </CategoriesContext.Provider>
+        </ReportsContext.Provider>
       </UserContext.Provider>
     </RouterContext.Provider>
   );
