@@ -25,7 +25,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IProduct, ICategory } from "../../types/types";
 
 //Style
-import { classes, Root } from "./categoryId.style";
+import { classes, Root } from "../../styles/categoryId.style";
 
 const ProductsPage: React.FC = () => {
   const { productsByCategory, setCategoryId } = useContext(ProductsContext);
