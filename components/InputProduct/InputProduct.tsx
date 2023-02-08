@@ -124,29 +124,27 @@ const InputProduct: React.FC<IProps> = ({
   const handleUnitChange = async (e: any) => {
     const newUnit = e?.target?.value;
     const unitsFormat = new UnitsFormat();
-    console.log(newUnit);
 
     let result: number | null = null;
     switch (newUnit) {
       case "l":
         result = unitsFormat.toLitre(Number(amount), currentMeasureUnit);
-        console.log(unitsFormat.toLitre(Number(amount), currentMeasureUnit));
+
         break;
       case "ml":
         result = unitsFormat.toMl(Number(amount), currentMeasureUnit);
-        console.log(unitsFormat.toMl(Number(amount), currentMeasureUnit));
+
         break;
       case "kg":
         result = unitsFormat.toKg(Number(amount), currentMeasureUnit);
-        console.log(unitsFormat.toKg(Number(amount), currentMeasureUnit));
+
         break;
       case "g":
         result = unitsFormat.toGrams(Number(amount), currentMeasureUnit);
-        console.log(unitsFormat.toGrams(Number(amount), currentMeasureUnit));
+
         break;
     }
     if (result === null) {
-      console.log("cant format that number in this unit just put 0");
       setOpenMessageModal(true);
       setAmount("0");
     } else {
