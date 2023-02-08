@@ -169,6 +169,13 @@ const InputProduct: React.FC<IProps> = ({
     if (updateProducts && newProductsList) updateProducts(newProductsList);
   };
 
+  const handleChangeCurrentAmount = (e: any) => {
+    const newValue = Number(e?.target?.value);
+    //Accept only numbers
+    if (newValue && typeof newValue === "number")
+      setAmount(newValue.toString());
+  };
+
   const bodyWithAmount = () => (
     <Fragment>
       <FormControl className={classes.innerFormControl}>
@@ -177,7 +184,7 @@ const InputProduct: React.FC<IProps> = ({
           label={"Current"}
           color="primary"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={handleChangeCurrentAmount}
           onBlur={saveProductOnBlur}
           variant="standard"
           fullWidth
