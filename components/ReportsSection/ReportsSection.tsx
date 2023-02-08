@@ -24,6 +24,7 @@ import {
   HorizontalBox,
   StyledCollapse,
   StyledButton,
+  StyledLink,
 } from "./ReportsSection.style";
 
 //Types
@@ -109,7 +110,9 @@ const ReportsSection = ({ list }: IProps) => {
             return (
               <ListItem key={item.id}>
                 <Link href={`/report/${item.id}`}>
-                  {formattingDate(item.dateEndingCycle)}
+                  <StyledLink color="primary" underline="hover" variant="body1">
+                    {formattingDate(item.dateEndingCycle)}
+                  </StyledLink>
                 </Link>
               </ListItem>
             );

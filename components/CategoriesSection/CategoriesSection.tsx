@@ -22,6 +22,7 @@ import {
   HorizontalBox,
   StyledCollapse,
   StyledButton,
+  StyledLink,
 } from "./CategoriesSection.style";
 
 //Types
@@ -93,7 +94,9 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
             return (
               <ListItem key={item.id}>
                 <Link href={`/category/${item.id}`} key={item.id}>
-                  {item.name}
+                  <StyledLink color="primary" underline="hover" variant="body1">
+                    {item.name}
+                  </StyledLink>
                 </Link>
               </ListItem>
             );

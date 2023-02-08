@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 const PREFIX = "CategoriesSection";
 
@@ -11,6 +12,7 @@ export const classes = {
   horizontalBox: `${PREFIX}-horizontal-box`,
   styledCollapse: `${PREFIX}-styled-collapse`,
   styledButton: `${PREFIX}-styled-button`,
+  styledLink: `${PREFIX}-styled-link`,
 };
 
 export const Section = styled(Box)(() => ({
@@ -43,4 +45,8 @@ export const StyledButton = styled(Button)(() => ({
     padding: 0,
     paddingLeft: 1,
   },
+}));
+
+export const StyledLink = styled(Link)(() => ({
+  [`&.${classes.styledLink}`]: {},
 }));
