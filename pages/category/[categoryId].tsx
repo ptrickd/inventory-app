@@ -9,7 +9,7 @@ import { CategoriesContext } from "../../contexts/CategoriesContext";
 import { UserContext } from "../../contexts/UserContext";
 
 //Components
-import InputProduct from "../../components/InputProduct";
+import InputProduct from "../../components/InputProduct/InputProduct";
 import AddProductForm from "../../components/AddProductForm";
 import EditCategoryForm from "../../components/EditCategoryForm";
 

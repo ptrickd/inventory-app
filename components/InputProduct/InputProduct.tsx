@@ -6,9 +6,9 @@ import { ProductsContext } from "../../contexts/ProductsContext";
 
 //Components
 import EditProductForm from "../EditProductForm";
+import MessageModal from "../MessageModal";
 
 //Material UI
-
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
@@ -33,6 +33,9 @@ import { MEASURE_UNITS } from "../../constants/measureUnits";
 
 //Styles
 import { classes, Root } from "./InputProduct.style";
+
+//Utils
+import UnitsFormat from "../../utils/unitsFormat";
 
 const UPDATE_AMOUNT = gql`
   mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!) {
@@ -69,13 +72,17 @@ const InputProduct: React.FC<IProps> = ({
   showAmounts,
   measureUnit,
 }) => {
+  //Context
   const { products, updateProducts, deleteProductApi } =
     useContext(ProductsContext);
-  const [openEditProductForm, setOpenEditProductModal] =
-    useState<boolean>(false);
-  const [currentMeasureUnit, setCurrentMeasureUnit] =
-    useState<string>(measureUnit);
+
+  //useState
+  const [openEditProductForm, setOpenEditProductModal] = useState(false);
+  const [currentMeasureUnit, setCurrentMeasureUnit] = useState(measureUnit);
+
   const [amount, setAmount] = useState(currentAmount.toString());
+  const [openMessageModal, setOpenMessageModal] = useState(false);
+  //Queries
   const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT);
   const [saveNewUnit] = useMutation(UPDATE_UNIT);
 
@@ -110,8 +117,42 @@ const InputProduct: React.FC<IProps> = ({
 
   const handleEditAddProductForm = () => setOpenEditProductModal(false);
 
+  const handleMessageModalClicked = () => {
+    setOpenMessageModal(false);
+  };
+
   const handleUnitChange = async (e: any) => {
-    setCurrentMeasureUnit(e?.target?.value);
+    const newUnit = e?.target?.value;
+    const unitsFormat = new UnitsFormat();
+    console.log(newUnit);
+
+    let result: number | null = null;
+    switch (newUnit) {
+      case "l":
+        result = unitsFormat.toLitre(Number(amount), currentMeasureUnit);
+        console.log(unitsFormat.toLitre(Number(amount), currentMeasureUnit));
+        break;
+      case "ml":
+        result = unitsFormat.toMl(Number(amount), currentMeasureUnit);
+        console.log(unitsFormat.toMl(Number(amount), currentMeasureUnit));
+        break;
+      case "kg":
+        result = unitsFormat.toKg(Number(amount), currentMeasureUnit);
+        console.log(unitsFormat.toKg(Number(amount), currentMeasureUnit));
+        break;
+      case "g":
+        result = unitsFormat.toGrams(Number(amount), currentMeasureUnit);
+        console.log(unitsFormat.toGrams(Number(amount), currentMeasureUnit));
+        break;
+    }
+    if (result === null) {
+      console.log("cant format that number in this unit just put 0");
+      setOpenMessageModal(true);
+      setAmount("0");
+    } else {
+      setAmount(result.toString());
+    }
+    setCurrentMeasureUnit(newUnit);
   };
   const saveProductOnBlur = async () => {
     await saveAmountProduct({
@@ -202,6 +243,12 @@ const InputProduct: React.FC<IProps> = ({
         productId={id}
         categoryId={categoryId}
         productName={name}
+      />
+      <MessageModal
+        open={openMessageModal}
+        isError={false}
+        message="We can't convert that value to that unit format. It will be reset to zero"
+        handleClick={handleMessageModalClicked}
       />
     </Root>
   );
