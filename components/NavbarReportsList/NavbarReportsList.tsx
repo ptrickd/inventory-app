@@ -1,22 +1,14 @@
 //React
-import React, { useEffect, Fragment } from "react";
-import { styled } from "@mui/material/styles";
+import React from "react";
 import Link from "next/link";
 
+//Material UI
 import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
+import Menu from "@mui/material/Menu";
 import Typography from "@mui/material/Typography";
 
 //Color
-import { TEXT_MENU_COLOR, BACKGROUND_MENU_COLOR } from "../constants/colors";
-
-//Icons
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 //GraphQL
 import { gql, useQuery } from "@apollo/client";
@@ -24,29 +16,8 @@ import { gql, useQuery } from "@apollo/client";
 //Date
 import { DateTime } from "luxon";
 
-const PREFIX = "NavbarReportsList";
-
-const classes = {
-  menuText: `${PREFIX}-menuText`,
-  list: `${PREFIX}-list`,
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled("div")(({ theme: Theme }) => ({
-  [`&.${classes.menuText}`]: {
-    // color: TEXT_MENU_COLOR,
-    textTransform: "none",
-    marginLeft: Theme.spacing(1),
-    margin: 0,
-  },
-}));
-
-const StyledMenuItem = styled(MenuItem)(({ theme: Theme }) => ({
-  [`&.${classes.list}`]: {
-    background: BACKGROUND_MENU_COLOR,
-    margin: 0,
-  },
-}));
+//Styles
+import { classes, Root, StyledMenuItem } from "./NavbarReportsList.style";
 
 interface IReport {
   id: string;
