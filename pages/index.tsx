@@ -7,8 +7,7 @@
   /mutations
 */
 //React
-import { Fragment, useContext, useEffect } from "react";
-import Link from "next/link";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/legacy/image";
 
@@ -109,17 +108,17 @@ export default function Home() {
           width={500}
           height={300}
         />
-        <Link href="/login">
-          <StyledButton
-            className={classes.button}
-            // fullWidth
-            variant="contained"
-            color="primary"
-            size="large"
-          >
-            Start
-          </StyledButton>
-        </Link>
+        <StyledButton
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={() => {
+            router.push("/login");
+          }}
+        >
+          Start
+        </StyledButton>
       </Main>
       <Footer />
     </Root>

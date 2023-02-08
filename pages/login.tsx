@@ -1,7 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 //Material UI
 import Button from "@mui/material/Button";
@@ -125,11 +124,15 @@ const Login: React.FC = () => {
         />
         <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
 
-        <Link href="/register">
-          <Button color="inherit" variant="contained">
-            Register
-          </Button>
-        </Link>
+        <Button
+          color="inherit"
+          variant="contained"
+          onClick={() => {
+            router.push("/register");
+          }}
+        >
+          Register
+        </Button>
       </Main>
 
       <Footer />

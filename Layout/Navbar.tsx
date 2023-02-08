@@ -2,6 +2,7 @@
 import React, { useState, useContext } from "react";
 import { styled } from "@mui/material/styles";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 //Components
 import NavbarDrawer from "../components/NavbarDrawer";
@@ -96,6 +97,9 @@ const Root = styled("div")(({ theme }) => ({
 
   [`& .${classes.title}`]: {
     flexGrow: 1,
+    // selfAlign: "flex-start",
+    // marginLeft: 0,
+    // paddingLeft: 0,
     cursor: "pointer",
   },
 }));
@@ -106,6 +110,8 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const router = useRouter();
 
   //Keep those for the icon more menu
   const handleClickOnMoreIconMenu = (
@@ -157,11 +163,18 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Link href="/">
-            <Typography variant="h6" className={classes.title}>
-              Inventory
-            </Typography>
-          </Link>
+
+          <Button
+            sx={{ alignItem: "flex-start" }}
+            className={classes.title}
+            color="inherit"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            <Typography variant="h6">Inventory</Typography>
+          </Button>
+
           {/* Keep this code for later */}
           {/* <IconButton
                     aria-label="display more action"
@@ -178,9 +191,15 @@ const Navbar = () => {
             </Button>
           )}
           {!loggedIn && (
-            <Link href="/login">
-              <Button color="inherit">Login</Button>
-            </Link>
+            <Button
+              sx={{}}
+              color="inherit"
+              onClick={() => {
+                router.push("/login");
+              }}
+            >
+              Login
+            </Button>
           )}
         </Toolbar>
       </AppBar>
