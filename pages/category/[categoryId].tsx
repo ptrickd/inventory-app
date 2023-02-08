@@ -1,6 +1,5 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
 //Context
@@ -25,44 +24,8 @@ import EditIcon from "@mui/icons-material/Edit";
 //Types
 import { IProduct, ICategory } from "../../types/types";
 
-const PREFIX = "ProductsPage";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  button: `${PREFIX}-button`,
-  title: `${PREFIX}-title`,
-  titleText: `${PREFIX}-titleText`,
-  productContainer: `${PREFIX}-productContainer`,
-};
-
-const Root = styled("div")(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
-    marginTop: 60,
-    marginLeft: 8,
-    marginRight: 8,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  [`& .${classes.button}`]: {
-    marginTop: "10px",
-  },
-
-  [`& .${classes.title}`]: {
-    marginTop: 12,
-    display: "flex",
-  },
-
-  [`& .${classes.titleText}`]: {
-    marginRight: 10,
-  },
-
-  [`& .${classes.productContainer}`]: {
-    flexGrow: 1,
-  },
-}));
+//Style
+import { classes, Root } from "./categoryId.style";
 
 const ProductsPage: React.FC = () => {
   const { productsByCategory, setCategoryId } = useContext(ProductsContext);
@@ -126,7 +89,7 @@ const ProductsPage: React.FC = () => {
   if (!currentCategory) return null;
 
   return (
-    <Root className={classes.root}>
+    <Root className={classes.root} maxWidth="xs">
       <div className={classes.title}>
         <Typography variant="h2" className={classes.titleText}>
           {currentCategory.name}
