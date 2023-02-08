@@ -12,13 +12,14 @@ const PREFIX = "Navbar";
 export const classes = {
   root: `${PREFIX}-root`,
   drawer: `${PREFIX}-drawer`,
-  drawerPaper: `${PREFIX}-drawerPaper`,
+  drawerPaper: `${PREFIX}-drawer-paper`,
   hide: `${PREFIX}-hide`,
   appBar: `${PREFIX}-appBar`,
-  appBarShift: `${PREFIX}-appBarShift`,
+  appBarShift: `${PREFIX}-app-bar-shift`,
   toolbar: `${PREFIX}-toolbar`,
-  activeSubMenu: `${PREFIX}-activeSubMenu`,
-  menuButton: `${PREFIX}-menuButton`,
+  activeSubMenu: `${PREFIX}-active-sub-menu`,
+  menuButton: `${PREFIX}-menu-mutton`,
+  linkButton: `${PREFIX}-link-mutton`,
   title: `${PREFIX}-title`,
 };
 
@@ -75,12 +76,13 @@ export const Root = styled("div")(({ theme }) => ({
       display: "none",
     },
   },
+  [`& .${classes.linkButton}`]: {
+    "&:hover": { background: "inherit" },
+  },
 
   [`& .${classes.title}`]: {
     flexGrow: 1,
-    // selfAlign: "flex-start",
-    // marginLeft: 0,
-    // paddingLeft: 0,
-    cursor: "pointer",
+    justifyContent: "flex-start",
+    "&:hover": { background: "inherit" },
   },
 }));

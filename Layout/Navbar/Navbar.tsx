@@ -27,7 +27,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { classes, Root } from "./Navbar.style";
 
 const Navbar = () => {
-  const { loggedIn, logout, currentUser } = useContext(UserContext);
+  const { loggedIn, logout } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -87,7 +87,6 @@ const Navbar = () => {
           </IconButton>
 
           <Button
-            sx={{ alignItem: "flex-start" }}
             className={classes.title}
             color="inherit"
             onClick={() => {
@@ -108,13 +107,17 @@ const Navbar = () => {
                 </IconButton>
                 <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
           {loggedIn && (
-            <Button color="inherit" onClick={() => handleLogoutClick()}>
+            <Button
+              className={classes.linkButton}
+              color="inherit"
+              onClick={() => handleLogoutClick()}
+            >
               Logout
             </Button>
           )}
           {!loggedIn && (
             <Button
-              sx={{}}
+              className={classes.linkButton}
               color="inherit"
               onClick={() => {
                 router.push("/login");
