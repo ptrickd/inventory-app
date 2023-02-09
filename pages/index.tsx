@@ -11,13 +11,14 @@ import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/legacy/image";
 
-//Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
+//Style
+import {
+  classes,
+  Root,
+  Main,
+  StyledTypography,
+  StyledButton,
+} from "../styles/index.style";
 
 //Context
 import { UserContext } from "../contexts/UserContext";
@@ -30,48 +31,6 @@ import Footer from "../Layout/Footer";
 
 //Function
 import { redirectOnLogin } from "../utils/redirect";
-
-const PREFIX = "index";
-const classes = {
-  root: `${PREFIX}--root`,
-  main: `${PREFIX}-main`,
-  title: `$(PREFIX)--title`,
-  subtitle: `$(PREFIX)--subtitle`,
-  button: `$(PREFIX)--button`,
-};
-const Root = styled(Container)(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
-    display: "flex",
-    minHeight: "calc(100vh - 120px)",
-    flexDirection: "column",
-    width: "100%",
-  },
-}));
-
-const Main = styled(Box)(() => ({
-  [`&.${classes.main}`]: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "15%",
-    marginBottom: "10%",
-    width: "100%",
-    minHeight: "70vh",
-    alignContent: "space-between",
-  },
-}));
-
-const StyledTypography = styled(Typography)(({ theme: Theme }) => ({
-  [`&.${classes.title}`]: { marginBottom: 20 },
-  [`&.${classes.subtitle}`]: { marginBottom: 20 },
-}));
-
-const StyledButton = styled(Button)(({ theme: Theme }) => ({
-  [`&.${classes.button}`]: {
-    width: "70%",
-    marginBottom: "15%",
-    borderRadius: 15,
-  },
-}));
 
 export default function Home() {
   //Context
