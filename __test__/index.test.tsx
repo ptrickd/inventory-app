@@ -25,4 +25,15 @@ describe("Home", () => {
     const button = screen.getByRole("button");
     expect(button).toBeInTheDocument();
   });
+
+  it("Got a Image", () => {
+    render(
+      <RouterContext.Provider value={mockedRouter({})}>
+        <Home />
+      </RouterContext.Provider>
+    );
+
+    const image = screen.getByRole("img");
+    expect(image).toBeInTheDocument();
+  });
 });
