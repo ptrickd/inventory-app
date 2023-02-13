@@ -26,6 +26,7 @@ import {
   ReportsContextProps,
 } from "./mockedContexts";
 
+//Queries
 import { LOGIN } from "../graphql/queries";
 
 const mocksQuery: any = [

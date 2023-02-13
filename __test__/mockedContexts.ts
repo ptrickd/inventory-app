@@ -16,15 +16,38 @@ export const ReportsContextProps = {
 
 export const CategoriesContextProps = {
   hasCategory: true,
-  categories: [],
+  categories: [
+    {
+      id: "123456",
+      name: "Produce",
+    },
+  ],
   createCategoryApi: jest.fn(),
   deleteCategoryApi: jest.fn(),
 };
 
 export const ProductsContextProps = {
   hasProduct: true,
-  products: [],
-  productsByCategory: [],
+  products: [
+    {
+      id: "234567",
+      currentAmount: 6,
+      previousAmount: 0,
+      name: "Carrots",
+      categoryId: "123456",
+      unit: "ea",
+    },
+  ],
+  productsByCategory: [
+    {
+      id: "234567",
+      currentAmount: 6,
+      previousAmount: 0,
+      name: "Carrots",
+      categoryId: "123456",
+      unit: "ea",
+    },
+  ],
   updateProducts: jest.fn(),
   setCategoryId: jest.fn(),
   addProduct: jest.fn(),

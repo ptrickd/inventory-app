@@ -1,3 +1,7 @@
+//React
+import React from "react";
+
+//Testing library
 import {
   render,
   screen,
@@ -5,9 +9,11 @@ import {
   cleanup,
   RenderOptions,
 } from "@testing-library/react";
+
+//Component
 import { default as LoginPage } from "../pages/login";
 
-import React from "react";
+//Testing component
 import CustomRender from "./CustomRender";
 
 describe("<Login />", () => {

@@ -59,9 +59,6 @@ const Login: React.FC = () => {
   const [login] = useMutation(LOGIN);
 
   useEffect(() => {
-    console.log(`hasReport ${hasReport}`);
-    console.log(`hasCategory ${hasCategory}`);
-    console.log(`hasProduct ${hasProduct}`);
     //Push to wiz wiz will redirect if incorrect
     //When loggedIn wait to be connected to all context
     if (loggedIn) {

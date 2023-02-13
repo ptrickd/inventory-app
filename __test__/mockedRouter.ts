@@ -5,7 +5,7 @@ export function mockedRouter(router: Partial<NextRouter>): NextRouter {
     basePath: "",
     pathname: "/",
     route: "/",
-    query: {},
+    query: { categoryId: "123456" },
     asPath: "/",
     forward: jest.fn(),
     back: jest.fn(),
