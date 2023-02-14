@@ -1,12 +1,10 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
 
-import { styled } from "@mui/material/styles";
-
 //Context
-import { ProductsContext } from "../contexts/ProductsContext";
+import { ProductsContext } from "../../contexts/ProductsContext";
 
-import Dialog from "@mui/material/Dialog";
+//Material UI
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -15,29 +13,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-const PREFIX = "AddProductForm";
-
-const classes = {
-  content: `${PREFIX}-content`,
-  buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`,
-};
-
-const StyledDialog = styled(Dialog)({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-});
+//Style
+import { classes, StyledDialog } from "./AddProductForm.style";
 
 interface IProps {
   open: boolean;
