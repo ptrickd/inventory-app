@@ -43,11 +43,10 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
   //Adding categories
   const handleAddCategory = () => setOpenCategoryModal(true);
   const handleCloseCategoryForm = (data: any) => {
-    console.log(data);
-    if (data.id) {
+    if (data?.id) {
       setMessage(`The ${data.name} category as been created.`);
       setOpenMessageModal(true);
-    } else if (data.error) {
+    } else if (data?.error) {
       setMessage(data.error);
       setOpenMessageModal(true);
       setIsMessageError(true);
