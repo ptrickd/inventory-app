@@ -73,7 +73,9 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
 
       setInputValue("");
       setSubmitting(false);
-      if (response.error) handleCloseModal(response.error);
+
+      //Need to handle the response send back to
+      if (response) handleCloseModal(response);
       else handleCloseModal("");
     }
   };

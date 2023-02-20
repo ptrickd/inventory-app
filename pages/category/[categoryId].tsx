@@ -11,6 +11,7 @@ import { UserContext } from "../../contexts/UserContext";
 import InputProduct from "../../components/InputProduct/InputProduct";
 import AddProductForm from "../../components/AddProductForm";
 import EditCategoryForm from "../../components/EditCategoryForm";
+import MessageModal from "../../components/MessageModal";
 
 //Material UI
 import Button from "@mui/material/Button";
@@ -28,18 +29,27 @@ import { IProduct, ICategory } from "../../types/types";
 import { classes, Root } from "../../styles/categoryId.style";
 
 const ProductsPage: React.FC = () => {
+  //Context
   const { productsByCategory, setCategoryId } = useContext(ProductsContext);
   const { categories, deleteCategoryApi } = useContext(CategoriesContext);
   const { loggedIn } = useContext(UserContext);
 
+  //React
   const router = useRouter();
   const { categoryId } = router.query;
+
+  //useState
   const [currentCategory, setCurrentCategory] = useState<ICategory | null>(
     null
   );
   const [listOfProducts, setListOfProducts] = useState<IProduct[] | []>([]);
+
+  //useState for modals
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [openEditCategoryModal, setOpenEditCategoryModal] = useState(false);
+  const [openMessageModal, setOpenMessageModal] = useState(false);
+  const [messageModal, setMessageModal] = useState("");
+  const [isResponseError, setIsResponseError] = useState(false);
 
   useEffect(() => {
     if (!loggedIn) router.push("/");
@@ -83,8 +93,22 @@ const ProductsPage: React.FC = () => {
   };
   /*********************************** */
 
-  const handleCloseAddProductForm = () => setOpenAddProductModal(false);
+  const handleCloseAddProductForm = (response: any) => {
+    setOpenAddProductModal(false);
+    //handle Message from server
+    //if error
+    if (response?.error) {
+      setOpenMessageModal(true);
+      setMessageModal(response.error);
+      setIsResponseError(true);
+    }
+  };
   const handleCloseEditCategoryForm = () => setOpenEditCategoryModal(false);
+  const handleMessageModalClicked = () => {
+    setOpenMessageModal(false);
+    setMessageModal("");
+    setIsResponseError(true);
+  };
 
   if (!currentCategory) return null;
 
@@ -140,6 +164,12 @@ const ProductsPage: React.FC = () => {
         setNewCategoryName={(name) =>
           setCurrentCategory({ ...currentCategory, name })
         }
+      />
+      <MessageModal
+        open={openMessageModal}
+        message={messageModal}
+        isError={isResponseError}
+        handleClick={() => handleMessageModalClicked()}
       />
     </Root>
   );
