@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 
-interface IProduct {
-  name: String;
+interface IProductInCategories {
   currentAmount: Number;
   previousAmount: Number;
   categoryId: String;
+}
+
+interface IProduct {
+  name: String;
+  categories: IProductInCategories[] | [];
   userId: String;
   unit: String;
 }
 
-const schema = new mongoose.Schema<IProduct>({
-  name: {
-    type: String,
-    required: true,
-  },
+const categoriesSchema = new mongoose.Schema<IProductInCategories>({
   currentAmount: {
     type: Number,
     default: 0,
@@ -26,6 +26,14 @@ const schema = new mongoose.Schema<IProduct>({
     type: mongoose.Types.ObjectId,
     required: true,
   },
+});
+
+const schema = new mongoose.Schema<IProduct>({
+  name: {
+    type: String,
+    required: true,
+  },
+  categories: [categoriesSchema],
   userId: {
     type: mongoose.Types.ObjectId,
     required: true,

@@ -1,3 +1,6 @@
+//Mongoose
+import mongoose from "mongoose";
+
 //Models
 import dbConnect from "../utils/dbConnect";
 import Product from "../models/product.model";
@@ -9,7 +12,7 @@ import { TIds, IProduct } from "../types/types";
 import { MEASURE_UNITS } from "../constants/measureUnits";
 
 //Validation
-// import Joi from joi
+import Joi from "joi";
 
 dbConnect();
 
@@ -30,12 +33,16 @@ interface IEditProduct {
 }
 
 export const typeDef = `
-    type Product {
-        id: ID
-        name: String
+    type Categories {
         currentAmount: Int
         previousAmount: Int
         categoryId: ID
+    }
+
+    type Product {
+        id: ID
+        name: String
+        categories: [Categories]
         userId: ID
         unit: String
         error: String
@@ -59,7 +66,7 @@ export const typeDef = `
             ): Product
 
         editProduct(
-            productId:ID, 
+            productId:String, 
             name:String, 
             currentAmount:Int, 
             previousAmount:Int, 
@@ -155,17 +162,29 @@ export const resolvers = {
 
         if (!MEASURE_UNITS.includes(unit)) throw new Error("Not a valid unit");
 
-        let sameNameProduct = await Product.find({ userId: user.id, name });
-        if (Boolean(sameNameProduct.length)) {
-          throw new Error("This is already a product of the same name");
-        }
+        //Verify if the product already exist
+        let sameNameProduct = await Product.find({
+          userId: user.id,
+          name,
+        });
+
+        //If exist  throw error
+        if (Boolean(sameNameProduct.length))
+          throw new Error(
+            "This is already a product of the same name in that category"
+          );
+
+        //If product don't exist
+        const categoryIdObj = new mongoose.Types.ObjectId(categoryId);
+        const category = { categoryId: categoryIdObj };
+
         let product = await Product.create({
           name,
-          categoryId,
+          categories: category,
           unit,
           userId: user.id,
         });
-        console.log(`Product created ${product}`);
+
         return product;
       } catch (err: any) {
         console.log(err.message);
@@ -178,20 +197,71 @@ export const resolvers = {
       { user }: any
     ) => {
       try {
+        //Verify auth
         if (!user) throw new Error("Not Authenticated");
-        console.log(productId, name, categoryId, unit);
-        // let editedProduct = await Product.findById(productId)
 
-        // if (!editedProduct) throw new Error('No product found')
-        // editedProduct.name = name
-        // editedProduct.categoryId = categoryId
-        // editedProduct.unit = "ea"
-        // editedProduct = await editedProduct.save()
+        //Cast String to ObjectId
+        const productIdObj = new mongoose.Types.ObjectId(productId);
 
-        // return editedProduct
-        // return {}
+        let editedProduct = await Product.findById(productIdObj);
+
+        if (!editedProduct) throw new Error("No product found");
+
+        //Validation
+        const validationSchema = Joi.object({
+          name: Joi.string()
+            .pattern(/[\da-zA-Z ]/i) //alphanum + spaces
+            .min(3)
+            .max(30)
+            .required(),
+          unit: Joi.string()
+            .alphanum()
+            .valid(...MEASURE_UNITS)
+            .required(),
+        });
+
+        //Validation name unit
+        const result = validationSchema.validate({
+          name,
+          unit,
+        });
+
+        //throw a error if validation do not pass
+        if (result.error) throw new Error(result.error.details[0].message);
+
+        //Assign new value to sb object
+        editedProduct.name = name;
+        editedProduct.unit = unit;
+
+        //verify if categoryId already in
+        const sameCategoryId = editedProduct.categories.filter(
+          (category: { categoryId: mongoose.Types.ObjectId }) => {
+            if (String(category.categoryId) === categoryId) {
+              return category;
+            }
+          }
+        );
+
+        //Verify if the product is already added on that category
+        if (sameCategoryId.length)
+          throw new Error("That product already exist on that category");
+
+        //Add to categories array if categoryId is povided
+        if (categoryId) {
+          const newCategory = {
+            categoryId,
+            currentAmount: 0,
+            previousAmount: 0,
+          };
+
+          editedProduct.categories.push(newCategory);
+        }
+
+        editedProduct = await editedProduct.save();
+
+        return editedProduct;
       } catch (err: any) {
-        console.log(err.message);
+        console.error(err.message);
         return err;
       }
     },
@@ -203,7 +273,7 @@ export const resolvers = {
         if (!deletedProduct) throw new Error("No product found");
         return deletedProduct;
       } catch (err: any) {
-        console.log(err.message);
+        console.error(err.message);
         return err;
       }
     },
