@@ -75,15 +75,18 @@ const ProductsPage: React.FC = () => {
     if (!listOfProducts) return null;
 
     return listOfProducts.map((product: IProduct) => {
+      const categoryData = product.categories.filter(
+        (category) => categoryId === category.categoryId
+      );
       if (product.id != undefined) {
         return (
           <InputProduct
             key={product.id}
             name={product.name}
-            currentAmount={product.currentAmount || 0}
-            previousAmount={product.previousAmount || 0}
+            currentAmount={categoryData[0].currentAmount || 0}
+            previousAmount={categoryData[0].previousAmount || 0}
             id={product.id || ""}
-            categoryId={product.categoryId}
+            categoryId={categoryData[0].categoryId}
             showAmounts={true}
             measureUnit={product.unit}
           />

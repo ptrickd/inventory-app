@@ -21,9 +21,11 @@ const GET_PRODUCTS = gql`
     products {
       id
       name
-      currentAmount
-      previousAmount
-      categoryId
+      categories {
+        currentAmount
+        previousAmount
+        categoryId
+      }
       unit
       error
     }
@@ -35,13 +37,14 @@ interface IProps {
 
 interface IContext {
   hasProduct: boolean | null;
-
   products: IProduct[];
   productsByCategory: IProduct[] | [];
+
   updateProducts: (list: IProduct[]) => void;
   setCategoryId: (categoryId: string) => void;
   addProduct: (product: IAddProduct) => any;
   deleteProductApi: (productId: string) => void;
+
   editProductApi: (
     productId: string,
     productName: string,
@@ -75,6 +78,10 @@ const ProductsProvider = ({ children }: IProps) => {
   const [editProduct] = useMutation(EDIT_PRODUCT);
 
   useEffect(() => {
+    console.log("productsByCategory|" + productsByCategory);
+  }, [productsByCategory]);
+
+  useEffect(() => {
     if (loggedIn) getProducts();
   }, [getProducts, loggedIn]);
 
@@ -88,10 +95,23 @@ const ProductsProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     let productsToReturn: IProduct[] | [] = [];
+    //iterate through categories find if one equal context category
+    let isReturned = false;
+
     if (contextCategoryId.length > 0) {
-      productsToReturn = products.filter(
-        (product) => product.categoryId === contextCategoryId
-      );
+      //flag true if
+      isReturned = false;
+
+      productsToReturn = products.filter((product) => {
+        console.log(product);
+        product?.categories.map((category) => {
+          console.log(
+            `contextCategoryId ${contextCategoryId}\n category.categoryId ${category.categoryId}`
+          );
+          if (category.categoryId === contextCategoryId) isReturned = true;
+        });
+        if (isReturned) return product;
+      });
       setProductsByCategory(productsToReturn);
     }
   }, [contextCategoryId, products]);
@@ -116,7 +136,12 @@ const ProductsProvider = ({ children }: IProps) => {
           {
             id: response.data.createProduct.id,
             name: response.data.createProduct.name,
-            categoryId: response.data.createProduct.categoryId,
+            categories: [
+              ...response.data.createProduct.categories,
+              {
+                categoryId: response.data.createProduct.categoryId,
+              },
+            ],
             unit: response.data.createProduct.unit,
           },
         ]);

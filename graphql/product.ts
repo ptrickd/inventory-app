@@ -89,23 +89,12 @@ export const resolvers = {
         // console.log(user)
         products = await Product.find({ userId: user.id });
         if (!products) throw new Error("Products not found");
-        return products.map(
-          ({
-            id,
-            currentAmount,
-            previousAmount,
-            name,
-            categoryId,
-            unit,
-          }: IProduct) => ({
-            id,
-            name,
-            currentAmount,
-            previousAmount,
-            categoryId,
-            unit,
-          })
-        );
+        return products.map(({ id, categories, name, unit }: IProduct) => ({
+          id,
+          name,
+          categories,
+          unit,
+        }));
       } catch (err) {
         console.log("error in products query", err);
         return err;
@@ -119,23 +108,12 @@ export const resolvers = {
         console.log(products);
         if (!products) throw new Error("No products found");
 
-        return products.map(
-          ({
-            id,
-            currentAmount,
-            previousAmount,
-            name,
-            categoryId,
-            unit,
-          }: IProduct) => ({
-            id,
-            name,
-            currentAmount,
-            previousAmount,
-            categoryId,
-            unit,
-          })
-        );
+        return products.map(({ id, categories, name, unit }: IProduct) => ({
+          id,
+          name,
+          categories,
+          unit,
+        }));
       } catch (err) {
         console.log(err);
         return err;
