@@ -23,7 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 //Types
-import { IProduct, ICategory } from "../../types/types";
+import { IProduct, ICategory, IProductByCategory } from "../../types/types";
 
 //Style
 import { classes, Root } from "../../styles/categoryId.style";
@@ -42,7 +42,9 @@ const ProductsPage: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<ICategory | null>(
     null
   );
-  const [listOfProducts, setListOfProducts] = useState<IProduct[] | []>([]);
+  const [listOfProducts, setListOfProducts] = useState<
+    IProductByCategory[] | []
+  >([]);
 
   //useState for modals
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
@@ -66,28 +68,25 @@ const ProductsPage: React.FC = () => {
     }
   }, [currentCategory, categoryId, categories, setCategoryId]);
 
-  // useEffect(() => {
-  //   if (productsByCategory !== undefined)
-  //     setListOfProducts([...productsByCategory]);
-  // }, [productsByCategory]);
+  useEffect(() => {
+    if (productsByCategory !== undefined)
+      setListOfProducts([...productsByCategory]);
+  }, [productsByCategory]);
 
   /*********************************** */
   const renderedProducts = () => {
     if (!listOfProducts) return null;
 
-    return listOfProducts.map((product: IProduct) => {
-      const categoryData = product.categories.filter(
-        (category) => categoryId === category.categoryId
-      );
-      if (product.id != undefined) {
+    return listOfProducts.map((product: IProductByCategory) => {
+      if (product.id !== undefined) {
         return (
           <InputProduct
+            id={product.id}
             key={product.id}
             name={product.name}
-            currentAmount={categoryData[0]?.currentAmount || 0}
-            previousAmount={categoryData[0]?.previousAmount || 0}
-            id={product.id || ""}
-            categoryId={categoryData[0].categoryId}
+            currentAmount={product.currentAmount || 0}
+            previousAmount={product.previousAmount || 0}
+            categoryId={product.categoryId}
             showAmounts={true}
             measureUnit={product.unit}
           />
