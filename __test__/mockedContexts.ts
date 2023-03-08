@@ -41,9 +41,9 @@ export const ProductsContextProps = {
   productsByCategory: [
     {
       id: "234567",
-      categories: [
-        { categoryId: "123456", currentAmount: 6, previousAmount: 0 },
-      ],
+      categoryId: "123456",
+      currentAmount: 6,
+      previousAmount: 0,
       name: "Carrots",
       unit: "ea",
     },

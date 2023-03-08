@@ -66,9 +66,10 @@ const ProductsPage: React.FC = () => {
     }
   }, [currentCategory, categoryId, categories, setCategoryId]);
 
-  useEffect(() => {
-    if (productsByCategory !== undefined) setListOfProducts(productsByCategory);
-  }, [productsByCategory]);
+  // useEffect(() => {
+  //   if (productsByCategory !== undefined)
+  //     setListOfProducts([...productsByCategory]);
+  // }, [productsByCategory]);
 
   /*********************************** */
   const renderedProducts = () => {

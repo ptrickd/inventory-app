@@ -1,11 +1,5 @@
 //Testing library
-import {
-  render,
-  screen,
-  fireEvent,
-  cleanup,
-  RenderOptions,
-} from "@testing-library/react";
+import { render, RenderOptions } from "@testing-library/react";
 
 //Mocked Router
 import { MockedProvider } from "@apollo/client/testing";

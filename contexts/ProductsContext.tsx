@@ -46,7 +46,7 @@ interface IProps {
 interface IContext {
   hasProduct: boolean | null;
   products: IProduct[];
-  productsByCategory: IProduct[] | [];
+  productsByCategory: IProductByCategory[] | [];
 
   updateProducts: (list: IProduct[]) => void;
   setCategoryId: (categoryId: string) => void;
@@ -238,7 +238,7 @@ const ProductsProvider = ({ children }: IProps) => {
       value={{
         hasProduct,
         products,
-        // productsByCategory,
+        productsByCategory,
         updateProducts,
         setCategoryId,
         addProduct,

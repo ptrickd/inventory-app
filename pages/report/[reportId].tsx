@@ -85,11 +85,13 @@ interface ISubCategory {
   previousAmount?: number;
   categoryId: string;
 }
-interface IProduct {
+interface IProductByCategory {
   id: string;
   name: string;
-  categories: ISubCategory;
+  currentAmount: number;
+  previousAmount: number;
   unit: string;
+  categoryId: string;
 }
 
 interface ISubmittedProduct {
@@ -100,7 +102,7 @@ interface ISubmittedProduct {
 
 interface IReport {
   categoryName: string;
-  productsList: IProduct[] | [];
+  productsList: IProductByCategory[] | [];
 }
 
 interface IServerResponse {

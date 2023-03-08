@@ -29,16 +29,17 @@ const Root = styled(Box)(({ theme: Theme }) => ({
 }));
 
 //Types
-interface IProduct {
+interface IProductByCategory {
   id: string;
   name: string;
   currentAmount: number;
   previousAmount: number;
   unit: string;
+  categoryId: string;
 }
 interface IReport {
   categoryName: string;
-  productsList: IProduct[] | [];
+  productsList: IProductByCategory[] | [];
 }
 interface IProps {
   report: IReport;
@@ -60,7 +61,7 @@ const ListReports = ({ report }: IProps) => {
               <TableCell align="right">Unit</TableCell>
             </TableRow>
           </TableHead>
-          {report.productsList.map((product: IProduct) => {
+          {report.productsList.map((product: IProductByCategory) => {
             return (
               <ListProductsByCategory key={product.name} product={product} />
             );
