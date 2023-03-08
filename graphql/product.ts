@@ -206,21 +206,9 @@ export const resolvers = {
         if (result.error) throw new Error(result.error.details[0].message);
 
         //Assign new value to sb object
+        //No need to verify if category is already in
         editedProduct.name = name;
         editedProduct.unit = unit;
-
-        //verify if categoryId already in
-        const sameCategoryId = editedProduct.categories.filter(
-          (category: { categoryId: mongoose.Types.ObjectId }) => {
-            if (String(category.categoryId) === categoryId) {
-              return category;
-            }
-          }
-        );
-
-        //Verify if the product is already added on that category
-        if (sameCategoryId.length)
-          throw new Error("That product already exist on that category");
 
         //Add to categories array if categoryId is povided
         if (categoryId) {

@@ -211,15 +211,19 @@ const ProductsProvider = ({ children }: IProps) => {
     productName: string,
     categoryId: string
   ) => {
-    await editProduct({
-      variables: {
-        productId,
-        name: productName,
-        categoryId,
-        unit: "ea",
-      },
-    });
-    getProducts({ variables: { categoryId: contextCategoryId } });
+    try {
+      await editProduct({
+        variables: {
+          productId,
+          name: productName,
+          categoryId,
+          unit: "ea",
+        },
+      });
+      getProducts({ variables: { categoryId: contextCategoryId } });
+    } catch (err: any) {
+      console.log(err.message);
+    }
   };
 
   if (loading) return null;

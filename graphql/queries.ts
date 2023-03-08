@@ -76,7 +76,7 @@ export const DELETE_PRODUCT = gql`
 `;
 export const EDIT_PRODUCT = gql`
   mutation EditProduct(
-    $productId: ID
+    $productId: String
     $name: String
     $categoryId: String
     $unit: String
@@ -89,8 +89,13 @@ export const EDIT_PRODUCT = gql`
     ) {
       id
       name
-      categoryId
+      categories {
+        categoryId
+        currentAmount
+        previousAmount
+      }
       unit
+      error
     }
   }
 `;
