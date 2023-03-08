@@ -42,10 +42,6 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    console.log(inputValue);
-  }, [inputValue]);
-
-  useEffect(() => {
     return () => {
       setOpenModal(false);
     };

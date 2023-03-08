@@ -22,6 +22,7 @@ import { UserContext } from "./UserContext";
 
 //Lodash
 import isEmpty from "lodash/isEmpty";
+import { CompressOutlined } from "@mui/icons-material";
 
 //Queries
 const GET_PRODUCTS = gql`
@@ -86,11 +87,6 @@ const ProductsProvider = ({ children }: IProps) => {
   const [editProduct] = useMutation(EDIT_PRODUCT);
 
   useEffect(() => {
-    console.log("productsByCategory=>");
-    console.log(productsByCategory);
-  }, [productsByCategory]);
-
-  useEffect(() => {
     if (loggedIn) getProducts();
   }, [getProducts, loggedIn]);
 
@@ -126,7 +122,6 @@ const ProductsProvider = ({ children }: IProps) => {
 
       //Iterate through the list of products from the backend
       products.forEach((product) => {
-        console.log(product);
         //Verify if the product is the current context category
         product?.categories.map((category) => {
           //If the current category is present, flag the product
@@ -162,7 +157,7 @@ const ProductsProvider = ({ children }: IProps) => {
           }
         }
       });
-      productsToReturn.map((product) => console.log(product));
+
       setProductsByCategory(productsToReturn);
     }
   }, [contextCategoryId, products]);
@@ -187,12 +182,7 @@ const ProductsProvider = ({ children }: IProps) => {
           {
             id: response.data.createProduct.id,
             name: response.data.createProduct.name,
-            categories: [
-              ...response.data.createProduct.categories,
-              {
-                categoryId: response.data.createProduct.categoryId,
-              },
-            ],
+            categories: [...response.data.createProduct.categories],
             unit: response.data.createProduct.unit,
           },
         ]);

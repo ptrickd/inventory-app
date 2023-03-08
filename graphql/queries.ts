@@ -56,7 +56,11 @@ export const CREATE_PRODUCT = gql`
     createProduct(name: $name, categoryId: $categoryId, unit: $unit) {
       id
       name
-      categoryId
+      categories {
+        categoryId
+        currentAmount
+        previousAmount
+      }
       unit
       error
     }

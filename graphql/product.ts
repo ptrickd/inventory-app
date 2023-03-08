@@ -62,7 +62,6 @@ export const typeDef = `
             previousAmount:Int, 
             categoryId: String, 
             unit: String,
-            error: String
             ): Product
 
         editProduct(
@@ -86,7 +85,7 @@ export const resolvers = {
       try {
         let products = [];
         if (!user) throw new Error("Not Authenticated");
-        // console.log(user)
+
         products = await Product.find({ userId: user.id });
         if (!products) throw new Error("Products not found");
         return products.map(({ id, categories, name, unit }: IProduct) => ({
@@ -95,17 +94,17 @@ export const resolvers = {
           categories,
           unit,
         }));
-      } catch (err) {
-        console.log("error in products query", err);
+      } catch (err: any) {
+        console.error(err.message);
         return err;
       }
     },
     productsByCategory: async (_: any, { categoryId }: TIds, { user }: any) => {
       try {
         if (!user) throw new Error("Not Authenticated");
-        console.log("categoryId: ", categoryId);
+
         let products = await Product.find({ categoryId: categoryId });
-        console.log(products);
+
         if (!products) throw new Error("No products found");
 
         return products.map(({ id, categories, name, unit }: IProduct) => ({
@@ -115,7 +114,7 @@ export const resolvers = {
           unit,
         }));
       } catch (err) {
-        console.log(err);
+        console.error(err);
         return err;
       }
     },
@@ -123,8 +122,8 @@ export const resolvers = {
       try {
         if (!user) throw new Error("Not Authenticated");
         return await Product.countDocuments();
-      } catch (err) {
-        console.log("printing error: ", err);
+      } catch (err: any) {
+        console.error(err.message);
         return err;
       }
     },
@@ -162,10 +161,9 @@ export const resolvers = {
           unit,
           userId: user.id,
         });
-
         return product;
       } catch (err: any) {
-        console.log(err.message);
+        console.error(err.message);
         return { error: err.message };
       }
     },
@@ -269,7 +267,7 @@ export const resolvers = {
         await product.save();
         return product;
       } catch (err: any) {
-        if (err.message) console.log(err.message);
+        if (err.message) console.error(err.message);
         return err;
       }
     },
@@ -291,7 +289,7 @@ export const resolvers = {
         await product.save();
         return product;
       } catch (err: any) {
-        if (err.message) console.log(err.message);
+        if (err.message) console.error(err.message);
         return err;
       }
     },
