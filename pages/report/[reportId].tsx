@@ -250,10 +250,16 @@ const Report: React.FC = () => {
   const updateProductsToContext = () => {
     if (products) {
       const newProductsList = products.map((product) => {
+        const newCategories = product.categories.map((category) => {
+          return {
+            ...category,
+            currentAmount: 0,
+            previousAmount: category.currentAmount,
+          };
+        });
         return {
           ...product,
-          currentAmount: 0,
-          previousAmount: product.currentAmount,
+          categories: newCategories,
         };
       });
 
