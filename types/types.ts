@@ -7,7 +7,7 @@ export type TIds = {
   [propName: string]: string;
 };
 
-interface ISubCategory {
+export interface ISubCategory {
   currentAmount?: number;
   previousAmount?: number;
   categoryId: string;
@@ -16,6 +16,15 @@ interface ISubCategory {
 export interface IProduct {
   id?: string;
   categories: ISubCategory[] | [];
+  name: string;
+  unit: string;
+}
+
+export interface IProductByCategory {
+  id?: string;
+  currentAmount?: number;
+  previousAmount?: number;
+  categoryId: string;
   name: string;
   unit: string;
 }

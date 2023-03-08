@@ -10,10 +10,18 @@ import {
 } from "../graphql/queries";
 
 //Types
-import { IProduct, IAddProduct } from "../types/types";
+import {
+  IProduct,
+  IAddProduct,
+  IProductByCategory,
+  ISubCategory,
+} from "../types/types";
 
 //Context
 import { UserContext } from "./UserContext";
+
+//Lodash
+import isEmpty from "lodash/isEmpty";
 
 //Queries
 const GET_PRODUCTS = gql`
@@ -64,9 +72,9 @@ const ProductsProvider = ({ children }: IProps) => {
     (categoryId: string) => void
   ] = useState("");
 
-  const [productsByCategory, setProductsByCategory] = useState<IProduct[] | []>(
-    []
-  );
+  const [productsByCategory, setProductsByCategory] = useState<
+    IProductByCategory[] | []
+  >([]);
 
   const [products, setProducts] = useState<IProduct[] | []>([]);
   const [hasProduct, setHasProduct] = useState<boolean | null>(null);
@@ -78,7 +86,8 @@ const ProductsProvider = ({ children }: IProps) => {
   const [editProduct] = useMutation(EDIT_PRODUCT);
 
   useEffect(() => {
-    console.log("productsByCategory|" + productsByCategory);
+    console.log("productsByCategory=>");
+    console.log(productsByCategory);
   }, [productsByCategory]);
 
   useEffect(() => {
@@ -94,24 +103,66 @@ const ProductsProvider = ({ children }: IProps) => {
   }, [data]);
 
   useEffect(() => {
-    let productsToReturn: IProduct[] | [] = [];
+    //Will be a list of formatted product by category
+    let productsToReturn: IProductByCategory[] | [] = [];
+
+    let formattedProduct: IProductByCategory = {
+      name: "",
+      unit: "",
+      categoryId: "",
+    };
+
     //iterate through categories find if one equal context category
     let isReturned = false;
+    let categoryObj: ISubCategory = {
+      currentAmount: 0,
+      previousAmount: 0,
+      categoryId: "",
+    };
 
     if (contextCategoryId.length > 0) {
       //flag true if
       isReturned = false;
 
-      productsToReturn = products.filter((product) => {
+      //Iterate through the list of products from the backend
+      products.forEach((product) => {
         console.log(product);
+        //Verify if the product is the current context category
         product?.categories.map((category) => {
-          console.log(
-            `contextCategoryId ${contextCategoryId}\n category.categoryId ${category.categoryId}`
-          );
-          if (category.categoryId === contextCategoryId) isReturned = true;
+          //If the current category is present, flag the product
+          if (category.categoryId === contextCategoryId) {
+            isReturned = true;
+            categoryObj = category;
+          }
         });
-        if (isReturned) return product;
+
+        if (isReturned) {
+          //Destructure product
+          const { id, name, unit } = product;
+          const { currentAmount, previousAmount, categoryId } = categoryObj;
+          if (
+            id !== undefined &&
+            name !== undefined &&
+            unit !== undefined &&
+            currentAmount !== undefined &&
+            previousAmount !== undefined &&
+            categoryId !== undefined
+          ) {
+            //Copy values in a new object
+            formattedProduct = {
+              id: id,
+              name: name,
+              unit: unit,
+              currentAmount: currentAmount,
+              previousAmount: previousAmount,
+              categoryId: categoryId,
+            };
+
+            productsToReturn = [...productsToReturn, formattedProduct];
+          }
+        }
       });
+      productsToReturn.map((product) => console.log(product));
       setProductsByCategory(productsToReturn);
     }
   }, [contextCategoryId, products]);
@@ -187,7 +238,7 @@ const ProductsProvider = ({ children }: IProps) => {
       value={{
         hasProduct,
         products,
-        productsByCategory,
+        // productsByCategory,
         updateProducts,
         setCategoryId,
         addProduct,

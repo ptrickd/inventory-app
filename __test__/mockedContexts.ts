@@ -31,20 +31,20 @@ export const ProductsContextProps = {
   products: [
     {
       id: "234567",
-      currentAmount: 6,
-      previousAmount: 0,
+      categories: [
+        { categoryId: "123456", currentAmount: 6, previousAmount: 0 },
+      ],
       name: "Carrots",
-      categoryId: "123456",
       unit: "ea",
     },
   ],
   productsByCategory: [
     {
       id: "234567",
-      currentAmount: 6,
-      previousAmount: 0,
+      categories: [
+        { categoryId: "123456", currentAmount: 6, previousAmount: 0 },
+      ],
       name: "Carrots",
-      categoryId: "123456",
       unit: "ea",
     },
   ],

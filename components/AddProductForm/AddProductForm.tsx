@@ -108,7 +108,8 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
           if (inputValue !== "" && !isExisting) {
             filtered.push({
               name: `${inputValue}`,
-              categoryId: categoryId,
+
+              categories: [{ categoryId, currentAmount: 0, previousAmount: 0 }],
               unit: "ea",
             });
           }

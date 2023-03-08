@@ -83,8 +83,8 @@ const ProductsPage: React.FC = () => {
           <InputProduct
             key={product.id}
             name={product.name}
-            currentAmount={categoryData[0].currentAmount || 0}
-            previousAmount={categoryData[0].previousAmount || 0}
+            currentAmount={categoryData[0]?.currentAmount || 0}
+            previousAmount={categoryData[0]?.previousAmount || 0}
             id={product.id || ""}
             categoryId={categoryData[0].categoryId}
             showAmounts={true}

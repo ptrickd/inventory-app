@@ -80,12 +80,15 @@ const DELETE_REPORT = gql`
 `;
 
 // Types
-
+interface ISubCategory {
+  currentAmount?: number;
+  previousAmount?: number;
+  categoryId: string;
+}
 interface IProduct {
   id: string;
   name: string;
-  currentAmount: number;
-  previousAmount: number;
+  categories: ISubCategory;
   unit: string;
 }
 
