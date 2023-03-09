@@ -23,7 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 //Types
-import { IProduct, ICategory, IProductByCategory } from "../../types/types";
+import { ICategory, IProductByCategory } from "../../types/types";
 
 //Style
 import { classes, Root } from "../../styles/categoryId.style";
@@ -113,6 +113,22 @@ const ProductsPage: React.FC = () => {
     setIsResponseError(true);
   };
 
+  const goToNextCategory = () => {
+    if (categories && categories?.length > 0) {
+      let currentIndex = -1;
+
+      categories.map((category, index) => {
+        if (category.id === categoryId) currentIndex = index;
+      });
+
+      let nextIndex: number = -1;
+      if (categories.length > currentIndex + 1) nextIndex = currentIndex + 1;
+      else nextIndex = 0;
+
+      router.push(categories[nextIndex].id);
+    }
+  };
+
   if (!currentCategory) return null;
 
   return (
@@ -143,7 +159,14 @@ const ProductsPage: React.FC = () => {
 
       <hr />
       {renderedProducts()}
-
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={() => goToNextCategory()}
+      >
+        Next
+      </Button>
       <Button
         variant="contained"
         color="primary"
