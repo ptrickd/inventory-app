@@ -20,10 +20,6 @@ import {
 //Context
 import { UserContext } from "./UserContext";
 
-//Lodash
-import isEmpty from "lodash/isEmpty";
-import { CompressOutlined } from "@mui/icons-material";
-
 //Queries
 const GET_PRODUCTS = gql`
   query Product {
@@ -156,6 +152,7 @@ const ProductsProvider = ({ children }: IProps) => {
             productsToReturn = [...productsToReturn, formattedProduct];
           }
         }
+        isReturned = false;
       });
 
       setProductsByCategory(productsToReturn);

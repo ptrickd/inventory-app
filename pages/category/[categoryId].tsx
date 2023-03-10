@@ -14,6 +14,7 @@ import EditCategoryForm from "../../components/EditCategoryForm";
 import MessageModal from "../../components/MessageModal";
 
 //Material UI
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -71,6 +72,7 @@ const ProductsPage: React.FC = () => {
   useEffect(() => {
     if (productsByCategory !== undefined)
       setListOfProducts([...productsByCategory]);
+    else setListOfProducts([]);
   }, [productsByCategory]);
 
   /*********************************** */
@@ -165,7 +167,7 @@ const ProductsPage: React.FC = () => {
         className={classes.button}
         onClick={() => goToNextCategory()}
       >
-        Next
+        Next Category
       </Button>
       <Button
         variant="contained"
