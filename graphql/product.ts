@@ -18,18 +18,20 @@ dbConnect();
 
 interface ICreateProduct {
   name: string;
-  currentAmount: number;
-  previousAmount: number;
   categoryId: string;
   userId: string;
   unit: string;
+  position: number;
 }
 
 interface IEditProduct {
   productId: string;
   name: string;
+  currentAmount: number;
+  previousAmount: number;
   categoryId: string;
   unit: string;
+  position: number;
 }
 
 export const typeDef = `
@@ -37,6 +39,7 @@ export const typeDef = `
         currentAmount: Int
         previousAmount: Int
         categoryId: ID
+        position: Int
     }
 
     type Product {
@@ -58,10 +61,9 @@ export const typeDef = `
 
         createProduct(
             name:String, 
-            currentAmount:Int, 
-            previousAmount:Int, 
             categoryId: String, 
             unit: String,
+            position: Int,
             ): Product
 
         editProduct(
@@ -70,7 +72,8 @@ export const typeDef = `
             currentAmount:Int, 
             previousAmount:Int, 
             categoryId: String, 
-            unit: String
+            unit: String,
+            position: Int,
             ): Product
             
         deleteProduct(productId: ID): Product
@@ -131,7 +134,7 @@ export const resolvers = {
   Mutation: {
     createProduct: async (
       _: any,
-      { name, categoryId, unit }: ICreateProduct,
+      { name, categoryId, unit, position }: ICreateProduct,
       { user }: any
     ) => {
       try {
@@ -152,8 +155,9 @@ export const resolvers = {
           );
 
         //If product don't exist
+        //Create first the category
         const categoryIdObj = new mongoose.Types.ObjectId(categoryId);
-        const category = { categoryId: categoryIdObj };
+        const category = { categoryId: categoryIdObj, position };
 
         let product = await Product.create({
           name,
@@ -169,7 +173,7 @@ export const resolvers = {
     },
     editProduct: async (
       _: any,
-      { productId, name, categoryId, unit }: IEditProduct,
+      { productId, name, categoryId, unit, position }: IEditProduct,
       { user }: any
     ) => {
       try {
@@ -210,12 +214,13 @@ export const resolvers = {
         editedProduct.name = name;
         editedProduct.unit = unit;
 
-        //Add to categories array if categoryId is povided
+        //Add to categories array if categoryId is provided
         if (categoryId) {
           const newCategory = {
             categoryId,
             currentAmount: 0,
             previousAmount: 0,
+            position,
           };
 
           editedProduct.categories.push(newCategory);
