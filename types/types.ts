@@ -36,6 +36,7 @@ export interface IAddProduct {
   previousAmount?: number;
   categoryId: string;
   unit?: string;
+  position: number;
 }
 
 export interface IUser {

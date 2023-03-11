@@ -52,14 +52,25 @@ export const GET_PRODUCTS_BY_CATEGORY = gql`
   }
 `;
 export const CREATE_PRODUCT = gql`
-  mutation CreateProduct($name: String!, $categoryId: String!, $unit: String!) {
-    createProduct(name: $name, categoryId: $categoryId, unit: $unit) {
+  mutation CreateProduct(
+    $name: String!
+    $categoryId: String!
+    $unit: String!
+    $position: Int!
+  ) {
+    createProduct(
+      name: $name
+      categoryId: $categoryId
+      unit: $unit
+      position: $position
+    ) {
       id
       name
       categories {
         categoryId
         currentAmount
         previousAmount
+        position
       }
       unit
       error

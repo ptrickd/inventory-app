@@ -22,6 +22,7 @@ interface IProps {
   open: boolean;
   handleCloseModal: (response: string) => void;
   categoryId: string;
+  position: number;
 }
 
 interface IForm {
@@ -32,7 +33,12 @@ interface IFilter {}
 
 const filter = createFilterOptions<IProduct>();
 
-function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
+function AddProductForm({
+  open,
+  handleCloseModal,
+  categoryId,
+  position,
+}: IProps) {
   //Context
   const { addProduct, products } = useContext(ProductsContext);
 
@@ -63,8 +69,9 @@ function AddProductForm({ open, handleCloseModal, categoryId }: IProps) {
         name: inputValue,
         currentAmount: 0,
         previousAmount: 0,
-        categoryId: categoryId,
+        categoryId,
         unit: "ea",
+        position,
       });
 
       setInputValue("");

@@ -182,6 +182,7 @@ const ProductsPage: React.FC = () => {
           open={openAddProductModal}
           handleCloseModal={handleCloseAddProductForm}
           categoryId={categoryId}
+          position={listOfProducts.length}
         />
       )}
 

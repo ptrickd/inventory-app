@@ -163,13 +163,14 @@ const ProductsProvider = ({ children }: IProps) => {
     setProducts(list);
   };
 
-  async function addProduct({ name, categoryId, unit }: IAddProduct) {
+  async function addProduct({ name, categoryId, unit, position }: IAddProduct) {
     try {
       let response = await createProduct({
         variables: {
           name: name,
           categoryId: categoryId,
           unit: unit,
+          position: position,
         },
       });
       if (response.data.createProduct.id) {
