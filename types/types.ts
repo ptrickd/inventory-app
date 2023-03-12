@@ -11,6 +11,7 @@ export interface ISubCategory {
   currentAmount?: number;
   previousAmount?: number;
   categoryId: string;
+  position: number;
 }
 
 export interface IProduct {
@@ -27,6 +28,7 @@ export interface IProductByCategory {
   categoryId: string;
   name: string;
   unit: string;
+  position: number;
 }
 
 export interface IAddProduct {

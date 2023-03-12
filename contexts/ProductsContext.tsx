@@ -30,6 +30,7 @@ const GET_PRODUCTS = gql`
         currentAmount
         previousAmount
         categoryId
+        position
       }
       unit
       error
@@ -94,6 +95,7 @@ const ProductsProvider = ({ children }: IProps) => {
     }
   }, [data]);
 
+  //useEffect handle the productsByCategory value
   useEffect(() => {
     //Will be a list of formatted product by category
     let productsToReturn: IProductByCategory[] | [] = [];
@@ -102,6 +104,7 @@ const ProductsProvider = ({ children }: IProps) => {
       name: "",
       unit: "",
       categoryId: "",
+      position: -1,
     };
 
     //iterate through categories find if one equal context category
@@ -110,6 +113,7 @@ const ProductsProvider = ({ children }: IProps) => {
       currentAmount: 0,
       previousAmount: 0,
       categoryId: "",
+      position: -1,
     };
 
     if (contextCategoryId.length > 0) {
@@ -130,7 +134,8 @@ const ProductsProvider = ({ children }: IProps) => {
         if (isReturned) {
           //Destructure product
           const { id, name, unit } = product;
-          const { currentAmount, previousAmount, categoryId } = categoryObj;
+          const { currentAmount, previousAmount, categoryId, position } =
+            categoryObj;
           if (
             id !== undefined &&
             name !== undefined &&
@@ -147,6 +152,7 @@ const ProductsProvider = ({ children }: IProps) => {
               currentAmount: currentAmount,
               previousAmount: previousAmount,
               categoryId: categoryId,
+              position: position,
             };
 
             productsToReturn = [...productsToReturn, formattedProduct];
@@ -155,7 +161,11 @@ const ProductsProvider = ({ children }: IProps) => {
         isReturned = false;
       });
 
-      setProductsByCategory(productsToReturn);
+      //sort object  with the position value
+      const sortedProductsToReturn = productsToReturn.sort((a, b) => {
+        return a.position - b.position;
+      });
+      setProductsByCategory(sortedProductsToReturn);
     }
   }, [contextCategoryId, products]);
 
@@ -221,6 +231,7 @@ const ProductsProvider = ({ children }: IProps) => {
       getProducts({ variables: { categoryId: contextCategoryId } });
     } catch (err: any) {
       console.log(err.message);
+      return { error: err.message };
     }
   };
 

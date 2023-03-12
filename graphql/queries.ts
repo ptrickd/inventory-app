@@ -48,6 +48,7 @@ export const GET_PRODUCTS_BY_CATEGORY = gql`
       previousAmount
       categoryId
       unit
+      position
     }
   }
 `;
@@ -91,12 +92,14 @@ export const EDIT_PRODUCT = gql`
     $name: String
     $categoryId: String
     $unit: String
+    $position: Int
   ) {
     editProduct(
       productId: $productId
       name: $name
       categoryId: $categoryId
       unit: $unit
+      position: $position
     ) {
       id
       name
@@ -104,6 +107,7 @@ export const EDIT_PRODUCT = gql`
         categoryId
         currentAmount
         previousAmount
+        position
       }
       unit
       error

@@ -6,7 +6,7 @@ import dbConnect from "../utils/dbConnect";
 import Product from "../models/product.model";
 
 //Types
-import { TIds, IProduct } from "../types/types";
+import { TIds, IProduct, ISubCategory } from "../types/types";
 
 //Constants
 import { MEASURE_UNITS } from "../constants/measureUnits";
@@ -216,14 +216,30 @@ export const resolvers = {
 
         //Add to categories array if categoryId is provided
         if (categoryId) {
-          const newCategory = {
-            categoryId,
-            currentAmount: 0,
-            previousAmount: 0,
-            position,
-          };
+          let categoryExisting: ISubCategory | null = null;
 
-          editedProduct.categories.push(newCategory);
+          const editedCategories: ISubCategory[] | [] =
+            editedProduct.categories.map((category: ISubCategory) => {
+              if (String(category.categoryId) === categoryId) {
+                //return modified category object
+                categoryExisting = { ...category, categoryId, position };
+                return categoryExisting;
+              } else return category;
+            });
+          //if category exist, modify this one
+          if (categoryExisting) {
+            editedProduct.categories = editedCategories;
+          } else {
+            //If that category does'nt exist create a new one
+
+            const newCategory = {
+              categoryId,
+              currentAmount: 0,
+              previousAmount: 0,
+              position,
+            };
+            editedProduct.categories.push(newCategory);
+          }
         }
 
         editedProduct = await editedProduct.save();
