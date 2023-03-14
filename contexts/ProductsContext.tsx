@@ -55,8 +55,9 @@ interface IContext {
     productId: string,
     productName: string,
     categoryId: string,
+    unit: string,
     position: number
-  ) => void;
+  ) => any;
 }
 
 const ProductsContext = createContext<Partial<IContext>>({});
@@ -236,29 +237,33 @@ const ProductsProvider = ({ children }: IProps) => {
     }
   }
 
-  const editProductApi = async (
+  async function editProductApi(
     productId: string,
     productName: string,
     categoryId: string,
+    unit: string,
     position: number
-  ) => {
+  ) {
     try {
-      await editProduct({
+      const response = await editProduct({
         variables: {
           productId,
           name: productName,
           categoryId,
-          unit: "ea",
+          unit,
           position,
         },
       });
-      getProducts({ variables: { categoryId: contextCategoryId } });
+
+      //update product
+      return { data: response.data.editProduct };
     } catch (err: any) {
       console.log(err.message);
       return { error: err.message };
     }
-  };
+  }
 
+  //Rendering
   if (loading) return null;
   return (
     <ProductsContext.Provider

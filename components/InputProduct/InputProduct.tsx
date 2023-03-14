@@ -60,6 +60,7 @@ type IProps = {
   showAmounts: boolean;
   measureUnit: string;
   position: number;
+  unit: string;
 };
 
 const InputProduct: React.FC<IProps> = ({
@@ -71,6 +72,7 @@ const InputProduct: React.FC<IProps> = ({
   showAmounts,
   measureUnit,
   position,
+  unit,
 }) => {
   //Context
   const { products, updateProducts } = useContext(ProductsContext);
@@ -241,6 +243,7 @@ const InputProduct: React.FC<IProps> = ({
         categoryId={categoryId}
         show={showEditProductBox}
         position={position}
+        unit={unit}
       />
       <MessageModal
         open={openMessageModal}

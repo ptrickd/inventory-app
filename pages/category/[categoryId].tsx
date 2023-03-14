@@ -92,6 +92,7 @@ const ProductsPage: React.FC = () => {
             showAmounts={true}
             measureUnit={product.unit}
             position={product.position}
+            unit={product.unit}
           />
         );
       }
