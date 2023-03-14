@@ -24,9 +24,10 @@ interface IProps {
   name: string;
   categoryId: string;
   show: boolean;
+  position: number;
 }
 
-const EditProductPart = ({ id, name, categoryId, show }: IProps) => {
+const EditProductPart = ({ id, name, categoryId, show, position }: IProps) => {
   //useState
   const [openEditProductForm, setOpenEditProductModal] = useState(false);
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -61,7 +62,10 @@ const EditProductPart = ({ id, name, categoryId, show }: IProps) => {
         <ArrowDownwardIcon />
       </IconButton>
 
-      <IconButton color="inherit" onClick={(e) => console.log("edit ")}>
+      <IconButton
+        color="inherit"
+        onClick={(e) => setOpenEditProductModal(true)}
+      >
         <EditIcon />
       </IconButton>
 
@@ -75,6 +79,7 @@ const EditProductPart = ({ id, name, categoryId, show }: IProps) => {
         productId={id}
         categoryId={categoryId}
         productName={name}
+        position={position}
       />
       <MessageModal
         open={openMessageModal}

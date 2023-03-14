@@ -19,7 +19,6 @@ import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
 
 //Icons
-import DeleteIcon from "@mui/icons-material/Delete";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 //Graphql
@@ -60,6 +59,7 @@ type IProps = {
   categoryId: string;
   showAmounts: boolean;
   measureUnit: string;
+  position: number;
 };
 
 const InputProduct: React.FC<IProps> = ({
@@ -70,6 +70,7 @@ const InputProduct: React.FC<IProps> = ({
   categoryId,
   showAmounts,
   measureUnit,
+  position,
 }) => {
   //Context
   const { products, updateProducts } = useContext(ProductsContext);
@@ -239,6 +240,7 @@ const InputProduct: React.FC<IProps> = ({
         name={name}
         categoryId={categoryId}
         show={showEditProductBox}
+        position={position}
       />
       <MessageModal
         open={openMessageModal}

@@ -66,6 +66,7 @@ interface IProps {
   categoryId: string;
   productName: string;
   productId: string;
+  position: number;
 }
 
 interface IForm {
@@ -80,6 +81,7 @@ function EditProductForm({
   categoryId,
   productName,
   productId,
+  position,
 }: IProps) {
   const { editProductApi } = useContext(ProductsContext);
   const { currentUser } = useContext(UserContext);
@@ -99,7 +101,7 @@ function EditProductForm({
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     if (editProductApi !== undefined && typeof categoryId === "string") {
       setSubmitting(true);
-      await editProductApi(productId, data.name, data.categoryId);
+      editProductApi(productId, data.name, data.categoryId, position);
 
       // reset({ name: '', categoryId: '' })
       setSubmitting(false);

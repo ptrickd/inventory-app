@@ -54,7 +54,8 @@ interface IContext {
   editProductApi: (
     productId: string,
     productName: string,
-    categoryId: string
+    categoryId: string,
+    position: number
   ) => void;
 }
 
@@ -238,7 +239,8 @@ const ProductsProvider = ({ children }: IProps) => {
   const editProductApi = async (
     productId: string,
     productName: string,
-    categoryId: string
+    categoryId: string,
+    position: number
   ) => {
     try {
       await editProduct({
@@ -247,6 +249,7 @@ const ProductsProvider = ({ children }: IProps) => {
           name: productName,
           categoryId,
           unit: "ea",
+          position,
         },
       });
       getProducts({ variables: { categoryId: contextCategoryId } });

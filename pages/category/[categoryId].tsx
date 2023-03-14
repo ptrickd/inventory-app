@@ -91,6 +91,7 @@ const ProductsPage: React.FC = () => {
             categoryId={product.categoryId}
             showAmounts={true}
             measureUnit={product.unit}
+            position={product.position}
           />
         );
       }
