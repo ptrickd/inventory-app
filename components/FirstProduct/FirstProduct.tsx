@@ -2,42 +2,20 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
 
-import { styled } from "@mui/material/styles";
+//Material UI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 //Contexts
-import { CategoriesContext } from "../contexts/CategoriesContext";
-import { ProductsContext } from "../contexts/ProductsContext";
+import { CategoriesContext } from "../../contexts/CategoriesContext";
 
 //Components
-import AddProductForm from "../components/AddProductForm";
-import DisplayMessage from "./DisplayMessage";
+import AddProductForm from "../../components/AddProductForm";
+import DisplayMessage from "../DisplayMessage";
 
-const PREFIX = "FirstProduct";
-
-const classes = {
-  button: `${PREFIX}-button`,
-  root: `${PREFIX}-root`,
-  items: `${PREFIX}-items`,
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled("div")(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
-    display: "flex",
-    minHeight: "70vh",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "10%",
-  },
-  [`& .${classes.button}`]: {
-    width: "70%",
-  },
-  [`& .${classes.items}`]: { flexGrow: 2 },
-}));
+//Types
+import { classes, Root } from "./FirstProduct.style";
 
 const FirstProduct: React.FC = () => {
   const { categories } = useContext(CategoriesContext);

@@ -8,9 +8,9 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
 //Components
-import FirstReport from "../components/firstReport";
-import FirstCategory from "../components/firstCategory";
-import FirstProduct from "../components/firstProduct";
+import FirstReport from "../components/FirstReport";
+import FirstCategory from "../components/FirstCategory";
+import FirstProduct from "../components/FirstProduct";
 import Footer from "../Layout/Footer";
 
 //Context
