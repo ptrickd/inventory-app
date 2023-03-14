@@ -1,43 +1,22 @@
 //React
 import React, { Fragment } from "react";
 
+//Material UI
 import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 //Regex
-import { EMAIL_REGEX } from "../constants/regex";
+import { EMAIL_REGEX } from "../../constants/regex";
 
 //Components
-import WaitingModal from "../components/WaitingModal";
+import WaitingModal from "../../components/WaitingModal";
 
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-const PREFIX = "AuthForm";
-
-const classes = {
-  form: `${PREFIX}-form`,
-  input: `${PREFIX}-input`,
-  button: `${PREFIX}-button`,
-};
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled("div")(({ theme }) => ({
-  [`& .${classes.form}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-
-  [`& .${classes.input}`]: {
-    marginBottom: 15,
-  },
-
-  [`& .${classes.button}`]: {
-    marginTop: 15,
-    marginBottom: 15,
-  },
-}));
+//Style
+import { classes, Root } from "./AuthForm.styles";
 
 interface IForm {
   email: string;

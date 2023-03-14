@@ -1,6 +1,7 @@
 //React
 import React, { useState, useContext } from "react";
 
+//Material UI
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -12,32 +13,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 //Context
-// import { UserContext } from '../contexts/UserContext'
-import { CategoriesContext } from "../contexts/CategoriesContext";
+import { CategoriesContext } from "../../contexts/CategoriesContext";
 
-const PREFIX = "AddCategoryForm";
-
-const classes = {
-  content: `${PREFIX}-content`,
-  buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`,
-};
-
-const StyledDialog = styled(Dialog)({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-});
+//Types
+import { classes, StyledDialog } from "./AddCategoryForm.style";
 
 interface ICategory {
   id: string;
