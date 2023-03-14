@@ -5,8 +5,8 @@ import React, { useState, useEffect, useContext, Fragment } from "react";
 import { ProductsContext } from "../../contexts/ProductsContext";
 
 //Components
-import EditProductForm from "../EditProductForm";
 import MessageModal from "../MessageModal";
+import EditProductBox from "../EditProductBox";
 
 //Material UI
 import TextField from "@mui/material/TextField";
@@ -20,7 +20,7 @@ import Box from "@mui/material/Box";
 
 //Icons
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 //Graphql
 import { gql, useMutation } from "@apollo/client";
@@ -33,7 +33,6 @@ import { MEASURE_UNITS } from "../../constants/measureUnits";
 
 //Styles
 import { classes, Root } from "./InputProduct.style";
-
 //Utils
 import UnitsFormat from "../../utils/unitsFormat";
 
@@ -73,11 +72,10 @@ const InputProduct: React.FC<IProps> = ({
   measureUnit,
 }) => {
   //Context
-  const { products, updateProducts, deleteProductApi } =
-    useContext(ProductsContext);
+  const { products, updateProducts } = useContext(ProductsContext);
 
   //useState
-  const [openEditProductForm, setOpenEditProductModal] = useState(false);
+  const [showEditProductBox, setShowEditProductBox] = useState(false);
   const [currentMeasureUnit, setCurrentMeasureUnit] = useState(measureUnit);
 
   const [amount, setAmount] = useState(currentAmount.toString());
@@ -115,10 +113,11 @@ const InputProduct: React.FC<IProps> = ({
     updateProducts,
   ]);
 
-  const handleEditAddProductForm = () => setOpenEditProductModal(false);
-
   const handleMessageModalClicked = () => {
     setOpenMessageModal(false);
+  };
+  const toggleShowProductBox = () => {
+    setShowEditProductBox(!showEditProductBox);
   };
 
   const handleUnitChange = async (e: any) => {
@@ -230,24 +229,16 @@ const InputProduct: React.FC<IProps> = ({
             {previousAmount}
           </Typography>
         </Box>
-        <IconButton onClick={(e) => setOpenEditProductModal(true)}>
-          <EditIcon />
-        </IconButton>
-
-        <IconButton
-          onClick={(e) => {
-            if (deleteProductApi !== undefined) deleteProductApi(id);
-          }}
-        >
-          <DeleteIcon />
+        <IconButton onClick={(e) => toggleShowProductBox()}>
+          <SettingsIcon />
         </IconButton>
       </FormControl>
-      <EditProductForm
-        open={openEditProductForm}
-        handleCloseModal={handleEditAddProductForm}
-        productId={id}
+
+      <EditProductBox
+        id={id}
+        name={name}
         categoryId={categoryId}
-        productName={name}
+        show={showEditProductBox}
       />
       <MessageModal
         open={openMessageModal}

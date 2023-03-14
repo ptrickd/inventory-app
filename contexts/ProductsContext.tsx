@@ -49,7 +49,7 @@ interface IContext {
   updateProducts: (list: IProduct[]) => void;
   setCategoryId: (categoryId: string) => void;
   addProduct: (product: IAddProduct) => any;
-  deleteProductApi: (productId: string) => void;
+  deleteProductApi: (productId: string) => any;
 
   editProductApi: (
     productId: string,
@@ -208,11 +208,32 @@ const ProductsProvider = ({ children }: IProps) => {
     }
   }
 
-  const deleteProductApi = async (productId: string) => {
-    await deleteProduct({ variables: { productId: productId } });
+  async function deleteProductApi(productId: string) {
+    try {
+      const response = await deleteProduct({
+        variables: { productId: productId },
+      });
 
-    getProducts({ variables: { categoryId: contextCategoryId } });
-  };
+      const { id, error } = response.data.deleteProduct;
+      if (id) {
+        //handle the removal from local list products
+
+        const newProductsList = products.filter((product) => {
+          if (product.id !== id) return product;
+        });
+        setProducts(newProductsList);
+        return { id: id };
+      } else if (error) {
+        //display an error message
+        console.error(error);
+        return { error: error };
+      }
+    } catch (err: any) {
+      //display an error message
+      console.error(err.message);
+      return { error: err.message };
+    }
+  }
 
   const editProductApi = async (
     productId: string,

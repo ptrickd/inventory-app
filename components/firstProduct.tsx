@@ -25,11 +25,7 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")(({ theme: Theme }) => ({
-  [`& .${classes.button}`]: {
-    width: "70%",
-  },
-  [`& .${classes.items}`]: { flexGrow: 2 },
-  [`& .${classes.root}`]: {
+  [`&.${classes.root}`]: {
     display: "flex",
     minHeight: "70vh",
     flexDirection: "column",
@@ -37,6 +33,10 @@ const Root = styled("div")(({ theme: Theme }) => ({
     alignItems: "center",
     padding: "10%",
   },
+  [`& .${classes.button}`]: {
+    width: "70%",
+  },
+  [`& .${classes.items}`]: { flexGrow: 2 },
 }));
 
 const FirstProduct: React.FC = () => {
@@ -66,41 +66,42 @@ const FirstProduct: React.FC = () => {
   //To fix: when no categories do something
   if (categories === undefined || categories[0] === undefined) return null;
   return (
-    <Root>
-      <div className={classes.root}>
-        <Typography
-          align="center"
-          variant="body1"
-          paragraph
-          className={classes.items}
-        >
-          {textBody}
-        </Typography>
-        <Typography className={classes.items}>
-          Your first category is
-          <Box component="span"> {categories[0].name}</Box>
-        </Typography>
-        <Button
-          onClick={() => setOpenModal(true)}
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          size="large"
-        >
-          Do it
-        </Button>
-        {typeof categoryId === "string" && (
-          <AddProductForm
-            open={openModal}
-            handleCloseModal={handleModal}
-            categoryId={categoryId}
-          />
-        )}
-        <DisplayMessage
-          show={Boolean(messageError.length > 0)}
-          message={messageError}
+    <Root className={classes.root}>
+      {/* <div> */}
+      <Typography
+        align="center"
+        variant="body1"
+        paragraph
+        className={classes.items}
+      >
+        {textBody}
+      </Typography>
+      <Typography className={classes.items}>
+        Your first category is
+        <Box component="span"> {categories[0].name}</Box>
+      </Typography>
+      <Button
+        onClick={() => setOpenModal(true)}
+        className={classes.button}
+        variant="contained"
+        color="primary"
+        size="large"
+      >
+        Do it
+      </Button>
+      {typeof categoryId === "string" && (
+        <AddProductForm
+          open={openModal}
+          handleCloseModal={handleModal}
+          categoryId={categoryId}
+          position={0}
         />
-      </div>
+      )}
+      <DisplayMessage
+        show={Boolean(messageError.length > 0)}
+        message={messageError}
+      />
+      {/* </div> */}
     </Root>
   );
 };
