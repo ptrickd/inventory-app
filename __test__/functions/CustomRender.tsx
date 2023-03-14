@@ -7,10 +7,10 @@ import { mockedRouter } from "./mockedRouter";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 
 //Context
-import { UserContext } from "../contexts/UserContext";
-import { ReportsContext } from "../contexts/ReportsContext";
-import { CategoriesContext } from "../contexts/CategoriesContext";
-import { ProductsContext } from "../contexts/ProductsContext";
+import { UserContext } from "../../contexts/UserContext";
+import { ReportsContext } from "../../contexts/ReportsContext";
+import { CategoriesContext } from "../../contexts/CategoriesContext";
+import { ProductsContext } from "../../contexts/ProductsContext";
 
 //ContextProps
 import {
@@ -21,7 +21,7 @@ import {
 } from "./mockedContexts";
 
 //Queries
-import { LOGIN } from "../graphql/queries";
+import { LOGIN } from "../../graphql/queries";
 
 const mocksQuery: any = [
   {

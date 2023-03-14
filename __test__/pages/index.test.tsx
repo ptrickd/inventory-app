@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Home from "../pages/index";
-import { mockedRouter } from "./mockedRouter";
+import Home from "../../pages/index";
+import { mockedRouter } from "../mockedRouter";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import "@testing-library/jest-dom";
 

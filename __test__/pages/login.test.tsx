@@ -11,10 +11,10 @@ import {
 } from "@testing-library/react";
 
 //Component
-import { default as LoginPage } from "../pages/login";
+import { default as LoginPage } from "../../pages/login";
 
 //Testing component
-import CustomRender from "./CustomRender";
+import CustomRender from "../functions/CustomRender";
 
 describe("<Login />", () => {
   afterEach(() => {

@@ -2,10 +2,10 @@
 import { screen } from "@testing-library/react";
 
 // CustomRender
-import CustomRender from "./CustomRender";
+import CustomRender from "../functions/CustomRender";
 
 //Page to test
-import ProductsPage from "../pages/category/[categoryId]";
+import ProductsPage from "../../pages/category/[categoryId]";
 
 describe("<ProductsPage />", () => {
   it("render as intended", async () => {

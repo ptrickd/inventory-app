@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
-import { mockedRouter } from "./mockedRouter";
-import Register from "../pages/register";
+import { mockedRouter } from "../mockedRouter";
+import Register from "../../pages/register";
 import { RouterContext } from "next/dist/shared/lib/router-context";
-import { REGISTER } from "../graphql/queries";
+import { REGISTER } from "../../graphql/queries";
 
 const mocks: any = [
   {
