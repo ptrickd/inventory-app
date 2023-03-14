@@ -255,10 +255,9 @@ const ProductsProvider = ({ children }: IProps) => {
         },
       });
 
-      //update product
       return { data: response.data.editProduct };
     } catch (err: any) {
-      console.log(err.message);
+      console.error(err.message);
       return { error: err.message };
     }
   }

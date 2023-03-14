@@ -62,9 +62,10 @@ const EditProductPart = ({
   const handleMessageModalClicked = () => setOpenMessageModal(false);
 
   const handleArrowUpwardClicked = async () => {
+    //define position
+
     const newPositionCurrentProduct = position - 1;
     const newPositionPreviousProduct = position;
-    const positionCurrentProduct = position;
     const positionPreviousProduct = position - 1;
 
     if (
@@ -100,6 +101,45 @@ const EditProductPart = ({
     }
   };
 
+  const handleArrowDownwardClicked = async () => {
+    //define position
+    const newPositionCurrentProduct = position + 1;
+    const newPositionNextProduct = position;
+    const positionNextProduct = position + 1;
+    //find next product
+    if (
+      productsByCategory !== undefined &&
+      productsByCategory?.length !== undefined &&
+      position < productsByCategory?.length &&
+      editProductApi !== undefined
+    ) {
+      const nextProduct = productsByCategory.filter((product) => {
+        if (product.position === positionNextProduct) return product;
+      });
+      //update next product
+      if (nextProduct.length > 0) {
+        const response1 = await editProductApi(
+          nextProduct[0].id || "",
+          nextProduct[0].name,
+          nextProduct[0].categoryId,
+          nextProduct[0].unit,
+          newPositionNextProduct
+        );
+        //update current product
+        const response2 = await editProductApi(
+          id,
+          name,
+          categoryId,
+          unit,
+          newPositionCurrentProduct
+        );
+
+        console.log(response1);
+        console.log(response2);
+      }
+    }
+  };
+
   //Rendering
   if (!show) return null;
   return (
@@ -108,7 +148,7 @@ const EditProductPart = ({
         <ArrowUpwardIcon />
       </IconButton>
 
-      <IconButton color="inherit" onClick={(e) => console.log("go down")}>
+      <IconButton color="inherit" onClick={handleArrowDownwardClicked}>
         <ArrowDownwardIcon />
       </IconButton>
 
