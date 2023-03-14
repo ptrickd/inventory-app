@@ -2,50 +2,16 @@
 import React, { useState, useEffect } from "react";
 
 //Material UI
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 
-//Constant
-import { DRAWER_WIDTH } from "../constants/dimensions";
-
-const PREFIX = "MessageModal";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  typo: `${PREFIX}-typo`,
-  button: `${PREFIX}-button`,
-  dialogContent: `${PREFIX}-dialog-content`,
-};
-
-const StyledDialog = styled(Dialog)(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {},
-}));
-
-const StyledDialogContent = styled(DialogContent)(({ theme: Theme }) => ({
-  [`&.${classes.dialogContent}`]: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-}));
-
-const StyledMessage = styled(Box)(({ theme: Theme }) => ({
-  [`&.${classes.typo}`]: {
-    margin: Theme.spacing(1),
-    padding: Theme.spacing(1),
-  },
-}));
-
-const StyledButton = styled(Button)(({ theme: Theme }) => ({
-  [`&.${classes.button}`]: {
-    width: "100%",
-    maxWidth: 50,
-  },
-}));
+//Styles
+import {
+  classes,
+  StyledDialog,
+  StyledDialogContent,
+  StyledMessage,
+  StyledButton,
+} from "./MessageModal.style";
 
 interface IProps {
   open: boolean;
