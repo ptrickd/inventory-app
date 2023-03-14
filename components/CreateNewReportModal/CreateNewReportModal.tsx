@@ -1,43 +1,21 @@
 //React
-import { useState, useContext, useEffect } from "react";
-
-import { styled } from "@mui/material/styles";
+import { useState, useContext } from "react";
 
 //Component
-import DatePicker from "./DatePicker";
+import DatePicker from "../DatePicker";
 
-import Dialog from "@mui/material/Dialog";
+//Material UI
+
 import DialogContent from "@mui/material/DialogContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-//Time
-import { DateTime } from "luxon";
-
 //Context
-import { ReportsContext } from "../contexts/ReportsContext";
-import { ProductsContext } from "../contexts/ProductsContext";
+import { ReportsContext } from "../../contexts/ReportsContext";
+import { ProductsContext } from "../../contexts/ProductsContext";
 
-//Types
-import { IProduct, IAddProduct } from "../types/types";
-
-const PREFIX = "CreateNewReportModal";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  button: `${PREFIX}-button`,
-};
-
-const StyledDialog = styled(Dialog)(({ theme }) => ({
-  [`&.${classes.root}`]: {
-    margin: theme.spacing(4),
-    padding: theme.spacing(4),
-  },
-
-  [`& .${classes.button}`]: {
-    marginTop: 10,
-  },
-}));
+//Styles
+import { classes, StyledDialog } from "./CreateNewReportModal.style";
 
 interface IResponseStatus {
   succeeded: boolean;

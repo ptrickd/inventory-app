@@ -1,8 +1,6 @@
 //React
 import { useState, useEffect } from "react";
 
-import { styled } from "@mui/material/styles";
-
 //Time
 import { DateTime } from "luxon";
 import LuxonUtils from "@date-io/luxon";
@@ -12,18 +10,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 
-const PREFIX = "DatePicker";
-
-const classes = {
-  root: `${PREFIX}-root`,
-};
-
-const Root = styled("div")(({ theme }) => ({
-  [`&.${classes.root}`]: {
-    display: "flex",
-    justifyContent: "center",
-  },
-}));
+//Styles
+import { classes, Root } from "./DatePicker.style";
 
 interface IProps {
   handleSelectedDate: (date: Date | null) => void;
