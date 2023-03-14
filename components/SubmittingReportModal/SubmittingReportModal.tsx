@@ -1,38 +1,10 @@
-//React
-import { useState } from "react";
-
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
+//Material UI
 import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 import Button from "@mui/material/Button";
 
-const PREFIX = "SubmittingReportModal";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  text: `${PREFIX}-text`,
-  actions: `${PREFIX}-actions`,
-  button: `${PREFIX}-button`,
-};
-
-const StyledDialog = styled(Dialog)(({ theme: Theme }) => ({
-  [`& .${classes.root}`]: {},
-
-  [`& .${classes.text}`]: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRigth: 10,
-  },
-
-  [`& .${classes.actions}`]: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  [`& .${classes.button}`]: {},
-}));
+//Types
+import { classes, StyledDialog } from "./SubmittingReportModal.style";
 
 interface IProps {
   open: boolean;

@@ -1,20 +1,9 @@
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
+//Material UI
 import DialogContent from "@mui/material/DialogContent";
 import CircularProgress from "@mui/material/CircularProgress";
-import { DRAWER_WIDTH } from "../constants/dimensions";
 
-const PREFIX = "WaitingModal";
-
-const classes = {
-  root: `${PREFIX}-root`,
-};
-
-const StyledDialog = styled(Dialog)(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
-    // marginLeft: DRAWER_WIDTH
-  },
-}));
+//Types
+import { classes, StyledDialog } from "./WaitingModal.style";
 
 interface IProps {
   open: boolean;

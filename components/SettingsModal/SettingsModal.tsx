@@ -5,8 +5,6 @@ import React, { useEffect, useContext } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 //Material UI
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
@@ -16,11 +14,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
+//Style
+import { classes, StyledDialog } from "./SettingsModal.style";
+
 //Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 //Context
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 interface IProps {
   open: boolean;
@@ -35,19 +36,6 @@ const UPDATE_THEME = gql`
     }
   }
 `;
-
-const PREFIX = "SettingsModals";
-
-const classes = {
-  arrow: `${PREFIX}--arrow`,
-};
-
-const StyledDialog = styled(Dialog)(({ theme }) => ({
-  [`& .${classes.arrow}`]: {
-    display: "flex",
-    justifyContent: "flex-start",
-  },
-}));
 
 const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
   const { theme, setTheme } = useContext(UserContext);
