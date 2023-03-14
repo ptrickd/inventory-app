@@ -1,13 +1,11 @@
 //React
 import React, { useState, useContext, Fragment } from "react";
 
-import { styled } from "@mui/material/styles";
-
 //Context
-import { ProductsContext } from "../contexts/ProductsContext";
-import { UserContext } from "../contexts/UserContext";
+import { ProductsContext } from "../../contexts/ProductsContext";
+import { UserContext } from "../../contexts/UserContext";
 
-import Dialog from "@mui/material/Dialog";
+//Material UI
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -21,38 +19,10 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 //GraphQL
 import { useQuery } from "@apollo/client";
-import { GET_CATEGORIES } from "../graphql/queries";
+import { GET_CATEGORIES } from "../../graphql/queries";
 
-//Constants
-import { MEASURE_UNITS } from "../constants/measureUnits";
-
-const PREFIX = "EditProductForm";
-
-const classes = {
-  content: `${PREFIX}-content`,
-  buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`,
-  category: `${PREFIX}-category`,
-};
-
-const StyledDialog = styled(Dialog)({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.category}`]: {
-    marginTop: 10,
-  },
-});
+//Styles
+import { classes, StyledDialog } from "./EditProductForm.style";
 
 //Types
 interface ICategory {
@@ -103,7 +73,7 @@ function EditProductForm({
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     if (editProductApi !== undefined && typeof categoryId === "string") {
       setSubmitting(true);
-      editProductApi(productId, data.name, data.categoryId, position, unit);
+      editProductApi(productId, data.name, data.categoryId, unit, position);
 
       // reset({ name: '', categoryId: '' })
       setSubmitting(false);

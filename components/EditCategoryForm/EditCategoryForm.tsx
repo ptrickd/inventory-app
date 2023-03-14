@@ -1,7 +1,7 @@
+//React
 import React, { useState } from "react";
 
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
+//Material UI
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
@@ -11,29 +11,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-const PREFIX = "EditCategoryForm";
-
-const classes = {
-  content: `${PREFIX}-content`,
-  buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`,
-};
-
-const StyledDialog = styled(Dialog)({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-});
+//Types
+import { classes, StyledDialog } from "./EditCategoryForm.style";
 
 interface IProps {
   open: boolean;

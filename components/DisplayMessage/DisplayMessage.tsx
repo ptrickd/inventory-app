@@ -1,26 +1,11 @@
 //React
 import React from "react";
 
-import { styled } from "@mui/material/styles";
+//Material UI
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 
-const PREFIX = "DisplayMessage";
-
-const classes = {
-  root: `${PREFIX}-root`,
-};
-
-const StyledBox = styled(Box)(({ theme: Theme }) => ({
-  [`&.${classes.root}`]: {
-    margin: Theme.spacing(1),
-    padding: Theme.spacing(1),
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "red",
-    borderRadius: 5,
-  },
-}));
+//Styles
+import { classes, StyledBox } from "./DisplayMessage.style";
 
 //Types definitions
 interface IProps {
