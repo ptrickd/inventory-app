@@ -40,7 +40,8 @@ function AddProductForm({
   position,
 }: IProps) {
   //Context
-  const { addProduct, products } = useContext(ProductsContext);
+  const { addProduct, products, productsByCategory } =
+    useContext(ProductsContext);
 
   //useState
   const [submitting, setSubmitting] = useState(false);
@@ -108,11 +109,22 @@ function AddProductForm({
           const isExisting = options.some(
             (option) => inputValue === option.name
           );
-          if (inputValue !== "" && !isExisting) {
+          if (
+            inputValue !== "" &&
+            !isExisting &&
+            productsByCategory !== undefined
+          ) {
             filtered.push({
               name: `${inputValue}`,
 
-              categories: [{ categoryId, currentAmount: 0, previousAmount: 0 }],
+              categories: [
+                {
+                  categoryId,
+                  currentAmount: 0,
+                  previousAmount: 0,
+                  position: productsByCategory?.length,
+                },
+              ],
               unit: "ea",
             });
           }

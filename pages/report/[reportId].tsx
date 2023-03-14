@@ -92,6 +92,7 @@ interface IProductByCategory {
   previousAmount: number;
   unit: string;
   categoryId: string;
+  position: number;
 }
 
 interface ISubmittedProduct {
