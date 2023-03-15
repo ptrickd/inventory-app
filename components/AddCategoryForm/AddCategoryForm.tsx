@@ -2,8 +2,6 @@
 import React, { useState, useContext } from "react";
 
 //Material UI
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -34,7 +32,6 @@ interface IForm {
 
 function AddCategoryForm({ open, handleCloseModal }: IProps) {
   const [submitting, setSubmitting] = useState(false);
-  const [categoryName, setCategoryName] = useState("");
   const {
     control,
     handleSubmit,
