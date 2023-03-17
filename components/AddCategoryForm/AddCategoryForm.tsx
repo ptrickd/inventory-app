@@ -31,13 +31,18 @@ interface IForm {
 }
 
 function AddCategoryForm({ open, handleCloseModal }: IProps) {
+  //useState
   const [submitting, setSubmitting] = useState(false);
+
+  //React hook form
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<IForm>();
+
+  //useContext
   const { createCategoryApi } = useContext(CategoriesContext);
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {

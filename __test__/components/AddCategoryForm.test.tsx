@@ -9,11 +9,10 @@ import CustomRender from "../functions/CustomRender";
 //Component to test
 import AddCategoryForm from "../../components/AddCategoryForm";
 
-//Components
+//Mocked Context
 import { CategoriesContextProps } from "../functions/mockedContexts";
 
 describe("<AddCategoryForm />", () => {
-  let spy: any;
   afterEach(() => {
     cleanup();
   });
