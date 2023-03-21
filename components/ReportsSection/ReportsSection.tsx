@@ -42,9 +42,10 @@ interface IReports {
 }
 interface IProps {
   list: IReports[] | [];
+  handleClickAddModal: () => void;
 }
 
-const ReportsSection = ({ list }: IProps) => {
+const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
   const [showList, setShowList] = useState(false);
   const [openMessageModal, setOpenMessageModal] = useState(false);
   const [message, setMessage] = useState("");
@@ -84,7 +85,7 @@ const ReportsSection = ({ list }: IProps) => {
         <IconButton
           aria-label="add category"
           color="primary"
-          onClick={() => console.log("clicked on button")}
+          onClick={handleClickAddModal}
           sx={{ padding: 0 }}
         >
           <AddIcon color="primary" />

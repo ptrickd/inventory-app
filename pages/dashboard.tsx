@@ -82,19 +82,11 @@ function Dashboard() {
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
         <CategoriesSection listOfCategories={categories || []} />
         <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
-        <ReportsSection list={reports || []} />
+        <ReportsSection
+          list={reports || []}
+          handleClickAddModal={() => setOpenCreateNewReport(true)}
+        />
         <List>
-          {/*
-           <ListItem>
-            <IconButton
-              aria-label="create new report"
-              color="primary"
-              onClick={handleSubmittingReport}
-            >
-              <AddIcon />
-            </IconButton>
-            <ListItemText primary="Create Inventory Report" />
-          </ListItem> */}
           <ListItem>
             <IconButton
               aria-label="settings"

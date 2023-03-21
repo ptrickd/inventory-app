@@ -27,7 +27,7 @@ const DatePicker = ({ handleSelectedDate, initialDate }: IProps) => {
     }
   }, [isSelectedDate, setSelectedDate, initialDate]);
   return (
-    <Root className={classes.root}>
+    <Root className={classes.root} aria-label="date picker">
       <LocalizationProvider dateAdapter={LuxonUtils}>
         <DesktopDatePicker
           inputFormat="EEE DD"
