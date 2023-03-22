@@ -2,6 +2,7 @@
 import { screen, cleanup } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 //CustomRender
 import CustomRender from "../functions/CustomRender";
@@ -40,7 +41,9 @@ describe("<CategoriesSection />", () => {
     });
     expect(NumberButton).toBeInTheDocument();
 
-    await user.click(NumberButton);
+    await act(async () => {
+      await user.click(NumberButton);
+    });
 
     //The component display the name of the category
     const CategoryName = await screen.findByText(/produce/i);
@@ -73,8 +76,9 @@ describe("<CategoriesSection />", () => {
     expect(AddButton).toBeInTheDocument();
 
     //Click on the button
-    await user.click(AddButton);
-
+    await act(async () => {
+      await user.click(AddButton);
+    });
     //The modal AddCategory for call
     const InputCategory = screen.getByRole("textbox", {
       name: /add a category/i,

@@ -192,9 +192,6 @@ const ProductsPage: React.FC = () => {
         open={openEditCategoryModal}
         handleCloseModal={handleCloseEditCategoryForm}
         category={currentCategory}
-        setNewCategoryName={(name) =>
-          setCurrentCategory({ ...currentCategory, name })
-        }
       />
       <MessageModal
         open={openMessageModal}

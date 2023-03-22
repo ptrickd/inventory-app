@@ -1,5 +1,8 @@
 //React
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+//GraphQL
+import { useMutation, gql } from "@apollo/client";
 
 //Material UI
 import DialogTitle from "@mui/material/DialogTitle";
@@ -11,6 +14,20 @@ import CircularProgress from "@mui/material/CircularProgress";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
+//Context
+import { CategoriesContext } from "../../contexts/CategoriesContext";
+
+//Queries
+//Edit categories  editCategory(categoryId: ID, name: String): Category
+const EDIT_CATEGORY = gql`
+  mutation EditCategory($categoryId: ID!, $name: String!) {
+    editCategory(categoryId: $categoryId, name: $name) {
+      name
+      error
+    }
+  }
+`;
+
 //Types
 import { classes, StyledDialog } from "./EditCategoryForm.style";
 
@@ -21,7 +38,6 @@ interface IProps {
     id: string;
     name: string;
   };
-  setNewCategoryName: (name: string) => void;
 }
 
 interface IForm {
@@ -29,13 +45,14 @@ interface IForm {
   name: string;
 }
 
-function EditCategoryForm({
-  open,
-  handleCloseModal,
-  category,
-  setNewCategoryName,
-}: IProps) {
+function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
+  //useState
   const [submitting, setSubmitting] = useState(false);
+  //queries
+  const [editCategory] = useMutation(EDIT_CATEGORY);
+  //useContext
+  const { categories, setCategories } = useContext(CategoriesContext);
+  //form
   const {
     control,
     handleSubmit,
@@ -45,19 +62,32 @@ function EditCategoryForm({
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);
-    await fetch(`/api/category/${category.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: data.name }),
-    })
-      .then((resp) => resp.json())
-      .then((dataFromServer) => console.log(dataFromServer))
-      .catch((err) => console.log("error:", err));
+    const response = await editCategory({
+      variables: { categoryId: category.id, name: data.name },
+    });
+
     reset({ name: "" });
     setSubmitting(false);
-    setNewCategoryName(data.name);
+
+    const editedCategory = response.data.editCategory;
+    console.log(editedCategory);
+    //update the category
+    if (
+      categories !== undefined &&
+      setCategories !== undefined &&
+      editedCategory.error === null
+    ) {
+      const newCategories = categories.filter(({ name, id }) => {
+        if (id === category.id) {
+          return { id, name: data.name };
+        } else {
+          return { id, name };
+        }
+      });
+      console.log(newCategories);
+      setCategories(newCategories);
+    }
+
     handleCloseModal();
   };
 

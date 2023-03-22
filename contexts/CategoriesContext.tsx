@@ -18,6 +18,7 @@ interface ICategory {
 interface IContext {
   hasCategory: boolean | null;
   categories: ICategory[] | [];
+  setCategories: (categories: ICategory[] | []) => void;
   createCategoryApi: (category: ICategory) => any;
   deleteCategoryApi: (category: ICategory) => void;
 }
@@ -62,9 +63,6 @@ const CategoriesProvider = ({ children }: IProps) => {
   //add a new category
   async function createCategoryApi({ name }: ICategory) {
     try {
-      //   console.log("currentUser", currentUser);
-      //   console.log("new category name", name);
-
       if (currentUser === undefined) return { error: "Logout out" };
       let response = await createCategory({
         variables: { name: name, userId: currentUser.id },
@@ -104,9 +102,10 @@ const CategoriesProvider = ({ children }: IProps) => {
     <CategoriesContext.Provider
       value={{
         hasCategory,
+        categories,
+        setCategories,
         createCategoryApi,
         deleteCategoryApi,
-        categories,
       }}
     >
       {children}

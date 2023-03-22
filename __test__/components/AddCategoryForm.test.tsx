@@ -1,7 +1,7 @@
 //Testing
 import { screen, cleanup } from "@testing-library/react";
-
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 //CustomRender
 import CustomRender from "../functions/CustomRender";
@@ -50,18 +50,24 @@ describe("<AddCategoryForm />", () => {
     );
     const user = userEvent.setup();
 
-    // const createCategoryApi = jest.fn();
-
     const CategoryInput = screen.getByRole("textbox", {
       name: /add a category/i,
     });
     const ButtonAdd = screen.getByRole("button", {
       name: /add/i,
     });
-    await user.click(CategoryInput);
 
-    await user.keyboard("Dessert Line");
-    await user.click(ButtonAdd);
+    await act(async () => {
+      await user.click(CategoryInput);
+    });
+
+    await act(async () => {
+      await user.keyboard("Dessert Line");
+    });
+
+    await act(async () => {
+      await user.click(ButtonAdd);
+    });
 
     expect(createCategoryApi).toHaveBeenCalledTimes(1);
   });
@@ -75,10 +81,11 @@ describe("<AddCategoryForm />", () => {
     const ButtonAdd = screen.getByRole("button", {
       name: /add/i,
     });
-    await user.click(ButtonAdd);
-
+    await act(async () => {
+      await user.click(ButtonAdd);
+    });
     //*Required is generated when sending empty name
-    const requiredSpan = screen.getByText(/required/i);
+    const requiredSpan = await screen.findByText(/required/i);
 
     expect(requiredSpan).toBeInTheDocument();
   });

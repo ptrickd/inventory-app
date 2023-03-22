@@ -117,6 +117,7 @@ export const resolvers = {
       { user }: any
     ) => {
       try {
+        console.log("in edit category");
         if (!user) throw new Error("Not Authenticated");
         let editedCategory = await Category.findById(categoryId);
         if (!editedCategory) throw new Error("No Category Found");
