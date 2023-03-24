@@ -10,6 +10,7 @@ import CustomRender from "../functions/CustomRender";
 
 //Component to test
 import EditCategoryForm from "../../components/EditCategoryForm";
+import { CategoriesContextProps } from "../functions/mockedContexts";
 
 const EDIT_CATEGORY = gql`
   mutation EditCategory($categoryId: ID!, $name: String!) {
@@ -79,6 +80,7 @@ describe("<EditCategoryForm />", () => {
   //////////////////////////////////////////////
 
   it("change the category name", async () => {
+    const { setCategories } = CategoriesContextProps;
     CustomRender(
       <MockedProvider mocks={mocksQuery} addTypename={false}>
         <EditCategoryForm
@@ -107,9 +109,8 @@ describe("<EditCategoryForm />", () => {
       await user.click(EditButton);
     });
 
-    //The title change
-    // const Title = await screen.findByRole("heading", { name: /produces/i });
-    //Graphql has been called
+    //Update the categories in the context
+    expect(setCategories).toHaveBeenCalledTimes(1);
   });
 
   //////////////////////////////////////////////

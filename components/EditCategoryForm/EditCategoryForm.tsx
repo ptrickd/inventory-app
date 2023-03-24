@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 //GraphQL
 import { useMutation, gql } from "@apollo/client";
@@ -48,6 +48,7 @@ interface IForm {
 function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
   //useState
   const [submitting, setSubmitting] = useState(false);
+  const [categoryName, setCategoryName] = useState("");
   //queries
   const [editCategory] = useMutation(EDIT_CATEGORY);
   //useContext
@@ -60,6 +61,19 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
     reset,
   } = useForm<IForm>();
 
+  //useEffect
+  useEffect(() => {
+    if (categoryName === "") {
+      setCategoryName(category.name);
+    } else {
+      categories?.map((thisCategory) => {
+        if (thisCategory.id === category.name) {
+          setCategoryName(thisCategory.name);
+        }
+      });
+    }
+  }, [category, categories, setCategoryName, categoryName]);
+
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);
     const response = await editCategory({
@@ -70,21 +84,19 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
     setSubmitting(false);
 
     const editedCategory = response.data.editCategory;
-    console.log(editedCategory);
     //update the category
     if (
       categories !== undefined &&
       setCategories !== undefined &&
       editedCategory.error === null
     ) {
-      const newCategories = categories.filter(({ name, id }) => {
-        if (id === category.id) {
-          return { id, name: data.name };
+      const newCategories = categories.map((thisCategory) => {
+        if (thisCategory.id === category.id) {
+          return { ...thisCategory, name: editedCategory.name };
         } else {
-          return { id, name };
+          return { ...thisCategory };
         }
       });
-      console.log(newCategories);
       setCategories(newCategories);
     }
 
@@ -124,14 +136,14 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
     </form>
   );
 
-  if (!category.name) return null;
+  if (!categoryName) return null;
   return (
     <StyledDialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
     >
-      <DialogTitle>{category.name.toUpperCase()}</DialogTitle>
+      <DialogTitle>{categoryName.toUpperCase()}</DialogTitle>
       <DialogContent className={classes.content}>
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>

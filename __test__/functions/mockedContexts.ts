@@ -16,6 +16,7 @@ export const ReportsContextProps = {
 
 export const CategoriesContextProps = {
   hasCategory: true,
+  setCategories: jest.fn(),
   categories: [
     {
       id: "123456",
