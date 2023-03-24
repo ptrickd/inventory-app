@@ -1,5 +1,6 @@
 //React
 import React from "react";
+import { MockedProvider } from "@apollo/client/testing";
 
 //Testing library
 import {
@@ -16,13 +17,44 @@ import { default as LoginPage } from "../../pages/login";
 //Testing component
 import CustomRender from "../functions/CustomRender";
 
+//Mocked Query
+import { LOGIN } from "../../graphql/queries";
+
+const mocksQuery: any = [
+  {
+    request: {
+      query: LOGIN,
+      variables: {
+        email: "rick@email.com",
+        password: "987654",
+      },
+    },
+    result: {
+      data: {
+        login: {
+          token: "1111",
+          user: {
+            id: "01",
+            email: "myemail@email.com",
+          },
+          error: null,
+        },
+      },
+    },
+  },
+];
+
 describe("<Login />", () => {
   afterEach(() => {
     cleanup();
   });
 
   it("render as intended", async () => {
-    CustomRender(<LoginPage />);
+    CustomRender(
+      <MockedProvider mocks={mocksQuery} addTypename={false}>
+        <LoginPage />
+      </MockedProvider>
+    );
 
     //need an heading
     const loginHeading = screen.getByRole("heading", { name: "Login" });
@@ -47,7 +79,11 @@ describe("<Login />", () => {
   });
 
   it("navigate when clicking REGISTER button", async () => {
-    CustomRender(<LoginPage />);
+    CustomRender(
+      <MockedProvider mocks={mocksQuery} addTypename={false}>
+        <LoginPage />
+      </MockedProvider>
+    );
 
     //click on the register button
     const registerButton = screen.getByRole("button", { name: "Register" });

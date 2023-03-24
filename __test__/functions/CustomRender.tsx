@@ -1,8 +1,7 @@
 //Testing library
 import { render, RenderOptions } from "@testing-library/react";
 
-//Mocked Router
-import { MockedProvider } from "@apollo/client/testing";
+//Mocked Files
 import { mockedRouter } from "./mockedRouter";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 
@@ -20,33 +19,6 @@ import {
   ReportsContextProps,
 } from "./mockedContexts";
 
-//Queries
-import { LOGIN } from "../../graphql/queries";
-
-const mocksQuery: any = [
-  {
-    request: {
-      query: LOGIN,
-      variables: {
-        email: "rick@email.com",
-        password: "987654",
-      },
-    },
-    result: {
-      data: {
-        login: {
-          token: "1111",
-          user: {
-            id: "01",
-            email: "myemail@email.com",
-          },
-          error: null,
-        },
-      },
-    },
-  },
-];
-
 const AllTheProviders: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -56,9 +28,7 @@ const AllTheProviders: React.FC<{ children: React.ReactNode }> = ({
         <ReportsContext.Provider value={ReportsContextProps}>
           <CategoriesContext.Provider value={CategoriesContextProps}>
             <ProductsContext.Provider value={ProductsContextProps}>
-              <MockedProvider mocks={mocksQuery} addTypename={false}>
-                {children}
-              </MockedProvider>
+              {children}
             </ProductsContext.Provider>
           </CategoriesContext.Provider>
         </ReportsContext.Provider>

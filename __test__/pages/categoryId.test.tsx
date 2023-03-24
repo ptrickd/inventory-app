@@ -1,15 +1,47 @@
 //Testing library
 import { screen } from "@testing-library/react";
+import { MockedProvider } from "@apollo/client/testing";
 
 // CustomRender
 import CustomRender from "../functions/CustomRender";
 
 //Page to test
-import ProductsPage from "../../pages/category/[categoryId]";
+import CategoryId from "../../pages/category/[categoryId]";
 
-describe("<ProductsPage />", () => {
+//Mocked Query
+import { LOGIN } from "../../graphql/queries";
+
+const mocksQuery: any = [
+  {
+    request: {
+      query: LOGIN,
+      variables: {
+        email: "rick@email.com",
+        password: "987654",
+      },
+    },
+    result: {
+      data: {
+        login: {
+          token: "1111",
+          user: {
+            id: "01",
+            email: "myemail@email.com",
+          },
+          error: null,
+        },
+      },
+    },
+  },
+];
+
+describe("<CategoryId />", () => {
   it("render as intended", async () => {
-    CustomRender(<ProductsPage />);
+    CustomRender(
+      <MockedProvider mocks={mocksQuery} addTypename={false}>
+        <CategoryId />
+      </MockedProvider>
+    );
 
     //The page has the name of the category as title
     const categoryName = screen.getByText("Produce");

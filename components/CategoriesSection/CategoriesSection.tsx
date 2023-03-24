@@ -93,9 +93,7 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
             return (
               <ListItem key={item.id}>
                 <Link href={`/category/${item.id}`} key={item.id}>
-                  <StyledLink color="primary" underline="hover" variant="body1">
-                    {item.name}
-                  </StyledLink>
+                  {item.name}
                 </Link>
               </ListItem>
             );
