@@ -10,8 +10,11 @@ import CustomRender from "../functions/CustomRender";
 
 //Component to test
 import EditCategoryForm from "../../components/EditCategoryForm";
+
+//Context
 import { CategoriesContextProps } from "../functions/mockedContexts";
 
+//Mutation
 const EDIT_CATEGORY = gql`
   mutation EditCategory($categoryId: ID!, $name: String!) {
     editCategory(categoryId: $categoryId, name: $name) {

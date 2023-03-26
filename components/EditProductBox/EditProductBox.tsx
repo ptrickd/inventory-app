@@ -145,22 +145,22 @@ const EditProductPart = ({
   return (
     <Root className={classes.root}>
       <IconButton color="inherit" onClick={handleArrowUpwardClicked}>
-        <ArrowUpwardIcon />
+        <ArrowUpwardIcon titleAccess="arrow-up" />
       </IconButton>
 
       <IconButton color="inherit" onClick={handleArrowDownwardClicked}>
-        <ArrowDownwardIcon />
+        <ArrowDownwardIcon titleAccess="arrow-down" />
       </IconButton>
 
       <IconButton
         color="inherit"
         onClick={(e) => setOpenEditProductModal(true)}
       >
-        <EditIcon />
+        <EditIcon titleAccess="edit-icon" />
       </IconButton>
 
       <IconButton color="inherit" onClick={handleClickOnDelete}>
-        <DeleteIcon />
+        <DeleteIcon titleAccess="delete-icon" />
       </IconButton>
 
       <EditProductForm

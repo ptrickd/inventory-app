@@ -1,7 +1,7 @@
 export const UserContextProps = {
-  currentUser: { id: "", email: "" },
+  currentUser: { id: "789456", email: "test@email.com" },
   setCurrentUser: jest.fn(),
-  loggedIn: false,
+  loggedIn: true,
   setLoggedIn: jest.fn(),
   setToken: jest.fn(),
   logout: jest.fn(),
