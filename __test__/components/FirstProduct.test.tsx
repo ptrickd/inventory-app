@@ -7,9 +7,9 @@ import { act } from "react-dom/test-utils";
 import CustomRender from "../functions/CustomRender";
 
 //Component to test
-import FirstCategory from "../../components/FirstCategory";
+import FirstProduct from "../../components/FirstProduct";
 
-describe("<FirstCategory />", () => {
+describe("<FirstProduct />", () => {
   afterEach(() => {
     cleanup();
   });
@@ -17,10 +17,10 @@ describe("<FirstCategory />", () => {
   /////////////////////////////////////////////////////
 
   it("render as intended", async () => {
-    CustomRender(<FirstCategory />);
+    CustomRender(<FirstProduct />);
 
     const Text = screen.getByText(
-      /Next you have to create your first category./i
+      /Next you have to create your first product in the category you just created./i
     );
     expect(Text).toBeInTheDocument();
 
@@ -30,26 +30,32 @@ describe("<FirstCategory />", () => {
 
   /////////////////////////////////////////////////////
 
-  it("click on the do it button bring next screen", async () => {
-    CustomRender(<FirstCategory />);
+  it("render <AddProductForm /> after clicking on the button", async () => {
+    CustomRender(<FirstProduct />);
     const user = userEvent.setup();
 
-    //find and click the 'do it' button
+    //find and click the button 'do it'
     const ButtonDoIt = screen.getByRole("button", { name: /do it/i });
     await act(async () => {
       await user.click(ButtonDoIt);
     });
-    //the <AddCategoryForm /> modal open
+
+    //test if the <AddProductForm /> has rendered
     //The component has an input box for the name
-    const CategoryInput = screen.getByRole("textbox", {
-      name: /add a category/i,
+    const ProductInput = screen.getByRole("combobox", {
+      name: /add a product/i,
     });
-    expect(CategoryInput).toBeInTheDocument();
+    expect(ProductInput).toBeInTheDocument();
 
     //The component has a button 'Add'
     const ButtonAdd = screen.getByRole("button", {
       name: /add/i,
     });
     expect(ButtonAdd).toBeInTheDocument();
+
+    //The component has a cancel buton
+    const ButtonCancel = screen.getByRole("button", { name: /cancel/i });
+
+    expect(ButtonCancel).toBeInTheDocument();
   });
 });
