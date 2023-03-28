@@ -12,6 +12,7 @@ import EditProductForm from "../../components/EditProductForm";
 
 //Mocked Context
 import { ProductsContextProps } from "../functions/mockedContexts";
+
 //Queries
 import { GET_CATEGORIES } from "../../graphql/queries";
 
