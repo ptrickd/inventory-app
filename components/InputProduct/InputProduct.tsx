@@ -174,8 +174,8 @@ const InputProduct: React.FC<IProps> = ({
   const handleChangeCurrentAmount = (e: any) => {
     const newValue = Number(e?.target?.value);
     //Accept only numbers
-    if (newValue && typeof newValue === "number")
-      setAmount(newValue.toString());
+    if (typeof newValue !== "number") setAmount("0");
+    else setAmount(newValue.toString());
   };
 
   const bodyWithAmount = () => (
@@ -194,8 +194,11 @@ const InputProduct: React.FC<IProps> = ({
         />
       </FormControl>
 
-      <FormControl className={classes.innerFormControl}>
-        <InputLabel>Unit</InputLabel>
+      <FormControl
+        className={classes.innerFormControl}
+        data-testid="select-unit"
+      >
+        <InputLabel id={name + "labelID-select"}>Unit</InputLabel>
         <Select
           labelId={name + "labelID-select"}
           id={name + "select"}
