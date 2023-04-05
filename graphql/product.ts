@@ -16,6 +16,14 @@ import Joi from "joi";
 
 dbConnect();
 
+interface IProductInCategories {
+  id: string;
+  currentAmount: Number;
+  previousAmount: Number;
+  categoryId: String;
+  position: Number;
+}
+
 interface ICreateProduct {
   name: string;
   categoryId: string;
@@ -77,8 +85,8 @@ export const typeDef = `
             ): Product
             
         deleteProduct(productId: ID): Product
-        saveAmountProduct(productId: ID, updatedAmount: Int): Product
-        saveUnitProduct(productId: ID, updatedUnit: String): Product
+        saveAmountProduct(productId: ID, updatedAmount: Int, categoryId: ID): Product
+        saveUnitProduct(productId: ID, updatedUnit: String, categoryId: ID): Product
     }
 `;
 
@@ -264,15 +272,25 @@ export const resolvers = {
     },
     saveAmountProduct: async (
       _: any,
-      { productId, updatedAmount }: TIds,
+      { productId, updatedAmount, categoryId }: TIds,
       { user }: any
     ) => {
       try {
         if (!user) throw new Error("Not Authenticated");
         const product = await Product.findById(productId);
         if (!product) throw new Error("No product found!");
+        //iterate through categories to find the corresponding categoryId
 
-        product.currentAmount = updatedAmount;
+        const updatedCategories = product.categories.map(
+          (category: IProductInCategories) => {
+            if (category.categoryId.toString() === categoryId) {
+              category.currentAmount = parseInt(updatedAmount);
+              return category;
+            } else return category;
+          }
+        );
+        product.categories = updatedCategories;
+        //save the amount
         await product.save();
         return product;
       } catch (err: any) {
