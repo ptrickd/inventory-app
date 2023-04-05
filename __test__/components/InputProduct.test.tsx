@@ -32,7 +32,7 @@ const UPDATE_UNIT = gql`
 `;
 
 //Mocked Query
-const mocksQuery: any = [
+const mocksQuery1: any = [
   {
     request: {
       query: UPDATE_AMOUNT,
@@ -67,6 +67,41 @@ const mocksQuery: any = [
   },
 ];
 
+const mocksQuery2: any = [
+  {
+    request: {
+      query: UPDATE_AMOUNT,
+      variables: {
+        productId: "123456",
+        updatedAmount: 5,
+      },
+    },
+    result: {
+      data: {
+        saveAmountProduct: {
+          id: "123456",
+        },
+      },
+    },
+  },
+  {
+    request: {
+      query: UPDATE_UNIT,
+      variables: {
+        productId: "123456",
+        updatedUnit: "l",
+      },
+    },
+    result: {
+      data: {
+        saveUnitProduct: {
+          id: "123456",
+        },
+      },
+    },
+  },
+];
+
 describe("<InputProduct />", () => {
   afterEach(() => {
     cleanup();
@@ -76,7 +111,7 @@ describe("<InputProduct />", () => {
 
   it("render as intended", async () => {
     CustomRender(
-      <MockedProvider mocks={mocksQuery} addTypename={false}>
+      <MockedProvider mocks={mocksQuery1} addTypename={false}>
         <InputProduct
           name={"Carrots"}
           currentAmount={1}
@@ -113,13 +148,13 @@ describe("<InputProduct />", () => {
   });
 
   /////////////////////////////////////////////////////
-  //divide this in 2 tests: change 'ea' to box reset to 0 current amount
-  it("change the value of the inputs as intended", async () => {
+
+  it("reset the  value of the current amount when changing unit from 'ea' to 'box'", async () => {
     CustomRender(
-      <MockedProvider mocks={mocksQuery} addTypename={false}>
+      <MockedProvider mocks={mocksQuery1} addTypename={false}>
         <InputProduct
           name={"Carrots"}
-          currentAmount={1}
+          currentAmount={2}
           previousAmount={0}
           id={"123456"}
           categoryId={"789456"}
@@ -143,33 +178,78 @@ describe("<InputProduct />", () => {
     expect(CurrentInput).toHaveDisplayValue("5");
     ///////////////////////////////////////////////////////////
 
+    //click on the 'ea' select
     const SelectButton = screen.getByRole("button", { name: /ea/i });
 
     await act(async () => {
       await user.click(SelectButton);
     });
+
+    //select the now appearing 'box' and click on it
     const BoxValue = screen.getByText(/box/i); //try to select arrow drop down icon
     await act(async () => {
       await user.click(BoxValue);
     });
 
+    //assure the modal is appearing
+
     const ModalText = screen.getByText(/we can't convert that value/i);
     expect(ModalText).toBeVisible();
 
+    //close the modal
     const ButtonOK = screen.getByRole("button", { name: /ok/i });
     await act(async () => {
       await user.click(ButtonOK);
     });
+
+    //wait for the modal to close and make sure the 'box' has be selected
     await waitFor(() => {
       const BoxSelectButton = screen.getByRole("button", { name: /box/i });
       expect(BoxSelectButton).toBeInTheDocument();
     });
 
+    //the CurrentAmount value has been reset to zero
     expect(CurrentInput).toHaveDisplayValue("0");
 
     //////////////////////////////////////////////////////
   });
-
-  //   it("shows the settings box when clicking on the settings icon", async () => {});
-  //   it("can't enter a letter in the current amount input", async () => {});
 });
+//////////////////////////////////////////////////////
+// it("multiply the  value of the current amount when changing unit from 'ml' to 'l'", async () => {
+// CustomRender(
+//   <MockedProvider mocks={mocksQuery2} addTypename={false}>
+//     <InputProduct
+//       name={"Carrots"}
+//       currentAmount={2}
+//       previousAmount={0}
+//       id={"123456"}
+//       categoryId={"789456"}
+//       showAmounts={true}
+//       measureUnit="ml"
+//       position={0}
+//       unit="ml"
+//     />
+//   </MockedProvider>
+// );
+// const user = userEvent.setup();
+//change the value of the current amount
+// const CurrentInput = screen.getByRole("textbox", { name: /current/i });
+// await act(async () => {
+//   await user.click(CurrentInput);
+//   await user.keyboard("[Backspace]");
+//   await user.keyboard("5");
+// });
+// expect(CurrentInput).toHaveDisplayValue("5");
+//click on the 'ml' select
+// const SelectButton = await screen.findByRole("button", { name: /ml/i });
+// await act(async () => {
+//   await user.click(SelectButton);
+// });
+//select the now appearing 'ml' and click on it
+// await waitFor(async () => {
+//   const NewSelectedValue = screen.getByText("l"); //try to select arrow drop down icon
+//   await user.click(NewSelectedValue);
+// });
+// expect(CurrentInput).toHaveDisplayValue("0.05");
+// });
+//   it("can't enter a letter in the current amount input", async () => {});
