@@ -1,7 +1,6 @@
 //Testing
-import { screen, cleanup, getByRole } from "@testing-library/react";
+import { screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import { MockedProvider } from "@apollo/client/testing";
 
 //CustomRender
@@ -105,16 +104,14 @@ describe("<EditProductForm />", () => {
       name: /name/i,
     });
     //add a 's' to 'carrot'
-    await act(async () => {
-      await user.click(ProductNameInput);
-      await user.keyboard("s");
-    });
+
+    await user.click(ProductNameInput);
+    await user.keyboard("s");
 
     //click edit button
     const EditButton = screen.getByRole("button", { name: /edit/i });
-    await act(async () => {
-      await user.click(EditButton);
-    });
+
+    await user.click(EditButton);
 
     expect(editProductApi).toBeCalledTimes(1);
   });

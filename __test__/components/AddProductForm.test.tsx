@@ -1,7 +1,6 @@
 //Testing
 import { screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 //CustomRender
 import CustomRender from "../functions/CustomRender";
@@ -62,13 +61,10 @@ describe("<AddProductFrom />", () => {
       name: /add/i,
     });
 
-    await act(async () => {
-      await user.click(ButtonAdd);
-    });
+    await user.click(ButtonAdd);
 
-    await act(async () => {
-      await user.click(ButtonAdd);
-    });
+    await user.click(ButtonAdd);
+
     //*Required is generated when sending empty name
     const requiredSpan = screen.getByText(/required/i);
 
@@ -98,21 +94,13 @@ it("send a valid name", async () => {
     name: /add/i,
   });
 
-  await act(async () => {
-    await user.click(ProductInput);
-  });
+  await user.click(ProductInput);
 
-  await act(async () => {
-    await user.keyboard("Flour");
-  });
+  await user.keyboard("Flour");
 
-  await act(async () => {
-    await user.keyboard("[Enter]");
-  });
+  await user.keyboard("[Enter]");
 
-  await act(async () => {
-    await user.click(ButtonAdd);
-  });
+  await user.click(ButtonAdd);
 
   expect(addProduct).toHaveBeenCalledTimes(1);
 });

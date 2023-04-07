@@ -1,7 +1,6 @@
 //Testing
 import { screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import { MockedProvider } from "@apollo/client/testing";
 import { gql } from "@apollo/client";
 
@@ -98,19 +97,17 @@ describe("<EditCategoryForm />", () => {
 
     //Click the input box
     const Input = screen.getByRole("textbox", { name: /name/i });
-    await act(async () => {
-      await user.click(Input);
-    });
+
+    await user.click(Input);
 
     //Add a 's' at the end of the current name
-    await act(async () => {
-      await user.keyboard("s");
-    });
+
+    await user.keyboard("s");
+
     //Click on the edit button
     const EditButton = screen.getByRole("button", { name: /edit/i });
-    await act(async () => {
-      await user.click(EditButton);
-    });
+
+    await user.click(EditButton);
 
     //Update the categories in the context
     expect(setCategories).toHaveBeenCalledTimes(1);

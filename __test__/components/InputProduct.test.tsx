@@ -1,7 +1,6 @@
 //Testing
-import { screen, cleanup, waitFor } from "@testing-library/react";
+import { screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import { MockedProvider } from "@apollo/client/testing";
 import { gql } from "@apollo/client";
 
@@ -180,27 +179,26 @@ describe("<InputProduct />", () => {
 
     //change the value of the current amount to '5'
     const CurrentInput = screen.getByRole("textbox", { name: /current/i });
-    await act(async () => {
-      await user.click(CurrentInput);
-      await user.keyboard("[Backspace]");
-      await user.keyboard("5");
-    });
+
+    await user.click(CurrentInput);
+    await user.keyboard("[Backspace]");
+    await user.keyboard("5");
+
     expect(CurrentInput).toHaveDisplayValue("5");
     ///////////////////////////////////////////////////////////
 
     //click on the 'ea' select
     const SelectButton = screen.getByRole("button", { name: /ea/i });
 
-    await act(async () => {
-      await user.click(SelectButton);
-    });
+    await user.click(SelectButton);
 
     //select the now appearing 'box' and click on it
-    const BoxValue = screen.getByText(/box/i); //try to select arrow drop down icon
-    await act(async () => {
-      await user.click(BoxValue);
-    });
-    expect(BoxValue).toBeInTheDocument();
+    const BoxValue = screen.getByText(/box/i);
+
+    await user.click(BoxValue);
+
+    const BoxButton = screen.getByRole("button", { name: /box/i });
+    expect(BoxButton).toBeInTheDocument();
 
     //////////////////////////////////////////////////////
   });
@@ -225,16 +223,14 @@ describe("<InputProduct />", () => {
 
     // change the value of the current amount
     const CurrentInput = screen.getByRole("textbox", { name: /current/i });
-    await act(async () => {
-      await user.click(CurrentInput);
-      await user.keyboard("l");
-    });
+
+    await user.click(CurrentInput);
+    await user.keyboard("l");
 
     //Click the select component to trigger the onBlur of the current input component
     const SelectButton = screen.getByRole("button", { name: /ea/i });
-    await act(async () => {
-      await user.click(SelectButton);
-    });
+
+    await user.click(SelectButton);
 
     //Verify the error message is display
     const ErrorMessage = screen.getByText(/not a number/i);
@@ -262,16 +258,14 @@ describe("<InputProduct />", () => {
 
     // change the value of the current amount
     const CurrentInput = screen.getByRole("textbox", { name: /current/i });
-    await act(async () => {
-      await user.click(CurrentInput);
-      await user.keyboard("[Backspace]");
-    });
+
+    await user.click(CurrentInput);
+    await user.keyboard("[Backspace]");
 
     //Click the select component to trigger the onBlur of the current input component
     const SelectButton = screen.getByRole("button", { name: /ea/i });
-    await act(async () => {
-      await user.click(SelectButton);
-    });
+
+    await user.click(SelectButton);
 
     //Verify the error message is display
     const ErrorMessage = screen.getByText(/required/i);

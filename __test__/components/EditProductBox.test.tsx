@@ -1,7 +1,6 @@
 //Testing
 import { screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import { MockedProvider } from "@apollo/client/testing";
 
 //CustomRender
@@ -96,38 +95,35 @@ describe("<EditProductBox />", () => {
 
     //select and click the arrow up
     const ArrowUp = screen.getByTitle("arrow-up");
-    await act(async () => {
-      await user.click(ArrowUp);
-    });
+
+    await user.click(ArrowUp);
+
     expect(editProductApi).toBeCalledTimes(2);
 
     //select and click the arrow down
     const ArrowDown = screen.getByTitle("arrow-down");
-    await act(async () => {
-      await user.click(ArrowDown);
-    });
+
+    await user.click(ArrowDown);
+
     expect(editProductApi).toBeCalledTimes(2);
 
     //select and click the edit icon
     const EditIcon = screen.getByTitle("edit-icon");
-    await act(async () => {
-      await user.click(EditIcon);
-    });
+
+    await user.click(EditIcon);
 
     const ProductInput = await screen.findByRole("textbox", { name: /name/i });
     expect(ProductInput).toBeVisible();
 
     //close the edit product modal by clicking the cancel button
     const CancelButton = await screen.findByRole("button", { name: /cancel/i });
-    await act(async () => {
-      await user.click(CancelButton);
-    });
+
+    await user.click(CancelButton);
 
     //select and click the delete icon
     const DeleteIcon = screen.getByTitle("delete-icon");
-    await act(async () => {
-      await user.click(DeleteIcon);
-    });
+
+    await user.click(DeleteIcon);
     expect(deleteProductApi).toBeCalledTimes(1);
   });
 

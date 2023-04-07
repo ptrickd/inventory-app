@@ -1,7 +1,6 @@
 //Testing
 import { screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 
 //CustomRender
 import CustomRender from "../functions/CustomRender";
@@ -57,17 +56,11 @@ describe("<AddCategoryForm />", () => {
       name: /add/i,
     });
 
-    await act(async () => {
-      await user.click(CategoryInput);
-    });
+    await user.click(CategoryInput);
 
-    await act(async () => {
-      await user.keyboard("Dessert Line");
-    });
+    await user.keyboard("Dessert Line");
 
-    await act(async () => {
-      await user.click(ButtonAdd);
-    });
+    await user.click(ButtonAdd);
 
     expect(createCategoryApi).toHaveBeenCalledTimes(1);
   });
@@ -81,9 +74,9 @@ describe("<AddCategoryForm />", () => {
     const ButtonAdd = screen.getByRole("button", {
       name: /add/i,
     });
-    await act(async () => {
-      await user.click(ButtonAdd);
-    });
+
+    await user.click(ButtonAdd);
+
     //*Required is generated when sending empty name
     const requiredSpan = await screen.findByText(/required/i);
 
