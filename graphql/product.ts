@@ -86,7 +86,7 @@ export const typeDef = `
             
         deleteProduct(productId: ID): Product
         saveAmountProduct(productId: ID, updatedAmount: Int, categoryId: ID): Product
-        saveUnitProduct(productId: ID, updatedUnit: String, categoryId: ID): Product
+        saveUnitProduct(productId: ID, updatedUnit: String): Product
     }
 `;
 
@@ -298,7 +298,7 @@ export const resolvers = {
         return err;
       }
     },
-    // saveUnitProduct(productId: ID, updatedUnit: String): Product
+
     saveUnitProduct: async (
       _: any,
       { productId, updatedUnit }: TIds,
@@ -313,6 +313,7 @@ export const resolvers = {
           throw new Error("Not a valid unit");
 
         product.unit = updatedUnit;
+        console.log(product);
         await product.save();
         return product;
       } catch (err: any) {

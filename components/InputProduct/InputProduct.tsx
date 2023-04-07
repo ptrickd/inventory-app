@@ -39,12 +39,17 @@ import { classes, Root } from "./InputProduct.style";
 import UnitsFormat from "../../utils/unitsFormat";
 
 const UPDATE_AMOUNT = gql`
-  mutation SaveAmountProduct($productId: ID!, $updatedAmount: Int!) {
-    saveAmountProduct(productId: $productId, updatedAmount: $updatedAmount) {
+  mutation SaveAmountProduct(
+    $productId: ID!
+    $updatedAmount: Int!
+    $categoryId: ID!
+  ) {
+    saveAmountProduct(
+      productId: $productId
+      updatedAmount: $updatedAmount
+      categoryId: $categoryId
+    ) {
       id
-      categories {
-        currentAmount
-      }
     }
   }
 `;
@@ -90,10 +95,9 @@ const InputProduct: React.FC<IProps> = ({
 
   //useState
   const [showEditProductBox, setShowEditProductBox] = useState(false);
-  const [currentMeasureUnit, setCurrentMeasureUnit] = useState(measureUnit);
 
-  const [amount, setAmount] = useState(currentAmount.toString());
   const [openMessageModal, setOpenMessageModal] = useState(false);
+  const [messageModal, setMessageModal] = useState("");
 
   //Queries
   const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT);
@@ -105,50 +109,20 @@ const InputProduct: React.FC<IProps> = ({
     handleSubmit,
     setValue,
     formState: { errors },
-
     reset,
   } = useForm<IForm>();
 
-  useEffect(() => {
-    const updateUnit = async () => {
-      await saveNewUnit({
-        variables: {
-          productId: id,
-          updatedUnit: currentMeasureUnit,
-        },
-      });
-    };
-    if (measureUnit !== currentMeasureUnit) {
-      updateUnit();
-      if (products) {
-        const newProductsList = products.map((product) => {
-          if (product.id === id) {
-            return { ...product, unit: currentMeasureUnit };
-          } else return product;
-        });
-        if (updateProducts) updateProducts(newProductsList);
-      }
-    }
-  }, [
-    currentMeasureUnit,
-    id,
-    measureUnit,
-    saveNewUnit,
-    products,
-    updateProducts,
-  ]);
-
   const onSubmit: SubmitHandler<IForm> = async (data) => {
-    console.log(data.currentAmount);
+    //need to add saveNewUnit when needed
     try {
       let response = await saveAmountProduct({
         variables: {
           productId: id,
           updatedAmount: parseInt(data.currentAmount),
+          categoryId: categoryId,
         },
       });
       console.log(response);
-
       let newProductsList = products?.map((product: IProduct) => {
         if (product.id === id) {
           let newProduct = JSON.parse(JSON.stringify(product));
@@ -159,10 +133,39 @@ const InputProduct: React.FC<IProps> = ({
         return product;
       });
       if (updateProducts && newProductsList) updateProducts(newProductsList);
-      setAmount(data.currentAmount.toString());
-    } catch (err) {
-      console.log("error");
-      console.error(err);
+    } catch (err: any) {
+      console.error(err.message);
+      if (err.message) {
+        setOpenMessageModal(true);
+        setMessageModal(err.message);
+      }
+    }
+  };
+
+  const onSubmitUnit: SubmitHandler<IForm> = async (data) => {
+    try {
+      let response = await saveNewUnit({
+        variables: {
+          productId: id,
+          updatedUnit: data.selectUnit,
+        },
+      });
+      console.log(response);
+
+      if (products) {
+        const newProductsList = products.map((product) => {
+          if (product.id === id) {
+            return { ...product, unit: data.selectUnit };
+          } else return product;
+        });
+        if (updateProducts) updateProducts(newProductsList);
+      }
+    } catch (err: any) {
+      console.log(err.message);
+      if (err.message) {
+        setOpenMessageModal(true);
+        setMessageModal(err.message);
+      }
     }
   };
 
@@ -189,8 +192,6 @@ const InputProduct: React.FC<IProps> = ({
             />
           )}
         />
-        {errors.currentAmount?.type === "required" && <span>*Required</span>}
-        {errors.currentAmount?.type === "pattern" && <span>*Not a number</span>}
       </span>
       <span className={classes.innerFormControl}>
         <Controller
@@ -203,10 +204,9 @@ const InputProduct: React.FC<IProps> = ({
               {...field}
               labelId={name + "labelID-select"}
               id={name + "select"}
-              onChange={(e) => {
-                handleUnitChange(e.target.value);
-              }}
-              onBlur={handleSubmit(onSubmit)}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={handleSubmit(onSubmitUnit)}
               variant="standard"
               className={classes.selectUnit}
             >
@@ -221,6 +221,8 @@ const InputProduct: React.FC<IProps> = ({
           )}
         />
       </span>
+      {errors.currentAmount?.type === "required" && <span>*Required</span>}
+      {errors.currentAmount?.type === "pattern" && <span>*Not a number</span>}
     </form>
   );
 
@@ -231,75 +233,12 @@ const InputProduct: React.FC<IProps> = ({
     setShowEditProductBox(!showEditProductBox);
   };
 
-  const handleUnitChange = async (value: any) => {
-    const newUnit = value;
-    const unitsFormat = new UnitsFormat();
-
-    let result: number | null = null;
-    switch (newUnit) {
-      case "l":
-        result = unitsFormat.toLitre(Number(amount), currentMeasureUnit);
-
-        break;
-      case "ml":
-        result = unitsFormat.toMl(Number(amount), currentMeasureUnit);
-
-        break;
-      case "kg":
-        result = unitsFormat.toKg(Number(amount), currentMeasureUnit);
-
-        break;
-      case "g":
-        result = unitsFormat.toGrams(Number(amount), currentMeasureUnit);
-
-        break;
-    }
-    if (result === null) {
-      setOpenMessageModal(true);
-      setValue("currentAmount", "0");
-    } else {
-      setValue("currentAmount", result.toString());
-    }
-    setValue("selectUnit", newUnit);
-    setCurrentMeasureUnit(newUnit);
-  };
-
-  const bodyWithAmount = () => (
-    <Fragment>
-      <FormControl
-        className={classes.innerFormControl}
-        data-testid="select-unit"
-      >
-        <InputLabel id={name + "labelID-select"}>Unit</InputLabel>
-        {/* <Select
-          labelId={name + "labelID-select"}
-          id={name + "select"}
-          value={currentMeasureUnit}
-          onChange={handleUnitChange}
-          variant="standard"
-          className={classes.selectUnit}
-        >
-          {MEASURE_UNITS.map((unitName: string) => {
-            return (
-              <MenuItem key={unitName} value={unitName}>
-                {unitName}
-              </MenuItem>
-            );
-          })}
-        </Select> */}
-      </FormControl>
-
-      <FormControl className={classes.innerFormControl}></FormControl>
-    </Fragment>
-  );
-
   return (
     <Root className={classes.root}>
       {showAmounts && <Typography variant="h6">{name}</Typography>}
       <FormControl className={classes.formControl} fullWidth>
         {!showAmounts && <Typography variant="h6">{name}</Typography>}
-        {formBody}
-        {/* {showAmounts && bodyWithAmount()} */}
+        {showAmounts && formBody}
 
         <Box className={classes.box} width="15%">
           <Typography variant="caption" className={classes.lastAmountName}>
@@ -325,7 +264,7 @@ const InputProduct: React.FC<IProps> = ({
       <MessageModal
         open={openMessageModal}
         isError={false}
-        message="We can't convert that value to that unit format. It will be reset to zero"
+        message={messageModal}
         handleClick={handleMessageModalClicked}
       />
     </Root>
