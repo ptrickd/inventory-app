@@ -1,5 +1,5 @@
 //GraphQl
-import { gql } from "apollo-server-micro";
+import { gql } from "@apollo/client";
 
 //Models
 import dbConnect from "../utils/dbConnect";

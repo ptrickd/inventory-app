@@ -4,7 +4,7 @@ import Report from "../models/report.model";
 import Product from "../models/product.model";
 
 //GraphQl
-import { gql } from "apollo-server-micro";
+import { gql } from "@apollo/client";
 
 //Time
 import { DateTime } from "luxon";
