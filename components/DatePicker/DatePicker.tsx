@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 
 //Time
 import { DateTime } from "luxon";
-import LuxonUtils from "@date-io/luxon";
 
 //Material UI
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 import TextField from "@mui/material/TextField";
 
 //Styles
@@ -28,9 +28,9 @@ const DatePicker = ({ handleSelectedDate, initialDate }: IProps) => {
   }, [isSelectedDate, setSelectedDate, initialDate]);
   return (
     <Root className={classes.root} aria-label="date picker">
-      <LocalizationProvider dateAdapter={LuxonUtils}>
+      <LocalizationProvider dateAdapter={AdapterLuxon}>
         <DesktopDatePicker
-          inputFormat="EEE DD"
+          // inputFormat="EEE DD"
           value={selectedDate}
           onChange={(date) => {
             if (date) {
@@ -43,7 +43,7 @@ const DatePicker = ({ handleSelectedDate, initialDate }: IProps) => {
           onError={(err) => {
             console.error(err);
           }}
-          renderInput={(props) => <TextField {...props} />}
+          // renderInput={(props) => <TextField {...props} />}
         />
       </LocalizationProvider>
     </Root>

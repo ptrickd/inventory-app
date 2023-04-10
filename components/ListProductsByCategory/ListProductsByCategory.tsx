@@ -7,15 +7,6 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { IProductByCategory } from "../../types/types";
 
-//Types
-interface IProduct {
-  id: string;
-  name: string;
-  currentAmount: number;
-  previousAmount: number;
-  unit: string;
-  position: number;
-}
 interface IProps {
   product: IProductByCategory;
 }
