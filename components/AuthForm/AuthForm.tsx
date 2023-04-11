@@ -61,11 +61,14 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
           rules={{ required: true, minLength: 6 }}
           render={({ field }) => (
             <TextField
+              id="password"
+              data-testid="password"
               className={classes.input}
               {...field}
               label="Password"
               autoComplete="off"
               type="password"
+              inputProps={{ input: "password" }}
             />
           )}
         />

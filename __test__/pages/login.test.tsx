@@ -1,15 +1,13 @@
 //React
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
+import userEvent from "@testing-library/user-event";
+
+//Mocked router
+const useRouter = jest.spyOn(require("next/router"), "useRouter");
 
 //Testing library
-import {
-  render,
-  screen,
-  fireEvent,
-  cleanup,
-  RenderOptions,
-} from "@testing-library/react";
+import { screen, cleanup } from "@testing-library/react";
 
 //Component
 import { default as LoginPage } from "../../pages/login";
@@ -25,17 +23,18 @@ const mocksQuery: any = [
     request: {
       query: LOGIN,
       variables: {
-        email: "rick@email.com",
-        password: "987654",
+        email: "test@email.com",
+        password: "securepassword11",
       },
     },
     result: {
       data: {
         login: {
-          token: "1111",
+          token: "456789",
           user: {
-            id: "01",
-            email: "myemail@email.com",
+            id: "123456",
+            email: "test@email.com",
+            theme: "dark",
           },
           error: null,
         },
@@ -79,14 +78,50 @@ describe("<Login />", () => {
   });
 
   it("navigate when clicking REGISTER button", async () => {
+    const router = { push: jest.fn() };
+    useRouter.mockReturnValue(router);
+
     CustomRender(
       <MockedProvider mocks={mocksQuery} addTypename={false}>
         <LoginPage />
       </MockedProvider>
     );
 
-    //click on the register button
-    const registerButton = screen.getByRole("button", { name: "Register" });
-    fireEvent.click(registerButton);
+    const user = userEvent.setup();
+
+    const registerButton = screen.getByRole("button", { name: /register/i });
+    await user.click(registerButton);
+
+    expect(router.push).toHaveBeenCalledWith("/register");
+  });
+
+  it("send login request when clicking on the login button", async () => {
+    //mock router
+    const router = { push: jest.fn() };
+    useRouter.mockReturnValue(router);
+
+    CustomRender(
+      <MockedProvider mocks={mocksQuery} addTypename={false}>
+        <LoginPage />
+      </MockedProvider>
+    );
+
+    const user = userEvent.setup();
+
+    //enter a valid email address
+    const emailInput = screen.getByRole("textbox", { name: "Email" });
+    await user.click(emailInput);
+    await user.keyboard("test@email.com");
+
+    //enter a valid password
+    const passwordInput = screen.getByLabelText(/password/i);
+    await user.click(passwordInput);
+    await user.keyboard("securepassword11");
+
+    //click on the login button
+    const loginButton = screen.getByRole("button", { name: /login/i });
+    await user.click(loginButton);
+
+    expect(router.push).toHaveBeenCalledWith({ pathname: "/dashboard" });
   });
 });
