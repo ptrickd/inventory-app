@@ -124,4 +124,12 @@ describe("<Login />", () => {
 
     expect(router.push).toHaveBeenCalledWith({ pathname: "/dashboard" });
   });
+  it("match the snapshot", () => {
+    const tree = CustomRender(
+      <MockedProvider mocks={mocksQuery} addTypename={false}>
+        <LoginPage />
+      </MockedProvider>
+    );
+    expect(tree).toMatchSnapshot();
+  });
 });

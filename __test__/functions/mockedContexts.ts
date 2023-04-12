@@ -22,6 +22,10 @@ export const CategoriesContextProps = {
       id: "123456",
       name: "Produce",
     },
+    {
+      id: "123457",
+      name: "Cooler",
+    },
   ],
   createCategoryApi: jest.fn(),
   deleteCategoryApi: jest.fn(),

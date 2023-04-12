@@ -118,7 +118,7 @@ const ProductsPage: React.FC = () => {
   };
 
   const goToNextCategory = () => {
-    if (categories && categories?.length > 0) {
+    if (categories && categories?.length > 1) {
       let currentIndex = -1;
 
       categories.map((category, index) => {
