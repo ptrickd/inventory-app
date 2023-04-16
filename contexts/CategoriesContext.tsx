@@ -15,12 +15,17 @@ interface ICategory {
   id: string;
   name: string;
 }
+interface IResponseDelete {
+  id: string;
+  name: string;
+  error: string;
+}
 interface IContext {
   hasCategory: boolean | null;
   categories: ICategory[] | [];
   setCategories: (categories: ICategory[] | []) => void;
   createCategoryApi: (category: ICategory) => any;
-  deleteCategoryApi: (category: ICategory) => void;
+  deleteCategoryApi: (category: ICategory) => any;
 }
 
 const DELETE_CATEGORY = gql`
@@ -87,15 +92,25 @@ const CategoriesProvider = ({ children }: IProps) => {
     }
   }
   //Delete a category
-  const deleteCategoryApi = async (category: ICategory) => {
-    if (category.id != undefined) {
-      await deleteCategory({
+  async function deleteCategoryApi(category: ICategory) {
+    try {
+      if (category.id === undefined) return { error: "Something went wrong" };
+      //response = { id, name, error}
+      const response = await deleteCategory({
         variables: {
           categoryId: category.id,
         },
       });
-    } else console.log("No category id passed");
-  };
+      return (
+        response.data.deleteCategory || {
+          error: "No response from the server",
+        }
+      );
+    } catch (err: any) {
+      console.error(err.message);
+      return { error: err.message };
+    }
+  }
 
   if (loading) return null;
   return (

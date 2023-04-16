@@ -22,6 +22,7 @@ import { CategoriesContext } from "../../contexts/CategoriesContext";
 const EDIT_CATEGORY = gql`
   mutation EditCategory($categoryId: ID!, $name: String!) {
     editCategory(categoryId: $categoryId, name: $name) {
+      id
       name
       error
     }

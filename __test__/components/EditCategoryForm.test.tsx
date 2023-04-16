@@ -17,6 +17,7 @@ import { CategoriesContextProps } from "../functions/mockedContexts";
 const EDIT_CATEGORY = gql`
   mutation EditCategory($categoryId: ID!, $name: String!) {
     editCategory(categoryId: $categoryId, name: $name) {
+      id
       name
       error
     }
@@ -36,6 +37,7 @@ const mocksQuery: any = [
     result: {
       data: {
         editCategory: {
+          id: "456789",
           name: "Produces",
           error: null,
         },

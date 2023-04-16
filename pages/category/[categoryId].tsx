@@ -32,7 +32,8 @@ import { classes, Root } from "../../styles/categoryId.style";
 const ProductsPage: React.FC = () => {
   //Context
   const { productsByCategory, setCategoryId } = useContext(ProductsContext);
-  const { categories, deleteCategoryApi } = useContext(CategoriesContext);
+  const { categories, setCategories, deleteCategoryApi } =
+    useContext(CategoriesContext);
   const { loggedIn } = useContext(UserContext);
 
   //React
@@ -117,6 +118,55 @@ const ProductsPage: React.FC = () => {
     setIsResponseError(true);
   };
 
+  const handleDeleteIconClicked = async () => {
+    try {
+      if (
+        currentCategory === undefined ||
+        currentCategory === null ||
+        deleteCategoryApi === undefined
+      ) {
+        throw new Error(
+          "An error happened while trying to delete the category"
+        );
+      }
+      const response = await deleteCategoryApi(currentCategory);
+      //depending on the response display confirmation or error message
+      if (response.error) {
+        throw new Error(response.error);
+      } else {
+        //delete the category from the list in context
+        console.log("delete the category");
+        let newCategoryList = categories?.filter(
+          (category) => category.id !== currentCategory.id
+        );
+        if (
+          setCategories !== undefined &&
+          newCategoryList !== undefined &&
+          categories !== undefined
+        ) {
+          setCategories(newCategoryList);
+          //if list not empty go to the next category
+          if (newCategoryList?.length > 0) {
+            const path = `/category/${newCategoryList[0].id}`;
+
+            router.push(path);
+          }
+          //else go to dashboard
+          else router.push("/dashboard");
+        }
+      }
+    } catch (err: any) {
+      // console.log(err.message);
+      if (typeof err === "string") {
+        setMessageModal(err);
+      } else {
+        setMessageModal(err.message);
+      }
+      setIsResponseError(true);
+      setOpenMessageModal(true);
+    }
+  };
+
   const goToNextCategory = () => {
     if (categories && categories?.length > 1) {
       let currentIndex = -1;
@@ -144,16 +194,7 @@ const ProductsPage: React.FC = () => {
         <IconButton onClick={() => setOpenEditCategoryModal(true)}>
           <EditIcon />
         </IconButton>
-        <IconButton
-          onClick={() => {
-            if (
-              currentCategory != undefined &&
-              deleteCategoryApi != undefined
-            ) {
-              deleteCategoryApi(currentCategory);
-            }
-          }}
-        >
+        <IconButton onClick={handleDeleteIconClicked}>
           <DeleteIcon />
         </IconButton>
       </div>

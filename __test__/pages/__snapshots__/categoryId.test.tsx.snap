@@ -3,7 +3,9 @@
 exports[`<CategoryId /> match the snapshot 1`] = `
 {
   "asFragment": [Function],
-  "baseElement": <body>
+  "baseElement": <body
+    style=""
+  >
     <div>
       <div
         class="MuiContainer-root MuiContainer-maxWidthXs ProductsPage-root css-8u6on3-MuiContainer-root"

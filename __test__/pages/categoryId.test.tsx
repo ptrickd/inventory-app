@@ -97,7 +97,56 @@ describe("<CategoryId />", () => {
     //the page has a setting icon
     const SettingsIcon = screen.getByTestId(/settingsicon/i);
     expect(SettingsIcon).toBeInTheDocument();
+
+    //has edit icon
+    const EditIcon = screen.getByTestId(/editicon/i);
+    expect(EditIcon).toBeInTheDocument();
+
+    //has delete icon
+    const DeleteIcon = screen.getByTestId(/deleteicon/i);
+    expect(DeleteIcon).toBeInTheDocument();
   });
+
+  it("open the edit modal when clicking on the edit icon", async () => {
+    //mock router
+    const router = { push: jest.fn(), query: { categoryId: "123456" } };
+    useRouter.mockReturnValue(router);
+
+    CustomRender(
+      <MockedProvider mocks={mocksQuery} addTypename={false}>
+        <CategoryId />
+      </MockedProvider>
+    );
+
+    const user = userEvent.setup();
+
+    //click on the edit icon
+    const EditIcon = screen.getByTestId(/editicon/i);
+    await user.click(EditIcon);
+
+    //select the edit button of the modal to confirm ot opened
+    const EditButton = screen.getByRole("button", { name: /edit/i });
+    expect(EditButton).toBeInTheDocument();
+  });
+
+  it("delete the category when clicking on the delete icon", async () => {
+    //mock router
+    const router = { push: jest.fn(), query: { categoryId: "123456" } };
+    useRouter.mockReturnValue(router);
+
+    CustomRender(
+      <MockedProvider mocks={mocksQuery} addTypename={false}>
+        <CategoryId />
+      </MockedProvider>
+    );
+
+    const user = userEvent.setup();
+
+    //click on the delete icon
+    const DeleteIcon = screen.getByTestId(/deleteicon/i);
+    await user.click(DeleteIcon);
+  });
+
   it("goes to the next category when clicking on the button", async () => {
     //mock router
     const router = { push: jest.fn(), query: { categoryId: "123456" } };
