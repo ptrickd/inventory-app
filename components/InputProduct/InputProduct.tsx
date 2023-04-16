@@ -175,7 +175,7 @@ const InputProduct: React.FC<IProps> = ({
         <Controller
           name="currentAmount"
           control={control}
-          defaultValue={"0"}
+          defaultValue={currentAmount}
           rules={{ required: true, pattern: /^[+-]?(\d*\.)?\d+$/g }}
           render={({ field }: any) => (
             <TextField

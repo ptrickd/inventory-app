@@ -100,7 +100,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                       id="Carrotscurrent"
                       name="currentAmount"
                       type="text"
-                      value="0"
+                      value="6"
                     />
                   </div>
                 </div>
@@ -297,7 +297,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                     id="Carrotscurrent"
                     name="currentAmount"
                     type="text"
-                    value="0"
+                    value="6"
                   />
                 </div>
               </div>
