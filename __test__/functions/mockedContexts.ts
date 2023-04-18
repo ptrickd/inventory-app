@@ -9,7 +9,7 @@ export const UserContextProps = {
 
 export const ReportsContextProps = {
   hasReport: true,
-  reports: [{}],
+  reports: [],
   createNewReport: jest.fn(),
   deleteLocalReport: jest.fn(),
 };
