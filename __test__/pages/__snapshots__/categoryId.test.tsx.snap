@@ -155,7 +155,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
               <p
                 class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-lastAmountValue css-zpphrz-MuiTypography-root"
               >
-                0
+                5
               </p>
             </div>
             <button
@@ -352,7 +352,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
             <p
               class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-lastAmountValue css-zpphrz-MuiTypography-root"
             >
-              0
+              5
             </p>
           </div>
           <button

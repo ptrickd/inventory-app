@@ -24,7 +24,9 @@ const ListProductsByCategory = ({ product }: IProps) => {
           {product.name}
         </TableCell>
         <TableCell align="right">{product.currentAmount}</TableCell>
-        <TableCell align="right">{product.previousAmount}</TableCell>
+        <TableCell align="right" data-testid={"product-previous-amount"}>
+          {product.previousAmount}
+        </TableCell>
         <TableCell align="right">{product.unit}</TableCell>
       </TableRow>
     </TableBody>

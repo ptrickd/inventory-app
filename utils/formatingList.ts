@@ -7,6 +7,14 @@ interface IProduct {
   unit: string;
 }
 
+interface IProductInCategories {
+  id: string;
+  currentAmount: Number;
+  previousAmount: Number;
+  categoryId: String;
+  position: Number;
+}
+
 interface ISubmittedProduct {
   productId: string;
   amount: number;
@@ -21,24 +29,20 @@ export const organizeByCategories = (
   const finalList = categoriesList?.map((category: any) => {
     const listProductsByCategory: any[] = [];
 
+    //currentAmount previousAmount position in categories:[] now
     productsList?.forEach((product: any) => {
-      if (category.id === product.categoryId) {
-        if (
-          product.id !== undefined &&
-          product.name !== undefined &&
-          product.currentAmount !== undefined &&
-          product.previousAmount !== undefined &&
-          product.unit !== undefined
-        ) {
+      //find if categoryId in the categories is the same category.id
+      product.categories.forEach((categoryInProduct: IProductInCategories) => {
+        if (categoryInProduct.categoryId === category.id) {
           listProductsByCategory.push({
-            id: product.id,
+            id: categoryInProduct.id,
             name: product.name,
-            currentAmount: product.currentAmount,
-            previousAmount: product.previousAmount,
+            currentAmount: categoryInProduct.currentAmount,
+            previousAmount: categoryInProduct.previousAmount,
             unit: product.unit,
           });
         }
-      }
+      });
     });
     return {
       categoryName: category.name,

@@ -9,7 +9,7 @@ export const UserContextProps = {
 
 export const ReportsContextProps = {
   hasReport: true,
-  reports: [],
+  reports: [{}],
   createNewReport: jest.fn(),
   deleteLocalReport: jest.fn(),
 };
@@ -28,7 +28,9 @@ export const CategoriesContextProps = {
     },
   ],
   createCategoryApi: jest.fn(),
-  deleteCategoryApi: jest.fn(),
+  deleteCategoryApi: jest.fn(() => {
+    error: true;
+  }),
 };
 
 export const ProductsContextProps = {
@@ -40,7 +42,7 @@ export const ProductsContextProps = {
         {
           categoryId: "123456",
           currentAmount: 6,
-          previousAmount: 0,
+          previousAmount: 5,
           position: 0,
         },
       ],
@@ -53,7 +55,7 @@ export const ProductsContextProps = {
       id: "234567",
       categoryId: "123456",
       currentAmount: 6,
-      previousAmount: 0,
+      previousAmount: 5,
       name: "Carrots",
       unit: "ea",
       position: 0,

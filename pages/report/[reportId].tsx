@@ -244,7 +244,7 @@ const Report: React.FC = () => {
       }
     } catch (err: any) {
       //should show message to the user
-      console.log(err.message);
+      console.error(err.message);
     }
   };
 
@@ -298,7 +298,7 @@ const Report: React.FC = () => {
         setOpenUserChoiceModal(false);
       } catch (err: any) {
         //should show error to the user
-        console.log(err.message);
+        console.error(err.message);
       }
     } else {
       //close modal
@@ -314,7 +314,12 @@ const Report: React.FC = () => {
         <Typography className={classes.title} variant="h3" align="center">
           Report
         </Typography>
-        <Typography className={classes.date} variant="h6" align="center">
+        <Typography
+          className={classes.date}
+          variant="h6"
+          align="center"
+          data-testid={"date"}
+        >
           {date.toFormat("dd MMMM, yyyy")}
         </Typography>
         <Status className={classes.status} variant="body1" align="center">
@@ -322,6 +327,7 @@ const Report: React.FC = () => {
         </Status>
 
         {renderedReport()}
+
         {Boolean(status === "Not Submitted") ? (
           <StyledButton
             variant="contained"
