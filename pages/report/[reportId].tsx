@@ -48,8 +48,10 @@ const GET_REPORT = gql`
       hasBeenSubmitted
       products {
         productId
+        categoryId
         amount
         unit
+        position
       }
       error
     }
@@ -62,8 +64,10 @@ const SUBMIT_REPORT = gql`
       success
       products {
         productId
+        categoryId
         amount
         unit
+        position
       }
       error
     }
@@ -155,6 +159,9 @@ const Report: React.FC = () => {
   useEffect(() => {
     if (data && data.report.hasBeenSubmitted) {
       setStatus("Submitted");
+      //format the data received from reports to be compatible with IProductByCategory
+      //report data report.products
+
       setSubmittedProductList(data.report.products);
     }
   }, [data]);
@@ -233,7 +240,7 @@ const Report: React.FC = () => {
             isSuccess: true,
             message: "This report has been successfully submit!",
           });
-          setSubmittedProductList(response.data.submitReport.products);
+          // setSubmittedProductList(response.data.submitReport.products);
         } else {
           setServerResponse({
             ...serverResponse,

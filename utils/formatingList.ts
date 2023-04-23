@@ -16,9 +16,11 @@ interface IProductInCategories {
 }
 
 interface ISubmittedProduct {
-  productId: string;
-  amount: number;
-  unit: string;
+  productId: String;
+  amount: Number;
+  unit: String;
+  position: Number;
+  categoryId: String;
 }
 
 //organize list of products by categories for display
@@ -62,22 +64,31 @@ export const getReportListSubmittedReport = (
   if (data && productsList) {
     //data => productId, amount, unit
     //context =>name
+
     let newArrayOfProducts: any = [];
     submittedProductsList.map((product: ISubmittedProduct) => {
-      const { productId, amount, unit } = product;
+      const { productId, amount, unit, position, categoryId } = product;
       productsList.forEach((product: any) => {
         if (product.id === productId) {
+          const newCategories = [
+            {
+              currentAmount: amount,
+              previousAmount: 0,
+              categoryId,
+
+              position,
+            },
+          ];
           newArrayOfProducts.push({
             id: productId,
             name: product.name,
-            currentAmount: amount,
-            previousAmount: 0,
-            categoryId: product.categoryId,
+            categories: newCategories,
             unit: unit,
           });
         }
       });
     });
+
     return organizeByCategories(categoriesList, newArrayOfProducts);
   } else return [];
 };

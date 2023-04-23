@@ -1,4 +1,4 @@
-//Models
+//`Models
 import dbConnect from "../utils/dbConnect";
 import Report from "../models/report.model";
 import Product from "../models/product.model";
@@ -14,11 +14,20 @@ import { TIds } from "../types/types";
 
 dbConnect();
 
+//comes from the products db
+interface IProductInCategories {
+  currentAmount: Number;
+  previousAmount: Number;
+  categoryId: String;
+  position: Number;
+}
+//to be saved in the reports db
 interface IProductInReport {
-  productId: string;
-  amount: number;
-  name: string;
-  categoryId: string;
+  productId: String;
+  amount: Number;
+  categoryId: String;
+  position: Number;
+  unit: String;
 }
 
 interface ISubmitReport {
@@ -42,6 +51,8 @@ export const typeDef = gql`
   type ReportProduct {
     productId: String
     amount: Int
+    categoryId: String
+    position: Int
     unit: String
   }
 
@@ -184,15 +195,34 @@ export const resolvers = {
           throw new Error("This report has already been submitted");
 
         //when submitting
+        //get all the product from that user
         const allProducts = await Product.find({ userId: user.id });
-        let listOfProductsForReport = allProducts.map((product) => {
+
+        //loop through the products, format them to be save on the report
+        let listOfProductsForReport: IProductInReport[] = [];
+        allProducts.map((product) => {
           //create a routine get currentAmount
-          const productObj = {
-            productId: product.id,
-            amount: product.currentAmount,
-            unit: product.unit,
-          };
-          return productObj;
+          //changed product
+          //now currenAmount is in categories[]
+          //loop through categories
+          // find the product and the category corresponding
+          console.log("report.ts line 203");
+          console.log(product);
+          //array of the categories field of the products from the database
+          product.categories.map((category: IProductInCategories) => {
+            console.log("in line 208");
+            console.log(product);
+            const { currentAmount, categoryId, position } = category;
+            listOfProductsForReport.push({
+              productId: product.id,
+              amount: currentAmount,
+              categoryId,
+              unit: product.unit,
+              position,
+            });
+          });
+
+          //final array to be ready to be save to the db
         });
 
         //dateSubmitted
@@ -200,7 +230,8 @@ export const resolvers = {
         report.dateSubmitted = dateSubmitted;
 
         //Modify products, writing previousAmount, resetting currentAmount
-
+        console.log("line  229");
+        console.log(listOfProductsForReport);
         //add products to report
         report.products = listOfProductsForReport;
 

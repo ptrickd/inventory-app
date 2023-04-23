@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+interface IProduct {
+  productId: String;
+  categoryId: String;
+  amount: Number;
+  unit: String;
+  position: Number;
+}
 interface IReport {
   userId: String;
   dateEndingCycle: Date;
@@ -9,16 +16,12 @@ interface IReport {
   dateCreated: Date;
 }
 
-interface IProduct {
-  productId: String;
-  amount: Number;
-  unit: String;
-}
-
 const productSchema = new mongoose.Schema<IProduct>({
   productId: String,
+  categoryId: String,
   amount: Number,
   unit: String,
+  position: Number,
 });
 
 const reportSchema = new mongoose.Schema<IReport>({

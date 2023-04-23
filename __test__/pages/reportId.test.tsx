@@ -27,8 +27,10 @@ const GET_REPORT = gql`
       hasBeenSubmitted
       products {
         productId
+        categoryId
         amount
         unit
+        position
       }
       error
     }
@@ -41,8 +43,10 @@ const SUBMIT_REPORT = gql`
       success
       products {
         productId
+        categoryId
         amount
         unit
+        position
       }
       error
     }
@@ -84,6 +88,8 @@ const mocksQuery: any = [
 TESTS
 render as intended
 match the snapshot
+status: Not Submitted
+status: Submitted
 */
 
 describe("<reportId />", () => {
