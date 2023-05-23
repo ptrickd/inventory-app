@@ -27,9 +27,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 //Graphql
 import { gql, useMutation } from "@apollo/client";
 
-//Types
-import { IProduct } from "../../types/types";
-
 //Constants
 import { MEASURE_UNITS } from "../../constants/measureUnits";
 

@@ -5,9 +5,6 @@ import mongoose from "mongoose";
 import dbConnect from "../utils/dbConnect";
 import Product from "../models/product.model";
 
-//Types
-import { TIds, IProduct, ISubCategory } from "../types/types";
-
 //Constants
 import { MEASURE_UNITS } from "../constants/measureUnits";
 

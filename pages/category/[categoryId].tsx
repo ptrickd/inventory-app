@@ -23,9 +23,6 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-//Types
-import { ICategory, IProductByCategory } from "../../types/types";
-
 //Style
 import { classes, Root } from "../../styles/categoryId.style";
 

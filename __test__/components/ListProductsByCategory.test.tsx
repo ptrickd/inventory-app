@@ -10,9 +10,6 @@ import Table from "@mui/material/Table";
 //Component to test
 import ListProductsByCategory from "../../components/ListProductsByCategory";
 
-//Types
-import { IProductByCategory } from "../../types/types";
-
 const Product: IProductByCategory = {
   id: "123456",
   currentAmount: 5,

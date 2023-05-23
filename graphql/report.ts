@@ -9,9 +9,6 @@ import { gql } from "@apollo/client";
 //Time
 import { DateTime } from "luxon";
 
-//Types
-import { TIds } from "../types/types";
-
 dbConnect();
 
 //comes from the products db

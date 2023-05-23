@@ -5,9 +5,6 @@ import { gql } from "@apollo/client";
 import dbConnect from "../utils/dbConnect";
 import { Category } from "../models/category.model";
 
-//Types
-import { TIds } from "../types/types";
-
 dbConnect();
 
 interface ICategory {

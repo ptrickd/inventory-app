@@ -9,14 +9,6 @@ import {
   EDIT_PRODUCT,
 } from "../graphql/queries";
 
-//Types
-import {
-  IProduct,
-  IAddProduct,
-  IProductByCategory,
-  ISubCategory,
-} from "../types/types";
-
 //Context
 import { UserContext } from "./UserContext";
 

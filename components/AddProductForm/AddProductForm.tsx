@@ -15,9 +15,6 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-//Types
-import { IProduct } from "../../types/types";
-
 //Style
 import { classes, StyledDialog } from "./AddProductForm.style";
 
