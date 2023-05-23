@@ -91,10 +91,8 @@ const ReportsProvider = ({ children }: IProps) => {
   async function createNewReport(dateEndingCycle: Date) {
     try {
       const response = await createReport({ variables: { dateEndingCycle } });
-      setReports([
-        ...reports,
-        response.data.createReport.createdReportResponse,
-      ]);
+      console.log(response);
+      setReports([...reports, response.data.createReport]);
       setHasReport(true);
       return response;
     } catch (err: any) {

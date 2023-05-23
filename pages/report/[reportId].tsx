@@ -40,48 +40,11 @@ import {
 } from "../../styles/reportId.style";
 
 //GraphQl Query
-const GET_REPORT = gql`
-  query Report($reportId: ID!) {
-    report(reportId: $reportId) {
-      id
-      dateEndingCycle
-      hasBeenSubmitted
-      products {
-        productId
-        categoryId
-        amount
-        unit
-        position
-      }
-      error
-    }
-  }
-`;
-
-const SUBMIT_REPORT = gql`
-  mutation SubmitReport($reportId: ID!) {
-    submitReport(reportId: $reportId) {
-      success
-      products {
-        productId
-        categoryId
-        amount
-        unit
-        position
-      }
-      error
-    }
-  }
-`;
-
-const DELETE_REPORT = gql`
-  mutation DeleteReport($reportId: ID!) {
-    deleteReport(reportId: $reportId) {
-      success
-      error
-    }
-  }
-`;
+import {
+  GET_REPORT,
+  SUBMIT_REPORT,
+  DELETE_REPORT,
+} from "../../queries/reportId.queries";
 
 // Types
 interface ISubCategory {
@@ -240,7 +203,7 @@ const Report: React.FC = () => {
             isSuccess: true,
             message: "This report has been successfully submit!",
           });
-          // setSubmittedProductList(response.data.submitReport.products);
+          setSubmittedProductList(response.data.submitReport.products);
         } else {
           setServerResponse({
             ...serverResponse,

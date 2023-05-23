@@ -44,6 +44,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
       let response = await createNewReport(selectedDate);
       //if there a report id then the report has been created
       //if not must show a error message
+      console.log(response);
       if (!response?.data?.createReport?.id) {
         // console.log(response.data);
         responseStatus = {

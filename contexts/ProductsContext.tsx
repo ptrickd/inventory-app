@@ -90,6 +90,10 @@ const ProductsProvider = ({ children }: IProps) => {
   }, [getProducts, loggedIn]);
 
   useEffect(() => {
+    console.log(productsByCategory);
+  }, [productsByCategory]);
+
+  useEffect(() => {
     if (data) {
       if (data.products.length > 0) setHasProduct(true);
       else setHasProduct(false);

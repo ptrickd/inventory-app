@@ -230,7 +230,7 @@ export const resolvers = {
         report.dateSubmitted = dateSubmitted;
 
         //Modify products, writing previousAmount, resetting currentAmount
-        console.log("line  229");
+        console.log("report.ts line  229");
         console.log(listOfProductsForReport);
         //add products to report
         report.products = listOfProductsForReport;
@@ -244,11 +244,15 @@ export const resolvers = {
           .cursor()
           .map((product) => product)
           .on("data", (product) => {
+            console.log("report.ts line  248");
+            console.log(product);
             const newPreviousAmount = product.currentAmount;
             product.currentAmount = 0;
             product.previousAmount = newPreviousAmount;
             product.save();
           });
+        console.log("report.ts line  255");
+        console.log(Product);
         //Save report
         await report.save();
         return { success: true, products: report.products };

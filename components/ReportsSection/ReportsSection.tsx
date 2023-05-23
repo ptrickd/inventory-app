@@ -108,6 +108,7 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
       <StyledCollapse in={showList} className={classes.styledCollapse}>
         <List>
           {list.map((item) => {
+            console.log(list);
             return (
               <ListItem key={item.id}>
                 <Link href={`/report/${item.id}`}>
