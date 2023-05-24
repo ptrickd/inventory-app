@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 
 //GraphQL
-import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 
 //Date
 import { DateTime } from "luxon";
@@ -23,6 +23,7 @@ import WaitingModal from "../../components/WaitingModal";
 import MessageModal from "../../components/MessageModal";
 import ListReports from "../../components/ListReports";
 import UserChoiceModal from "../../components/UserChoiceModal";
+import SubmitReportButton from "../../components/SubmitReportButton";
 
 //Function
 import {
@@ -31,13 +32,7 @@ import {
 } from "../../utils/formatingList";
 
 //Styles
-import {
-  classes,
-  Root,
-  Main,
-  StyledButton,
-  Status,
-} from "../../styles/reportId.style";
+import { classes, Root, Main, Status } from "../../styles/reportId.style";
 
 //GraphQl Query
 import {
@@ -47,38 +42,12 @@ import {
 } from "../../queries/reportId.queries";
 
 // Types
-interface ISubCategory {
-  currentAmount?: number;
-  previousAmount?: number;
-  categoryId: string;
-}
-interface IProductByCategory {
-  id: string;
-  name: string;
-  currentAmount: number;
-  previousAmount: number;
-  unit: string;
-  categoryId: string;
-  position: number;
-}
-
-interface ISubmittedProduct {
-  productId: string;
-  amount: number;
-  unit: string;
-}
-
-interface IReport {
-  categoryName: string;
-  productsList: IProductByCategory[] | [];
-}
-
-interface IServerResponse {
-  message: null | string;
-  isSuccess: boolean;
-  isError: boolean;
-}
-
+import {
+  ISubmittedProduct,
+  IReport,
+  IServerResponse,
+} from "../../types/reportId.types";
+//next task split
 const Report: React.FC = () => {
   //Router
   const router = useRouter();
@@ -162,6 +131,7 @@ const Report: React.FC = () => {
     if (!loggedIn) router.push("/");
   }, [loggedIn, router]);
 
+  //to do: add component to handle the following if's
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
   if (!data) return <p>No data...</p>;
@@ -298,31 +268,11 @@ const Report: React.FC = () => {
 
         {renderedReport()}
 
-        {Boolean(status === "Not Submitted") ? (
-          <StyledButton
-            variant="contained"
-            className={classes.button}
-            onClick={() => {
-              handleSubmitClick();
-            }}
-          >
-            Submit
-          </StyledButton>
-        ) : (
-          <StyledButton variant="contained" className={classes.button} disabled>
-            Submit
-          </StyledButton>
-        )}
-        {Boolean(status === "Submitted") ? (
-          <StyledButton
-            variant="contained"
-            color="error"
-            className={classes.button}
-            onClick={handleDeleteClick}
-          >
-            Delete
-          </StyledButton>
-        ) : null}
+        <SubmitReportButton
+          status={status}
+          handleSubmitClick={handleSubmitClick}
+          handleDeleteClick={handleDeleteClick}
+        />
         <WaitingModal open={submitting} />
         <MessageModal
           open={Boolean(typeof serverResponse.message === "string")}
