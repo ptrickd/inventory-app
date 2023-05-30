@@ -13,7 +13,6 @@ import { DateTime } from "luxon";
 
 //Context
 import { UserContext } from "../../contexts/UserContext";
-import { CategoriesContext } from "../../contexts/CategoriesContext";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import { ReportsContext } from "../../contexts/ReportsContext";
 
@@ -21,15 +20,9 @@ import { ReportsContext } from "../../contexts/ReportsContext";
 import Footer from "../../Layout/Footer";
 import WaitingModal from "../../components/WaitingModal";
 import MessageModal from "../../components/MessageModal";
-import ListReports from "../../components/ListReports";
 import UserChoiceModal from "../../components/UserChoiceModal";
 import SubmitReportButton from "../../components/SubmitReportButton";
-
-//Function
-import {
-  organizeByCategories,
-  getReportListSubmittedReport,
-} from "../../utils/formatingList";
+import RenderReport from "../../components/RenderReport";
 
 //Styles
 import { classes, Root, Main, Status } from "../../styles/reportId.style";
@@ -42,11 +35,7 @@ import {
 } from "../../queries/reportId.queries";
 
 // Types
-import {
-  ISubmittedProduct,
-  IReport,
-  IServerResponse,
-} from "../../types/reportId.types";
+import { ISubmittedProduct, IServerResponse } from "../../types/reportId.types";
 //next task split
 const Report: React.FC = () => {
   //Router
@@ -54,7 +43,6 @@ const Report: React.FC = () => {
   const { reportId } = router.query;
 
   //useState
-  const [reportList, setReportList] = useState<[] | IReport[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
   const [serverResponse, setServerResponse] = useState<IServerResponse>({
@@ -72,7 +60,6 @@ const Report: React.FC = () => {
 
   //Context
   const { loggedIn } = useContext(UserContext);
-  const { categories } = useContext(CategoriesContext);
   const { products, updateProducts } = useContext(ProductsContext);
   const { deleteLocalReport } = useContext(ReportsContext);
 
@@ -98,43 +85,15 @@ const Report: React.FC = () => {
     }
   }, [data]);
 
-  //Create list in useEffect to limit computation on rerender
-  //export as customHook
-  useEffect(() => {
-    let newReportList: IReport[] | [] = [];
-
-    const getReportListFromContext = () => {
-      if (products) return organizeByCategories(categories, products);
-      else return [];
-    };
-
-    //need to verify if report has been submitted
-    if (status === "Submitted") {
-      newReportList =
-        getReportListSubmittedReport(
-          data,
-          categories,
-          products,
-          submittedProductList
-        ) || [];
-    } else if (status === "Not Submitted") {
-      newReportList = getReportListFromContext() || [];
-    }
-    //if no, keep that method
-    // if yes, use the values in the report fetched insteads
-
-    if (newReportList !== undefined) setReportList(newReportList);
-    else setReportList([]);
-  }, [categories, products, setReportList, status, data, submittedProductList]);
-
+  //block access to the page
   useEffect(() => {
     if (!loggedIn) router.push("/");
   }, [loggedIn, router]);
 
   //to do: add component to handle the following if's
-  if (loading) return <p>Loading...</p>;
+  if (loading || !data) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
-  if (!data) return <p>No data...</p>;
+  if (typeof reportId !== "string") return <p>Error</p>;
   const date = DateTime.fromISO(data.report.dateEndingCycle);
 
   const handleCloseMessageModal = () => {
@@ -152,12 +111,6 @@ const Report: React.FC = () => {
   };
   const handleCloseUserChoiceModal = () => {
     setOpenUserChoiceModal(false);
-  };
-
-  const renderedReport = () => {
-    return reportList.map((report: IReport) => {
-      return <ListReports key={report.categoryName} report={report} />;
-    });
   };
 
   const handleSubmitClick = async () => {
@@ -266,8 +219,11 @@ const Report: React.FC = () => {
           Status: {status}
         </Status>
 
-        {renderedReport()}
-
+        <RenderReport
+          status={status}
+          reportId={reportId}
+          submittedProductList={submittedProductList}
+        />
         <SubmitReportButton
           status={status}
           handleSubmitClick={handleSubmitClick}
@@ -293,3 +249,38 @@ const Report: React.FC = () => {
 };
 
 export default Report;
+
+//Create list in useEffect to limit computation on rerender
+//to transfer*********************************
+// useEffect(() => {
+//   let newReportList: IReport[] | [] = [];
+
+//   const getReportListFromContext = () => {
+//     if (products) return organizeByCategories(categories, products);
+//     else return [];
+//   };
+
+//   //need to verify if report has been submitted
+//   if (status === "Submitted") {
+//     newReportList =
+//       getReportListSubmittedReport(
+//         data,
+//         categories,
+//         products,
+//         submittedProductList
+//       ) || [];
+//   } else if (status === "Not Submitted") {
+//     newReportList = getReportListFromContext() || [];
+//   }
+//   //if no, keep that method
+//   // if yes, use the values in the report fetched insteads
+
+//   if (newReportList !== undefined) setReportList(newReportList);
+//   else setReportList([]);
+// }, [categories, products, setReportList, status, data, submittedProductList]);
+
+// const renderedReport = () => {
+//   return reportList.map((report: IReport) => {
+//     return <ListReports key={report.categoryName} report={report} />;
+//   });
+// };
