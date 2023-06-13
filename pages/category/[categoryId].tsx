@@ -132,7 +132,7 @@ const ProductsPage: React.FC = () => {
         throw new Error(response.error);
       } else {
         //delete the category from the list in context
-        console.log("delete the category");
+
         let newCategoryList = categories?.filter(
           (category) => category.id !== currentCategory.id
         );
@@ -153,7 +153,7 @@ const ProductsPage: React.FC = () => {
         }
       }
     } catch (err: any) {
-      // console.log(err.message);
+      console.error(err.message);
       if (typeof err === "string") {
         setMessageModal(err);
       } else {

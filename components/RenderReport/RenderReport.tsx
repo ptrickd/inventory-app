@@ -18,19 +18,7 @@ import ListReports from "../../components/ListReports";
 import { useQuery } from "@apollo/client";
 
 //Material UI
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-
-//Styles
-const PREFIX = "Report";
-
-export const classes = {
-  product: `${PREFIX}-product`,
-};
-
-const Root = styled(Box)(() => ({
-  [`&.${classes.product}`]: { width: "100%" },
-}));
 
 //Types
 import { ISubmittedProduct, IReport } from "../../types/reportId.types";

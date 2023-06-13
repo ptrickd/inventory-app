@@ -1,5 +1,5 @@
 //React
-import React, { useState, useEffect, useContext, Fragment } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 //Context
 import { ProductsContext } from "../../contexts/ProductsContext";
@@ -32,6 +32,7 @@ import { MEASURE_UNITS } from "../../constants/measureUnits";
 
 //Styles
 import { classes, Root } from "./InputProduct.style";
+
 //Utils
 import UnitsFormat from "../../utils/unitsFormat";
 
@@ -95,9 +96,12 @@ const InputProduct: React.FC<IProps> = ({
 
   const [openMessageModal, setOpenMessageModal] = useState(false);
   const [messageModal, setMessageModal] = useState("");
+  const [currentAmountTemp, setCurrentAmountTemp] = useState<null | number>(
+    null
+  );
 
   //Queries
-  const [saveAmountProduct, { data }] = useMutation(UPDATE_AMOUNT);
+  const [saveAmountProduct] = useMutation(UPDATE_AMOUNT);
   const [saveNewUnit] = useMutation(UPDATE_UNIT);
 
   //React hook form
@@ -109,6 +113,27 @@ const InputProduct: React.FC<IProps> = ({
     reset,
   } = useForm<IForm>();
 
+  // /useEffect
+  useEffect(() => {
+    //setCurrentAmountTemp to the current amount
+    //need to loop to find first the product with the id
+    //then find the currentAmount in the categories array
+    if (products && id) {
+      products?.forEach((product) => {
+        if (product.id === id) {
+          product.categories.forEach((category) => {
+            if (
+              category.categoryId === categoryId &&
+              category.currentAmount !== undefined
+            ) {
+              setCurrentAmountTemp(category.currentAmount);
+            }
+          });
+        }
+      });
+    }
+  }, [products, id, categoryId]);
+
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     //need to add saveNewUnit when needed
     try {
@@ -119,17 +144,38 @@ const InputProduct: React.FC<IProps> = ({
           categoryId: categoryId,
         },
       });
-      console.log(response);
+
       let newProductsList = products?.map((product: IProduct) => {
+        /*
+        if the product id fit then:
+        1. make a deep copy of the product
+        2. change the the currentAmount where the categoryId fit
+        3. return the product
+        */
         if (product.id === id) {
           let newProduct = JSON.parse(JSON.stringify(product));
-          return Object.assign(newProduct, {
-            currentAmount: parseInt(data.currentAmount),
-          });
+
+          //need to modify currentAmount field to categories
+          const modifiedCategories = newProduct.categories.map(
+            (category: ISubCategory) => {
+              if (category.categoryId === categoryId) {
+                return Object.assign(category, {
+                  currentAmount: parseInt(data.currentAmount),
+                });
+              }
+              return category;
+            }
+          );
+
+          return newProduct;
         }
+
         return product;
       });
-      if (updateProducts && newProductsList) updateProducts(newProductsList);
+
+      if (updateProducts && newProductsList) {
+        updateProducts(newProductsList);
+      }
     } catch (err: any) {
       console.error(err.message);
       if (err.message) {
@@ -147,7 +193,6 @@ const InputProduct: React.FC<IProps> = ({
           updatedUnit: data.selectUnit,
         },
       });
-      console.log(response);
 
       if (products) {
         const newProductsList = products.map((product) => {
@@ -158,7 +203,7 @@ const InputProduct: React.FC<IProps> = ({
         if (updateProducts) updateProducts(newProductsList);
       }
     } catch (err: any) {
-      console.log(err.message);
+      console.error(err.message);
       if (err.message) {
         setOpenMessageModal(true);
         setMessageModal(err.message);
@@ -172,7 +217,7 @@ const InputProduct: React.FC<IProps> = ({
         <Controller
           name="currentAmount"
           control={control}
-          defaultValue={currentAmount.toString()}
+          defaultValue={currentAmount?.toString()}
           rules={{ required: true, pattern: /^[+-]?(\d*\.)?\d+$/g }}
           render={({ field }: any) => (
             <TextField
@@ -229,7 +274,7 @@ const InputProduct: React.FC<IProps> = ({
   const toggleShowProductBox = () => {
     setShowEditProductBox(!showEditProductBox);
   };
-
+  if (typeof currentAmountTemp !== "number") return null;
   return (
     <Root className={classes.root}>
       {showAmounts && <Typography variant="h6">{name}</Typography>}

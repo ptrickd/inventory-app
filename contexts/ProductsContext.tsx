@@ -82,10 +82,6 @@ const ProductsProvider = ({ children }: IProps) => {
   }, [getProducts, loggedIn]);
 
   useEffect(() => {
-    console.log(productsByCategory);
-  }, [productsByCategory]);
-
-  useEffect(() => {
     if (data) {
       if (data.products.length > 0) setHasProduct(true);
       else setHasProduct(false);
@@ -201,7 +197,7 @@ const ProductsProvider = ({ children }: IProps) => {
           error: "No response from the server.",
         };
     } catch (err: any) {
-      console.log(err.message);
+      console.error(err.message);
       return { error: err.message };
     }
   }

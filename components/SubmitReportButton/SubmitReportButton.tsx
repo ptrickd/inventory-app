@@ -2,7 +2,11 @@
 import Box from "@mui/material/Box";
 
 //Styles
-import { classes, StyledButton } from "./SubmitReportButton.style";
+import {
+  classes,
+  ContainerButtons,
+  StyledButton,
+} from "./SubmitReportButton.style";
 
 //Types
 interface IProps {
@@ -21,7 +25,7 @@ const SubmitReportButton = ({
   handleDeleteClick,
 }: IProps) => {
   return (
-    <Box component="div">
+    <ContainerButtons component="div" className={classes.containerButtons}>
       {Boolean(status === "Not Submitted") ? (
         <StyledButton
           variant="contained"
@@ -32,11 +36,7 @@ const SubmitReportButton = ({
         >
           Submit
         </StyledButton>
-      ) : (
-        <StyledButton variant="contained" className={classes.button} disabled>
-          Submit
-        </StyledButton>
-      )}
+      ) : null}
       {Boolean(status === "Submitted") ? (
         <StyledButton
           variant="contained"
@@ -47,7 +47,7 @@ const SubmitReportButton = ({
           Delete
         </StyledButton>
       ) : null}
-    </Box>
+    </ContainerButtons>
   );
 };
 
