@@ -153,11 +153,12 @@ const ProductsPage: React.FC = () => {
         }
       }
     } catch (err: any) {
-      console.error(err.message);
       if (typeof err === "string") {
         setMessageModal(err);
+        console.error(err);
       } else {
         setMessageModal(err.message);
+        // console.log(err.message);
       }
       setIsResponseError(true);
       setOpenMessageModal(true);

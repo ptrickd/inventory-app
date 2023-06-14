@@ -13,7 +13,11 @@ const useRouter = jest.spyOn(require("next/router"), "useRouter");
 import CustomRender from "../functions/CustomRender";
 
 //Mocked context
-import { CategoriesContextProps } from "../functions/mockedContexts";
+import {
+  REPORT_ID,
+  CARROT_PRODUCT_ID,
+  PRODUCE_CATEGORY_ID,
+} from "../functions/mockedContexts";
 
 //Page to test
 import ReportId from "../../pages/report/[reportId]";
@@ -67,16 +71,24 @@ const mocksQuery: any = [
     request: {
       query: GET_REPORT,
       variables: {
-        reportId: "789456",
+        reportId: REPORT_ID,
       },
     },
     result: {
       data: {
         report: {
-          id: "789456",
+          id: REPORT_ID,
           dateEndingCycle: "2023-04-06T00:00:00.000Z",
           hasBeenSubmitted: false,
-          products: [],
+          products: [
+            {
+              productId: CARROT_PRODUCT_ID,
+              categoryId: PRODUCE_CATEGORY_ID,
+              amount: 6,
+              unit: "ea",
+              position: 0,
+            },
+          ],
           error: null,
         },
       },

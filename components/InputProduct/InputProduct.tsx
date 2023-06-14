@@ -177,7 +177,7 @@ const InputProduct: React.FC<IProps> = ({
         updateProducts(newProductsList);
       }
     } catch (err: any) {
-      console.error(err.message);
+      // console.error(err.message);
       if (err.message) {
         setOpenMessageModal(true);
         setMessageModal(err.message);

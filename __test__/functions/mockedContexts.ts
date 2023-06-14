@@ -1,5 +1,17 @@
+/*
+put constant here
+*/
+export const CURRENT_USER_ID = "789456";
+export const CURRENT_USER_EMAIL = "test@email.com";
+
+export const REPORT_ID = "789456";
+export const CARROT_PRODUCT_ID = "123456";
+
+export const PRODUCE_CATEGORY_ID = "123456";
+export const COOLER_CATEGORY_ID = "123457";
+
 export const UserContextProps = {
-  currentUser: { id: "789456", email: "test@email.com" },
+  currentUser: { id: CURRENT_USER_ID, email: CURRENT_USER_EMAIL },
   setCurrentUser: jest.fn(),
   loggedIn: true,
   setLoggedIn: jest.fn(),
@@ -9,7 +21,25 @@ export const UserContextProps = {
 
 export const ReportsContextProps = {
   hasReport: true,
-  reports: [],
+  reports: [
+    {
+      id: REPORT_ID,
+      userId: CURRENT_USER_ID,
+      dateEndingCycle: new Date("2023-04-06T00:00:00.000Z"),
+
+      products: [
+        {
+          productId: CARROT_PRODUCT_ID,
+          amount: 6,
+          name: "Carrots",
+          categoryId: PRODUCE_CATEGORY_ID,
+        },
+      ],
+      hasBeenSubmitted: false,
+      dateCreated: new Date("2023-04-06T00:00:00.000Z"),
+      dateSubmitted: new Date("2023-04-06T00:00:00.000Z"),
+    },
+  ],
   createNewReport: jest.fn(),
   deleteLocalReport: jest.fn(),
 };
@@ -19,11 +49,11 @@ export const CategoriesContextProps = {
   setCategories: jest.fn(),
   categories: [
     {
-      id: "123456",
+      id: PRODUCE_CATEGORY_ID,
       name: "Produce",
     },
     {
-      id: "123457",
+      id: COOLER_CATEGORY_ID,
       name: "Cooler",
     },
   ],
@@ -37,10 +67,10 @@ export const ProductsContextProps = {
   hasProduct: true,
   products: [
     {
-      id: "234567",
+      id: CARROT_PRODUCT_ID,
       categories: [
         {
-          categoryId: "123456",
+          categoryId: PRODUCE_CATEGORY_ID,
           currentAmount: 6,
           previousAmount: 5,
           position: 0,
@@ -52,8 +82,8 @@ export const ProductsContextProps = {
   ],
   productsByCategory: [
     {
-      id: "234567",
-      categoryId: "123456",
+      id: CARROT_PRODUCT_ID,
+      categoryId: PRODUCE_CATEGORY_ID,
       currentAmount: 6,
       previousAmount: 5,
       name: "Carrots",

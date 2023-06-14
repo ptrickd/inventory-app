@@ -6,7 +6,6 @@ import { gql, useLazyQuery, useMutation } from "@apollo/client";
 
 //COntext
 import { UserContext } from "./UserContext";
-import { findAllByDisplayValue } from "@testing-library/react";
 
 //Queries
 const GET_REPORTS = gql`
@@ -74,15 +73,10 @@ const ReportsProvider = ({ children }: IProps) => {
     if (data) {
       const currentsReports = data?.reports?.reports;
       setReports(currentsReports);
-      console.log(currentsReports);
       if (currentsReports.length > 0) setHasReport(true);
       else setHasReport(false);
     }
   }, [data, loading]);
-
-  useEffect(() => {
-    console.log(hasReport);
-  }, [hasReport]);
 
   useEffect(() => {
     if (loggedIn) getReports();
@@ -91,12 +85,12 @@ const ReportsProvider = ({ children }: IProps) => {
   async function createNewReport(dateEndingCycle: Date) {
     try {
       const response = await createReport({ variables: { dateEndingCycle } });
-      console.log(response);
+
       setReports([...reports, response.data.createReport]);
       setHasReport(true);
       return response;
     } catch (err: any) {
-      console.log(err?.message);
+      console.error(err?.message);
       return err.message;
     }
   }

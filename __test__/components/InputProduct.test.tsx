@@ -11,7 +11,11 @@ import CustomRender from "../functions/CustomRender";
 import InputProduct from "../../components/InputProduct";
 
 //Mocked Context
-import { CategoriesContextProps } from "../functions/mockedContexts";
+import {
+  CARROT_PRODUCT_ID,
+  COOLER_CATEGORY_ID,
+  PRODUCE_CATEGORY_ID,
+} from "../functions/mockedContexts";
 
 //Mutation
 const UPDATE_AMOUNT = gql`
@@ -44,15 +48,15 @@ const mocksQuery1: any = [
     request: {
       query: UPDATE_AMOUNT,
       variables: {
-        productId: "123456",
+        productId: CARROT_PRODUCT_ID,
         updatedAmount: 5,
-        categoryId: "789456",
+        categoryId: PRODUCE_CATEGORY_ID,
       },
     },
     result: {
       data: {
         saveAmountProduct: {
-          id: "123456",
+          id: CARROT_PRODUCT_ID,
         },
       },
     },
@@ -61,14 +65,14 @@ const mocksQuery1: any = [
     request: {
       query: UPDATE_UNIT,
       variables: {
-        productId: "123456",
+        productId: CARROT_PRODUCT_ID,
         updatedUnit: "box",
       },
     },
     result: {
       data: {
         saveUnitProduct: {
-          id: "123456",
+          id: CARROT_PRODUCT_ID,
         },
       },
     },
@@ -80,15 +84,15 @@ const mocksQuery2: any = [
     request: {
       query: UPDATE_AMOUNT,
       variables: {
-        productId: "123456",
+        productId: CARROT_PRODUCT_ID,
         updatedAmount: 5,
-        categoryId: "789456",
+        categoryId: PRODUCE_CATEGORY_ID,
       },
     },
     result: {
       data: {
         saveAmountProduct: {
-          id: "123456",
+          id: CARROT_PRODUCT_ID,
         },
       },
     },
@@ -97,14 +101,14 @@ const mocksQuery2: any = [
     request: {
       query: UPDATE_UNIT,
       variables: {
-        productId: "123456",
+        productId: CARROT_PRODUCT_ID,
         updatedUnit: "l",
       },
     },
     result: {
       data: {
         saveUnitProduct: {
-          id: "123456",
+          id: CARROT_PRODUCT_ID,
         },
       },
     },
@@ -125,9 +129,9 @@ describe("<InputProduct />", () => {
           name={"Carrots"}
           currentAmount={1}
           previousAmount={0}
-          id={"123456"}
-          categoryId={"789456"}
-          showAmounts
+          id={CARROT_PRODUCT_ID}
+          categoryId={PRODUCE_CATEGORY_ID}
+          showAmounts={true}
           measureUnit="ea"
           position={0}
           unit="ea"
@@ -165,8 +169,8 @@ describe("<InputProduct />", () => {
           name={"Carrots"}
           currentAmount={2}
           previousAmount={0}
-          id={"123456"}
-          categoryId={"789456"}
+          id={CARROT_PRODUCT_ID}
+          categoryId={PRODUCE_CATEGORY_ID}
           showAmounts={true}
           measureUnit="ea"
           position={0}
@@ -210,8 +214,8 @@ describe("<InputProduct />", () => {
           name={"Carrots"}
           currentAmount={2}
           previousAmount={0}
-          id={"123456"}
-          categoryId={"789456"}
+          id={CARROT_PRODUCT_ID}
+          categoryId={PRODUCE_CATEGORY_ID}
           showAmounts={true}
           measureUnit="ea"
           position={0}
@@ -245,8 +249,8 @@ describe("<InputProduct />", () => {
           name={"Carrots"}
           currentAmount={2}
           previousAmount={0}
-          id={"123456"}
-          categoryId={"789456"}
+          id={CARROT_PRODUCT_ID}
+          categoryId={PRODUCE_CATEGORY_ID}
           showAmounts={true}
           measureUnit="ea"
           position={0}
