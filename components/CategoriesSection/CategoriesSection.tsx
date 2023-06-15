@@ -22,7 +22,6 @@ import {
   HorizontalBox,
   StyledCollapse,
   StyledButton,
-  StyledLink,
 } from "./CategoriesSection.style";
 
 //Types

@@ -17,12 +17,7 @@ import { gql, useQuery } from "@apollo/client";
 import { DateTime } from "luxon";
 
 //Styles
-import {
-  classes,
-  Root,
-  StyledMenuItem,
-  StyledLink,
-} from "./NavbarReportsList.style";
+import { classes, Root, StyledMenuItem } from "./NavbarReportsList.style";
 
 interface IReport {
   id: string;
@@ -75,9 +70,7 @@ const NavbarReportsList = () => {
         >
           {" "}
           <Link href={`/report/${report.id}`}>
-            <StyledLink color="primary" underline="hover" variant="body1">
-              <Typography variant="body1">{`${year}-${month}-${day} `}</Typography>
-            </StyledLink>
+            <Typography variant="body1">{`${year}-${month}-${day} `}</Typography>
           </Link>
         </StyledMenuItem>
       );

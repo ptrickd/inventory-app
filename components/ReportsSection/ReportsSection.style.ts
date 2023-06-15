@@ -12,7 +12,6 @@ export const classes = {
   horizontalBox: `${PREFIX}-horizontal-box`,
   styledCollapse: `${PREFIX}-styled-collapse`,
   styledButton: `${PREFIX}-styled-button`,
-  styledLink: `${PREFIX}-styled-link`,
 };
 
 export const Section = styled(Box)(() => ({
@@ -45,8 +44,4 @@ export const StyledButton = styled(Button)(() => ({
     padding: 0,
     paddingLeft: 1,
   },
-}));
-
-export const StyledLink = styled(Link)(() => ({
-  [`&.${classes.styledLink}`]: {},
 }));

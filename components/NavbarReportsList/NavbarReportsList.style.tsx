@@ -3,7 +3,6 @@ import { styled } from "@mui/material/styles";
 
 //Material UI
 import MenuItem from "@mui/material/MenuItem";
-import Link from "@mui/material/Link";
 
 //Constant
 import { BACKGROUND_MENU_COLOR } from "../../constants/colors";
@@ -13,7 +12,6 @@ const PREFIX = "NavbarReportsList";
 export const classes = {
   menuText: `${PREFIX}-menu-text`,
   list: `${PREFIX}-list`,
-  link: `${PREFIX}-link`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
@@ -31,8 +29,4 @@ export const StyledMenuItem = styled(MenuItem)(({ theme: Theme }) => ({
     background: "inherit",
     margin: 0,
   },
-}));
-
-export const StyledLink = styled(Link)(({ theme: Theme }) => ({
-  [`&.${classes.link}`]: {},
 }));
