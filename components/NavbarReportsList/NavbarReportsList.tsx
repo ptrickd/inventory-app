@@ -1,5 +1,5 @@
 //React
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 
 //Material UI
@@ -8,10 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Typography from "@mui/material/Typography";
 
-//Color
-
-//GraphQL
-import { gql, useQuery } from "@apollo/client";
+//Context
+import { ReportsContext } from "../../contexts/ReportsContext";
 
 //Date
 import { DateTime } from "luxon";
@@ -25,21 +23,11 @@ interface IReport {
   dateEndingCycle: Date;
 }
 
-const GET_REPORTS = gql`
-  query Reports {
-    reports {
-      reports {
-        id
-        dateEndingCycle
-      }
-      error
-    }
-  }
-`;
-
 const NavbarReportsList = () => {
+  //context
+  const { reports } = useContext(ReportsContext);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { data, loading, error } = useQuery(GET_REPORTS);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event?.currentTarget);
@@ -50,14 +38,20 @@ const NavbarReportsList = () => {
   };
 
   const renderedReportsMenu = () => {
-    if (data?.reports?.reports.length === 0) {
+    if (reports && reports.length === 0) {
       return (
         <MenuItem onClick={handleCloseMenu}>
           <Typography variant="body1">No reports</Typography>
         </MenuItem>
       );
     }
-    return data?.reports?.reports.map((report: IReport, index: number) => {
+    if (!reports)
+      return (
+        <MenuItem onClick={handleCloseMenu}>
+          <Typography variant="body1">No reports</Typography>
+        </MenuItem>
+      );
+    return reports.map((report: IReport, index: number) => {
       const dateTime = DateTime.fromISO(report?.dateEndingCycle.toString());
       const year = dateTime.year;
       const month = dateTime.month;
@@ -76,9 +70,6 @@ const NavbarReportsList = () => {
       );
     });
   };
-
-  if (loading) return null;
-  if (error) return null;
 
   return (
     <Root>
