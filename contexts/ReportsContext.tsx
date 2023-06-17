@@ -99,11 +99,6 @@ const ReportsProvider = ({ children }: IProps) => {
     }
   }, [loggedIn, getReports]);
 
-  //maybe temporary until sortfunction works
-  useEffect(() => {
-    if (reports.length !== 0) sortReportsByNewerDate(reports);
-  }, [reports]);
-
   async function createNewReport(dateEndingCycle: Date) {
     try {
       const response = await createReport({ variables: { dateEndingCycle } });

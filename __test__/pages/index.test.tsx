@@ -33,7 +33,7 @@ describe("Home", () => {
       </RouterContext.Provider>
     );
 
-    const image = screen.getByRole("presentation");
+    const image = screen.getByRole("img");
     expect(image).toBeInTheDocument();
   });
 });
