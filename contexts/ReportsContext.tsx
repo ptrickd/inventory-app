@@ -4,8 +4,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 //GraphQL
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
 
-//COntext
+//Context
 import { UserContext } from "./UserContext";
+
+//Lodash
+import { sortBy } from "lodash";
 
 //Queries
 const GET_REPORTS = gql`
@@ -59,7 +62,18 @@ interface IContext {
   createNewReport: (dateEndingCycle: Date) => any;
   deleteLocalReport: (reportId: string) => void;
 }
-
+//Function
+/*
+That function will be use to sort the date from the newest to the oldest.
+It will be use after receveived the data from the API than save in the 'reports' state.
+*/
+const sortReportsByNewerDate = (reports: IReport[]) => {
+  return [...reports].sort(function (a, b) {
+    const c = new Date(a.dateEndingCycle).getTime();
+    const d = new Date(b.dateEndingCycle).getTime();
+    return d - c;
+  });
+};
 const ReportsContext = createContext<Partial<IContext>>({});
 
 const ReportsProvider = ({ children }: IProps) => {
@@ -71,7 +85,8 @@ const ReportsProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     if (data) {
-      const currentsReports = data?.reports?.reports;
+      const currentsReports = sortReportsByNewerDate(data?.reports?.reports);
+
       setReports(currentsReports);
       if (currentsReports.length > 0) setHasReport(true);
       else setHasReport(false);
@@ -79,8 +94,15 @@ const ReportsProvider = ({ children }: IProps) => {
   }, [data, loading]);
 
   useEffect(() => {
-    if (loggedIn) getReports();
+    if (loggedIn) {
+      getReports();
+    }
   }, [loggedIn, getReports]);
+
+  //maybe temporary until sortfunction works
+  useEffect(() => {
+    if (reports.length !== 0) sortReportsByNewerDate(reports);
+  }, [reports]);
 
   async function createNewReport(dateEndingCycle: Date) {
     try {
