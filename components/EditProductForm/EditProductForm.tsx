@@ -10,7 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 
@@ -46,6 +46,13 @@ interface IForm {
   unit: string;
 }
 
+/*
+  Function help typescript convert event type from react-hook-form to event type @mui
+  */
+const changeData = (e: SelectChangeEvent<string>) => {
+  return e as any;
+};
+
 function EditProductForm({
   open,
   handleCloseModal,
@@ -73,6 +80,7 @@ function EditProductForm({
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     if (editProductApi !== undefined && typeof categoryId === "string") {
       setSubmitting(true);
+      console.log(data);
       editProductApi(productId, data.name, data.categoryId, unit, position);
 
       // reset({ name: '', categoryId: '' })
@@ -102,7 +110,13 @@ function EditProductForm({
           render={({ field }) => (
             <Fragment>
               <InputLabel className={classes.category}>Category</InputLabel>
-              <Select {...field} label="Category" autoComplete="off">
+              <Select
+                {...field}
+                onChange={(e) => field.onChange(changeData(e))}
+                value={field.value}
+                label="Category"
+                autoComplete="off"
+              >
                 {data.categories.map((category: ICategory) => (
                   <MenuItem key={category.id} value={category.id}>
                     {category.name}

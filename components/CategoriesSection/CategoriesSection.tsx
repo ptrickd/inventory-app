@@ -5,11 +5,12 @@ import Link from "next/link";
 //Components
 import AddCategoryForm from "../../components/AddCategoryForm";
 import MessageModal from "../MessageModal";
+import ListItem from "@mui/material/ListItem";
 
 //Material UI
+import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 
 //Material Icon
 import IconButton from "@mui/material/IconButton";
@@ -34,11 +35,16 @@ interface IProps {
 }
 
 const CategoriesSection = ({ listOfCategories }: IProps) => {
+  //Theming
+  const theme = useTheme();
+
+  //useState
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [showList, setShowList] = useState(false);
   const [openMessageModal, setOpenMessageModal] = useState(false);
   const [message, setMessage] = useState("");
   const [isMessageError, setIsMessageError] = useState(false);
+
   //Adding categories
   const handleAddCategory = () => setOpenCategoryModal(true);
   const handleCloseCategoryForm = (data: any) => {
@@ -91,8 +97,10 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
           {listOfCategories.map((item) => {
             return (
               <ListItem key={item.id}>
-                <Link href={`/category/${item.id}`} key={item.id}>
-                  {item.name}
+                <Link href={`/category/${item.id}`}>
+                  <Typography color={theme.palette.text.primary}>
+                    {item.name}
+                  </Typography>
                 </Link>
               </ListItem>
             );

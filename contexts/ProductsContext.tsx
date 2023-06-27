@@ -247,6 +247,7 @@ const ProductsProvider = ({ children }: IProps) => {
         },
       });
 
+      //update products
       return { data: response.data.editProduct };
     } catch (err: any) {
       console.error(err.message);

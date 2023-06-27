@@ -310,7 +310,7 @@ export const resolvers = {
           throw new Error("Not a valid unit");
 
         product.unit = updatedUnit;
-        console.log(product);
+
         await product.save();
         return product;
       } catch (err: any) {

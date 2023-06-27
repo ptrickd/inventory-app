@@ -2,16 +2,19 @@
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-const PREFIX = "CategoriesSection";
+const PREFIX = "categories-section";
 
 export const classes = {
   section: `${PREFIX}-section`,
+  styledPaper: `${PREFIX}-styled-paper`,
   horizontalBox: `${PREFIX}-horizontal-box`,
   styledCollapse: `${PREFIX}-styled-collapse`,
   styledButton: `${PREFIX}-styled-button`,
+  styledTypography: `${PREFIX}-styled-typography`,
 };
 
 export const Section = styled(Box)(() => ({
@@ -23,6 +26,13 @@ export const Section = styled(Box)(() => ({
   },
 }));
 
+export const StyledPaper = styled(Paper)(() => ({
+  [`&.${classes.styledPaper}`]: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 10,
+  },
+}));
 export const HorizontalBox = styled(Box)(() => ({
   [`&.${classes.horizontalBox}`]: {
     display: "flex",

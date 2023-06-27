@@ -13,7 +13,7 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
@@ -75,6 +75,13 @@ type IProps = {
   measureUnit: string; //duplicate?
   position: number;
   unit: string; //duplicate??
+};
+
+/*
+  Function help typescript convert event type from react-hook-form to event type @mui
+  */
+const changeData = (e: SelectChangeEvent<string>) => {
+  return e as any;
 };
 
 const InputProduct: React.FC<IProps> = ({
@@ -247,7 +254,7 @@ const InputProduct: React.FC<IProps> = ({
               labelId={name + "labelID-select"}
               id={name + "select"}
               value={field.value}
-              onChange={field.onChange}
+              onChange={(e) => field.onChange(changeData(e))}
               onBlur={handleSubmit(onSubmitUnit)}
               variant="standard"
               className={classes.selectUnit}
