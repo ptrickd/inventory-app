@@ -2,34 +2,41 @@
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const PREFIX = "Dashboard";
 
 export const classes = {
   root: `${PREFIX}-root`,
   main: `${PREFIX}-main`,
+  styledPaper: `${PREFIX}-styled-paper`,
   divider: `${PREFIX}-divider`,
 };
 
 export const Root = styled(Container)(({ theme: Theme }) => ({
   [`&.${classes.root}`]: {
-    display: "flex",
     minHeight: "calc(100vh - 120px)",
-    flexDirection: "column",
     width: "100%",
   },
 }));
 
 export const Main = styled(Box)(() => ({
   [`&.${classes.main}`]: {
-    display: "flex",
-    flexDirection: "column",
     marginTop: "15%",
     marginBottom: "10%",
     width: "100%",
     minHeight: "70vh",
-    alignContent: "space-between",
+  },
+}));
+
+export const StyledPaper = styled(Paper)(() => ({
+  [`&.${classes.styledPaper}`]: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 10,
   },
 }));
 

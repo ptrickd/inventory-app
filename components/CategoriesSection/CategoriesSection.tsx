@@ -23,7 +23,6 @@ import {
   HorizontalBox,
   StyledCollapse,
   StyledButton,
-  StyledPaper,
 } from "./CategoriesSection.style";
 
 //Types
@@ -69,46 +68,44 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
 
   return (
     <Section className={classes.section} component="section">
-      <StyledPaper className={classes.styledPaper} elevation={1}>
-        <HorizontalBox component="div" className={classes.horizontalBox}>
-          <IconButton
-            aria-label="add category"
-            color="icon"
-            onClick={handleAddCategory}
-            sx={{ padding: 0 }}
-          >
-            <AddIcon color="inherit" />
-          </IconButton>
+      <HorizontalBox component="div" className={classes.horizontalBox}>
+        <IconButton
+          aria-label="add category"
+          color="icon"
+          onClick={handleAddCategory}
+          sx={{ padding: 0 }}
+        >
+          <AddIcon color="inherit" />
+        </IconButton>
 
-          <Typography variant="body1" sx={{ padding: 0, paddingLeft: 1 }}>
-            Add Category
+        <Typography variant="body1" sx={{ padding: 0, paddingLeft: 1 }}>
+          Add Category
+        </Typography>
+
+        <StyledButton
+          onClick={() => setShowList(!showList)}
+          className={classes.styledButton}
+        >
+          <Typography variant="body1" color={theme.palette.text.primary}>
+            {listOfCategories.length}
           </Typography>
-
-          <StyledButton
-            onClick={() => setShowList(!showList)}
-            className={classes.styledButton}
-          >
-            <Typography variant="body1" color={theme.palette.text.primary}>
-              {listOfCategories.length}
-            </Typography>
-          </StyledButton>
-        </HorizontalBox>
-        <StyledCollapse in={showList} className={classes.styledCollapse}>
-          <List>
-            {listOfCategories.map((item) => {
-              return (
-                <ListItem key={item.id}>
-                  <Link href={`/category/${item.id}`}>
-                    <Typography color={theme.palette.text.primary}>
-                      {item.name}
-                    </Typography>
-                  </Link>
-                </ListItem>
-              );
-            })}
-          </List>
-        </StyledCollapse>
-      </StyledPaper>
+        </StyledButton>
+      </HorizontalBox>
+      <StyledCollapse in={showList} className={classes.styledCollapse}>
+        <List>
+          {listOfCategories.map((item) => {
+            return (
+              <ListItem key={item.id}>
+                <Link href={`/category/${item.id}`}>
+                  <Typography color={theme.palette.text.primary}>
+                    {item.name}
+                  </Typography>
+                </Link>
+              </ListItem>
+            );
+          })}
+        </List>
+      </StyledCollapse>
 
       <AddCategoryForm
         open={openCategoryModal}

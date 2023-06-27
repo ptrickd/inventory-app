@@ -27,7 +27,13 @@ import { CategoriesContext } from "../contexts/CategoriesContext";
 import { ReportsContext } from "../contexts/ReportsContext";
 
 //Style
-import { classes, Root, Main, StyledDivider } from "../styles/dashboard.style";
+import {
+  classes,
+  Root,
+  Main,
+  StyledPaper,
+  StyledDivider,
+} from "../styles/dashboard.style";
 
 //Interface
 interface IResponseStatus {
@@ -78,43 +84,48 @@ function Dashboard() {
   return (
     <Root className={classes.root} maxWidth="xs">
       <Main component="div" className={classes.main}>
-        <Typography variant="h4">{currentUser && currentUser.email}</Typography>
-        <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
-        <CategoriesSection listOfCategories={categories || []} />
-        <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
-        <ReportsSection
-          list={reports || []}
-          handleClickAddModal={() => setOpenCreateNewReport(true)}
-        />
-        <List>
-          <ListItem>
-            <IconButton
-              aria-label="settings"
-              color="icon"
-              onClick={handleOpenSettingsModal}
-            >
-              <SettingsIcon color="inherit" />
-            </IconButton>
-            <ListItemText primary="Settings" />
-          </ListItem>
-        </List>
+        <StyledPaper className={classes.styledPaper} elevation={1}>
+          <Typography variant="h4" align="center">
+            {currentUser && currentUser.email}
+          </Typography>
+          <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+          <CategoriesSection listOfCategories={categories || []} />
+          <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+          <ReportsSection
+            list={reports || []}
+            handleClickAddModal={() => setOpenCreateNewReport(true)}
+          />
+          <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+          <List>
+            <ListItem>
+              <IconButton
+                aria-label="settings"
+                color="icon"
+                onClick={handleOpenSettingsModal}
+              >
+                <SettingsIcon color="inherit" />
+              </IconButton>
+              <ListItemText primary="Settings" />
+            </ListItem>
+          </List>
 
-        <CreateNewReportModal
-          open={openCreateNewReport}
-          handleCloseModal={handleCloseCreateNewReport}
-        />
-        <SubmittingReportModal
-          open={openSubmittingModal}
-          handleCloseModal={handleCloseSubmittingModal}
-        />
-        <ErrorModal
-          open={openErrorModal}
-          handleCloseModal={handleCloseErrorModal}
-        />
-        <SettingsModal
-          open={openSettingsModal}
-          handleCloseModal={handleCloseSettingsModal}
-        />
+          <CreateNewReportModal
+            open={openCreateNewReport}
+            handleCloseModal={handleCloseCreateNewReport}
+          />
+          <SubmittingReportModal
+            open={openSubmittingModal}
+            handleCloseModal={handleCloseSubmittingModal}
+          />
+          <ErrorModal
+            open={openErrorModal}
+            handleCloseModal={handleCloseErrorModal}
+          />
+          <SettingsModal
+            open={openSettingsModal}
+            handleCloseModal={handleCloseSettingsModal}
+          />
+        </StyledPaper>
       </Main>
       <Footer />
     </Root>

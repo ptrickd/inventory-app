@@ -144,22 +144,19 @@ const EditProductPart = ({
   if (!show) return null;
   return (
     <Root className={classes.root}>
-      <IconButton color="inherit" onClick={handleArrowUpwardClicked}>
+      <IconButton color="icon" onClick={handleArrowUpwardClicked}>
         <ArrowUpwardIcon titleAccess="arrow-up" />
       </IconButton>
 
-      <IconButton color="inherit" onClick={handleArrowDownwardClicked}>
+      <IconButton color="icon" onClick={handleArrowDownwardClicked}>
         <ArrowDownwardIcon titleAccess="arrow-down" />
       </IconButton>
 
-      <IconButton
-        color="inherit"
-        onClick={(e) => setOpenEditProductModal(true)}
-      >
+      <IconButton color="icon" onClick={(e) => setOpenEditProductModal(true)}>
         <EditIcon titleAccess="edit-icon" />
       </IconButton>
 
-      <IconButton color="inherit" onClick={handleClickOnDelete}>
+      <IconButton color="icon" onClick={handleClickOnDelete}>
         <DeleteIcon titleAccess="delete-icon" />
       </IconButton>
 

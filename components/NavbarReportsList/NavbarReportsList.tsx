@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 
 //Material UI
+import { useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
@@ -24,6 +25,8 @@ interface IReport {
 }
 
 const NavbarReportsList = () => {
+  //Theming
+  const theme = useTheme();
   //context
   const { reports } = useContext(ReportsContext);
 
@@ -64,7 +67,10 @@ const NavbarReportsList = () => {
         >
           {" "}
           <Link href={`/report/${report.id}`}>
-            <Typography variant="body1">{`${year}-${month}-${day} `}</Typography>
+            <Typography
+              color={theme.palette.text.primary}
+              variant="body1"
+            >{`${year}-${month}-${day} `}</Typography>
           </Link>
         </StyledMenuItem>
       );

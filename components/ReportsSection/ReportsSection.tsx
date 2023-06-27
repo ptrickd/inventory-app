@@ -25,7 +25,6 @@ import {
   HorizontalBox,
   StyledCollapse,
   StyledButton,
-  StyledPaper,
 } from "./ReportsSection.style";
 
 //Types
@@ -86,57 +85,55 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
 
   return (
     <Section className={classes.section} component="section">
-      <StyledPaper className={classes.styledPaper} elevation={1}>
-        <HorizontalBox component="div" className={classes.horizontalBox}>
-          <IconButton
-            aria-label="add category"
-            color="icon"
-            onClick={handleClickAddModal}
-            sx={{ padding: 0 }}
-          >
-            <AddIcon color="inherit" />
-          </IconButton>
+      <HorizontalBox component="div" className={classes.horizontalBox}>
+        <IconButton
+          aria-label="add category"
+          color="icon"
+          onClick={handleClickAddModal}
+          sx={{ padding: 0 }}
+        >
+          <AddIcon color="inherit" />
+        </IconButton>
 
-          <Typography variant="body1" sx={{ padding: 0, paddingLeft: 1 }}>
-            Inventory Report
+        <Typography variant="body1" sx={{ padding: 0, paddingLeft: 1 }}>
+          Inventory Report
+        </Typography>
+
+        <StyledButton
+          onClick={() => setShowList(!showList)}
+          className={classes.styledButton}
+        >
+          <Typography variant="body1" color={theme.palette.text.primary}>
+            {list.length}
           </Typography>
+        </StyledButton>
+      </HorizontalBox>
 
-          <StyledButton
-            onClick={() => setShowList(!showList)}
-            className={classes.styledButton}
-          >
-            <Typography variant="body1" color={theme.palette.text.primary}>
-              {list.length}
-            </Typography>
-          </StyledButton>
-        </HorizontalBox>
+      <StyledCollapse in={showList} className={classes.styledCollapse}>
+        <List>
+          {list.map((item) => {
+            return (
+              <ListItem key={item.id}>
+                <Link href={`/report/${item.id}`}>
+                  <Typography
+                    variant="body1"
+                    color={theme.palette.text.primary}
+                  >
+                    {formattingDate(item.dateEndingCycle)}
+                  </Typography>
+                </Link>
+              </ListItem>
+            );
+          })}
+        </List>
+      </StyledCollapse>
 
-        <StyledCollapse in={showList} className={classes.styledCollapse}>
-          <List>
-            {list.map((item) => {
-              return (
-                <ListItem key={item.id}>
-                  <Link href={`/report/${item.id}`}>
-                    <Typography
-                      variant="body1"
-                      color={theme.palette.text.primary}
-                    >
-                      {formattingDate(item.dateEndingCycle)}
-                    </Typography>
-                  </Link>
-                </ListItem>
-              );
-            })}
-          </List>
-        </StyledCollapse>
-
-        <MessageModal
-          open={openMessageModal}
-          message={message}
-          isError={isMessageError}
-          handleClick={handleMessageModalClicked}
-        />
-      </StyledPaper>
+      <MessageModal
+        open={openMessageModal}
+        message={message}
+        isError={isMessageError}
+        handleClick={handleMessageModalClicked}
+      />
     </Section>
   );
 };

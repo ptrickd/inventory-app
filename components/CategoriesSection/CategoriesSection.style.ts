@@ -10,7 +10,6 @@ const PREFIX = "CategoriesSection";
 
 export const classes = {
   section: `${PREFIX}-section`,
-  styledPaper: `${PREFIX}-styled-paper`,
   horizontalBox: `${PREFIX}-horizontal-box`,
   styledCollapse: `${PREFIX}-styled-collapse`,
   styledButton: `${PREFIX}-styled-button`,
@@ -23,14 +22,6 @@ export const Section = styled(Box)(() => ({
     flexDirection: "column",
     marginTop: 10,
     marginLeft: 25,
-  },
-}));
-
-export const StyledPaper = styled(Paper)(() => ({
-  [`&.${classes.styledPaper}`]: {
-    display: "flex",
-    flexDirection: "column",
-    padding: 10,
   },
 }));
 
