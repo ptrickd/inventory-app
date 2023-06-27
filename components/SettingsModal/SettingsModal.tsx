@@ -18,14 +18,14 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { classes, StyledDialog } from "./SettingsModal.style";
 
 //Icons
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CloseIcon from "@mui/icons-material/Close";
 
 //Context
 import { UserContext } from "../../contexts/UserContext";
 
 interface IProps {
   open: boolean;
-  handleArrowClicked: () => void;
+  handleCloseModal: () => void;
 }
 
 const UPDATE_THEME = gql`
@@ -37,7 +37,7 @@ const UPDATE_THEME = gql`
   }
 `;
 
-const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
+const SettingsModal = ({ open, handleCloseModal }: IProps) => {
   const { theme, setTheme } = useContext(UserContext);
   const [updateUser] = useMutation(UPDATE_THEME);
 
@@ -50,10 +50,14 @@ const SettingsModal = ({ open, handleArrowClicked }: IProps) => {
   };
 
   return (
-    <StyledDialog open={open} aria-labelledby="settings">
-      <DialogActions className={classes.arrow}>
-        <IconButton onClick={(e) => handleArrowClicked()}>
-          <ArrowBackIcon />
+    <StyledDialog
+      open={open}
+      aria-labelledby="settings"
+      onClose={() => handleCloseModal()}
+    >
+      <DialogActions className={classes.close}>
+        <IconButton onClick={(e) => handleCloseModal()}>
+          <CloseIcon />
         </IconButton>
       </DialogActions>
 

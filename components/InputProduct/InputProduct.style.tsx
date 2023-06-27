@@ -5,13 +5,14 @@ const PREFIX = "InputProduct";
 
 export const classes = {
   root: `${PREFIX}-root`,
-  formControl: `${PREFIX}-formControl`,
-  innerFormControl: `${PREFIX}-innerFormControl`,
+  formControl: `${PREFIX}-form-control`,
+  innerFormControl: `${PREFIX}-inner-form-control`,
   textfield: `${PREFIX}-textfield`,
-  selectUnit: `${PREFIX}-selectUnit`,
+  selectUnit: `${PREFIX}-select-unit`,
   box: `${PREFIX}-box`,
-  lastAmountName: `${PREFIX}-lastAmountName`,
-  lastAmountValue: `${PREFIX}-lastAmountValue`,
+  lastAmountName: `${PREFIX}-last-amount-name`,
+  lastAmountValue: `${PREFIX}-last-amount-value`,
+  iconSettings: `${PREFIX}-icon-settings`,
 };
 
 export const Root = styled("div")(({ theme }) => ({
@@ -45,7 +46,6 @@ export const Root = styled("div")(({ theme }) => ({
   },
 
   [`& .${classes.lastAmountName}`]: {
-    color: "rgba(0,0,0,0.54)",
     width: "100%",
     paddingLeft: theme.spacing(0.7),
   },
@@ -53,5 +53,9 @@ export const Root = styled("div")(({ theme }) => ({
   [`& .${classes.lastAmountValue}`]: {
     height: "auto",
     padding: theme.spacing(0.7),
+  },
+
+  [`& .${classes.iconSettings}`]: {
+    color: theme.palette.text.primary,
   },
 }));

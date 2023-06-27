@@ -48,8 +48,37 @@ const DARK_THEME = createTheme({
       dark: "#388e3c",
       contrastText: "rgba(0, 0, 0, 0.87)",
     },
+    icon: {
+      main: "#fff",
+      light: "#81c784",
+      dark: "#388e3c",
+      contrastText: "#fff",
+    },
     divider: "rgba(255,255,255,0.12)",
   },
 });
+
+/*
+  This part of the code allow the addition of the icon color 
+  as one the option of @mui/material/IconButton. The color 
+  apply now to dark and ligth theme.
+*/
+declare module "@mui/material/styles" {
+  interface Palette {
+    icon: Palette["primary"];
+  }
+
+  // allow configuration using `createTheme`
+  interface PaletteOptions {
+    icon?: PaletteOptions["primary"];
+  }
+}
+
+// @babel-ignore-comment-in-output Update the Button's color prop options
+declare module "@mui/material/IconButton" {
+  interface IconButtonPropsColorOverrides {
+    icon: true;
+  }
+}
 
 export default DARK_THEME;

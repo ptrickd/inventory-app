@@ -132,7 +132,7 @@ exports[`<Register /> match the snapshot 1`] = `
             >
               <a
                 aria-label="github"
-                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
                 data-mui-internal-clone-element="true"
                 href="https://github.com/ptrickd/inventory-app"
                 tabindex="0"
@@ -158,7 +158,7 @@ exports[`<Register /> match the snapshot 1`] = `
             >
               <a
                 aria-label="email"
-                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
                 data-mui-internal-clone-element="true"
                 href="mailto:test@example.com"
                 tabindex="0"
@@ -313,7 +313,7 @@ exports[`<Register /> match the snapshot 1`] = `
           >
             <a
               aria-label="github"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
               data-mui-internal-clone-element="true"
               href="https://github.com/ptrickd/inventory-app"
               tabindex="0"
@@ -339,7 +339,7 @@ exports[`<Register /> match the snapshot 1`] = `
           >
             <a
               aria-label="email"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
               data-mui-internal-clone-element="true"
               href="mailto:test@example.com"
               tabindex="0"

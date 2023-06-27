@@ -14,7 +14,6 @@ import EditCategoryForm from "../../components/EditCategoryForm";
 import MessageModal from "../../components/MessageModal";
 
 //Material UI
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -189,10 +188,10 @@ const ProductsPage: React.FC = () => {
         <Typography variant="h2" className={classes.titleText}>
           {currentCategory.name}
         </Typography>
-        <IconButton onClick={() => setOpenEditCategoryModal(true)}>
+        <IconButton color="icon" onClick={() => setOpenEditCategoryModal(true)}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={handleDeleteIconClicked}>
+        <IconButton color="icon" onClick={handleDeleteIconClicked}>
           <DeleteIcon />
         </IconButton>
       </div>

@@ -90,11 +90,11 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
         <HorizontalBox component="div" className={classes.horizontalBox}>
           <IconButton
             aria-label="add category"
-            color="primary"
+            color="icon"
             onClick={handleClickAddModal}
             sx={{ padding: 0 }}
           >
-            <AddIcon color="primary" />
+            <AddIcon color="inherit" />
           </IconButton>
 
           <Typography variant="body1" sx={{ padding: 0, paddingLeft: 1 }}>
@@ -105,7 +105,7 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
             onClick={() => setShowList(!showList)}
             className={classes.styledButton}
           >
-            <Typography variant="body1" color="primary">
+            <Typography variant="body1" color={theme.palette.text.primary}>
               {list.length}
             </Typography>
           </StyledButton>

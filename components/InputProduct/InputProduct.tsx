@@ -9,13 +9,13 @@ import MessageModal from "../MessageModal";
 import EditProductBox from "../EditProductBox";
 
 //Material UI
+import { useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
 
 //Form
@@ -95,6 +95,9 @@ const InputProduct: React.FC<IProps> = ({
   position,
   unit,
 }) => {
+  //Theming
+  const theme = useTheme();
+
   //Context
   const { products, updateProducts } = useContext(ProductsContext);
 
@@ -290,15 +293,19 @@ const InputProduct: React.FC<IProps> = ({
         {showAmounts && formBody}
 
         <Box className={classes.box} width="15%">
-          <Typography variant="caption" className={classes.lastAmountName}>
+          <Typography
+            variant="caption"
+            className={classes.lastAmountName}
+            color={theme.palette.text.primary}
+          >
             Last
           </Typography>
           <Typography align="left" className={classes.lastAmountValue}>
             {previousAmount}
           </Typography>
         </Box>
-        <IconButton onClick={(e) => toggleShowProductBox()}>
-          <SettingsIcon />
+        <IconButton color="icon" onClick={(e) => toggleShowProductBox()}>
+          <SettingsIcon color="inherit" />
         </IconButton>
       </FormControl>
 

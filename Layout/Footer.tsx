@@ -45,6 +45,7 @@ const Footer = () => {
             <IconButton
               href="https://github.com/ptrickd/inventory-app"
               aria-label="github"
+              color="icon"
             >
               <GitHubIcon fontSize="small" />
             </IconButton>
@@ -52,7 +53,11 @@ const Footer = () => {
         </Box>
         <Box component="div">
           <Tooltip title="Email">
-            <IconButton href="mailto:test@example.com" aria-label="email">
+            <IconButton
+              color="icon"
+              href="mailto:test@example.com"
+              aria-label="email"
+            >
               <EmailIcon fontSize="small" />
             </IconButton>
           </Tooltip>

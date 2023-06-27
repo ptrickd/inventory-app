@@ -90,10 +90,10 @@ function Dashboard() {
           <ListItem>
             <IconButton
               aria-label="settings"
-              color="primary"
+              color="icon"
               onClick={handleOpenSettingsModal}
             >
-              <SettingsIcon />
+              <SettingsIcon color="inherit" />
             </IconButton>
             <ListItemText primary="Settings" />
           </ListItem>
@@ -113,7 +113,7 @@ function Dashboard() {
         />
         <SettingsModal
           open={openSettingsModal}
-          handleArrowClicked={handleCloseSettingsModal}
+          handleCloseModal={handleCloseSettingsModal}
         />
       </Main>
       <Footer />

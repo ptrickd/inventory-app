@@ -4,7 +4,6 @@ import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 
 const PREFIX = "categories-section";
 
@@ -33,6 +32,7 @@ export const StyledPaper = styled(Paper)(() => ({
     padding: 10,
   },
 }));
+
 export const HorizontalBox = styled(Box)(() => ({
   [`&.${classes.horizontalBox}`]: {
     display: "flex",

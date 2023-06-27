@@ -19,7 +19,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
             Produce
           </h2>
           <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
@@ -39,7 +39,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
             />
           </button>
           <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
@@ -66,7 +66,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
         </div>
         <hr />
         <div
-          class="InputProduct-root css-mk4emx"
+          class="InputProduct-root css-1rznzry"
         >
           <h6
             class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
@@ -74,11 +74,11 @@ exports[`<CategoryId /> match the snapshot 1`] = `
             Carrots
           </h6>
           <div
-            class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-formControl css-q8hpuo-MuiFormControl-root"
+            class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-form-control css-q8hpuo-MuiFormControl-root"
           >
             <form>
               <span
-                class="InputProduct-innerFormControl"
+                class="InputProduct-inner-form-control"
               >
                 <div
                   class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root InputProduct-textfield css-wb57ya-MuiFormControl-root-MuiTextField-root"
@@ -106,10 +106,10 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                 </div>
               </span>
               <span
-                class="InputProduct-innerFormControl"
+                class="InputProduct-inner-form-control"
               >
                 <div
-                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-selectUnit css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root"
+                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-select-unit css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root"
                 >
                   <div
                     aria-expanded="false"
@@ -148,18 +148,18 @@ exports[`<CategoryId /> match the snapshot 1`] = `
               class="InputProduct-box MuiBox-root css-w56oqh"
             >
               <span
-                class="MuiTypography-root MuiTypography-caption InputProduct-lastAmountName css-1sn4lm3-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-caption InputProduct-last-amount-name css-x3aacn-MuiTypography-root"
               >
                 Last
               </span>
               <p
-                class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-lastAmountValue css-zpphrz-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-last-amount-value css-zpphrz-MuiTypography-root"
               >
                 5
               </p>
             </div>
             <button
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
               tabindex="0"
               type="button"
             >
@@ -216,7 +216,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
           Produce
         </h2>
         <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
           tabindex="0"
           type="button"
         >
@@ -236,7 +236,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
           />
         </button>
         <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
           tabindex="0"
           type="button"
         >
@@ -263,7 +263,7 @@ exports[`<CategoryId /> match the snapshot 1`] = `
       </div>
       <hr />
       <div
-        class="InputProduct-root css-mk4emx"
+        class="InputProduct-root css-1rznzry"
       >
         <h6
           class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
@@ -271,11 +271,11 @@ exports[`<CategoryId /> match the snapshot 1`] = `
           Carrots
         </h6>
         <div
-          class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-formControl css-q8hpuo-MuiFormControl-root"
+          class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-form-control css-q8hpuo-MuiFormControl-root"
         >
           <form>
             <span
-              class="InputProduct-innerFormControl"
+              class="InputProduct-inner-form-control"
             >
               <div
                 class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root InputProduct-textfield css-wb57ya-MuiFormControl-root-MuiTextField-root"
@@ -303,10 +303,10 @@ exports[`<CategoryId /> match the snapshot 1`] = `
               </div>
             </span>
             <span
-              class="InputProduct-innerFormControl"
+              class="InputProduct-inner-form-control"
             >
               <div
-                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-selectUnit css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root"
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-select-unit css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root"
               >
                 <div
                   aria-expanded="false"
@@ -345,18 +345,18 @@ exports[`<CategoryId /> match the snapshot 1`] = `
             class="InputProduct-box MuiBox-root css-w56oqh"
           >
             <span
-              class="MuiTypography-root MuiTypography-caption InputProduct-lastAmountName css-1sn4lm3-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-caption InputProduct-last-amount-name css-x3aacn-MuiTypography-root"
             >
               Last
             </span>
             <p
-              class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-lastAmountValue css-zpphrz-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-last-amount-value css-zpphrz-MuiTypography-root"
             >
               5
             </p>
           </div>
           <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
