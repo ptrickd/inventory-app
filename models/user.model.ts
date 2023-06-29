@@ -5,6 +5,7 @@ interface IUser {
   email: string;
   password: string;
   theme: string;
+  isWizardEnabled: boolean;
 }
 
 const schema = new Schema<IUser>({
@@ -18,6 +19,7 @@ const schema = new Schema<IUser>({
     required: true,
   },
   theme: { type: String, required: true, default: "light" },
+  isWizardEnabled: { type: Boolean, required: true, default: true },
 });
 
 export default mongoose.models.User || mongoose.model<IUser>("User", schema);

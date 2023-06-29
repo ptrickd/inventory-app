@@ -102,6 +102,8 @@ const Login: React.FC = () => {
       setCurrentUser({
         id: loginResponse.data.login.user.id,
         email: loginResponse.data.login.user.email,
+        theme: loginResponse.data.login.user.theme,
+        isWizardEnabled: loginResponse.data.login.user.isWizardEnabled,
       });
     }
     setSubmitting(false);

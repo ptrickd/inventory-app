@@ -56,7 +56,7 @@ export const resolvers = {
         // console.log('user', user)
 
         if (!user) throw new Error("Not Authenticated");
-
+        console.log(user);
         const categories = await Category.find({
           userId: user.id,
         });

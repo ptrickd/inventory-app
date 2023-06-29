@@ -45,4 +45,6 @@ declare interface IUser {
   id?: string;
   email: string;
   password?: string;
+  theme: "light" | "dark";
+  isWizardEnabled: boolean;
 }

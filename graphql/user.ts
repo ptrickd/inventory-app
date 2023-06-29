@@ -27,6 +27,7 @@ export const typeDef = `
         id: ID
         email: String
         theme: String
+        isWizardEnabled: Boolean
         error: String
     }
 

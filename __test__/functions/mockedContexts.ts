@@ -11,12 +11,18 @@ export const PRODUCE_CATEGORY_ID = "123456";
 export const COOLER_CATEGORY_ID = "123457";
 
 export const UserContextProps = {
-  currentUser: { id: CURRENT_USER_ID, email: CURRENT_USER_EMAIL },
+  currentUser: {
+    id: CURRENT_USER_ID,
+    email: CURRENT_USER_EMAIL,
+    theme: "light" as const,
+    isWizardEnabled: false,
+  },
   setCurrentUser: jest.fn(),
   loggedIn: true,
   setLoggedIn: jest.fn(),
   setToken: jest.fn(),
-  logout: jest.fn(),
+  theme: "light" as const,
+  setTheme: jest.fn(),
 };
 
 export const ReportsContextProps = {

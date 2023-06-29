@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 //Form
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 //GraphQL
 import { useMutation } from "@apollo/client";
@@ -62,8 +62,7 @@ interface IForm {
 
 const Register: React.FC = () => {
   const router = useRouter();
-  const { currentUser, setCurrentUser, loggedIn, setLoggedIn } =
-    useContext(UserContext);
+  const { loggedIn } = useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
   const [serverErrorMess, setServerErrorMess] = useState("");
 

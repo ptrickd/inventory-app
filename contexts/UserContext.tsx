@@ -25,7 +25,12 @@ const UserContext = createContext<Partial<IContext>>({});
 
 const UserProvider = ({ children }: IProps) => {
   //UseState
-  const [currentUser, setCurrentUser] = useState<IUser>({ id: "", email: "" });
+  const [currentUser, setCurrentUser] = useState<IUser>({
+    id: "",
+    email: "",
+    theme: "light",
+    isWizardEnabled: true,
+  });
   const [loggedIn, setLoggedIn] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("light");
 
@@ -44,6 +49,8 @@ const UserProvider = ({ children }: IProps) => {
       setCurrentUser({
         id: data.currentUser.id,
         email: data.currentUser.email,
+        theme: data.currentUser.theme,
+        isWizardEnabled: data.currentUser.isWizardEnabled,
       });
       setLoggedIn(true);
       setTheme(data.currentUser.theme);
@@ -59,7 +66,12 @@ const UserProvider = ({ children }: IProps) => {
   };
 
   const logout = () => {
-    setCurrentUser({ id: "", email: "" });
+    setCurrentUser({
+      id: "",
+      email: "",
+      theme: "light",
+      isWizardEnabled: true,
+    });
     setLoggedIn(false);
     setTheme("light");
     localStorage.removeItem("token");
