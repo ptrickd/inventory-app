@@ -11,6 +11,6 @@ export const classes = {
 
 export const Root = styled(Box)(({ theme: Theme }) => ({
   [`& .${classes.category}`]: {
-    backgroundColor: Theme.palette.common.black,
+    backgroundColor: Theme.palette.background.paper,
   },
 }));

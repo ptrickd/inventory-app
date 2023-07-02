@@ -10,6 +10,8 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/legacy/image";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 
 //Style
 import {
@@ -78,6 +80,39 @@ export default function Home() {
         >
           Start
         </StyledButton>
+        <Divider sx={{ mt: 2, mb: 2 }} />
+        <Typography variant="body1">Put dashboard explication here</Typography>
+        <Image
+          alt="photo of dashboard app"
+          src="/dashboard_light.png"
+          layout="responsive"
+          width={414}
+          height={533}
+        />
+        <Divider sx={{ mt: 2, mb: 2 }} />
+        <Typography variant="body1">
+          Put categories page explication here:
+        </Typography>
+
+        <Image
+          alt="photo of categpries page"
+          src="/categories_light.png"
+          layout="responsive"
+          width={414}
+          height={533}
+        />
+        <Divider sx={{ mt: 2, mb: 2 }} />
+        <Typography variant="body1">
+          Put reports page explication here:
+        </Typography>
+
+        <Image
+          alt="photo of reports page"
+          src="/reports_light.png"
+          layout="responsive"
+          width={414}
+          height={577}
+        />
       </Main>
       <Footer />
     </Root>
