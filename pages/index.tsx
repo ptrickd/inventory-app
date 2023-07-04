@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import Image from "next/legacy/image";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 
 //Style
 import {
@@ -29,10 +30,14 @@ import { CategoriesContext } from "../contexts/CategoriesContext";
 import { ProductsContext } from "../contexts/ProductsContext";
 
 //Component
+import CardLandingPage from "../components/CardLandingPage";
 import Footer from "../Layout/Footer";
 
 //Function
 import { redirectOnLogin } from "../utils/redirect";
+
+//temporary constant #648dae #829baf
+const Light_background_Color = "#c8e4fb";
 
 export default function Home() {
   //Context
@@ -42,6 +47,9 @@ export default function Home() {
   const { hasProduct } = useContext(ProductsContext);
 
   const router = useRouter();
+  const DashboardText = "Easy view to settings Categories Products Reports";
+  const CategoriesSectionText = "Dashboard Text Heere!";
+  const ReportText = "Dashboard Text Heere!";
 
   useEffect(() => {
     if (loggedIn) {
@@ -80,38 +88,41 @@ export default function Home() {
         >
           Start
         </StyledButton>
-        <Divider sx={{ mt: 2, mb: 2 }} />
-        <Typography variant="body1">Put dashboard explication here</Typography>
-        <Image
-          alt="photo of dashboard app"
-          src="/dashboard_light.png"
-          layout="responsive"
-          width={414}
-          height={533}
-        />
-        <Divider sx={{ mt: 2, mb: 2 }} />
-        <Typography variant="body1">
-          Put categories page explication here:
-        </Typography>
 
-        <Image
-          alt="photo of categpries page"
-          src="/categories_light.png"
-          layout="responsive"
-          width={414}
-          height={533}
-        />
-        <Divider sx={{ mt: 2, mb: 2 }} />
-        <Typography variant="body1">
-          Put reports page explication here:
-        </Typography>
+        {/*****************    Dashboard    ****************/}
 
-        <Image
-          alt="photo of reports page"
-          src="/reports_light.png"
-          layout="responsive"
-          width={414}
-          height={577}
+        <Divider sx={{ mt: 10, mb: 2 }} />
+        <CardLandingPage
+          imgWidth={414}
+          imgHeight={533}
+          imageAlt="photo of dashboard app"
+          imagePath="/dashboard_light.jpg"
+          text="Easy view to settings Categories Products Reports"
+          title="An Clean Dashboard"
+        />
+
+        {/*****************    Categories    ****************/}
+
+        <Divider sx={{ mt: 2, mb: 2 }} />
+        <CardLandingPage
+          imgWidth={414}
+          imgHeight={533}
+          imageAlt="photo of categories app"
+          imagePath="/categories_light.jpg"
+          text="Put categories page explication here:"
+          title="Categories"
+        />
+
+        {/*****************    Reports    ****************/}
+
+        <Divider sx={{ mt: 2, mb: 2 }} />
+        <CardLandingPage
+          imgWidth={414}
+          imgHeight={533}
+          imageAlt="photo of reports page"
+          imagePath="/reports_light.jpg"
+          text="Put reports page explication here:"
+          title="Reports"
         />
       </Main>
       <Footer />
