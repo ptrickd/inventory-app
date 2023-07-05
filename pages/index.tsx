@@ -41,15 +41,15 @@ const Light_background_Color = "#c8e4fb";
 
 export default function Home() {
   //Context
+  /*
+  Do I still need those??
+  */
   const { loggedIn } = useContext(UserContext);
   const { hasReport } = useContext(ReportsContext);
   const { hasCategory } = useContext(CategoriesContext);
   const { hasProduct } = useContext(ProductsContext);
 
   const router = useRouter();
-  const DashboardText = "Easy view to settings Categories Products Reports";
-  const CategoriesSectionText = "Dashboard Text Heere!";
-  const ReportText = "Dashboard Text Heere!";
 
   useEffect(() => {
     if (loggedIn) {
@@ -57,6 +57,7 @@ export default function Home() {
       if (url) router.push(url);
     }
   }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
+
   return (
     <Root className={classes.root} maxWidth="md">
       <Main className={classes.main}>
@@ -97,8 +98,8 @@ export default function Home() {
           imgHeight={533}
           imageAlt="photo of dashboard app"
           imagePath="/dashboard_light.jpg"
-          text="Easy view to settings Categories Products Reports"
-          title="An Clean Dashboard"
+          text="Easy acces to Settings, Categories, Products and Reports"
+          title="A Clean Dashboard"
         />
 
         {/*****************    Categories    ****************/}
@@ -109,8 +110,8 @@ export default function Home() {
           imgHeight={533}
           imageAlt="photo of categories app"
           imagePath="/categories_light.jpg"
-          text="Put categories page explication here:"
-          title="Categories"
+          text="Easily travel between categories, creating new products or entering your inventory"
+          title="Display products by categories"
         />
 
         {/*****************    Reports    ****************/}
@@ -121,8 +122,8 @@ export default function Home() {
           imgHeight={533}
           imageAlt="photo of reports page"
           imagePath="/reports_light.jpg"
-          text="Put reports page explication here:"
-          title="Reports"
+          text="See your reports in a glance. Submit new report or erase old ones."
+          title="See and print full reports"
         />
       </Main>
       <Footer />
