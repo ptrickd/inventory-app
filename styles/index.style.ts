@@ -19,6 +19,7 @@ export const Root = styled(Container)(({ theme: Theme }) => ({
     display: "flex",
     minHeight: "calc(100vh - 120px)",
     flexDirection: "column",
+    justifyContent: "center",
     width: "100%",
   },
 }));

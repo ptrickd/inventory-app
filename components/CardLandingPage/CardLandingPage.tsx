@@ -25,12 +25,27 @@ const CardLandingPage = ({
 }: IProps) => {
   //temporary constant #648dae #829baf
   const Light_background_Color = "rgba(101,115,195,0.2)";
+  const Ratio = imgWidth + 20;
   return (
     <Paper
       elevation={1}
-      sx={{ background: Light_background_Color, padding: "3%", border: "0px" }}
+      sx={{
+        height: "auto",
+        background: Light_background_Color,
+        width: Ratio,
+        padding: "3%",
+        border: "0px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        alignSelf: "center",
+      }}
     >
-      <Typography variant="h6" align="center">
+      <Typography
+        variant="h6"
+        align="center"
+        sx={{ textDecoration: "underline" }}
+      >
         {title}
       </Typography>
       <Typography
@@ -43,21 +58,12 @@ const CardLandingPage = ({
       <Box
         component="span"
         sx={{
-          // margin: " 32px auto",
-          // boxSizing: "content-box",
-          // display: "flex",
-          // flexDirection: "column",
-          // justifyContent: "center",
-          // alignItems: "center",
-          "& > div": {
-            boxShadow:
-              " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-            borderRadius: "5px",
-          },
+          height: "auto",
+          width: imgWidth,
+          border: "1px solid #aaaaaa",
         }}
       >
         <Image
-          style={{ border: "3px solid #aaaaaa" }}
           alt={imageAlt}
           src={imagePath}
           layout="responsive"
