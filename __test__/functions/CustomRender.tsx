@@ -3,8 +3,8 @@ import { render, RenderOptions } from "@testing-library/react";
 
 //Mocked Files
 import { mockedRouter } from "./mockedRouter";
-import { RouterContext } from "next/dist/shared/lib/router-context";
-
+// import { RouterContext } from "next/dist/shared/lib/router-context";
+import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 //Context
 import { UserContext } from "../../contexts/UserContext";
 import { ReportsContext } from "../../contexts/ReportsContext";

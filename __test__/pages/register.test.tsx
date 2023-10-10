@@ -11,7 +11,7 @@ const useRouter = jest.spyOn(require("next/router"), "useRouter");
 
 //Component
 import Register from "../../pages/register";
-import { RouterContext } from "next/dist/shared/lib/router-context";
+import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 
 //Query
 import { REGISTER } from "../../graphql/queries";
