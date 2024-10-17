@@ -157,7 +157,9 @@ function AddProductForm({
               sx={{ width: 300 }}
               options={products || []}
               renderOption={(props, option) => (
-                <li {...props}>{option.name}</li>
+                <li {...props} key={option.name}>
+                  {option.name}
+                </li>
               )}
               freeSolo
               renderInput={(params) => (
