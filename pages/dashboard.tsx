@@ -83,7 +83,7 @@ function Dashboard() {
 
   return (
     <Root className={classes.root} maxWidth="xs">
-      <Main component="div" className={classes.main}>
+      <Main className={classes.main}>
         <StyledPaper className={classes.styledPaper} elevation={1}>
           <Typography variant="h4" align="center">
             {currentUser && currentUser.email}

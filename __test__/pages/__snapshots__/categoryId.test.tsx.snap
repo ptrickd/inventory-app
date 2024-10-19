@@ -8,60 +8,54 @@ exports[`<CategoryId /> match the snapshot 1`] = `
   >
     <div>
       <div
-        class="MuiContainer-root MuiContainer-maxWidthXs ProductsPage-root css-8u6on3-MuiContainer-root"
+        class="MuiContainer-root MuiContainer-maxWidthXs ProductsPage-root css-1gbg9pz-MuiContainer-root"
       >
         <div
           class="ProductsPage-title"
         >
           <h2
-            class="MuiTypography-root MuiTypography-h2 ProductsPage-title-text css-1sra7t5-MuiTypography-root"
+            class="MuiTypography-root MuiTypography-h2 ProductsPage-title-text css-o2za6n-MuiTypography-root"
           >
             Produce
           </h2>
           <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-aixiz9-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
               data-testid="EditIcon"
               focusable="false"
               viewBox="0 0 24 24"
             >
               <path
-                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
               />
             </svg>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
           </button>
           <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-aixiz9-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
               data-testid="DeleteIcon"
               focusable="false"
               viewBox="0 0 24 24"
             >
               <path
-                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
               />
             </svg>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
           </button>
         </div>
         <div>
           <h6
-            class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+            class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
           />
         </div>
         <hr />
@@ -69,22 +63,22 @@ exports[`<CategoryId /> match the snapshot 1`] = `
           class="InputProduct-root css-1rznzry"
         >
           <h6
-            class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+            class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
           >
             Carrots
           </h6>
           <div
-            class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-form-control css-q8hpuo-MuiFormControl-root"
+            class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-form-control css-ytlejw-MuiFormControl-root"
           >
             <form>
               <span
                 class="InputProduct-inner-form-control"
               >
                 <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root InputProduct-textfield css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                  class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root InputProduct-textfield css-cmpglg-MuiFormControl-root-MuiTextField-root"
                 >
                   <label
-                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-1c2i806-MuiFormLabel-root-MuiInputLabel-root"
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-1ew92b2-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
                     for="Carrotscurrent"
                     id="Carrotscurrent-label"
@@ -92,11 +86,11 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                     Current
                   </label>
                   <div
-                    class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-l4u8b9-MuiInputBase-root-MuiInput-root"
+                    class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-6h9cc6-MuiInputBase-root-MuiInput-root"
                   >
                     <input
                       aria-invalid="false"
-                      class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                      class="MuiInputBase-input MuiInput-input css-1yrc8ca-MuiInputBase-input-MuiInput-input"
                       id="Carrotscurrent"
                       name="currentAmount"
                       type="text"
@@ -109,15 +103,17 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                 class="InputProduct-inner-form-control"
               >
                 <div
-                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-select-unit css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root"
+                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-select-unit css-j218zi-MuiInputBase-root-MuiInput-root-MuiSelect-root"
+                  data-testid="button"
                 >
                   <div
+                    aria-controls=":r1a:"
                     aria-expanded="false"
                     aria-haspopup="listbox"
                     aria-labelledby="CarrotslabelID-select Carrotsselect"
-                    class="MuiSelect-select MuiSelect-standard MuiInputBase-input MuiInput-input css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input"
+                    class="MuiSelect-select MuiSelect-standard MuiInputBase-input MuiInput-input css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input"
                     id="Carrotsselect"
-                    role="button"
+                    role="combobox"
                     tabindex="0"
                   >
                     ea
@@ -125,14 +121,14 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                   <input
                     aria-hidden="true"
                     aria-invalid="false"
-                    class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                    class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
                     name="selectUnit"
                     tabindex="-1"
                     value="ea"
                   />
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconStandard css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconStandard css-1gpuzre-MuiSvgIcon-root-MuiSelect-icon"
                     data-testid="ArrowDropDownIcon"
                     focusable="false"
                     viewBox="0 0 24 24"
@@ -148,117 +144,103 @@ exports[`<CategoryId /> match the snapshot 1`] = `
               class="InputProduct-box MuiBox-root css-w56oqh"
             >
               <span
-                class="MuiTypography-root MuiTypography-caption InputProduct-last-amount-name css-x3aacn-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-caption InputProduct-last-amount-name css-du86ev-MuiTypography-root"
               >
                 Last
               </span>
               <p
-                class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-last-amount-value css-zpphrz-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-last-amount-value css-1j3qii7-MuiTypography-root"
+                style="--Typography-textAlign: left;"
               >
                 5
               </p>
             </div>
             <button
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-aixiz9-MuiButtonBase-root-MuiIconButton-root"
               tabindex="0"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
                 data-testid="SettingsIcon"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
                 <path
-                  d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+                  d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6"
                 />
               </svg>
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
             </button>
           </div>
         </div>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium ProductsPage-button css-sghohy-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary ProductsPage-button css-1abvrni-MuiButtonBase-root-MuiButton-root"
           tabindex="0"
           type="button"
         >
           Next Category
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
         </button>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium ProductsPage-button css-sghohy-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary ProductsPage-button css-1abvrni-MuiButtonBase-root-MuiButton-root"
           tabindex="0"
           type="button"
         >
           Add New Product
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
         </button>
       </div>
     </div>
   </body>,
   "container": <div>
     <div
-      class="MuiContainer-root MuiContainer-maxWidthXs ProductsPage-root css-8u6on3-MuiContainer-root"
+      class="MuiContainer-root MuiContainer-maxWidthXs ProductsPage-root css-1gbg9pz-MuiContainer-root"
     >
       <div
         class="ProductsPage-title"
       >
         <h2
-          class="MuiTypography-root MuiTypography-h2 ProductsPage-title-text css-1sra7t5-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-h2 ProductsPage-title-text css-o2za6n-MuiTypography-root"
         >
           Produce
         </h2>
         <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-aixiz9-MuiButtonBase-root-MuiIconButton-root"
           tabindex="0"
           type="button"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
             data-testid="EditIcon"
             focusable="false"
             viewBox="0 0 24 24"
           >
             <path
-              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
             />
           </svg>
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
         </button>
         <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-aixiz9-MuiButtonBase-root-MuiIconButton-root"
           tabindex="0"
           type="button"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
             data-testid="DeleteIcon"
             focusable="false"
             viewBox="0 0 24 24"
           >
             <path
-              d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+              d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
             />
           </svg>
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
         </button>
       </div>
       <div>
         <h6
-          class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
         />
       </div>
       <hr />
@@ -266,22 +248,22 @@ exports[`<CategoryId /> match the snapshot 1`] = `
         class="InputProduct-root css-1rznzry"
       >
         <h6
-          class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
         >
           Carrots
         </h6>
         <div
-          class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-form-control css-q8hpuo-MuiFormControl-root"
+          class="MuiFormControl-root MuiFormControl-fullWidth InputProduct-form-control css-ytlejw-MuiFormControl-root"
         >
           <form>
             <span
               class="InputProduct-inner-form-control"
             >
               <div
-                class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root InputProduct-textfield css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root InputProduct-textfield css-cmpglg-MuiFormControl-root-MuiTextField-root"
               >
                 <label
-                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-1c2i806-MuiFormLabel-root-MuiInputLabel-root"
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-1ew92b2-MuiFormLabel-root-MuiInputLabel-root"
                   data-shrink="true"
                   for="Carrotscurrent"
                   id="Carrotscurrent-label"
@@ -289,11 +271,11 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                   Current
                 </label>
                 <div
-                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-l4u8b9-MuiInputBase-root-MuiInput-root"
+                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-6h9cc6-MuiInputBase-root-MuiInput-root"
                 >
                   <input
                     aria-invalid="false"
-                    class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                    class="MuiInputBase-input MuiInput-input css-1yrc8ca-MuiInputBase-input-MuiInput-input"
                     id="Carrotscurrent"
                     name="currentAmount"
                     type="text"
@@ -306,15 +288,17 @@ exports[`<CategoryId /> match the snapshot 1`] = `
               class="InputProduct-inner-form-control"
             >
               <div
-                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-select-unit css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root"
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl InputProduct-select-unit css-j218zi-MuiInputBase-root-MuiInput-root-MuiSelect-root"
+                data-testid="button"
               >
                 <div
+                  aria-controls=":r1a:"
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-labelledby="CarrotslabelID-select Carrotsselect"
-                  class="MuiSelect-select MuiSelect-standard MuiInputBase-input MuiInput-input css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input"
+                  class="MuiSelect-select MuiSelect-standard MuiInputBase-input MuiInput-input css-5lvf42-MuiSelect-select-MuiInputBase-input-MuiInput-input"
                   id="Carrotsselect"
-                  role="button"
+                  role="combobox"
                   tabindex="0"
                 >
                   ea
@@ -322,14 +306,14 @@ exports[`<CategoryId /> match the snapshot 1`] = `
                 <input
                   aria-hidden="true"
                   aria-invalid="false"
-                  class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                  class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
                   name="selectUnit"
                   tabindex="-1"
                   value="ea"
                 />
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconStandard css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconStandard css-1gpuzre-MuiSvgIcon-root-MuiSelect-icon"
                   data-testid="ArrowDropDownIcon"
                   focusable="false"
                   viewBox="0 0 24 24"
@@ -345,57 +329,49 @@ exports[`<CategoryId /> match the snapshot 1`] = `
             class="InputProduct-box MuiBox-root css-w56oqh"
           >
             <span
-              class="MuiTypography-root MuiTypography-caption InputProduct-last-amount-name css-x3aacn-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-caption InputProduct-last-amount-name css-du86ev-MuiTypography-root"
             >
               Last
             </span>
             <p
-              class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-last-amount-value css-zpphrz-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft InputProduct-last-amount-value css-1j3qii7-MuiTypography-root"
+              style="--Typography-textAlign: left;"
             >
               5
             </p>
           </div>
           <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-18rm664-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorIcon MuiIconButton-sizeMedium css-aixiz9-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
               data-testid="SettingsIcon"
               focusable="false"
               viewBox="0 0 24 24"
             >
               <path
-                d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+                d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6"
               />
             </svg>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
           </button>
         </div>
       </div>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium ProductsPage-button css-sghohy-MuiButtonBase-root-MuiButton-root"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary ProductsPage-button css-1abvrni-MuiButtonBase-root-MuiButton-root"
         tabindex="0"
         type="button"
       >
         Next Category
-        <span
-          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
       </button>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium ProductsPage-button css-sghohy-MuiButtonBase-root-MuiButton-root"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary ProductsPage-button css-1abvrni-MuiButtonBase-root-MuiButton-root"
         tabindex="0"
         type="button"
       >
         Add New Product
-        <span
-          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
       </button>
     </div>
   </div>,

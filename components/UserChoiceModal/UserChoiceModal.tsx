@@ -32,7 +32,7 @@ const UserChoiceModal = ({
       <DialogContentText align="center" className={classes.text}>
         {message}
       </DialogContentText>
-      <ButtonsSection component="section" className={classes.buttonsSection}>
+      <ButtonsSection className={classes.buttonsSection}>
         <DialogActions className={classes.button}>
           <Button
             onClick={() => handleUserResponse(true)}

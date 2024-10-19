@@ -113,6 +113,6 @@ describe("<EditProductForm />", () => {
 
     await user.click(EditButton);
 
-    expect(editProductApi).toBeCalledTimes(1);
+    expect(editProductApi).toHaveBeenCalledTimes(1);
   });
 });

@@ -41,12 +41,12 @@ const NavbarDrawer = ({ categories }: IProps) => {
       // console.log(category)
       return (
         <Link href={`/category/${category.id}`} key={category.id}>
-          <ListItem className={classes.subMenu} button>
+          <ListItemButton className={classes.subMenu}>
             <ListItemText primary={category.name} />
             <ListItemIcon className={classes.menuIcon}>
               <ArrowForwardIcon />
             </ListItemIcon>
-          </ListItem>
+          </ListItemButton>
         </Link>
       );
     });

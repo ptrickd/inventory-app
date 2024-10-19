@@ -34,11 +34,7 @@ interface IProps {
 }
 const ListReports = ({ report }: IProps) => {
   return (
-    <Root
-      component="div"
-      key={report.categoryName}
-      className={classes.categoryDiv}
-    >
+    <Root key={report.categoryName} className={classes.categoryDiv}>
       <TableContainer component={Paper}>
         <Table aria-label="report table">
           <TableHead className={classes.category}>

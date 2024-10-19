@@ -84,8 +84,8 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
   };
 
   return (
-    <Section className={classes.section} component="section">
-      <HorizontalBox component="div" className={classes.horizontalBox}>
+    <Section className={classes.section}>
+      <HorizontalBox className={classes.horizontalBox}>
         <IconButton
           aria-label="add category"
           color="icon"

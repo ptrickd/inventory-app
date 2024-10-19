@@ -203,7 +203,7 @@ const Report: React.FC = () => {
 
   return (
     <Root className={classes.root} maxWidth="xs">
-      <Main component="div" className={classes.main}>
+      <Main className={classes.main}>
         <Typography className={classes.title} variant="h3" align="center">
           Report
         </Typography>

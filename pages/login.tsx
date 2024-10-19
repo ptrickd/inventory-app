@@ -112,7 +112,7 @@ const Login: React.FC = () => {
 
   return (
     <Root className={classes.root} maxWidth="xs">
-      <Main component="div" className={classes.main}>
+      <Main className={classes.main}>
         <Title variant="h2" align="center" className={classes.title}>
           Login
         </Title>

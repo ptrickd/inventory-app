@@ -1,5 +1,5 @@
 //Testing
-import { screen, cleanup, act } from "@testing-library/react";
+import { screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 //CustomRender

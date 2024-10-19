@@ -25,7 +25,7 @@ const SubmitReportButton = ({
   handleDeleteClick,
 }: IProps) => {
   return (
-    <ContainerButtons component="div" className={classes.containerButtons}>
+    <ContainerButtons className={classes.containerButtons}>
       {Boolean(status === "Not Submitted") ? (
         <StyledButton
           variant="contained"

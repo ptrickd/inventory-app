@@ -35,7 +35,7 @@ const MessageModal = ({ open, message, isError, handleClick }: IProps) => {
     >
       <StyledDialogContent className={classes.dialogContent}>
         {isError ? (
-          <StyledMessage component="span" className={classes.typo}>
+          <StyledMessage className={classes.typo}>
             <Typography color="error" align="center" variant="h5">
               Error
             </Typography>
@@ -44,7 +44,7 @@ const MessageModal = ({ open, message, isError, handleClick }: IProps) => {
             </Typography>
           </StyledMessage>
         ) : (
-          <StyledMessage component="span" className={classes.typo}>
+          <StyledMessage className={classes.typo}>
             <Typography color="success" align="center" variant="subtitle1">
               {message}
             </Typography>

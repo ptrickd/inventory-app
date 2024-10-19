@@ -261,6 +261,7 @@ const InputProduct: React.FC<IProps> = ({
               onBlur={handleSubmit(onSubmitUnit)}
               variant="standard"
               className={classes.selectUnit}
+              data-testid="button"
             >
               {MEASURE_UNITS.map((unitName: string) => {
                 return (

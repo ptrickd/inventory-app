@@ -192,7 +192,7 @@ describe("<InputProduct />", () => {
     ///////////////////////////////////////////////////////////
 
     //click on the 'ea' select
-    const SelectButton = screen.getByRole("button", { name: /ea/i });
+    const SelectButton = screen.getByTestId("button");
 
     await user.click(SelectButton);
 
@@ -232,7 +232,7 @@ describe("<InputProduct />", () => {
     await user.keyboard("l");
 
     //Click the select component to trigger the onBlur of the current input component
-    const SelectButton = screen.getByRole("button", { name: /ea/i });
+    const SelectButton = screen.getByTestId("button");
 
     await user.click(SelectButton);
 
@@ -267,7 +267,7 @@ describe("<InputProduct />", () => {
     await user.keyboard("[Backspace]");
 
     //Click the select component to trigger the onBlur of the current input component
-    const SelectButton = screen.getByRole("button", { name: /ea/i });
+    const SelectButton = screen.getByTestId("button");
 
     await user.click(SelectButton);
 

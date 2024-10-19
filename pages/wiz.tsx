@@ -89,7 +89,7 @@ const Wiz: React.FC = () => {
   if (!loggedIn) return null;
   return (
     <Root maxWidth="md" className={classes.root}>
-      <Main component="div" className={classes.main}>
+      <Main className={classes.main}>
         {/* <ComponentToDisplay currentState={states.state} /> */}
 
         {router.query.l === "firstReport" && <FirstReport />}
