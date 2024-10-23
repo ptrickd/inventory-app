@@ -1,6 +1,6 @@
 //Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
+import { styled } from "@mui/material-pigment-css";
+import Container from "@mui/material-pigment-css/Container";
 
 const PREFIX = "ProductsPage";
 
@@ -12,7 +12,7 @@ export const classes = {
   productContainer: `${PREFIX}-product-container`,
 };
 
-export const Root = styled(Container)(({ theme: Theme }) => ({
+export const Root = styled(Container)(() => ({
   [`&.${classes.root}`]: {
     marginTop: 60,
     display: "flex",

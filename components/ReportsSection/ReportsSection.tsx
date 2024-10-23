@@ -6,7 +6,7 @@ import Link from "next/link";
 import MessageModal from "../MessageModal";
 
 //Material UI
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material-pigment-css";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";

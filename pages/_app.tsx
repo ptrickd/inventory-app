@@ -19,6 +19,7 @@ import client from "../apollo-client";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Themes from "../styles/Themes";
+import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
 
 //Roboto Font
 import "@fontsource/roboto/300.css";

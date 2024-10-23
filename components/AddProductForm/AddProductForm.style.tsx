@@ -1,6 +1,6 @@
 //Material UI
 import Dialog from "@mui/material/Dialog";
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 
 const PREFIX = "AddProductForm";
 

@@ -18,7 +18,7 @@ import ListReports from "../../components/ListReports";
 import { useQuery } from "@apollo/client";
 
 //Material UI
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 
 //Types
 import { ISubmittedProduct, IReport } from "../../types/reportId.types";

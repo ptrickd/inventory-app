@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 //Material UI
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 import Button from "@mui/material/Button";
 
 //Contexts

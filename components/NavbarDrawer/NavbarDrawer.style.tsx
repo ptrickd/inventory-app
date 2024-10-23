@@ -1,5 +1,5 @@
 //Material UI
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 
 //Color
 import { TEXT_MENU_COLOR, BACKGROUND_MENU_COLOR } from "../../constants/colors";
@@ -14,7 +14,7 @@ export const classes = {
   toolbar: `${PREFIX}-toolbar`,
 };
 
-export const Root = styled("div")(({ theme: Theme }) => ({
+export const Root = styled("div")(() => ({
   [`&.${classes.root}`]: {
     height: "100vh",
     background: BACKGROUND_MENU_COLOR,
@@ -29,10 +29,10 @@ export const Root = styled("div")(({ theme: Theme }) => ({
   },
 
   [`& .${classes.subMenu}`]: {
-    marginLeft: Theme.spacing(2),
+    // marginLeft: Theme.spacing(2),
     color: TEXT_MENU_COLOR,
   },
 
   // necessary for content to be below app bar
-  [`& .${classes.toolbar}`]: Theme.mixins.toolbar,
+  [`& .${classes.toolbar}`]: {}, // Theme.mixins.toolbar,
 }));

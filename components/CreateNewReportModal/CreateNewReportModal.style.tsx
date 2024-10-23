@@ -1,5 +1,5 @@
 //Material Ui
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 import Dialog from "@mui/material/Dialog";
 
 const PREFIX = "CreateNewReportModal";
@@ -9,10 +9,10 @@ export const classes = {
   button: `${PREFIX}-button`,
 };
 
-export const StyledDialog = styled(Dialog)(({ theme }) => ({
+export const StyledDialog = styled(Dialog)(() => ({
   [`&.${classes.root}`]: {
-    margin: theme.spacing(4),
-    padding: theme.spacing(4),
+    // margin: theme.spacing(4),
+    // padding: theme.spacing(4),
   },
 
   [`& .${classes.button}`]: {

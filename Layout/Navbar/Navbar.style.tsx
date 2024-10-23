@@ -1,5 +1,5 @@
 //React
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 
 //Constant
 import { DRAWER_WIDTH } from "../../constants/dimensions";
@@ -23,7 +23,7 @@ export const classes = {
   title: `${PREFIX}-title`,
 };
 
-export const Root = styled("div")(({ theme }) => ({
+export const Root = styled("div")(() => ({
   [`&.${classes.root}`]: {
     flexGrow: 1,
     height: "100%",
@@ -44,37 +44,37 @@ export const Root = styled("div")(({ theme }) => ({
   },
 
   [`& .${classes.appBar}`]: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+    // transition: theme.transitions.create(["margin", "width"], {
+    // easing: theme.transitions.easing.sharp,
+    // duration: theme.transitions.duration.leavingScreen,
+    // }),
   },
 
   [`& .${classes.appBarShift}`]: {
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${DRAWER_WIDTH}px)`,
-      marginLeft: DRAWER_WIDTH,
-    },
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    // [theme.breakpoints.up("sm")]: {
+    // width: `calc(100% - ${DRAWER_WIDTH}px)`,
+    // marginLeft: DRAWER_WIDTH,
+    // },
+    // transition: theme.transitions.create(["margin", "width"], {
+    // easing: theme.transitions.easing.easeOut,
+    // duration: theme.transitions.duration.enteringScreen,
+    // }),
   },
 
   // necessary for content to be below app bar
-  [`& .${classes.toolbar}`]: theme.mixins.toolbar,
+  [`& .${classes.toolbar}`]: {}, //theme.mixins.toolbar,
 
   [`& .${classes.activeSubMenu}`]: {
-    marginLeft: theme.spacing(2),
+    // marginLeft: theme.spacing(2),
     // backgroundColor: "#f4f4f4",
     backgroundColor: indigo[500],
   },
 
   [`& .${classes.menuButton}`]: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
+    // marginRight: theme.spacing(2),
+    // [theme.breakpoints.up("sm")]: {
+    //   display: "none",
+    // },
   },
   [`& .${classes.linkButton}`]: {
     "&:hover": { background: "inherit" },

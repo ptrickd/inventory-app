@@ -2,12 +2,12 @@
 import React from "react";
 
 //Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
+import { styled } from "@mui/material-pigment-css";
+import Container from "@mui/material-pigment-css/Container";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 import Typography from "@mui/material/Typography";
 
 // Material Icons
@@ -22,7 +22,7 @@ const classes = {
 };
 
 //Add position:relative to all parent container
-const StyledContainer = styled(Container)(({ theme: Theme }) => ({
+const StyledContainer = styled(Container)(() => ({
   [`&.${classes.root}`]: {
     marginTop: "auto",
   },

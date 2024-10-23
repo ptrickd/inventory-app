@@ -1,5 +1,5 @@
 //Material UI
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 
 //Styles
 import {

@@ -1,7 +1,7 @@
 //Material UI
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 import Collapse from "@mui/material/Collapse";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 

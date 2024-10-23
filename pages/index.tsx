@@ -98,7 +98,7 @@ export default function Home() {
           imgHeight={533}
           imageAlt="photo of dashboard app"
           imagePath="/dashboard_light.jpg"
-          text="Easy acces to Settings, Categories, Products and Reports"
+          text="Easy access to Settings, Categories, Products and Reports"
           title="A Clean Dashboard"
         />
 

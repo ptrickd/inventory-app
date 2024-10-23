@@ -1,8 +1,8 @@
 //Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
+import { styled } from "@mui/material-pigment-css";
+import Container from "@mui/material-pigment-css/Container";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 import Typography from "@mui/material/Typography";
 
 //Styles

@@ -16,7 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";

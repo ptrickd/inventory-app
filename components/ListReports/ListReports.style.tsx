@@ -1,6 +1,6 @@
 //Material UI
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { styled } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 const PREFIX = "ListReports";
 
@@ -9,8 +9,8 @@ export const classes = {
   category: `${PREFIX}-category`,
 };
 
-export const Root = styled(Box)(({ theme: Theme }) => ({
+export const Root = styled(Box)(() => ({
   [`& .${classes.category}`]: {
-    backgroundColor: Theme.palette.background.paper,
+    // backgroundColor: Theme.palette.background.paper,
   },
 }));

@@ -106,7 +106,8 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
 
   const formBody = (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={classes.input}>
+      <div>
+        {/* className={classes.input} */}
         <Controller
           name="name"
           control={control}
@@ -119,7 +120,8 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
         {errors.name && <span>*Required</span>}
       </div>
 
-      <div className={classes.buttons}>
+      <div>
+        {/* className={classes.buttons} */}
         <Button variant="contained" size="small" color="primary" type="submit">
           Edit
         </Button>
@@ -145,7 +147,8 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
       onClose={() => handleCloseModal()}
     >
       <DialogTitle>{categoryName.toUpperCase()}</DialogTitle>
-      <DialogContent className={classes.content}>
+      <DialogContent>
+        {/* className={classes.content} */}
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
     </StyledDialog>

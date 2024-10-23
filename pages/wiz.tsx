@@ -3,9 +3,9 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
+import { styled } from "@mui/material-pigment-css";
+import Container from "@mui/material-pigment-css/Container";
+import Box from "@mui/material-pigment-css/Box";
 
 //Components
 import FirstReport from "../components/FirstReport";
@@ -30,7 +30,7 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled(Container)(({ theme: Theme }) => ({
+const Root = styled(Container)(() => ({
   [`&.${classes.root}`]: {
     padding: 20,
     display: "flex",

@@ -1,8 +1,8 @@
 //Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
+import { styled } from "@mui/material-pigment-css";
+import Container from "@mui/material-pigment-css/Container";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 
 const PREFIX = "Login";
 
@@ -12,7 +12,7 @@ export const classes = {
   title: `${PREFIX}-title`,
 };
 
-export const Root = styled(Container)(({ theme: Theme }) => ({
+export const Root = styled(Container)(() => ({
   [`&.${classes.root}`]: {
     display: "flex",
     minHeight: "calc(100vh - 120px)",

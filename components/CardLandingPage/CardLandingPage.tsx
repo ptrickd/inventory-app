@@ -4,7 +4,7 @@ import Image from "next/legacy/image";
 //Material UI
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 
 //Types
 interface IProps {

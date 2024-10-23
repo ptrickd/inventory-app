@@ -5,13 +5,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 //Material UI
-import { styled } from "@mui/material/styles";
-import Container from "@mui/material/Container";
+import { styled } from "@mui/material-pigment-css";
+import Container from "@mui/material-pigment-css/Container";
 import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material-pigment-css/Grid";
 
 //Icons
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -29,7 +29,7 @@ const classes = {
   styledPaper: `${PREFIX}-styled-paper`,
 };
 
-const Root = styled(Container)(({ theme: Theme }) => ({
+const Root = styled(Container)(() => ({
   [`&.${classes.root}`]: {
     width: "100%",
     minHeight: "calc(100vh - 120px)",
@@ -41,7 +41,7 @@ const Root = styled(Container)(({ theme: Theme }) => ({
   },
 }));
 
-const StyledPaper = styled(Paper)(({ theme: Theme }) => ({
+const StyledPaper = styled(Paper)(() => ({
   [`&.${classes.styledPaper}`]: {
     width: "100%",
     minHeight: "70vh",

@@ -1,5 +1,5 @@
 //Material UI
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 
 const PREFIX = "InputProduct";
 
@@ -15,7 +15,7 @@ export const classes = {
   iconSettings: `${PREFIX}-icon-settings`,
 };
 
-export const Root = styled("div")(({ theme }) => ({
+export const Root = styled("div")(() => ({
   [`&.${classes.root}`]: {
     width: "100%",
   },
@@ -28,7 +28,7 @@ export const Root = styled("div")(({ theme }) => ({
   },
 
   [`& .${classes.innerFormControl}`]: {
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
     alignItems: "center",
   },
 
@@ -41,21 +41,21 @@ export const Root = styled("div")(({ theme }) => ({
   },
 
   [`& .${classes.box}`]: {
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
     alignItems: "left",
   },
 
   [`& .${classes.lastAmountName}`]: {
     width: "100%",
-    paddingLeft: theme.spacing(0.7),
+    // paddingLeft: theme.spacing(0.7),
   },
 
   [`& .${classes.lastAmountValue}`]: {
     height: "auto",
-    padding: theme.spacing(0.7),
+    // padding: theme.spacing(0.7),
   },
 
   [`& .${classes.iconSettings}`]: {
-    color: theme.palette.text.primary,
+    // color: theme.palette.text.primary,
   },
 }));

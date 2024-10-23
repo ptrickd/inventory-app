@@ -1,5 +1,5 @@
 //React
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 
 //Material UI
 import MenuItem from "@mui/material/MenuItem";
@@ -15,16 +15,16 @@ export const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-export const Root = styled("div")(({ theme: Theme }) => ({
+export const Root = styled("div")(() => ({
   [`&.${classes.menuText}`]: {
     // color: TEXT_MENU_COLOR,
     textTransform: "none",
-    marginLeft: Theme.spacing(1),
+    // marginLeft: Theme.spacing(1),
     margin: 0,
   },
 }));
 
-export const StyledMenuItem = styled(MenuItem)(({ theme: Theme }) => ({
+export const StyledMenuItem = styled(MenuItem)(() => ({
   [`&.${classes.list}`]: {
     background: "inherit",
     margin: 0,

@@ -1,5 +1,5 @@
 //Material UI
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 
 //Styles
 const PREFIX = "EditProductPart";

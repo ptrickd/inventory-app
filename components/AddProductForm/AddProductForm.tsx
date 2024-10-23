@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 
 //Form
@@ -91,7 +91,7 @@ function AddProductForm({
         render={({ field: { onChange, value } }) => (
           <Box component="div">
             <Autocomplete
-              className={classes.input}
+              // className={classes.input}
               onChange={(event, value) => {
                 //if newValue not from the list of products object
                 if (typeof value === "string") {
@@ -199,7 +199,8 @@ function AddProductForm({
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal("")}
     >
-      <DialogContent className={classes.content}>
+      <DialogContent>
+        {/* className={classes.content} */}
         {/* {!submitting ? searchBar : <CircularProgress />} */}
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>

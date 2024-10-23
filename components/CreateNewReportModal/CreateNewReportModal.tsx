@@ -63,10 +63,10 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
       open={open}
       aria-labelledby="Create A New Report"
       onClose={() => handleCloseModal({ succeeded: false, messageError: "" })}
-      className={classes.root}
     >
+      {/* className={classes.root} */}
       <DialogContent>
-        <Typography align="center" variant="body1" paragraph>
+        <Typography align="center" variant="body1">
           Date of the next report
         </Typography>
         <DatePicker

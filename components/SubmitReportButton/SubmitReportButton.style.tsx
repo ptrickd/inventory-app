@@ -1,7 +1,7 @@
 //Material UI
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 
 //Styles
 const PREFIX = "sumit-report-button";

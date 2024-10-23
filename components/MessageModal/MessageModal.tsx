@@ -33,7 +33,8 @@ const MessageModal = ({ open, message, isError, handleClick }: IProps) => {
       aria-labelledby="message display"
       className={classes.root}
     >
-      <StyledDialogContent className={classes.dialogContent}>
+      <StyledDialogContent>
+        {/* className={classes.dialogContent} */}
         {isError ? (
           <StyledMessage className={classes.typo}>
             <Typography color="error" align="center" variant="h5">

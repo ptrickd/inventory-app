@@ -1,7 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 // import { ServerStyleSheets } from "@mui/styles";
-import theme from "../src/theme";
+// import theme from "../src/theme";
 
 export default class MyDocument extends Document {
   render() {
@@ -9,7 +9,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
         </Head>
         <body>
           <Main />

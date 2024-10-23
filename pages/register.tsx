@@ -1,12 +1,12 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/material-pigment-css";
 import { useRouter } from "next/router";
 
 //Material UI
-import Container from "@mui/material/Container";
+import Container from "@mui/material-pigment-css/Container";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import Box from "@mui/material-pigment-css/Box";
 
 //Form
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -31,7 +31,7 @@ const classes = {
   title: `${PREFIX}-title`,
 };
 
-const Root = styled(Container)(({ theme: Theme }) => ({
+const Root = styled(Container)(() => ({
   [`&.${classes.root}`]: {
     display: "flex",
     minHeight: "calc(100vh - 120px)",
