@@ -12,6 +12,8 @@ import CategoriesSection from "../components/CategoriesSection";
 import ReportsSection from "../components/ReportsSection";
 
 //Material UI
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
@@ -28,7 +30,6 @@ import { ReportsContext } from "../contexts/ReportsContext";
 
 //Style
 import {
-  classes,
   Root,
   Main,
   StyledPaper,
@@ -82,8 +83,8 @@ function Dashboard() {
   }, [loggedIn, router]);
 
   return (
-    <Root className={classes.root} maxWidth="xs">
-      <Main className={classes.main}>
+    <Container className={classes.root} maxWidth="xs">
+      <Box className={classes.main}>
         <StyledPaper className={classes.styledPaper} elevation={1}>
           <Typography variant="h4" align="center">
             {currentUser && currentUser.email}
@@ -126,9 +127,9 @@ function Dashboard() {
             handleCloseModal={handleCloseSettingsModal}
           />
         </StyledPaper>
-      </Main>
+      </Box>
       <Footer />
-    </Root>
+    </Container>
   );
 }
 

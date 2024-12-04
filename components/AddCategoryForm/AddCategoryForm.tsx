@@ -2,6 +2,8 @@
 import React, { useState, useContext } from "react";
 
 //Material UI
+import Dialog from "@mui/material/Dialog";
+
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -14,7 +16,11 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { CategoriesContext } from "../../contexts/CategoriesContext";
 
 //Types
-import { classes, StyledDialog } from "./AddCategoryForm.style";
+import {
+  buttonsStyle,
+  contentStyle,
+  inputStyle,
+} from "./AddCategoryForm.style";
 
 interface ICategory {
   id: string;
@@ -66,7 +72,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
         rules={{ required: true }}
         render={({ field }) => (
           <TextField
-            className={classes.input}
+            className={inputStyle}
             {...field}
             label="Add a category"
             autoComplete="off"
@@ -76,7 +82,7 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
       />
       {errors.name && <span>*Required</span>}
 
-      <div className={classes.buttons}>
+      <div className={buttonsStyle}>
         <Button variant="contained" size="small" color="primary" type="submit">
           Add
         </Button>
@@ -95,16 +101,16 @@ function AddCategoryForm({ open, handleCloseModal }: IProps) {
   );
 
   return (
-    <StyledDialog
+    <Dialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
     >
       {/* <DialogTitle>Add a category</DialogTitle> */}
-      <DialogContent className={classes.content}>
+      <DialogContent className={contentStyle}>
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 }
 

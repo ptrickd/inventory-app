@@ -1,40 +1,23 @@
 //Material UI
-import { styled } from "@mui/material-pigment-css";
-import Container from "@mui/material-pigment-css/Container";
+import { css } from "@mui/material-pigment-css";
 
-const PREFIX = "ProductsPage";
+export const rootStyle = css({
+  marginTop: 60,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
 
-export const classes = {
-  root: `${PREFIX}-root`,
-  button: `${PREFIX}-button`,
-  title: `${PREFIX}-title`,
-  titleText: `${PREFIX}-title-text`,
-  productContainer: `${PREFIX}-product-container`,
-};
+export const buttonStyle = css({
+  marginTop: "10px",
+});
 
-export const Root = styled(Container)(() => ({
-  [`&.${classes.root}`]: {
-    marginTop: 60,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+export const titleStyle = css({
+  marginTop: 12,
+  display: "flex",
+});
 
-  [`& .${classes.button}`]: {
-    marginTop: "10px",
-  },
-
-  [`& .${classes.title}`]: {
-    marginTop: 12,
-    display: "flex",
-  },
-
-  [`& .${classes.titleText}`]: {
-    marginRight: 10,
-  },
-
-  [`& .${classes.productContainer}`]: {
-    flexGrow: 1,
-  },
-}));
+export const titleTextStyle = css({
+  marginRight: 10,
+});

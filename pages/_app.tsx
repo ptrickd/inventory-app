@@ -16,16 +16,23 @@ import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
 
 //Styles
+import { Theme } from "@mui/material/styles";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Themes from "../styles/Themes";
-import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
-
+import "@pigment-css/react/styles.css";
 //Roboto Font
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+
+//Declare types for pigment css
+declare module "@mui/material-pigment-css" {
+  interface ThemeArgs {
+    theme: Theme;
+  }
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -34,15 +41,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CategoriesProvider>
           <ProductsProvider>
             <ReportsProvider>
-              <Themes>
-                <Head>
-                  <title>Gruyere: The App Inventory</title>
-                </Head>
-                <Navbar />
-                <ComponentWrapper>
-                  <Component {...pageProps} />
-                </ComponentWrapper>
-              </Themes>
+              {/* <Themes> */}
+              <Head>
+                <title>Gruyere: The App Inventory</title>
+              </Head>
+              <Navbar />
+              <ComponentWrapper>
+                <Component {...pageProps} />
+              </ComponentWrapper>
+              {/* </Themes> */}
             </ReportsProvider>
           </ProductsProvider>
         </CategoriesProvider>

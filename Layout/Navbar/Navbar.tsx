@@ -24,7 +24,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MoreIcon from "@mui/icons-material/MoreVert";
 
 //Styles
-import { classes, Root } from "./Navbar.style";
+import {
+  rootStyle,
+  drawerStyle,
+  drawerPaperStyle,
+  hideStyle,
+  appBarStyle,
+  appBarShiftStyle,
+  activeSubMenuStyle,
+  menuButtonStyle,
+  linkButtonStyle,
+  titleStyle,
+  toolbarStyle,
+} from "./Navbar.style";
 
 const Navbar = () => {
   const { loggedIn, logout } = useContext(UserContext);
@@ -65,11 +77,9 @@ const Navbar = () => {
   // const MemoIconButton = React.memo(renderedIconButton);
   if (!categories) return null;
   return (
-    <Root className={classes.root}>
+    <div className={rootStyle}>
       <CssBaseline />
-      <AppBar
-        className={clsx(classes.appBar, { [classes.appBarShift]: loggedIn })}
-      >
+      <AppBar className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}>
         <Toolbar>
           {/*https://github.com/mui/material-ui/issues/4532*
           To try React.memo the button
@@ -79,7 +89,7 @@ const Navbar = () => {
             color="inherit"
             arial-label="open drawer"
             edge="start"
-            className={clsx(classes.menuButton, mobileOpen && classes.hide)}
+            className={clsx(menuButtonStyle, mobileOpen && hideStyle)}
             // disableRipple
             onClick={() => setMobileOpen(true)}
           >
@@ -87,7 +97,7 @@ const Navbar = () => {
           </IconButton>
 
           <Button
-            className={classes.title}
+            className={titleStyle}
             color="inherit"
             onClick={() => {
               router.push("/");
@@ -108,7 +118,7 @@ const Navbar = () => {
                 <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
           {loggedIn && (
             <Button
-              className={classes.linkButton}
+              className={linkButtonStyle}
               color="inherit"
               onClick={() => handleLogoutClick()}
             >
@@ -117,7 +127,7 @@ const Navbar = () => {
           )}
           {!loggedIn && (
             <Button
-              className={classes.linkButton}
+              className={linkButtonStyle}
               color="inherit"
               onClick={() => {
                 router.push("/login");
@@ -129,12 +139,12 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
       {loggedIn && (
-        <nav className={classes.drawer} aria-label="menu">
+        <nav className={drawerStyle} aria-label="menu">
           <Drawer
             sx={{ display: { xs: "block", sm: "none" } }}
             variant="temporary"
             anchor="left"
-            classes={{ paper: classes.drawerPaper }}
+            classes={{ paper: drawerPaperStyle }}
             open={mobileOpen}
             onClose={() => setMobileOpen(false)}
             ModalProps={{ keepMounted: true }}
@@ -145,13 +155,13 @@ const Navbar = () => {
             sx={{ display: { xs: "none", sm: "block" } }}
             open
             variant="permanent"
-            classes={{ paper: classes.drawerPaper }}
+            classes={{ paper: drawerPaperStyle }}
           >
             <NavbarDrawer categories={categories} />
           </Drawer>
         </nav>
       )}
-    </Root>
+    </div>
   );
 };
 

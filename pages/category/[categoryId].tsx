@@ -14,6 +14,7 @@ import EditCategoryForm from "../../components/EditCategoryForm";
 import MessageModal from "../../components/MessageModal";
 
 //Material UI
+import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -23,7 +24,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 //Style
-import { classes, Root } from "../../styles/categoryId.style";
+import {
+  buttonStyle,
+  rootStyle,
+  titleStyle,
+  titleTextStyle,
+} from "../../styles/categoryId.style";
 
 const ProductsPage: React.FC = () => {
   //Context
@@ -183,9 +189,9 @@ const ProductsPage: React.FC = () => {
   if (!currentCategory) return null;
 
   return (
-    <Root className={classes.root} maxWidth="xs">
-      <div className={classes.title}>
-        <Typography variant="h2" className={classes.titleText}>
+    <Container className={rootStyle} maxWidth="xs">
+      <div className={titleStyle}>
+        <Typography variant="h2" className={titleTextStyle}>
           {currentCategory.name}
         </Typography>
         <IconButton color="icon" onClick={() => setOpenEditCategoryModal(true)}>
@@ -204,7 +210,7 @@ const ProductsPage: React.FC = () => {
       <Button
         variant="contained"
         color="primary"
-        className={classes.button}
+        className={buttonStyle}
         onClick={() => goToNextCategory()}
       >
         Next Category
@@ -212,7 +218,7 @@ const ProductsPage: React.FC = () => {
       <Button
         variant="contained"
         color="primary"
-        className={classes.button}
+        className={buttonStyle}
         onClick={() => setOpenAddProductModal(true)}
       >
         Add New Product
@@ -237,7 +243,7 @@ const ProductsPage: React.FC = () => {
         isError={isResponseError}
         handleClick={() => handleMessageModalClicked()}
       />
-    </Root>
+    </Container>
   );
 };
 

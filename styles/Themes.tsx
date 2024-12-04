@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 
 //Material UI
 import { ThemeProvider } from "@mui/material/styles";
-
 //Context
 import { UserContext } from "../contexts/UserContext";
 

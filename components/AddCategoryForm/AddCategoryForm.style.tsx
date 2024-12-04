@@ -1,27 +1,12 @@
 //Material UI
-import { styled } from "@mui/material-pigment-css";
-import Dialog from "@mui/material/Dialog";
+import { css } from "@mui/material-pigment-css";
 
-const PREFIX = "AddCategoryForm";
+export const contentStyle = css({ display: "flex", flexDirection: "column" });
 
-export const classes = {
-  content: `${PREFIX}-content`,
-  buttons: `${PREFIX}-buttons`,
-  input: `${PREFIX}-input`,
-};
-
-export const StyledDialog = styled(Dialog)({
-  [`& .${classes.content}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  [`& .${classes.buttons}`]: {
-    marginTop: 5,
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  [`& .${classes.input}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
+export const buttonsStyle = css({
+  marginTop: 5,
+  display: "flex",
+  justifyContent: "space-around",
 });
+
+export const inputStyle = css({ display: "flex", flexDirection: "column" });

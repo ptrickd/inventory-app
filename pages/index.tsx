@@ -11,18 +11,22 @@ import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/legacy/image";
 import Divider from "@mui/material/Divider";
+
+//Material UI
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 
 //Style
 import {
-  classes,
-  Root,
-  Main,
-  StyledTypography,
-  StyledButton,
+  rootStyle,
+  mainStyle,
+  titleStyle,
+  subtitleStyle,
+  buttonStyle,
 } from "../styles/index.style";
-
+import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
 //Context
 import { UserContext } from "../contexts/UserContext";
 import { ReportsContext } from "../contexts/ReportsContext";
@@ -59,27 +63,27 @@ export default function Home() {
   }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
 
   return (
-    <Root className={classes.root} maxWidth="md">
-      <Main className={classes.main}>
-        <StyledTypography className={classes.title} variant="h4" align="center">
+    <Container className={rootStyle} maxWidth="md">
+      <Box className={mainStyle}>
+        <Typography className={titleStyle} variant="h4" align="center">
           Gruyere
-        </StyledTypography>
-        <StyledTypography
-          className={classes.subtitle}
+        </Typography>
+        <Typography
+          className={subtitleStyle}
           variant="h5"
           align="center"
           sx={{ marginTop: 10, marginBottom: 10 }}
         >
           Your Kitchen Inventory App Management
-        </StyledTypography>
+        </Typography>
         <Image
           alt="stock photo"
           src="/nathan-dumlao-g8gOnhMRckw-unsplash_working.jpg"
           width={500}
           height={300}
         />
-        <StyledButton
-          className={classes.button}
+        <Button
+          className={buttonStyle}
           variant="contained"
           color="primary"
           size="large"
@@ -88,7 +92,7 @@ export default function Home() {
           }}
         >
           Start
-        </StyledButton>
+        </Button>
 
         {/*****************    Dashboard    ****************/}
 
@@ -125,8 +129,8 @@ export default function Home() {
           text="See your reports in a glance. Submit new report or erase old ones."
           title="See and print full reports"
         />
-      </Main>
-      <Footer />
-    </Root>
+      </Box>
+      {/* <Footer /> */}
+    </Container>
   );
 }
