@@ -15,7 +15,7 @@ import AddProductForm from "../../components/AddProductForm";
 import DisplayMessage from "../DisplayMessage";
 
 //Types
-import { classes, Root } from "./FirstProduct.style";
+import { rootStyle, buttonStyle, itemsStyle } from "./FirstProduct.style";
 
 const FirstProduct: React.FC = () => {
   const { categories } = useContext(CategoriesContext);
@@ -44,23 +44,23 @@ const FirstProduct: React.FC = () => {
   //To fix: when no categories do something
   if (categories === undefined || categories[0] === undefined) return null;
   return (
-    <Root className={classes.root}>
+    <section className={rootStyle}>
       {/* <div> */}
       <Typography
         align="center"
         variant="body1"
         paragraph
-        className={classes.items}
+        className={itemsStyle}
       >
         {textBody}
       </Typography>
-      <Typography className={classes.items}>
+      <Typography className={itemsStyle}>
         Your first category is
         <Box component="span"> {categories[0].name}</Box>
       </Typography>
       <Button
         onClick={() => setOpenModal(true)}
-        className={classes.button}
+        className={buttonStyle}
         variant="contained"
         color="primary"
         size="large"
@@ -80,7 +80,7 @@ const FirstProduct: React.FC = () => {
         message={messageError}
       />
       {/* </div> */}
-    </Root>
+    </section>
   );
 };
 

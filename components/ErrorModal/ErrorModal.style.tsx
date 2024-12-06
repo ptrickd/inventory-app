@@ -1,23 +1,10 @@
 //Material UI
-import { styled } from "@mui/material-pigment-css";
-import Dialog from "@mui/material/Dialog";
+import { css } from "@mui/material-pigment-css";
 
-const PREFIX = "ErrorModal";
+export const textStyle = css({
+  marginTop: 10,
+  marginLeft: 10,
+  marginRight: 10,
+});
 
-export const classes = {
-  text: `${PREFIX}-text`,
-  button: `${PREFIX}-button`,
-};
-
-export const StyledDialog = styled(Dialog)(() => ({
-  [`& .${classes.text}`]: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
-  },
-
-  [`& .${classes.button}`]: {
-    display: "flex",
-    justifyContent: "center",
-  },
-}));
+export const buttonStyle = css({ display: "flex", justifyContent: "center" });

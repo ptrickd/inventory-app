@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import DatePicker from "../DatePicker";
 
 //Material UI
-
+import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -15,7 +15,7 @@ import { ReportsContext } from "../../contexts/ReportsContext";
 import { ProductsContext } from "../../contexts/ProductsContext";
 
 //Styles
-import { classes, StyledDialog } from "./CreateNewReportModal.style";
+import { rootStyle, buttonStyle } from "./CreateNewReportModal.style";
 
 interface IResponseStatus {
   succeeded: boolean;
@@ -59,7 +59,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
   };
 
   return (
-    <StyledDialog
+    <Dialog
       open={open}
       aria-labelledby="Create A New Report"
       onClose={() => handleCloseModal({ succeeded: false, messageError: "" })}
@@ -75,7 +75,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
         />
         {selectedDate ? (
           <Button
-            className={classes.button}
+            className={buttonStyle}
             variant="contained"
             color="primary"
             fullWidth
@@ -85,7 +85,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
           </Button>
         ) : (
           <Button
-            className={classes.button}
+            className={buttonStyle}
             variant="contained"
             fullWidth
             disabled
@@ -94,7 +94,7 @@ function CreateNewReportModal({ open, handleCloseModal }: IProps) {
           </Button>
         )}
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 }
 

@@ -1,27 +1,10 @@
 //Material UI
-import { styled } from "@mui/material-pigment-css";
-
-const PREFIX = "AuthForm";
-
-export const classes = {
-  form: `${PREFIX}-form`,
-  input: `${PREFIX}-input`,
-  button: `${PREFIX}-button`,
-};
+import { css } from "@mui/material-pigment-css";
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-export const Root = styled("div")(() => ({
-  [`& .${classes.form}`]: {
-    display: "flex",
-    flexDirection: "column",
-  },
 
-  [`& .${classes.input}`]: {
-    marginBottom: 15,
-  },
+export const formStyle = css({ display: "flex", flexDirection: "column" });
 
-  [`& .${classes.button}`]: {
-    marginTop: 15,
-    marginBottom: 15,
-  },
-}));
+export const inputStyle = css({ marginBottom: 15 });
+
+export const buttonStyle = css({ marginTop: 15, marginBottom: 15 });

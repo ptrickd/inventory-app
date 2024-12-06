@@ -6,6 +6,7 @@ import { ProductsContext } from "../../contexts/ProductsContext";
 import { UserContext } from "../../contexts/UserContext";
 
 //Material UI
+import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -22,7 +23,12 @@ import { useQuery } from "@apollo/client";
 import { GET_CATEGORIES } from "../../graphql/queries";
 
 //Styles
-import { classes, StyledDialog } from "./EditProductForm.style";
+import {
+  contentStyle,
+  buttonStyle,
+  inputStyle,
+  categoryStyle,
+} from "./EditProductForm.style";
 
 //Types
 interface ICategory {
@@ -91,7 +97,7 @@ function EditProductForm({
 
   const formBody = (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={classes.input}>
+      <div className={inputStyle}>
         <Controller
           name="name"
           control={control}
@@ -109,7 +115,7 @@ function EditProductForm({
           rules={{ required: true }}
           render={({ field }) => (
             <Fragment>
-              <InputLabel className={classes.category}>Category</InputLabel>
+              <InputLabel className={categoryStyle}>Category</InputLabel>
               <Select
                 {...field}
                 onChange={(e) => field.onChange(changeData(e))}
@@ -128,7 +134,7 @@ function EditProductForm({
         />
       </div>
 
-      <div className={classes.buttons}>
+      <div className={buttonStyle}>
         <Button variant="contained" size="small" color="primary" type="submit">
           Edit
         </Button>
@@ -152,19 +158,19 @@ function EditProductForm({
         <h2>Loading...</h2>
       </div>
     );
-  if (error) return <div>`Error! ${error.message}`</div>;
+  if (error) <div>`Error! ${error.message}`</div>;
 
   return (
-    <StyledDialog
+    <Dialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
     >
       {/* <DialogTitle>Add a category</DialogTitle> */}
-      <DialogContent className={classes.content}>
+      <DialogContent className={contentStyle}>
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 }
 

@@ -13,7 +13,13 @@ import Divider from "@mui/material/Divider";
 import Slide from "@mui/material/Slide";
 
 //Style
-import { classes, Root } from "./NavbarDrawer.style";
+import {
+  rootStyle,
+  menuStyle,
+  menuIconStyle,
+  subMenuStyle,
+  toolbarStyle,
+} from "./NavbarDrawer.style";
 
 //Icons
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
@@ -41,9 +47,9 @@ const NavbarDrawer = ({ categories }: IProps) => {
       // console.log(category)
       return (
         <Link href={`/category/${category.id}`} key={category.id}>
-          <ListItemButton className={classes.subMenu}>
+          <ListItemButton className={subMenuStyle}>
             <ListItemText primary={category.name} />
-            <ListItemIcon className={classes.menuIcon}>
+            <ListItemIcon className={menuIconStyle}>
               <ArrowForwardIcon />
             </ListItemIcon>
           </ListItemButton>
@@ -52,36 +58,36 @@ const NavbarDrawer = ({ categories }: IProps) => {
     });
   };
   return (
-    <Root className={classes.root}>
+    <div className={rootStyle}>
       {/* //Add the primary color on the top on the sidebar side */}
 
-      <div className={classes.toolbar} />
+      <div className={toolbarStyle} />
 
       <Divider />
 
       <List>
         <Link href="/dashboard">
-          <span className={classes.menu}>
+          <span className={menuStyle}>
             <ListItemButton key="dashboard">
               <ListItemText primary="Dashboard" />
-              <ListItemIcon className={classes.menuIcon}>
+              <ListItemIcon className={menuIconStyle}>
                 <ArrowForwardIcon />
               </ListItemIcon>
             </ListItemButton>
           </span>
         </Link>
 
-        <span className={classes.menu}>
+        <span className={menuStyle}>
           <ListItem>
             <NavbarReportsList />
           </ListItem>
         </span>
 
         <Divider />
-        <span className={classes.menu}>
+        <span className={menuStyle}>
           <ListItemButton onClick={handleClickCategories} key="category">
             <ListItemText primary="Categories" />
-            <ListItemIcon className={classes.menuIcon}>
+            <ListItemIcon className={menuIconStyle}>
               {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
             </ListItemIcon>
           </ListItemButton>
@@ -94,7 +100,7 @@ const NavbarDrawer = ({ categories }: IProps) => {
         )}
       </List>
       <Divider />
-    </Root>
+    </div>
   );
 };
 

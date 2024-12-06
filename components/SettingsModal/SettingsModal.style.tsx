@@ -1,16 +1,7 @@
 //Material UI
-import { styled } from "@mui/material-pigment-css";
-import Dialog from "@mui/material/Dialog";
+import { css } from "@mui/material-pigment-css";
 
-const PREFIX = "SettingsModals";
-
-export const classes = {
-  close: `${PREFIX}--close`,
-};
-
-export const StyledDialog = styled(Dialog)(() => ({
-  [`& .${classes.close}`]: {
-    display: "flex",
-    justifyContent: "flex-start",
-  },
-}));
+export const closeStyle = css({
+  display: "flex",
+  justifyContent: "flex-start",
+});

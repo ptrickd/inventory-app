@@ -9,7 +9,12 @@ import ListItem from "@mui/material/ListItem";
 
 //Material UI
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
+import Button from "@mui/material/Button";
+
+import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
+
 import List from "@mui/material/List";
 
 //Material Icon
@@ -18,11 +23,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 //Styles
 import {
-  classes,
-  Section,
-  HorizontalBox,
-  StyledCollapse,
-  StyledButton,
+  sectionStyle,
+  buttonStyle,
+  horizontalBoxStyle,
+  collapseStyle,
 } from "./CategoriesSection.style";
 
 //Types
@@ -67,8 +71,8 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
   };
 
   return (
-    <Section className={classes.section}>
-      <HorizontalBox className={classes.horizontalBox}>
+    <Box className={sectionStyle}>
+      <Box className={horizontalBoxStyle}>
         <IconButton
           aria-label="add category"
           color="icon"
@@ -82,16 +86,13 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
           Add Category
         </Typography>
 
-        <StyledButton
-          onClick={() => setShowList(!showList)}
-          className={classes.styledButton}
-        >
+        <Button onClick={() => setShowList(!showList)} className={buttonStyle}>
           <Typography variant="body1" color={theme.palette.text.primary}>
             {listOfCategories.length}
           </Typography>
-        </StyledButton>
-      </HorizontalBox>
-      <StyledCollapse in={showList} className={classes.styledCollapse}>
+        </Button>
+      </Box>
+      <Collapse in={showList} className={collapseStyle}>
         <List>
           {listOfCategories.map((item) => {
             return (
@@ -105,7 +106,7 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
             );
           })}
         </List>
-      </StyledCollapse>
+      </Collapse>
 
       <AddCategoryForm
         open={openCategoryModal}
@@ -117,7 +118,7 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
         isError={isMessageError}
         handleClick={handleMessageModalClicked}
       />
-    </Section>
+    </Box>
   );
 };
 

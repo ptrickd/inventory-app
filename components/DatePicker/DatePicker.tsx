@@ -11,7 +11,7 @@ import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 import TextField from "@mui/material/TextField";
 
 //Styles
-import { classes, Root } from "./DatePicker.style";
+import { rootStyle } from "./DatePicker.style";
 
 interface IProps {
   handleSelectedDate: (date: Date | null) => void;
@@ -27,7 +27,7 @@ const DatePicker = ({ handleSelectedDate, initialDate }: IProps) => {
     }
   }, [isSelectedDate, setSelectedDate, initialDate]);
   return (
-    <Root className={classes.root} aria-label="date picker">
+    <section className={rootStyle} aria-label="date picker">
       <LocalizationProvider dateAdapter={AdapterLuxon}>
         <DesktopDatePicker
           // inputFormat="EEE DD"
@@ -46,7 +46,7 @@ const DatePicker = ({ handleSelectedDate, initialDate }: IProps) => {
           // renderInput={(props) => <TextField {...props} />}
         />
       </LocalizationProvider>
-    </Root>
+    </section>
   );
 };
 

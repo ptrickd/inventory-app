@@ -2,15 +2,20 @@
 import React, { useState, useEffect } from "react";
 
 //Material UI
+import Box from "@mui/material-pigment-css/Box";
+import Button from "@mui/material/Button";
+
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+
 import Typography from "@mui/material/Typography";
 
 //Styles
 import {
-  classes,
-  StyledDialog,
-  StyledDialogContent,
-  StyledMessage,
-  StyledButton,
+  rootStyle,
+  dialogContentStyle,
+  messageTypoStyle,
+  buttonStyle,
 } from "./MessageModal.style";
 
 interface IProps {
@@ -28,39 +33,39 @@ const MessageModal = ({ open, message, isError, handleClick }: IProps) => {
   }, [open]);
 
   return (
-    <StyledDialog
+    <Dialog
       open={openModal}
       aria-labelledby="message display"
-      className={classes.root}
+      className={rootStyle}
     >
-      <StyledDialogContent>
+      <DialogContent>
         {/* className={classes.dialogContent} */}
         {isError ? (
-          <StyledMessage className={classes.typo}>
+          <Box className={messageTypoStyle}>
             <Typography color="error" align="center" variant="h5">
               Error
             </Typography>
             <Typography color="error" align="center" variant="subtitle1">
               {message}
             </Typography>
-          </StyledMessage>
+          </Box>
         ) : (
-          <StyledMessage className={classes.typo}>
+          <Box className={messageTypoStyle}>
             <Typography color="success" align="center" variant="subtitle1">
               {message}
             </Typography>
-          </StyledMessage>
+          </Box>
         )}
-        <StyledButton
-          className={classes.button}
+        <Button
+          className={buttonStyle}
           variant="contained"
           size="medium"
           onClick={handleClick}
         >
           OK
-        </StyledButton>
-      </StyledDialogContent>
-    </StyledDialog>
+        </Button>
+      </DialogContent>
+    </Dialog>
   );
 };
 

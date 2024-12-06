@@ -5,6 +5,8 @@ import React, { useEffect, useContext } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 //Material UI
+import Dialog from "@mui/material/Dialog";
+
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
@@ -15,7 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 //Style
-import { classes, StyledDialog } from "./SettingsModal.style";
+import { closeStyle } from "./SettingsModal.style";
 
 //Icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -50,12 +52,12 @@ const SettingsModal = ({ open, handleCloseModal }: IProps) => {
   };
 
   return (
-    <StyledDialog
+    <Dialog
       open={open}
       aria-labelledby="settings"
       onClose={() => handleCloseModal()}
     >
-      <DialogActions className={classes.close}>
+      <DialogActions className={closeStyle}>
         <IconButton onClick={(e) => handleCloseModal()}>
           <CloseIcon />
         </IconButton>
@@ -75,7 +77,7 @@ const SettingsModal = ({ open, handleCloseModal }: IProps) => {
           </Select>
         </FormControl>
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 };
 

@@ -5,6 +5,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 //Material UI
+import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
@@ -30,7 +31,11 @@ const EDIT_CATEGORY = gql`
 `;
 
 //Types
-import { classes, StyledDialog } from "./EditCategoryForm.style";
+import {
+  contentStyle,
+  buttonStyle,
+  inputStyle,
+} from "./EditCategoryForm.style";
 
 interface IProps {
   open: boolean;
@@ -141,17 +146,17 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
 
   if (!categoryName) return null;
   return (
-    <StyledDialog
+    <Dialog
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
     >
       <DialogTitle>{categoryName.toUpperCase()}</DialogTitle>
       <DialogContent>
-        {/* className={classes.content} */}
+        {/* className={contentStyle} */}
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 }
 

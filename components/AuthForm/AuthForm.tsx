@@ -15,7 +15,7 @@ import WaitingModal from "../../components/WaitingModal";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 //Style
-import { classes, Root } from "./AuthForm.styles";
+import { formStyle, inputStyle, buttonStyle } from "./AuthForm.styles";
 
 interface IForm {
   email: string;
@@ -36,8 +36,8 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
   } = useForm<IForm>();
 
   return (
-    <Root>
-      <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+    <section>
+      <form onSubmit={handleSubmit(onSubmit)} className={formStyle}>
         <Controller
           name="email"
           control={control}
@@ -45,7 +45,7 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
           rules={{ required: true, pattern: EMAIL_REGEX }}
           render={({ field }) => (
             <TextField
-              className={classes.input}
+              className={inputStyle}
               {...field}
               label="Email"
               autoComplete="off"
@@ -63,7 +63,7 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
             <TextField
               id="password"
               data-testid="password"
-              className={classes.input}
+              className={inputStyle}
               {...field}
               label="Password"
               autoComplete="off"
@@ -79,14 +79,14 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
         <Button
           variant="contained"
           color="primary"
-          className={classes.button}
+          className={buttonStyle}
           type="submit"
         >
           {label}
         </Button>
       </form>
       <WaitingModal open={submitting} />
-    </Root>
+    </section>
   );
 };
 

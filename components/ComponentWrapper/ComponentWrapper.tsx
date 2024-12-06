@@ -8,7 +8,7 @@ import clsx from "clsx";
 import { UserContext } from "../../contexts/UserContext";
 
 //Styles
-import { classes, Root } from "./ComponentWrapper.style";
+import { mainStyle, toolbarStyle } from "./ComponentWrapper.style";
 
 interface IProps {
   children: React.ReactNode;
@@ -19,10 +19,10 @@ const ComponentWrapper = ({ children }: IProps) => {
   const { loggedIn } = useContext(UserContext);
 
   return (
-    <Root>
-      <div className={classes.toolbar} />
-      <div className={clsx(loggedIn && classes.main)}>{children}</div>
-    </Root>
+    <section>
+      <div className={toolbarStyle} />
+      <div className={clsx(loggedIn && mainStyle)}>{children}</div>
+    </section>
   );
 };
 

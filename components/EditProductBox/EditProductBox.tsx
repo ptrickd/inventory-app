@@ -16,7 +16,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 //Styles
-import { classes, Root } from "./EditProductBox.style";
+import { rootStyle } from "./EditProductBox.style";
 
 //Types
 interface IProps {
@@ -143,7 +143,7 @@ const EditProductPart = ({
   //Rendering
   if (!show) return null;
   return (
-    <Root className={classes.root}>
+    <section className={rootStyle}>
       <IconButton color="icon" onClick={handleArrowUpwardClicked}>
         <ArrowUpwardIcon titleAccess="arrow-up" />
       </IconButton>
@@ -175,7 +175,7 @@ const EditProductPart = ({
         isError={true}
         handleClick={handleMessageModalClicked}
       />
-    </Root>
+    </section>
   );
 };
 

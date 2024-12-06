@@ -2,10 +2,11 @@
 import React from "react";
 
 //Material UI
+import Box from "@mui/material-pigment-css/Box";
 import Typography from "@mui/material/Typography";
 
 //Styles
-import { classes, StyledBox } from "./DisplayMessage.style";
+import { rootStyle } from "./DisplayMessage.style";
 
 //Types definitions
 interface IProps {
@@ -16,11 +17,11 @@ interface IProps {
 const DisplayMessage: React.FC<IProps> = ({ message, show }: IProps) => {
   if (!show) return null;
   return (
-    <StyledBox className={classes.root}>
+    <Box className={rootStyle}>
       <Typography color="error" align="center" variant="subtitle1">
         {message}
       </Typography>
-    </StyledBox>
+    </Box>
   );
 };
 

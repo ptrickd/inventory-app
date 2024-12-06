@@ -11,7 +11,7 @@ import AddCategoryForm from "../AddCategoryForm";
 import DisplayMessage from "../DisplayMessage";
 
 //Types
-import { classes, Root } from "./FirstCategory.styles";
+import { buttonStyle, itemsStyle, rootStyle } from "./FirstCategory.styles";
 
 //Interfaces
 interface ICategory {
@@ -41,18 +41,18 @@ const FirstCategory: React.FC = () => {
   };
 
   return (
-    <Root className={classes.root}>
+    <section className={rootStyle}>
       <Typography
         align="center"
         variant="body1"
         paragraph
-        className={classes.items}
+        className={itemsStyle}
       >
         {textBody}
       </Typography>
       <Button
         onClick={() => setOpenModal(true)}
-        className={classes.button}
+        className={buttonStyle}
         variant="contained"
         color="primary"
         size="large"
@@ -61,7 +61,7 @@ const FirstCategory: React.FC = () => {
       </Button>
       <AddCategoryForm open={openModal} handleCloseModal={handleModal} />
       <DisplayMessage show={messageError.length > 0} message={messageError} />
-    </Root>
+    </section>
   );
 };
 

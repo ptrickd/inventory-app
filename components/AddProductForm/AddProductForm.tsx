@@ -5,6 +5,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ProductsContext } from "../../contexts/ProductsContext";
 
 //Material UI
+import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -16,7 +17,7 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 //Style
-import { classes, StyledDialog } from "./AddProductForm.style";
+import { contentStyle, buttonsStyle, inputStyle } from "./AddProductForm.style";
 
 interface IProps {
   open: boolean;
@@ -167,7 +168,7 @@ function AddProductForm({
               )}
             />
             {errors.name && <span>*Required</span>}
-            <Box component={"div"} className={classes.buttons}>
+            <Box component={"div"} className={buttonsStyle}>
               <Button
                 variant="contained"
                 size="small"
@@ -194,17 +195,17 @@ function AddProductForm({
   );
 
   return (
-    <StyledDialog
+    <Dialog
       open={openModal}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal("")}
     >
       <DialogContent>
-        {/* className={classes.content} */}
+        {/* className={contentStyle} */}
         {/* {!submitting ? searchBar : <CircularProgress />} */}
         {!submitting ? formBody : <CircularProgress />}
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 }
 

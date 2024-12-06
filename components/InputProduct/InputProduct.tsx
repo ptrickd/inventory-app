@@ -31,7 +31,17 @@ import { gql, useMutation } from "@apollo/client";
 import { MEASURE_UNITS } from "../../constants/measureUnits";
 
 //Styles
-import { classes, Root } from "./InputProduct.style";
+import {
+  rootStyle,
+  formControlStyle,
+  innerFormControlStyle,
+  textFieldStyle,
+  selectUnitStyle,
+  boxStyle,
+  lastAmountNameStyle,
+  lastAmountValueStyle,
+  iconSettingsStyle,
+} from "./InputProduct.style";
 
 //Utils
 import UnitsFormat from "../../utils/unitsFormat";
@@ -223,7 +233,7 @@ const InputProduct: React.FC<IProps> = ({
 
   const formBody = (
     <form>
-      <span className={classes.innerFormControl}>
+      <span className={innerFormControlStyle}>
         <Controller
           name="currentAmount"
           control={control}
@@ -240,12 +250,12 @@ const InputProduct: React.FC<IProps> = ({
               onBlur={handleSubmit(onSubmit)}
               variant="standard"
               fullWidth
-              className={classes.textfield}
+              className={textFieldStyle}
             />
           )}
         />
       </span>
-      <span className={classes.innerFormControl}>
+      <span className={innerFormControlStyle}>
         <Controller
           name="selectUnit"
           control={control}
@@ -260,7 +270,7 @@ const InputProduct: React.FC<IProps> = ({
               onChange={(e) => field.onChange(changeData(e))}
               onBlur={handleSubmit(onSubmitUnit)}
               variant="standard"
-              className={classes.selectUnit}
+              className={selectUnitStyle}
               data-testid="button"
             >
               {MEASURE_UNITS.map((unitName: string) => {
@@ -287,21 +297,21 @@ const InputProduct: React.FC<IProps> = ({
   };
   if (typeof currentAmountTemp !== "number") return null;
   return (
-    <Root className={classes.root}>
+    <section className={rootStyle}>
       {showAmounts && <Typography variant="h6">{name}</Typography>}
-      <FormControl className={classes.formControl} fullWidth>
+      <FormControl className={formControlStyle} fullWidth>
         {!showAmounts && <Typography variant="h6">{name}</Typography>}
         {showAmounts && formBody}
 
-        <Box className={classes.box} width="15%">
+        <Box className={boxStyle} width="15%">
           <Typography
             variant="caption"
-            className={classes.lastAmountName}
+            className={lastAmountNameStyle}
             color={theme.palette.text.primary}
           >
             Last
           </Typography>
-          <Typography align="left" className={classes.lastAmountValue}>
+          <Typography align="left" className={lastAmountValueStyle}>
             {previousAmount}
           </Typography>
         </Box>
@@ -324,7 +334,7 @@ const InputProduct: React.FC<IProps> = ({
         message={messageModal}
         handleClick={handleMessageModalClicked}
       />
-    </Root>
+    </section>
   );
 };
 

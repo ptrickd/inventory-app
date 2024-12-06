@@ -1,61 +1,35 @@
 //Material UI
-import { styled } from "@mui/material-pigment-css";
+import { css } from "@mui/material-pigment-css";
 
-const PREFIX = "InputProduct";
+export const rootStyle = css({ width: "100%" });
 
-export const classes = {
-  root: `${PREFIX}-root`,
-  formControl: `${PREFIX}-form-control`,
-  innerFormControl: `${PREFIX}-inner-form-control`,
-  textfield: `${PREFIX}-textfield`,
-  selectUnit: `${PREFIX}-select-unit`,
-  box: `${PREFIX}-box`,
-  lastAmountName: `${PREFIX}-last-amount-name`,
-  lastAmountValue: `${PREFIX}-last-amount-value`,
-  iconSettings: `${PREFIX}-icon-settings`,
-};
+export const formControlStyle = css({
+  marginTop: "8px",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+});
 
-export const Root = styled("div")(() => ({
-  [`&.${classes.root}`]: {
-    width: "100%",
-  },
+export const innerFormControlStyle = css({
+  // margin: theme.spacing(1),
+  alignItems: "center",
+});
 
-  [`& .${classes.formControl}`]: {
-    marginTop: "8px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-  },
+export const textFieldStyle = css({});
 
-  [`& .${classes.innerFormControl}`]: {
-    // margin: theme.spacing(1),
-    alignItems: "center",
-  },
+export const selectUnitStyle = css({
+  marginLeft: 5,
+  marginRight: 5,
+  minWidth: 50,
+});
 
-  [`& .${classes.textfield}`]: {},
+export const boxStyle = css({
+  // margin: theme.spacing(1),
+  alignItems: "left",
+});
 
-  [`& .${classes.selectUnit}`]: {
-    marginLeft: 5,
-    marginRight: 5,
-    minWidth: 50,
-  },
+export const lastAmountNameStyle = css({ width: "100%" });
 
-  [`& .${classes.box}`]: {
-    // margin: theme.spacing(1),
-    alignItems: "left",
-  },
+export const lastAmountValueStyle = css({ height: "auto" });
 
-  [`& .${classes.lastAmountName}`]: {
-    width: "100%",
-    // paddingLeft: theme.spacing(0.7),
-  },
-
-  [`& .${classes.lastAmountValue}`]: {
-    height: "auto",
-    // padding: theme.spacing(0.7),
-  },
-
-  [`& .${classes.iconSettings}`]: {
-    // color: theme.palette.text.primary,
-  },
-}));
+export const iconSettingsStyle = css({});

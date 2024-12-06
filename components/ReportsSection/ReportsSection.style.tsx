@@ -1,12 +1,12 @@
 //Material UI
 import { css } from "@mui/material-pigment-css";
 
-export const sectionStyle = {
+export const sectionStyle = css({
   display: "flex",
   flexDirection: "column",
   marginTop: 10,
   marginLeft: 25,
-};
+});
 
 export const horizontalBoxStyle = css({
   display: "flex",
@@ -15,6 +15,9 @@ export const horizontalBoxStyle = css({
   alignItems: "flex-start",
 });
 
-export const collapseStyle = css({ alignSelf: "center", marginRight: "10%" });
+export const collapseStyle = css({
+  alignSelf: "center",
+  marginRight: "10%",
+});
 
 export const buttonStyle = css({ padding: 0, paddingLeft: 1 });

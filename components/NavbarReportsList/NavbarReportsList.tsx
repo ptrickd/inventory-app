@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+
 import Menu from "@mui/material/Menu";
 import Typography from "@mui/material/Typography";
 
@@ -16,7 +17,7 @@ import { ReportsContext } from "../../contexts/ReportsContext";
 import { DateTime } from "luxon";
 
 //Styles
-import { classes, Root, StyledMenuItem } from "./NavbarReportsList.style";
+import { menuTextStyle, listStyle } from "./NavbarReportsList.style";
 
 interface IReport {
   id: string;
@@ -60,10 +61,10 @@ const NavbarReportsList = () => {
       const month = dateTime.month;
       const day = dateTime.day;
       return (
-        <StyledMenuItem
+        <MenuItem
           onClick={handleCloseMenu}
           key={index}
-          className={classes.list}
+          className={menuTextStyle}
         >
           {" "}
           <Link href={`/report/${report.id}`}>
@@ -72,13 +73,13 @@ const NavbarReportsList = () => {
               variant="body1"
             >{`${year}-${month}-${day} `}</Typography>
           </Link>
-        </StyledMenuItem>
+        </MenuItem>
       );
     });
   };
 
   return (
-    <Root>
+    <section>
       <Button
         color="inherit"
         aria-controls="report-menu"
@@ -108,7 +109,7 @@ const NavbarReportsList = () => {
                     </ListItemIcon>
                 </span> : null}
             </ListItem> */}
-    </Root>
+    </section>
   );
 };
 

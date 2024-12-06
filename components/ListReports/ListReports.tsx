@@ -2,6 +2,7 @@
 import React from "react";
 
 //Material UI
+import Box from "@mui/material-pigment-css/Box";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
@@ -13,7 +14,7 @@ import TableRow from "@mui/material/TableRow";
 import ListProductsByCategory from "../ListProductsByCategory";
 
 //Style
-import { classes, Root } from "./ListReports.style";
+import { categoryStyle } from "./ListReports.style";
 
 //Types
 interface IProductByCategory {
@@ -34,10 +35,10 @@ interface IProps {
 }
 const ListReports = ({ report }: IProps) => {
   return (
-    <Root key={report.categoryName} className={classes.categoryDiv}>
+    <Box key={report.categoryName}>
       <TableContainer component={Paper}>
         <Table aria-label="report table">
-          <TableHead className={classes.category}>
+          <TableHead className={categoryStyle}>
             <TableRow>
               <TableCell>{report.categoryName}</TableCell>
               <TableCell align="right">Current </TableCell>
@@ -52,7 +53,7 @@ const ListReports = ({ report }: IProps) => {
           })}
         </Table>
       </TableContainer>
-    </Root>
+    </Box>
   );
 };
 

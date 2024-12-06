@@ -7,6 +7,11 @@ import MessageModal from "../MessageModal";
 
 //Material UI
 import { useTheme } from "@mui/material-pigment-css";
+
+import Collapse from "@mui/material/Collapse";
+import Box from "@mui/material-pigment-css/Box";
+import Button from "@mui/material/Button";
+
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -20,11 +25,10 @@ import { DateTime } from "luxon";
 
 //Styles
 import {
-  classes,
-  Section,
-  HorizontalBox,
-  StyledCollapse,
-  StyledButton,
+  sectionStyle,
+  horizontalBoxStyle,
+  collapseStyle,
+  buttonStyle,
 } from "./ReportsSection.style";
 
 //Types
@@ -84,8 +88,8 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
   };
 
   return (
-    <Section className={classes.section}>
-      <HorizontalBox className={classes.horizontalBox}>
+    <section className={sectionStyle}>
+      <section className={horizontalBoxStyle}>
         <IconButton
           aria-label="add category"
           color="icon"
@@ -99,17 +103,14 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
           Inventory Report
         </Typography>
 
-        <StyledButton
-          onClick={() => setShowList(!showList)}
-          className={classes.styledButton}
-        >
+        <Button onClick={() => setShowList(!showList)} className={buttonStyle}>
           <Typography variant="body1" color={theme.palette.text.primary}>
             {list.length}
           </Typography>
-        </StyledButton>
-      </HorizontalBox>
+        </Button>
+      </section>
 
-      <StyledCollapse in={showList} className={classes.styledCollapse}>
+      <Collapse in={showList} className={collapseStyle}>
         <List>
           {list.map((item) => {
             return (
@@ -126,7 +127,7 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
             );
           })}
         </List>
-      </StyledCollapse>
+      </Collapse>
 
       <MessageModal
         open={openMessageModal}
@@ -134,7 +135,7 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
         isError={isMessageError}
         handleClick={handleMessageModalClicked}
       />
-    </Section>
+    </section>
   );
 };
 

@@ -1,12 +1,9 @@
 //Material UI
 import Box from "@mui/material-pigment-css/Box";
+import Button from "@mui/material/Button";
 
 //Styles
-import {
-  classes,
-  ContainerButtons,
-  StyledButton,
-} from "./SubmitReportButton.style";
+import { containerButtonsStyle, buttonStyle } from "./SubmitReportButton.style";
 
 //Types
 interface IProps {
@@ -25,29 +22,29 @@ const SubmitReportButton = ({
   handleDeleteClick,
 }: IProps) => {
   return (
-    <ContainerButtons className={classes.containerButtons}>
+    <section className={containerButtonsStyle}>
       {Boolean(status === "Not Submitted") ? (
-        <StyledButton
+        <Button
           variant="contained"
-          className={classes.button}
+          className={buttonStyle}
           onClick={() => {
             handleSubmitClick();
           }}
         >
           Submit
-        </StyledButton>
+        </Button>
       ) : null}
       {Boolean(status === "Submitted") ? (
-        <StyledButton
+        <Button
           variant="contained"
           color="error"
-          className={classes.button}
+          className={buttonStyle}
           onClick={handleDeleteClick}
         >
           Delete
-        </StyledButton>
+        </Button>
       ) : null}
-    </ContainerButtons>
+    </section>
   );
 };
 

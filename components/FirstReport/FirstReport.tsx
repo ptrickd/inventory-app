@@ -11,7 +11,7 @@ import CreateNewReportModal from "../../components/CreateNewReportModal";
 import DisplayMessage from "../DisplayMessage";
 
 //Types
-import { classes, Root } from "./FirstReport.style";
+import { buttonStyle, itemsStyle, rootStyle } from "./FirstReport.style";
 
 interface IResponseStatus {
   succeeded: boolean;
@@ -39,21 +39,21 @@ const FirstReport: React.FC = () => {
     }
   };
   return (
-    <Root className={classes.root}>
-      <Typography align="center" variant="h3" className={classes.items}>
+    <section className={rootStyle}>
+      <Typography align="center" variant="h3" className={itemsStyle}>
         Welcome to Gruyere
       </Typography>
       <Typography
         align="center"
         variant="body1"
         paragraph
-        className={classes.items}
+        className={itemsStyle}
       >
         {textBody}
       </Typography>
       <Button
         onClick={() => setOpenModal(true)}
-        className={classes.button}
+        className={buttonStyle}
         variant="contained"
         color="primary"
         size="large"
@@ -65,7 +65,7 @@ const FirstReport: React.FC = () => {
         handleCloseModal={handleModalClicked}
       />
       <DisplayMessage show={messageError.length > 0} message={messageError} />
-    </Root>
+    </section>
   );
 };
 
