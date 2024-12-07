@@ -1,6 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { styled } from "@mui/material-pigment-css";
+import { css } from "@mui/material-pigment-css";
 import { useRouter } from "next/router";
 
 //Material UI
@@ -23,37 +23,22 @@ import AuthForm from "../components/AuthForm";
 import DisplayMessage from "../components/DisplayMessage";
 import Footer from "../Layout/Footer";
 
-const PREFIX = "Register";
+const rootStyle = css({
+  display: "flex",
+  minHeight: "calc(100vh - 120px)",
+  flexDirection: "column",
+  width: "100%",
+});
+const mainStyle = css({
+  display: "flex",
+  flexDirection: "column",
+  marginTop: "15%",
+  width: "100%",
+  minHeight: "70vh",
+  alignContent: "space-between",
+});
 
-const classes = {
-  root: `${PREFIX}-root`,
-  main: `${PREFIX}-main`,
-  title: `${PREFIX}-title`,
-};
-
-const Root = styled(Container)(() => ({
-  [`&.${classes.root}`]: {
-    display: "flex",
-    minHeight: "calc(100vh - 120px)",
-    flexDirection: "column",
-    width: "100%",
-  },
-}));
-
-const Main = styled(Box)(() => ({
-  [`&.${classes.main}`]: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "15%",
-    width: "100%",
-    minHeight: "70vh",
-    alignContent: "space-between",
-  },
-}));
-
-const Title = styled(Typography)(() => ({
-  [`&.${classes.title}`]: { marginBottom: 15 },
-}));
+const titleStyle = css({ marginBottom: 15 });
 
 interface IForm {
   email: string;
@@ -92,11 +77,11 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Root className={classes.root} maxWidth="xs">
-      <Main className={classes.main}>
-        <Title variant="h2" align="center" className={classes.title}>
+    <Container className={rootStyle} maxWidth="xs">
+      <Box className={mainStyle}>
+        <Typography variant="h2" align="center" className={titleStyle}>
           Register
-        </Title>
+        </Typography>
         <DisplayMessage
           message={serverErrorMess}
           show={Boolean(serverErrorMess.length)}
@@ -106,9 +91,9 @@ const Register: React.FC = () => {
           submitting={submitting}
           label="Register"
         />
-      </Main>
+      </Box>
       <Footer />
-    </Root>
+    </Container>
   );
 };
 

@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 //Material UI
-import { styled } from "@mui/material-pigment-css";
+import { css } from "@mui/material-pigment-css";
 import Container from "@mui/material-pigment-css/Container";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material-pigment-css/Box";
@@ -22,34 +22,23 @@ import FirstReport from "../components/FirstReport";
 import FirstCategory from "../components/FirstCategory";
 import FirstProduct from "../components/FirstProduct";
 
-const PREFIX = "Test";
+const rootStyle = css({
+  width: "100%",
+  minHeight: "calc(100vh - 120px)",
+  margin: 5,
+  // display: "flex",
+  // flexDirection: "column",
+  // justifyContent: "center",
+  // background: "red",
+});
 
-const classes = {
-  root: `${PREFIX}-root`,
-  styledPaper: `${PREFIX}-styled-paper`,
-};
-
-const Root = styled(Container)(() => ({
-  [`&.${classes.root}`]: {
-    width: "100%",
-    minHeight: "calc(100vh - 120px)",
-    margin: 5,
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "center",
-    // background: "red",
-  },
-}));
-
-const StyledPaper = styled(Paper)(() => ({
-  [`&.${classes.styledPaper}`]: {
-    width: "100%",
-    minHeight: "70vh",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-}));
+const paperStyle = css({
+  width: "100%",
+  minHeight: "70vh",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+});
 
 const Test: React.FC = () => {
   //Context
@@ -93,8 +82,8 @@ const Test: React.FC = () => {
   }, [pageNumber]);
   if (typeof currentUser === "undefined") return <div>Error</div>;
   return (
-    <Root className={classes.root}>
-      <StyledPaper className={classes.styledPaper} elevation={1}>
+    <Container className={rootStyle}>
+      <Paper className={paperStyle} elevation={1}>
         <Box
           component="div"
           sx={{
@@ -138,8 +127,8 @@ const Test: React.FC = () => {
             <Typography>Check this box to not see again!</Typography>
           </Grid>
         </Box>
-      </StyledPaper>
-    </Root>
+      </Paper>
+    </Container>
   );
 };
 

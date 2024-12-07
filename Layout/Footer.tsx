@@ -2,7 +2,7 @@
 import React from "react";
 
 //Material UI
-import { styled } from "@mui/material-pigment-css";
+import { css } from "@mui/material-pigment-css";
 import Container from "@mui/material-pigment-css/Container";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -22,21 +22,14 @@ const classes = {
 };
 
 //Add position:relative to all parent container
-const StyledContainer = styled(Container)(() => ({
-  [`&.${classes.root}`]: {
-    marginTop: "auto",
-  },
-  [`&.${classes.contact}`]: {
-    display: "flex",
-    flexDirection: "row",
-  },
-}));
+const rootStyle = css({ marginTop: "auto" });
+const contactStyle = css({ display: "flex", flexDirection: "row" });
 
 const Footer = () => {
   return (
-    <StyledContainer className={classes.root}>
+    <Container className={rootStyle}>
       <Divider />
-      <Box component="div" className={classes.contact}>
+      <Box component="div" className={contactStyle}>
         <Typography variant="body1" align="inherit">
           Contact
         </Typography>
@@ -64,7 +57,7 @@ const Footer = () => {
         </Box>
       </Box>
       <Divider />
-    </StyledContainer>
+    </Container>
   );
 };
 

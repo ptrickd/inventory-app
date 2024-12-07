@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-import { styled } from "@mui/material-pigment-css";
+import { css } from "@mui/material-pigment-css";
 import Container from "@mui/material-pigment-css/Container";
 import Box from "@mui/material-pigment-css/Box";
 
@@ -22,36 +22,24 @@ import { ProductsContext } from "../contexts/ProductsContext";
 //Function
 import { redirectOnLogin } from "../utils/redirect";
 
-const PREFIX = "Wiz";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  main: `${PREFIX}-main`,
-};
-
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled(Container)(() => ({
-  [`&.${classes.root}`]: {
-    padding: 20,
-    display: "flex",
-    minHeight: "calc(100vh - 120px)",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-}));
-
-const Main = styled(Box)(() => ({
-  [`&.${classes.main}`]: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "15%",
-    marginBottom: "10%",
-    width: "100%",
-    minHeight: "70vh",
-    alignContent: "space-between",
-  },
-}));
+const rootStyle = css({
+  padding: 20,
+  display: "flex",
+  minHeight: "calc(100vh - 120px)",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "space-around",
+});
+const mainStyle = css({
+  display: "flex",
+  flexDirection: "column",
+  marginTop: "15%",
+  marginBottom: "10%",
+  width: "100%",
+  minHeight: "70vh",
+  alignContent: "space-between",
+});
 
 //Reformating three firstPages in one.
 const Wiz: React.FC = () => {
@@ -88,16 +76,16 @@ const Wiz: React.FC = () => {
   //Protecting route
   if (!loggedIn) return null;
   return (
-    <Root maxWidth="md" className={classes.root}>
-      <Main className={classes.main}>
+    <Container maxWidth="md" className={rootStyle}>
+      <Box className={mainStyle}>
         {/* <ComponentToDisplay currentState={states.state} /> */}
 
         {router.query.l === "firstReport" && <FirstReport />}
         {router.query.l === "firstCategory" && <FirstCategory />}
         {router.query.l === "firstProduct" && <FirstProduct />}
-      </Main>
+      </Box>
       <Footer />
-    </Root>
+    </Container>
   );
 };
 

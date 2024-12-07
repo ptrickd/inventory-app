@@ -3,7 +3,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
+import Box from "@mui/material-pigment-css/Box";
+
 import Button from "@mui/material/Button";
+import Container from "@mui/material-pigment-css/Container";
+import Typography from "@mui/material/Typography";
 
 //Form
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -27,7 +31,7 @@ import Footer from "../Layout/Footer";
 import { redirectOnLogin } from "../utils/redirect";
 
 //Styles
-import { classes, Root, Main, Title } from "../styles/login.style";
+import { rootStyle, mainStyle, titleStyle } from "../styles/login.style";
 
 interface IForm {
   email: string;
@@ -111,11 +115,11 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Root className={classes.root} maxWidth="xs">
-      <Main className={classes.main}>
-        <Title variant="h2" align="center" className={classes.title}>
+    <Container className={rootStyle} maxWidth="xs">
+      <Box className={mainStyle}>
+        <Typography variant="h2" align="center" className={titleStyle}>
           Login
-        </Title>
+        </Typography>
 
         <DisplayMessage
           message={serverErrorMess}
@@ -132,10 +136,10 @@ const Login: React.FC = () => {
         >
           Register
         </Button>
-      </Main>
+      </Box>
 
       <Footer />
-    </Root>
+    </Container>
   );
 };
 

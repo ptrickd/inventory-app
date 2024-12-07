@@ -3,6 +3,11 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
+import Box from "@mui/material-pigment-css/Box";
+import Button from "@mui/material/Button";
+
+import Container from "@mui/material-pigment-css/Container";
+
 import Typography from "@mui/material/Typography";
 
 //GraphQL
@@ -25,7 +30,15 @@ import SubmitReportButton from "../../components/SubmitReportButton";
 import RenderReport from "../../components/RenderReport";
 
 //Styles
-import { classes, Root, Main, Status } from "../../styles/reportId.style";
+import {
+  rootStyle,
+  titleStyle,
+  productStyle,
+  dateStyle,
+  mainStyle,
+  buttonStyle,
+  statusStyle,
+} from "../../styles/reportId.style";
 
 //GraphQl Query
 import {
@@ -202,22 +215,22 @@ const Report: React.FC = () => {
   };
 
   return (
-    <Root className={classes.root} maxWidth="xs">
-      <Main className={classes.main}>
-        <Typography className={classes.title} variant="h3" align="center">
+    <Container className={rootStyle} maxWidth="xs">
+      <Box className={mainStyle}>
+        <Typography className={titleStyle} variant="h3" align="center">
           Report
         </Typography>
         <Typography
-          className={classes.date}
+          className={dateStyle}
           variant="h6"
           align="center"
           data-testid={"date"}
         >
           {date.toFormat("dd MMMM, yyyy")}
         </Typography>
-        <Status className={classes.status} variant="body1" align="center">
+        <Typography className={statusStyle} variant="body1" align="center">
           Status: {status}
-        </Status>
+        </Typography>
 
         <RenderReport
           status={status}
@@ -242,9 +255,9 @@ const Report: React.FC = () => {
           handleCloseModal={handleCloseUserChoiceModal}
           handleUserResponse={handleUserResponseOnDelete}
         />
-      </Main>
+      </Box>
       <Footer />
-    </Root>
+    </Container>
   );
 };
 

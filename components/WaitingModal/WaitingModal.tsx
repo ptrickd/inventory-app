@@ -1,9 +1,11 @@
 //Material UI
+import Dialog from "@mui/material/Dialog";
+
 import DialogContent from "@mui/material/DialogContent";
 import CircularProgress from "@mui/material/CircularProgress";
 
 //Types
-import { classes, StyledDialog } from "./WaitingModal.style";
+import { rootStyle } from "./WaitingModal.style";
 
 interface IProps {
   open: boolean;
@@ -11,15 +13,15 @@ interface IProps {
 
 const WaitingModal = ({ open }: IProps) => {
   return (
-    <StyledDialog
+    <Dialog
       open={open}
       aria-labelledby="Wait Response From server"
-      className={classes.root}
+      className={rootStyle}
     >
       <DialogContent>
         <CircularProgress />
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 };
 
