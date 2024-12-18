@@ -1,6 +1,7 @@
-import { withPigment } from "@pigment-css/nextjs-plugin";
-import { createTheme } from "@mui/material";
+import { withPigment, extendTheme } from "@pigment-css/nextjs-plugin";
+// import { createTheme } from "@mui/material";
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   //Modification for jpg image
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
@@ -24,9 +25,26 @@ const nextConfig = {
  * @type {import('@pigment-css/nextjs-plugin').PigmentOptions}
  */
 const pigmentConfig = {
-  transformLibraries: ["@mui/material"],
-  theme: createTheme({
-    cssVariables: true,
+  // transformLibraries: ["@mui/material"],
+  theme: extendTheme({
+    colorSchemes: {
+      light: {
+        palette: {
+          background: "0 0% 100%",
+          foreground: "240 10% 3.9%",
+          primary: "240 5.9% 10%",
+          border: "240 5.9% 90%",
+        },
+      },
+      dark: {
+        palette: {
+          background: "240 10% 3.9%",
+          foreground: "0 0% 80%",
+          primary: "0 0% 98%",
+          border: "240 3.7% 15.9%",
+        },
+      },
+    },
   }),
 };
 
