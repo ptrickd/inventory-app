@@ -14,7 +14,7 @@ import Divider from "@mui/material/Divider";
 
 //Material UI
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
@@ -25,8 +25,10 @@ import {
   titleStyle,
   subtitleStyle,
   buttonStyle,
+  dividerStyle,
 } from "../styles/index.style";
-import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
+// import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
+
 //Context
 import { UserContext } from "../contexts/UserContext";
 import { ReportsContext } from "../contexts/ReportsContext";
@@ -46,7 +48,7 @@ const Light_background_Color = "#c8e4fb";
 export default function Home() {
   //Context
   /*
-  Do I still need those??
+  Do I still need those??gedi
   */
   const { loggedIn } = useContext(UserContext);
   const { hasReport } = useContext(ReportsContext);
@@ -64,16 +66,11 @@ export default function Home() {
 
   return (
     <Container className={rootStyle} maxWidth="md">
-      <Box className={mainStyle}>
+      <section className={mainStyle}>
         <Typography className={titleStyle} variant="h4" align="center">
           Gruyere
         </Typography>
-        <Typography
-          className={subtitleStyle}
-          variant="h5"
-          align="center"
-          sx={{ marginTop: 10, marginBottom: 10 }}
-        >
+        <Typography className={subtitleStyle} variant="h5" align="center">
           Your Kitchen Inventory App Management
         </Typography>
         <Image
@@ -93,10 +90,8 @@ export default function Home() {
         >
           Start
         </Button>
-
         {/*****************    Dashboard    ****************/}
-
-        <Divider sx={{ mt: 10, mb: 2 }} />
+        <Divider className={dividerStyle} />
         <CardLandingPage
           imgWidth={414}
           imgHeight={533}
@@ -105,10 +100,8 @@ export default function Home() {
           text="Easy access to Settings, Categories, Products and Reports"
           title="A Clean Dashboard"
         />
-
         {/*****************    Categories    ****************/}
-
-        <Divider sx={{ mt: 2, mb: 2 }} />
+        <Divider className={dividerStyle} />
         <CardLandingPage
           imgWidth={414}
           imgHeight={533}
@@ -117,19 +110,19 @@ export default function Home() {
           text="Easily travel between categories, creating new products or entering your inventory"
           title="Display products by categories"
         />
-
         {/*****************    Reports    ****************/}
-
-        <Divider sx={{ mt: 2, mb: 2 }} />
-        <CardLandingPage
-          imgWidth={414}
-          imgHeight={533}
-          imageAlt="photo of reports page"
-          imagePath="/reports_light.jpg"
-          text="See your reports in a glance. Submit new report or erase old ones."
-          title="See and print full reports"
-        />
-      </Box>
+        <Divider className={dividerStyle} />
+        <div>
+          <CardLandingPage
+            imgWidth={414}
+            imgHeight={533}
+            imageAlt="photo of reports page"
+            imagePath="/reports_light.jpg"
+            text="See your reports in a glance. Submit new report or erase old ones."
+            title="See and print full reports"
+          />
+        </div>
+      </section>
       {/* <Footer /> */}
     </Container>
   );

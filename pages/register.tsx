@@ -1,6 +1,6 @@
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 import { useRouter } from "next/router";
 
 //Material UI

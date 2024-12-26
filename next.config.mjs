@@ -1,5 +1,4 @@
 import { withPigment, extendTheme } from "@pigment-css/nextjs-plugin";
-// import { createTheme } from "@mui/material";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

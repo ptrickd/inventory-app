@@ -8,6 +8,9 @@ import MessageModal from "../MessageModal";
 //Context
 import { ProductsContext } from "../../contexts/ProductsContext";
 
+//Material UI
+import Box from "@mui/material/Box";
+
 //Icons
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -143,7 +146,7 @@ const EditProductPart = ({
   //Rendering
   if (!show) return null;
   return (
-    <section className={rootStyle}>
+    <Box component="section" className={rootStyle}>
       <IconButton color="icon" onClick={handleArrowUpwardClicked}>
         <ArrowUpwardIcon titleAccess="arrow-up" />
       </IconButton>
@@ -175,7 +178,7 @@ const EditProductPart = ({
         isError={true}
         handleClick={handleMessageModalClicked}
       />
-    </section>
+    </Box>
   );
 };
 

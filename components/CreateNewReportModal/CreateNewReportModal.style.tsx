@@ -1,5 +1,5 @@
 //Material Ui
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 
 export const rootStyle = css({
   // margin: theme.spacing(4),

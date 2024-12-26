@@ -4,7 +4,7 @@ import Image from "next/legacy/image";
 //Material UI
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 
 //Types
 interface IProps {
@@ -35,6 +35,7 @@ const CardLandingPage = ({
         width: Ratio,
         padding: "3%",
         border: "0px",
+        borderColor: "red",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

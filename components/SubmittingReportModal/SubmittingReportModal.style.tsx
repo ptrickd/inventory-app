@@ -1,11 +1,11 @@
 //Material UI
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 
-export const textStyle = css({
-  marginTop: 10,
-  marginLeft: 10,
-  marginRigth: 10,
-});
+export const textStyle = css`
+  marginTop: 10px,
+  marginLeft: 10px,
+  marginRigth: 10px,
+`;
 
 export const actionsStyle = css({
   display: "flex",

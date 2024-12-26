@@ -1,5 +1,5 @@
 //Material UI
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 export const buttonStyle = css({ width: "70%" });

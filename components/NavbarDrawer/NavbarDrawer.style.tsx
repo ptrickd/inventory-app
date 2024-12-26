@@ -1,5 +1,5 @@
 //Material UI
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 
 //Color
 import { TEXT_MENU_COLOR, BACKGROUND_MENU_COLOR } from "../../constants/colors";

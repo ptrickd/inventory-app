@@ -1,5 +1,5 @@
 //Material UI
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 import { DRAWER_WIDTH } from "../../constants/dimensions";
 
 export const rootStyle = css({

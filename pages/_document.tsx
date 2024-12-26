@@ -2,7 +2,7 @@ import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 // import { ServerStyleSheets } from "@mui/styles";
 // import theme from "../src/theme";
-import "@pigment-css/react/styles.css";
+// import "@pigment-css/react/styles.css"; //took out that code
 export default class MyDocument extends Document {
   render() {
     return (

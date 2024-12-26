@@ -1,5 +1,5 @@
 //React
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 
 //Constant
 import { DRAWER_WIDTH } from "../../constants/dimensions";

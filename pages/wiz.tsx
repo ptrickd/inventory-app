@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 //Material UI
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 import Container from "@mui/material-pigment-css/Container";
 import Box from "@mui/material-pigment-css/Box";
 

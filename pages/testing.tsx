@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 //Material UI
-import { css } from "@mui/material-pigment-css";
+import { css } from "@pigment-css/react";
 import Container from "@mui/material-pigment-css/Container";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material-pigment-css/Box";

@@ -9,15 +9,19 @@ import ErrorModal from "../components/ErrorModal";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../Layout/Footer";
 import CategoriesSection from "../components/CategoriesSection";
+
 import ReportsSection from "../components/ReportsSection";
 
 //Material UI
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
+import Paper from "@mui/material/Paper";
 
 //Icons
 import IconButton from "@mui/material/IconButton";
@@ -30,10 +34,10 @@ import { ReportsContext } from "../contexts/ReportsContext";
 
 //Style
 import {
-  Root,
-  Main,
-  StyledPaper,
-  StyledDivider,
+  rootStyle,
+  mainStyle,
+  paperStyle,
+  dividerStyle,
 } from "../styles/dashboard.style";
 
 //Interface
@@ -83,20 +87,20 @@ function Dashboard() {
   }, [loggedIn, router]);
 
   return (
-    <Container className={classes.root} maxWidth="xs">
-      <Box className={classes.main}>
-        <StyledPaper className={classes.styledPaper} elevation={1}>
+    <Container className={rootStyle} maxWidth="xs">
+      <Box className={mainStyle}>
+        <Paper className={paperStyle} elevation={1}>
           <Typography variant="h4" align="center">
             {currentUser && currentUser.email}
           </Typography>
-          <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+          <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
           <CategoriesSection listOfCategories={categories || []} />
-          <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+          <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
           <ReportsSection
             list={reports || []}
             handleClickAddModal={() => setOpenCreateNewReport(true)}
           />
-          <StyledDivider sx={{ marginTop: 2 }} className={classes.divider} />
+          <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
           <List>
             <ListItem>
               <IconButton
@@ -126,7 +130,7 @@ function Dashboard() {
             open={openSettingsModal}
             handleCloseModal={handleCloseSettingsModal}
           />
-        </StyledPaper>
+        </Paper>
       </Box>
       <Footer />
     </Container>

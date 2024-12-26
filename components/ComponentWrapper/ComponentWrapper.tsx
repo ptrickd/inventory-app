@@ -20,8 +20,10 @@ const ComponentWrapper = ({ children }: IProps) => {
 
   return (
     <section>
-      <div className={toolbarStyle} />
-      <div className={clsx(loggedIn && mainStyle)}>{children}</div>
+      <div />
+      {/* className={toolbarStyle}  */}
+      <div>{children}</div>
+      {/* className={clsx(loggedIn && mainStyle)} */}
     </section>
   );
 };
