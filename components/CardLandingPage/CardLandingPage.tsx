@@ -1,5 +1,5 @@
 //React
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 //Material UI
 import Paper from "@mui/material/Paper";
@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 
 //Types
 interface IProps {
-  imagePath: string;
+  imagePath: any;
   imageAlt: string;
   imgWidth: number;
   imgHeight: number;
@@ -27,15 +27,29 @@ const CardLandingPage = ({
   const Light_background_Color = "rgba(101,115,195,0.2)";
   const Ratio = imgWidth + 20;
   return (
-    <Paper
-      elevation={1}
+    // <Paper
+    //   elevation={1}
+    //   sx={{
+    //     height: "auto",
+    //     background: Light_background_Color,
+    //     width: Ratio,
+    //     padding: "3%",
+    //     // border: "0px",
+    //     // borderColor: "red",
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     alignItems: "center",
+    //     alignSelf: "center",
+    //   }}
+    // >
+    <div
       sx={{
         height: "auto",
         background: Light_background_Color,
         width: Ratio,
         padding: "3%",
-        border: "0px",
-        borderColor: "red",
+        // border: "0px",
+        // borderColor: "red",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -57,22 +71,23 @@ const CardLandingPage = ({
         {text}
       </Typography>
       <Box
-        component="span"
+        component="section"
         sx={{
           height: "auto",
           width: imgWidth,
-          border: "1px solid #aaaaaa",
+          // border: "1px solid #aaaaaa",
         }}
       >
         <Image
           alt={imageAlt}
           src={imagePath}
-          layout="responsive"
-          width={imgWidth}
-          height={imgHeight}
+          // style={{ border: "1px solid #aa0000" }}
+          // width={imgWidth}
+          // height={imgHeight}
         />
       </Box>
-    </Paper>
+    </div>
+    // </Paper>
   );
 };
 

@@ -2,10 +2,10 @@
 import { css } from "@pigment-css/react";
 
 export const rootStyle = css({
-  display: "flex",
+  // display: "flex",
   minHeight: "calc(100vh - 120px)",
-  flexDirection: "column",
-  justifyContent: "center",
+  // flexDirection: "column",
+  // justifyContent: "space-between",
   width: "100%",
 });
 
@@ -16,16 +16,19 @@ export const mainStyle = css({
   marginBottom: "10%",
   width: "100%",
   minHeight: "70vh",
-  alignContent: "space-between",
+  alignContent: "center",
+  alignItems: "center",
 });
 
 export const titleStyle = css({ marginBottom: 20 });
 export const subtitleStyle = css({ marginBottom: 30, marginTop: 10 });
 
+export const cardsSection = css({ width: "80%", marginTop: 30 });
+
 export const buttonStyle = css({
-  width: "70%",
+  width: "50%",
   marginBottom: "15%",
   borderRadius: 15,
 });
 
-export const dividerStyle = css({ marginTop: 10, marginBottom: 2 });
+export const dividerStyle = css({});

@@ -9,9 +9,15 @@
 //React
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Divider from "@mui/material/Divider";
 
+//Images
+import mainPagePic from "../public/nathan-dumlao-g8gOnhMRckw-unsplash_working.jpg";
+import dashboardLightPic from "../public/dashboard_light.jpg";
+
+import categoriesLightPic from "../public/categories_light.jpg";
+import reportsLightPic from "../public/reports_light.jpg";
 //Material UI
 import Container from "@mui/material/Container";
 // import Box from "@mui/material/Box";
@@ -26,6 +32,7 @@ import {
   subtitleStyle,
   buttonStyle,
   dividerStyle,
+  cardsSection,
 } from "../styles/index.style";
 // import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
 
@@ -73,12 +80,8 @@ export default function Home() {
         <Typography className={subtitleStyle} variant="h5" align="center">
           Your Kitchen Inventory App Management
         </Typography>
-        <Image
-          alt="stock photo"
-          src="/nathan-dumlao-g8gOnhMRckw-unsplash_working.jpg"
-          width={500}
-          height={300}
-        />
+
+        <Image alt="stock photo" src={mainPagePic} width={500} height={300} />
         <Button
           className={buttonStyle}
           variant="contained"
@@ -90,38 +93,40 @@ export default function Home() {
         >
           Start
         </Button>
+
         {/*****************    Dashboard    ****************/}
-        <Divider className={dividerStyle} />
-        <CardLandingPage
-          imgWidth={414}
-          imgHeight={533}
-          imageAlt="photo of dashboard app"
-          imagePath="/dashboard_light.jpg"
-          text="Easy access to Settings, Categories, Products and Reports"
-          title="A Clean Dashboard"
-        />
-        {/*****************    Categories    ****************/}
-        <Divider className={dividerStyle} />
-        <CardLandingPage
-          imgWidth={414}
-          imgHeight={533}
-          imageAlt="photo of categories app"
-          imagePath="/categories_light.jpg"
-          text="Easily travel between categories, creating new products or entering your inventory"
-          title="Display products by categories"
-        />
-        {/*****************    Reports    ****************/}
-        <Divider className={dividerStyle} />
-        <div>
+        <section className={cardsSection}>
+          <Divider flexItem className={dividerStyle} />
+          <CardLandingPage
+            imgWidth={414}
+            imgHeight={533}
+            imageAlt="photo of dashboard app"
+            imagePath={dashboardLightPic}
+            text="Easy access to Settings, Categories, Products and Reports"
+            title="A Clean Dashboard"
+          />
+          {/*****************    Categories    ****************/}
+          <Divider className={dividerStyle} />
+          <CardLandingPage
+            imgWidth={414}
+            imgHeight={533}
+            imageAlt="photo of categories app"
+            imagePath={categoriesLightPic}
+            text="Easily travel between categories, creating new products or entering your inventory"
+            title="Display products by categories"
+          />
+          {/*****************    Reports    ****************/}
+          <Divider className={dividerStyle} />
+
           <CardLandingPage
             imgWidth={414}
             imgHeight={533}
             imageAlt="photo of reports page"
-            imagePath="/reports_light.jpg"
+            imagePath={reportsLightPic}
             text="See your reports in a glance. Submit new report or erase old ones."
             title="See and print full reports"
           />
-        </div>
+        </section>
       </section>
       {/* <Footer /> */}
     </Container>
