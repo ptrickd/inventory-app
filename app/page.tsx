@@ -10,7 +10,7 @@
 */
 //React
 import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Divider from "@mui/material/Divider";
 
@@ -45,8 +45,8 @@ import {
 // import { ProductsContext } from "../contexts/ProductsContext";
 
 //Component
-import CardLandingPage from "../components/CardLandingPage";
-import Footer from "../Layout/Footer";
+// import CardLandingPage from "../components/CardLandingPage";
+// import Footer from "../Layout/Footer";
 
 //Function
 import { redirectOnLogin } from "../utils/redirect";
@@ -64,7 +64,7 @@ export default function Home() {
   // const { hasCategory } = useContext(CategoriesContext);
   // const { hasProduct } = useContext(ProductsContext);
 
-  // const router = useRouter();
+  const router = useRouter();
 
   // useEffect(() => {
   //   if (loggedIn) {
@@ -99,35 +99,35 @@ export default function Home() {
         {/*****************    Dashboard    ****************/}
         <section className={cardsSection}>
           <Divider flexItem className={dividerStyle} />
-          <CardLandingPage
+          {/* <CardLandingPage
             imgWidth={414}
             imgHeight={533}
             imageAlt="photo of dashboard app"
             imagePath={dashboardLightPic}
             text="Easy access to Settings, Categories, Products and Reports"
             title="A Clean Dashboard"
-          />
+          /> */}
           {/*****************    Categories    ****************/}
           <Divider className={dividerStyle} />
-          <CardLandingPage
+          {/* <CardLandingPage
             imgWidth={414}
             imgHeight={533}
             imageAlt="photo of categories app"
             imagePath={categoriesLightPic}
             text="Easily travel between categories, creating new products or entering your inventory"
             title="Display products by categories"
-          />
+          /> */}
           {/*****************    Reports    ****************/}
           <Divider className={dividerStyle} />
 
-          <CardLandingPage
+          {/* <CardLandingPage
             imgWidth={414}
             imgHeight={533}
             imageAlt="photo of reports page"
             imagePath={reportsLightPic}
             text="See your reports in a glance. Submit new report or erase old ones."
             title="See and print full reports"
-          />
+          /> */}
         </section>
       </section>
       {/* <Footer /> */}
