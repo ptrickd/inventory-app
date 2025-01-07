@@ -3,7 +3,7 @@ import React from "react";
 
 //Material UI
 import { css } from "@pigment-css/react";
-import Container from "@mui/material-pigment-css/Container";
+import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -14,26 +14,32 @@ import Typography from "@mui/material/Typography";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
 
-const PREFIX = "Footer";
-
-const classes = {
-  root: `${PREFIX}-root`,
-  contact: `${PREFIX}-contact`,
-};
-
 //Add position:relative to all parent container
 const rootStyle = css({ marginTop: "auto" });
-const contactStyle = css({ display: "flex", flexDirection: "row" });
-
+const contactStyle = css({
+  minWidth: "100%",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
+});
+const itemsStyle = css({ margin: 0, padding: 0 });
 const Footer = () => {
   return (
     <Container className={rootStyle}>
       <Divider />
-      <Box component="div" className={contactStyle}>
-        <Typography variant="body1" align="inherit">
-          Contact
-        </Typography>
-        <Box component="div">
+      <Box component="section" className={contactStyle}>
+        <Box component="section">
+          <Typography align="center" variant="body1">
+            2025
+          </Typography>
+        </Box>
+        <Box component="section">
+          <Typography align="center" variant="body1">
+            ptrickd
+          </Typography>
+        </Box>
+        <Box component="section">
           <Tooltip title="Github">
             <IconButton
               href="https://github.com/ptrickd/inventory-app"
@@ -41,17 +47,6 @@ const Footer = () => {
               color="icon"
             >
               <GitHubIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Box component="div">
-          <Tooltip title="Email">
-            <IconButton
-              color="icon"
-              href="mailto:test@example.com"
-              aria-label="email"
-            >
-              <EmailIcon fontSize="small" />
             </IconButton>
           </Tooltip>
         </Box>

@@ -35,13 +35,13 @@ export default function RootLayout({
       <body>
         <ApolloWrapper>
           {/* <ApolloProvider client={client}> */}
-          {/* <UserProvider>
+          <UserProvider>
             <CategoriesProvider>
-              <ProductsProvider> */}
-          <ReportsProvider>{children}</ReportsProvider>
-          {/* </ProductsProvider>
+              <ProductsProvider>
+                <ReportsProvider>{children}</ReportsProvider>
+              </ProductsProvider>
             </CategoriesProvider>
-          </UserProvider> */}
+          </UserProvider>
           {/* </ApolloProvider> */}
         </ApolloWrapper>
       </body>

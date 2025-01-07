@@ -1,13 +1,5 @@
 "use client";
 
-/*
-/components
-/utils
-/modals
-/graphql
-  /queries
-  /mutations
-*/
 //React
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -36,17 +28,16 @@ import {
   dividerStyle,
   cardsSection,
 } from "../styles/index.style";
-// import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
 
 //Context
-// import { UserContext } from "../contexts/UserContext";
-// import { ReportsContext } from "../contexts/ReportsContext";
-// import { CategoriesContext } from "../contexts/CategoriesContext";
-// import { ProductsContext } from "../contexts/ProductsContext";
+import { UserContext } from "../contexts/UserContext";
+import { ReportsContext } from "../contexts/ReportsContext";
+import { CategoriesContext } from "../contexts/CategoriesContext";
+import { ProductsContext } from "../contexts/ProductsContext";
 
 //Component
-// import CardLandingPage from "../components/CardLandingPage";
-// import Footer from "../Layout/Footer";
+import CardLandingPage from "../components/CardLandingPage";
+import Footer from "../Layout/Footer";
 
 //Function
 import { redirectOnLogin } from "../utils/redirect";
@@ -59,10 +50,10 @@ export default function Home() {
   /*
   Do I still need those??gedi
   */
-  // const { loggedIn } = useContext(UserContext);
-  // const { hasReport } = useContext(ReportsContext);
-  // const { hasCategory } = useContext(CategoriesContext);
-  // const { hasProduct } = useContext(ProductsContext);
+  const { loggedIn } = useContext(UserContext);
+  const { hasReport } = useContext(ReportsContext);
+  const { hasCategory } = useContext(CategoriesContext);
+  const { hasProduct } = useContext(ProductsContext);
 
   const router = useRouter();
 
@@ -99,38 +90,38 @@ export default function Home() {
         {/*****************    Dashboard    ****************/}
         <section className={cardsSection}>
           <Divider flexItem className={dividerStyle} />
-          {/* <CardLandingPage
+          <CardLandingPage
             imgWidth={414}
             imgHeight={533}
             imageAlt="photo of dashboard app"
             imagePath={dashboardLightPic}
             text="Easy access to Settings, Categories, Products and Reports"
             title="A Clean Dashboard"
-          /> */}
+          />
           {/*****************    Categories    ****************/}
           <Divider className={dividerStyle} />
-          {/* <CardLandingPage
+          <CardLandingPage
             imgWidth={414}
             imgHeight={533}
             imageAlt="photo of categories app"
             imagePath={categoriesLightPic}
             text="Easily travel between categories, creating new products or entering your inventory"
             title="Display products by categories"
-          /> */}
+          />
           {/*****************    Reports    ****************/}
           <Divider className={dividerStyle} />
 
-          {/* <CardLandingPage
+          <CardLandingPage
             imgWidth={414}
             imgHeight={533}
             imageAlt="photo of reports page"
             imagePath={reportsLightPic}
             text="See your reports in a glance. Submit new report or erase old ones."
             title="See and print full reports"
-          /> */}
+          />
         </section>
       </section>
-      {/* <Footer /> */}
+      <Footer />
     </Container>
   );
 }
