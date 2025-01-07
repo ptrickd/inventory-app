@@ -25,6 +25,7 @@ import "@pigment-css/react/styles.css";
 // import "@fontsource/roboto/700.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const props = { Component, pageProps };
   return (
     <ApolloProvider client={client}>
       <UserProvider>

@@ -7,7 +7,8 @@ import { DRAWER_WIDTH } from "../../constants/dimensions";
 //Colors
 import { indigo } from "@mui/material/colors";
 
-const rootStyle = css({ flexGrow: 1, height: "100%" });
+// const rootStyle = css({ flexGrow: 1, height: "100%" });
+const rootStyle = css({ width: "100px" });
 const drawerStyle = css({ width: DRAWER_WIDTH, flexShrink: 0 });
 const drawerPaperStyle = css({
   width: DRAWER_WIDTH,

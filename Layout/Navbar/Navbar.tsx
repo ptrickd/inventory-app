@@ -16,7 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
+// import CssBaseline from "@mui/material/CssBaseline";
 import Button from "@mui/material/Button";
 
 //Icons
@@ -45,7 +45,7 @@ const Navbar = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const router = useRouter();
+  // const router = useRouter();0
 
   //Keep those for the icon more menu
   const handleClickOnMoreIconMenu = (
@@ -76,12 +76,13 @@ const Navbar = () => {
   // };
   // const MemoIconButton = React.memo(renderedIconButton);
   if (!categories) return null;
+  //className={rootStyle}
   return (
-    <div>
-      {/* /className={rootStyle} */}
-      <CssBaseline />
+    <section>
+      <Typography variant="h6">hdhdhddh</Typography>
+      {/* */}
       {/*Code comes here*/}
-    </div>
+    </section>
   );
 };
 

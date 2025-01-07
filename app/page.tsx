@@ -1,3 +1,5 @@
+"use client";
+
 /*
 /components
 /utils
@@ -37,10 +39,10 @@ import {
 // import "@mui/material-pigment-css/styles.css"; //Migrate to pigmentJs
 
 //Context
-import { UserContext } from "../contexts/UserContext";
-import { ReportsContext } from "../contexts/ReportsContext";
-import { CategoriesContext } from "../contexts/CategoriesContext";
-import { ProductsContext } from "../contexts/ProductsContext";
+// import { UserContext } from "../contexts/UserContext";
+// import { ReportsContext } from "../contexts/ReportsContext";
+// import { CategoriesContext } from "../contexts/CategoriesContext";
+// import { ProductsContext } from "../contexts/ProductsContext";
 
 //Component
 import CardLandingPage from "../components/CardLandingPage";
@@ -57,19 +59,19 @@ export default function Home() {
   /*
   Do I still need those??gedi
   */
-  const { loggedIn } = useContext(UserContext);
-  const { hasReport } = useContext(ReportsContext);
-  const { hasCategory } = useContext(CategoriesContext);
-  const { hasProduct } = useContext(ProductsContext);
+  // const { loggedIn } = useContext(UserContext);
+  // const { hasReport } = useContext(ReportsContext);
+  // const { hasCategory } = useContext(CategoriesContext);
+  // const { hasProduct } = useContext(ProductsContext);
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    if (loggedIn) {
-      const url = redirectOnLogin(hasReport, hasCategory, hasProduct);
-      if (url) router.push(url);
-    }
-  }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     const url = redirectOnLogin(hasReport, hasCategory, hasProduct);
+  //     if (url) router.push(url);
+  //   }
+  // }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
 
   return (
     <Container className={rootStyle} maxWidth="md">
@@ -87,9 +89,9 @@ export default function Home() {
           variant="contained"
           color="primary"
           size="large"
-          onClick={() => {
-            router.push("/login");
-          }}
+          // onClick={() => {
+          //   router.push("/login");
+          // }}
         >
           Start
         </Button>
