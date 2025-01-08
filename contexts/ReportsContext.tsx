@@ -80,18 +80,16 @@ const ReportsContext = createContext<Partial<IContext>>({});
 
 const ReportsProvider = ({ children }: IProps) => {
   const { loggedIn } = useContext(UserContext);
-  const [hasReport, setHasReport] = useState<boolean | null>(null);
+
   const [reports, setReports] = useState<IReport[] | []>([]);
   const [getReports, { data, loading, error }] = useLazyQuery(GET_REPORTS);
   const [createReport] = useMutation(CREATE_REPORT);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.reports & data.reports.reports) {
       const currentsReports = sortReportsByNewerDate(data?.reports?.reports);
 
       setReports(currentsReports);
-      if (currentsReports.length > 0) setHasReport(true);
-      else setHasReport(false);
     }
   }, [data, loading]);
 
@@ -106,7 +104,7 @@ const ReportsProvider = ({ children }: IProps) => {
       const response = await createReport({ variables: { dateEndingCycle } });
 
       setReports([...reports, response.data.createReport]);
-      setHasReport(true);
+
       return response;
     } catch (err: any) {
       console.error(err?.message);
@@ -126,7 +124,6 @@ const ReportsProvider = ({ children }: IProps) => {
   return (
     <ReportsContext.Provider
       value={{
-        hasReport,
         reports,
         createNewReport,
         deleteLocalReport,

@@ -13,7 +13,7 @@ import { CategoriesProvider } from "../contexts/CategoriesContext";
 
 //GraphQL
 import { ApolloProvider } from "@apollo/client";
-import client from "../apollo-client";
+import { ApolloWrapper } from "../apollo-client";
 
 import type { AppProps } from "next/app";
 
@@ -27,7 +27,7 @@ import "@pigment-css/react/styles.css";
 function MyApp({ Component, pageProps }: AppProps) {
   const props = { Component, pageProps };
   return (
-    <ApolloProvider client={client}>
+    <ApolloWrapper>
       <UserProvider>
         <CategoriesProvider>
           <ProductsProvider>
@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </ProductsProvider>
         </CategoriesProvider>
       </UserProvider>
-    </ApolloProvider>
+    </ApolloWrapper>
   );
 }
 export default MyApp;
