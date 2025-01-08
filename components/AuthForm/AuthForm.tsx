@@ -1,5 +1,6 @@
+"use client";
 //React
-import React, { Fragment } from "react";
+import React from "react";
 
 //Material UI
 import TextField from "@mui/material/TextField";
@@ -68,7 +69,7 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
               label="Password"
               autoComplete="off"
               type="password"
-              inputProps={{ input: "password" }}
+              slotProps={{ htmlInput: { input: "password" } }}
             />
           )}
         />

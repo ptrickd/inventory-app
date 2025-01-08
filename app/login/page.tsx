@@ -1,12 +1,13 @@
+"use client";
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 //Material UI
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 
 import Button from "@mui/material/Button";
-import Container from "@mui/material-pigment-css/Container";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
 //Form
@@ -14,24 +15,21 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 //GraphQL
 import { useMutation } from "@apollo/client";
-import { LOGIN } from "../graphql/queries";
+import { LOGIN } from "../../graphql/queries";
 
 //Context
-import { UserContext } from "../contexts/UserContext";
-import { ReportsContext } from "../contexts/ReportsContext";
-import { CategoriesContext } from "../contexts/CategoriesContext";
-import { ProductsContext } from "../contexts/ProductsContext";
+import { UserContext } from "../../contexts/UserContext";
+import { ReportsContext } from "../../contexts/ReportsContext";
+import { CategoriesContext } from "../../contexts/CategoriesContext";
+import { ProductsContext } from "../../contexts/ProductsContext";
 
 //Components
-import AuthForm from "../components/AuthForm";
-import DisplayMessage from "../components/DisplayMessage";
-import Footer from "../Layout/Footer";
-
-//Function
-import { redirectOnLogin } from "../utils/redirect";
+import AuthForm from "../../components/AuthForm";
+import DisplayMessage from "../../components/DisplayMessage";
+import Footer from "../../Layout/Footer";
 
 //Styles
-import { rootStyle, mainStyle, titleStyle } from "../styles/login.style";
+import { rootStyle, mainStyle, titleStyle } from "../../styles/login.style";
 
 interface IForm {
   email: string;
@@ -51,10 +49,6 @@ const Login: React.FC = () => {
     setTheme,
   } = useContext(UserContext);
 
-  const { hasReport } = useContext(ReportsContext);
-  const { hasCategory } = useContext(CategoriesContext);
-  const { hasProduct } = useContext(ProductsContext);
-
   const [submitting, setSubmitting] = useState(false);
   const [serverErrorMess, setServerErrorMess] = useState("");
 
@@ -62,16 +56,13 @@ const Login: React.FC = () => {
 
   const [login] = useMutation(LOGIN);
 
-  useEffect(() => {
-    //Push to wiz wiz will redirect if incorrect
-    //When loggedIn wait to be connected to all context
-    if (loggedIn) {
-      const url = redirectOnLogin(hasReport, hasCategory, hasProduct);
-      if (url) router.push(url);
-    }
-  }, [loggedIn, hasReport, hasCategory, hasProduct, router]);
-
   // useEffect(() => {
+  //   if (loggedIn) {
+  //     router.push("/dashboard");
+  //   }
+  // }, [loggedIn, router]);
+
+  // //useEffect(() => {
   //   // let responseTimeout: any = null;
   //   if (submitting) {
   //     const responseTimeout = setTimeout(() => {
@@ -127,7 +118,7 @@ const Login: React.FC = () => {
         />
         <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
 
-        <Button
+        {/*<Button
           color="inherit"
           variant="contained"
           onClick={() => {
@@ -135,10 +126,8 @@ const Login: React.FC = () => {
           }}
         >
           Register
-        </Button>
+        </Button> */}
       </Box>
-
-      <Footer />
     </Container>
   );
 };

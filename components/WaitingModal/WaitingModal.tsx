@@ -13,11 +13,7 @@ interface IProps {
 
 const WaitingModal = ({ open }: IProps) => {
   return (
-    <Dialog
-      open={open}
-      aria-labelledby="Wait Response From server"
-      className={rootStyle}
-    >
+    <Dialog open={open} aria-labelledby="Wait Response From server">
       <DialogContent>
         <CircularProgress />
       </DialogContent>

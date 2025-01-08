@@ -39,9 +39,6 @@ import { ProductsContext } from "../contexts/ProductsContext";
 import CardLandingPage from "../components/CardLandingPage";
 import Footer from "../Layout/Footer";
 
-//Function
-import { redirectOnLogin } from "../utils/redirect";
-
 //temporary constant #648dae #829baf
 const Light_background_Color = "#c8e4fb";
 
@@ -51,7 +48,7 @@ export default function Home() {
   Do I still need those??gedi
   */
   const { loggedIn } = useContext(UserContext);
-  const { hasReport } = useContext(ReportsContext);
+  const { hasReport } = useContext(ReportsContext); //delete all ref to wiz
   const { hasCategory } = useContext(CategoriesContext);
   const { hasProduct } = useContext(ProductsContext);
 
@@ -80,9 +77,9 @@ export default function Home() {
           variant="contained"
           color="primary"
           size="large"
-          // onClick={() => {
-          //   router.push("/login");
-          // }}
+          onClick={() => {
+            router.push("/login");
+          }}
         >
           Start
         </Button>

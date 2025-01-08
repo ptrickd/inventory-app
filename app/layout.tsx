@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 //Components
 import Navbar from "../Layout/Navbar";
 import ComponentWrapper from "../components/ComponentWrapper";
+import Footer from "../Layout/Footer";
 
 //Context API
 import { ProductsProvider } from "../contexts/ProductsContext";
@@ -38,7 +39,10 @@ export default function RootLayout({
           <UserProvider>
             <CategoriesProvider>
               <ProductsProvider>
-                <ReportsProvider>{children}</ReportsProvider>
+                <ReportsProvider>
+                  {children}
+                  <Footer />
+                </ReportsProvider>
               </ProductsProvider>
             </CategoriesProvider>
           </UserProvider>
