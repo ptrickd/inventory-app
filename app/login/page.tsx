@@ -26,7 +26,6 @@ import { ProductsContext } from "../../contexts/ProductsContext";
 //Components
 import AuthForm from "../../components/AuthForm";
 import DisplayMessage from "../../components/DisplayMessage";
-import Footer from "../../Layout/Footer";
 
 //Styles
 import { rootStyle, mainStyle, titleStyle } from "../../styles/login.style";
@@ -56,11 +55,11 @@ const Login: React.FC = () => {
 
   const [login] = useMutation(LOGIN);
 
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     router.push("/dashboard");
-  //   }
-  // }, [loggedIn, router]);
+  useEffect(() => {
+    if (loggedIn) {
+      router.push("/dashboard");
+    }
+  }, [loggedIn, router]);
 
   // //useEffect(() => {
   //   // let responseTimeout: any = null;
@@ -75,6 +74,7 @@ const Login: React.FC = () => {
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     setSubmitting(true);
+
     const loginResponse = await login({
       variables: { email: data.email, password: data.password },
     });
@@ -118,7 +118,7 @@ const Login: React.FC = () => {
         />
         <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
 
-        {/*<Button
+        <Button
           color="inherit"
           variant="contained"
           onClick={() => {
@@ -126,7 +126,7 @@ const Login: React.FC = () => {
           }}
         >
           Register
-        </Button> */}
+        </Button>
       </Box>
     </Container>
   );
