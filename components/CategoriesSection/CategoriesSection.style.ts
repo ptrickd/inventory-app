@@ -1,12 +1,12 @@
 //Material UI
 import { css } from "@pigment-css/react";
 
-export const sectionStyle = {
+export const sectionStyle = css({
   display: "flex",
   flexDirection: "column",
   marginTop: 10,
   marginLeft: 25,
-};
+});
 
 export const horizontalBoxStyle = css({
   display: "flex",

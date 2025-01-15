@@ -1,16 +1,17 @@
+"use client";
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 //Components
-import CreateNewReportModal from "../components/CreateNewReportModal";
-import SubmittingReportModal from "../components/SubmittingReportModal";
-import ErrorModal from "../components/ErrorModal";
-import SettingsModal from "../components/SettingsModal";
-import Footer from "../Layout/Footer";
-import CategoriesSection from "../components/CategoriesSection";
+import CreateNewReportModal from "../../components/CreateNewReportModal";
+import SubmittingReportModal from "../../components/SubmittingReportModal";
+import ErrorModal from "../../components/ErrorModal";
+import SettingsModal from "../../components/SettingsModal";
 
-import ReportsSection from "../components/ReportsSection";
+import CategoriesSection from "../../components/CategoriesSection";
+
+import ReportsSection from "../../components/ReportsSection";
 
 //Material UI
 import Box from "@mui/material/Box";
@@ -28,9 +29,9 @@ import IconButton from "@mui/material/IconButton";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 //Context
-import { UserContext } from "../contexts/UserContext";
-import { CategoriesContext } from "../contexts/CategoriesContext";
-import { ReportsContext } from "../contexts/ReportsContext";
+import { UserContext } from "../../contexts/UserContext";
+import { CategoriesContext } from "../../contexts/CategoriesContext";
+import { ReportsContext } from "../../contexts/ReportsContext";
 
 //Style
 import {
@@ -38,7 +39,7 @@ import {
   mainStyle,
   paperStyle,
   dividerStyle,
-} from "../styles/dashboard.style";
+} from "../../styles/dashboard.style";
 
 //Interface
 interface IResponseStatus {
@@ -85,7 +86,11 @@ function Dashboard() {
       router.push("/");
     }
   }, [loggedIn, router]);
-
+  useEffect(() => {
+    console.log("categoires");
+    console.log(categories);
+    console.log(`loggedIn: ${loggedIn}`);
+  }, [categories, loggedIn]);
   return (
     <Container className={rootStyle} maxWidth="xs">
       <Box className={mainStyle}>
@@ -96,7 +101,7 @@ function Dashboard() {
           <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
           <CategoriesSection listOfCategories={categories || []} />
           <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
-          <ReportsSection
+          {/* <ReportsSection
             list={reports || []}
             handleClickAddModal={() => setOpenCreateNewReport(true)}
           />
@@ -129,10 +134,9 @@ function Dashboard() {
           <SettingsModal
             open={openSettingsModal}
             handleCloseModal={handleCloseSettingsModal}
-          />
+          /> */}
         </Paper>
       </Box>
-      <Footer />
     </Container>
   );
 }

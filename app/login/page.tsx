@@ -94,6 +94,8 @@ const Login: React.FC = () => {
       setToken(loginResponse.data.login.token);
       setTheme(loginResponse.data.login.user.theme);
       setServerErrorMess("");
+      console.log("server response");
+      console.log(loginResponse.data);
       setCurrentUser({
         id: loginResponse.data.login.user.id,
         email: loginResponse.data.login.user.email,
@@ -121,7 +123,8 @@ const Login: React.FC = () => {
         <Button
           color="inherit"
           variant="contained"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             router.push("/register");
           }}
         >

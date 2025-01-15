@@ -1,3 +1,4 @@
+"use client";
 //React
 import React, { useState } from "react";
 import Link from "next/link";
@@ -8,8 +9,9 @@ import MessageModal from "../MessageModal";
 import ListItem from "@mui/material/ListItem";
 
 //Material UI
-import { useTheme } from "@mui/material-pigment-css";
-import Box from "@mui/material-pigment-css/Box";
+
+import { css } from "@pigment-css/react";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import Collapse from "@mui/material/Collapse";
@@ -39,9 +41,6 @@ interface IProps {
 }
 
 const CategoriesSection = ({ listOfCategories }: IProps) => {
-  //Theming
-  const theme = useTheme();
-
   //useState
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [showList, setShowList] = useState(false);
@@ -70,8 +69,18 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
     setIsMessageError(false);
   };
 
+  //Style
+  const textStyle = css`
+    color: ${({ theme }) => theme.colorSchemes.dark.palette.primary};
+
+    @media (prefers-color-scheme: light) {
+      color: ${({ theme }) => theme.colorSchemes.light.palette.primary};
+    }
+  `;
+
+  //
   return (
-    <Box className={sectionStyle}>
+    <Box component="section" className={sectionStyle}>
       <Box className={horizontalBoxStyle}>
         <IconButton
           aria-label="add category"
@@ -87,7 +96,7 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
         </Typography>
 
         <Button onClick={() => setShowList(!showList)} className={buttonStyle}>
-          <Typography variant="body1" color={theme.palette.text.primary}>
+          <Typography variant="body1" className={textStyle}>
             {listOfCategories.length}
           </Typography>
         </Button>
@@ -98,9 +107,7 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
             return (
               <ListItem key={item.id}>
                 <Link href={`/category/${item.id}`}>
-                  <Typography color={theme.palette.text.primary}>
-                    {item.name}
-                  </Typography>
+                  <Typography className={textStyle}>{item.name}</Typography>
                 </Link>
               </ListItem>
             );

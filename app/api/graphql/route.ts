@@ -19,6 +19,7 @@ dbConnect();
 
 const getUser = (req: NextApiRequest) => {
   try {
+    console.log("in getUser()");
     if (req) {
       const tokenWithBearer = req.headers.authorization || "";
       const token = tokenWithBearer.split(" ")[1];
@@ -31,7 +32,8 @@ const getUser = (req: NextApiRequest) => {
 };
 
 const apolloServer = new ApolloServer({ schema });
-export default startServerAndCreateNextHandler(apolloServer, {
+
+const handler = startServerAndCreateNextHandler(apolloServer, {
   context: async (req, res) => ({
     req,
     res,
@@ -39,3 +41,4 @@ export default startServerAndCreateNextHandler(apolloServer, {
     user: getUser(req),
   }),
 });
+export { handler as GET, handler as POST };

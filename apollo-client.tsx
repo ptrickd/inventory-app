@@ -10,11 +10,18 @@ import {
   InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support";
 
+//for debugging purpose only
+import { setVerbosity } from "ts-invariant";
+setVerbosity("debug");
+//
 // have a function to create a client for you
 function makeClient() {
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
     uri: "/api/graphql",
+    //backend same origin than frontend
+    //otherwise credentials: 'include'
+    credentials: "same-origin",
     // you can disable result caching here if you want to
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
     fetchOptions: { cache: "no-store" },
@@ -40,7 +47,7 @@ function makeClient() {
   return new ApolloClient({
     // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
     cache: new InMemoryCache(),
-    link: httpLink,
+    link: authLink.concat(httpLink),
   });
 }
 

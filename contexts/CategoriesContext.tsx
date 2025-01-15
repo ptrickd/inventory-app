@@ -4,8 +4,14 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 //GraphQL
-import { useMutation, useLazyQuery, gql } from "@apollo/client";
+import {
+  useSuspenseQuery,
+  useMutation,
+  useLazyQuery,
+  gql,
+} from "@apollo/client";
 import { CREATE_CATEGORY, GET_CATEGORIES } from "../graphql/queries";
+// import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
 //Context
 import { UserContext } from "./UserContext";
@@ -65,6 +71,7 @@ const CategoriesProvider = ({ children }: IProps) => {
 
   useEffect(() => {
     if (loggedIn) getCategories();
+    console.log(`in categories context, isLoggedIn: ${loggedIn}`);
   }, [loggedIn, getCategories]);
 
   //add a new category
