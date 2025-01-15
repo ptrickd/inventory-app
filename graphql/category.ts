@@ -53,7 +53,7 @@ export const resolvers = {
     categories: async (_: any, _1: any, { user }: any) => {
       try {
         // console.log('\n\nin getCategories')
-        // console.log('user', user)
+        console.log("user", user);
 
         if (!user) throw new Error("Not Authenticated");
         console.log(user);

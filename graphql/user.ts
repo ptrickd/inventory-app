@@ -70,6 +70,7 @@ export const resolvers = {
     currentUser: async (_: any, _1: any, { user }: any) => {
       try {
         if (!user) return null;
+        console.log("find user");
         return User.findOne({ _id: user.id });
       } catch (err) {
         console.log(err);
@@ -104,8 +105,10 @@ export const resolvers = {
     },
     login: async (_: any, { email, password }: IRegister) => {
       try {
+        console.log(`emial:${email}`);
+        console.log(`password: ${password}`);
         const user = await User.findOne({ email });
-
+        console.log(`user:${user}`);
         if (!user) throw new Error("Invalid Login");
 
         await schemaValidation.validateAsync({
@@ -121,7 +124,7 @@ export const resolvers = {
           process.env.RESTO_JWT_SECRET,
           { expiresIn: "1d" }
         );
-
+        console.log(`token:${token}`);
         return { token, user };
       } catch (err: any) {
         console.log(err?.message);

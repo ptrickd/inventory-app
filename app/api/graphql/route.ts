@@ -1,29 +1,29 @@
 //NextJs
 import { NextApiRequest } from "next";
+import { NextRequest } from "next/server";
 
 //GraphQL
 import { ApolloServer } from "@apollo/server";
 import { schema } from "../../../graphql/schema";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 
-//Cors
-var cors = require("cors");
-
 //Models
 import dbConnect from "../../../utils/dbConnect";
 
 //Auth
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 dbConnect();
 
-const getUser = (req: NextApiRequest) => {
+const getUser = (req: NextRequest) => {
   try {
-    console.log("in getUser()");
+    console.log(`req: ->`);
+    console.log(req.headers.get("authorization"));
     if (req) {
-      const tokenWithBearer = req.headers.authorization || "";
+      const tokenWithBearer = req.headers.get("authorization") || "";
       const token = tokenWithBearer.split(" ")[1];
-      return jwt.verify(token, process.env.RESTO_JWT_SECRET);
+
+      return jwt.verify(token, process.env.RESTO_JWT_SECRET as string);
     }
     return null;
   } catch (err) {
@@ -34,7 +34,7 @@ const getUser = (req: NextApiRequest) => {
 const apolloServer = new ApolloServer({ schema });
 
 const handler = startServerAndCreateNextHandler(apolloServer, {
-  context: async (req, res) => ({
+  context: async (req: NextRequest, res) => ({
     req,
     res,
     csrfPrevention: true, //cors
