@@ -1,17 +1,19 @@
+"use client";
+
 //React
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 //Context
-import { ProductsContext } from "../../contexts/ProductsContext";
-import { CategoriesContext } from "../../contexts/CategoriesContext";
-import { UserContext } from "../../contexts/UserContext";
+import { ProductsContext } from "../../../contexts/ProductsContext";
+import { CategoriesContext } from "../../../contexts/CategoriesContext";
+import { UserContext } from "../../../contexts/UserContext";
 
 //Components
-import InputProduct from "../../components/InputProduct/InputProduct";
-import AddProductForm from "../../components/AddProductForm";
-import EditCategoryForm from "../../components/EditCategoryForm";
-import MessageModal from "../../components/MessageModal";
+import InputProduct from "../../../components/InputProduct/InputProduct";
+import AddProductForm from "../../../components/AddProductForm";
+import EditCategoryForm from "../../../components/EditCategoryForm";
+import MessageModal from "../../../components/MessageModal";
 
 //Material UI
 import Container from "@mui/material/Container";
@@ -29,9 +31,9 @@ import {
   rootStyle,
   titleStyle,
   titleTextStyle,
-} from "../../styles/categoryId.style";
+} from "../../../styles/categoryId.style";
 
-const ProductsPage: React.FC = () => {
+const ProductsPage = ({ params }: { params: { categoryId: string } }) => {
   //Context
   const { productsByCategory, setCategoryId } = useContext(ProductsContext);
   const { categories, setCategories, deleteCategoryApi } =
@@ -40,7 +42,8 @@ const ProductsPage: React.FC = () => {
 
   //React
   const router = useRouter();
-  const { categoryId } = router.query;
+  const { categoryId } = params;
+  //   const { categoryId } = router.query;
 
   //useState
   const [currentCategory, setCurrentCategory] = useState<ICategory | null>(
@@ -223,16 +226,16 @@ const ProductsPage: React.FC = () => {
       >
         Add New Product
       </Button>
-      {typeof categoryId === "string" && (
+      {/* {typeof categoryId === "string" && (
         <AddProductForm
           open={openAddProductModal}
           handleCloseModal={handleCloseAddProductForm}
           categoryId={categoryId}
           position={listOfProducts.length}
         />
-      )}
+      )} */}
 
-      <EditCategoryForm
+      {/* <EditCategoryForm
         open={openEditCategoryModal}
         handleCloseModal={handleCloseEditCategoryForm}
         category={currentCategory}
@@ -242,7 +245,7 @@ const ProductsPage: React.FC = () => {
         message={messageModal}
         isError={isResponseError}
         handleClick={() => handleMessageModalClicked()}
-      />
+      /> */}
     </Container>
   );
 };

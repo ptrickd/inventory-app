@@ -15,7 +15,7 @@ export const innerFormControlStyle = css({
   alignItems: "center",
 });
 
-export const textFieldStyle = css({});
+// export const textFieldStyle = css({});
 
 export const selectUnitStyle = css({
   marginLeft: 5,
@@ -32,4 +32,4 @@ export const lastAmountNameStyle = css({ width: "100%" });
 
 export const lastAmountValueStyle = css({ height: "auto" });
 
-export const iconSettingsStyle = css({});
+// export const iconSettingsStyle = css({});

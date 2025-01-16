@@ -9,14 +9,14 @@ import MessageModal from "../MessageModal";
 import EditProductBox from "../EditProductBox";
 
 //Material UI
-import { useTheme } from "@mui/material";
+// import { useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 
 //Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -35,12 +35,12 @@ import {
   rootStyle,
   formControlStyle,
   innerFormControlStyle,
-  textFieldStyle,
+  // textFieldStyle,
   selectUnitStyle,
   boxStyle,
   lastAmountNameStyle,
   lastAmountValueStyle,
-  iconSettingsStyle,
+  // iconSettingsStyle,
 } from "./InputProduct.style";
 
 //Utils
@@ -106,7 +106,7 @@ const InputProduct: React.FC<IProps> = ({
   unit,
 }) => {
   //Theming
-  const theme = useTheme();
+  // const theme = useTheme();
 
   //Context
   const { products, updateProducts } = useContext(ProductsContext);
@@ -250,7 +250,7 @@ const InputProduct: React.FC<IProps> = ({
               onBlur={handleSubmit(onSubmit)}
               variant="standard"
               fullWidth
-              className={textFieldStyle}
+              // className={textFieldStyle}
             />
           )}
         />
@@ -307,7 +307,7 @@ const InputProduct: React.FC<IProps> = ({
           <Typography
             variant="caption"
             className={lastAmountNameStyle}
-            color={theme.palette.text.primary}
+            // color={theme.palette.text.primary}
           >
             Last
           </Typography>
@@ -319,7 +319,6 @@ const InputProduct: React.FC<IProps> = ({
           <SettingsIcon color="inherit" />
         </IconButton>
       </FormControl>
-
       <EditProductBox
         id={id}
         name={name}
@@ -328,6 +327,7 @@ const InputProduct: React.FC<IProps> = ({
         position={position}
         unit={unit}
       />
+
       <MessageModal
         open={openMessageModal}
         isError={false}

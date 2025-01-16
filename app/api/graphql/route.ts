@@ -17,8 +17,8 @@ dbConnect();
 
 const getUser = (req: NextRequest) => {
   try {
-    console.log(`req: ->`);
-    console.log(req.headers.get("authorization"));
+    // console.log(`req: ->`);
+    // console.log(req.headers.get("authorization"));
     if (req) {
       const tokenWithBearer = req.headers.get("authorization") || "";
       const token = tokenWithBearer.split(" ")[1];
