@@ -1,27 +1,28 @@
+"use client";
 //React
 import React, { useState, useEffect, useContext } from "react";
 import { css } from "@pigment-css/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 //Material UI
-import Container from "@mui/material-pigment-css/Container";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 
 //Form
 import { useForm, SubmitHandler } from "react-hook-form";
 
 //GraphQL
 import { useMutation } from "@apollo/client";
-import { REGISTER } from "../graphql/queries";
+import { REGISTER } from "../../graphql/queries";
 
 //Context
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 //Components
-import AuthForm from "../components/AuthForm";
-import DisplayMessage from "../components/DisplayMessage";
-import Footer from "../Layout/Footer";
+import AuthForm from "../../components/AuthForm";
+import DisplayMessage from "../../components/DisplayMessage";
+import Footer from "../../Layout/Footer";
 
 const rootStyle = css({
   display: "flex",

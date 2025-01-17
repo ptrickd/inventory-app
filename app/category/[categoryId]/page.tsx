@@ -226,16 +226,16 @@ const ProductsPage = ({ params }: { params: { categoryId: string } }) => {
       >
         Add New Product
       </Button>
-      {/* {typeof categoryId === "string" && (
+      {typeof categoryId === "string" && (
         <AddProductForm
           open={openAddProductModal}
           handleCloseModal={handleCloseAddProductForm}
           categoryId={categoryId}
           position={listOfProducts.length}
         />
-      )} */}
+      )}
 
-      {/* <EditCategoryForm
+      <EditCategoryForm
         open={openEditCategoryModal}
         handleCloseModal={handleCloseEditCategoryForm}
         category={currentCategory}
@@ -245,7 +245,7 @@ const ProductsPage = ({ params }: { params: { categoryId: string } }) => {
         message={messageModal}
         isError={isResponseError}
         handleClick={() => handleMessageModalClicked()}
-      /> */}
+      />
     </Container>
   );
 };
