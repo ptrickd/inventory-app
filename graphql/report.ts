@@ -123,7 +123,12 @@ export const resolvers = {
     reports: async (_: any, _1: any, { user }: any) => {
       try {
         if (!user) throw new Error("Not Authenticated");
+        console.log("user server reports");
+        console.log(user);
         let reports = await Report.find({ userId: user.id });
+        console.log("**reports from db**");
+        console.log(reports);
+
         return { reports };
       } catch (err: any) {
         return { error: err.message };

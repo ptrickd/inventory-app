@@ -1,12 +1,13 @@
+"use client";
 //React
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 //Material UI
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-import Container from "@mui/material-pigment-css/Container";
+import Container from "@mui/material/Container";
 
 import Typography from "@mui/material/Typography";
 
@@ -17,17 +18,17 @@ import { useQuery, useMutation } from "@apollo/client";
 import { DateTime } from "luxon";
 
 //Context
-import { UserContext } from "../../contexts/UserContext";
-import { ProductsContext } from "../../contexts/ProductsContext";
-import { ReportsContext } from "../../contexts/ReportsContext";
+import { UserContext } from "../../../contexts/UserContext";
+import { ProductsContext } from "../../../contexts/ProductsContext";
+import { ReportsContext } from "../../../contexts/ReportsContext";
 
 //Component
-import Footer from "../../Layout/Footer";
-import WaitingModal from "../../components/WaitingModal";
-import MessageModal from "../../components/MessageModal";
-import UserChoiceModal from "../../components/UserChoiceModal";
-import SubmitReportButton from "../../components/SubmitReportButton";
-import RenderReport from "../../components/RenderReport";
+// import Footer from "../../../Layout/Footer";
+// import WaitingModal from "../../../components/WaitingModal";
+// import MessageModal from "../../../components/MessageModal";
+// import UserChoiceModal from "../../../components/UserChoiceModal";
+// import SubmitReportButton from "../../../components/SubmitReportButton";
+import RenderReport from "../../../components/RenderReport";
 
 //Styles
 import {
@@ -38,23 +39,26 @@ import {
   mainStyle,
   buttonStyle,
   statusStyle,
-} from "../../styles/reportId.style";
+} from "../../../styles/reportId.style";
 
 //GraphQl Query
 import {
   GET_REPORT,
   SUBMIT_REPORT,
   DELETE_REPORT,
-} from "../../queries/reportId.queries";
+} from "../../../queries/reportId.queries";
 
 // Types
-import { ISubmittedProduct, IServerResponse } from "../../types/reportId.types";
+import {
+  ISubmittedProduct,
+  IServerResponse,
+} from "../../../types/reportId.types";
 //next task split
-const Report: React.FC = () => {
+const Report = ({ params }: { params: { reportId: string } }) => {
   //Router
   const router = useRouter();
-  const { reportId } = router.query;
-
+  // const { reportId } = router.query;
+  const { reportId } = params;
   //useState
   const [submitting, setSubmitting] = useState(false);
 
@@ -102,7 +106,10 @@ const Report: React.FC = () => {
   useEffect(() => {
     if (!loggedIn) router.push("/");
   }, [loggedIn, router]);
-
+  // useEffect(() => {
+  //   console.log("report in page/[reportId]");
+  //   console.log(data);
+  // }, [data]);
   //to do: add component to handle the following if's
   if (loading || !data) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
@@ -237,7 +244,7 @@ const Report: React.FC = () => {
           reportId={reportId}
           submittedProductList={submittedProductList}
         />
-        <SubmitReportButton
+        {/* <SubmitReportButton
           status={status}
           handleSubmitClick={handleSubmitClick}
           handleDeleteClick={handleDeleteClick}
@@ -254,9 +261,8 @@ const Report: React.FC = () => {
           message="Are you sure you want to delete that report?"
           handleCloseModal={handleCloseUserChoiceModal}
           handleUserResponse={handleUserResponseOnDelete}
-        />
+        /> */}
       </Box>
-      <Footer />
     </Container>
   );
 };

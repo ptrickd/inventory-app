@@ -6,10 +6,10 @@ import Link from "next/link";
 import MessageModal from "../MessageModal";
 
 //Material UI
-import { useTheme } from "@mui/material-pigment-css";
+// import { useTheme } from "@mui/material-pigment-css";
 
 import Collapse from "@mui/material/Collapse";
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import Typography from "@mui/material/Typography";
@@ -51,8 +51,8 @@ interface IProps {
 
 const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
   //Theming
-  const theme = useTheme();
-
+  // const theme = useTheme();
+  console.log(list);
   //useState
   const [showList, setShowList] = useState(false);
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -104,7 +104,8 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
         </Typography>
 
         <Button onClick={() => setShowList(!showList)} className={buttonStyle}>
-          <Typography variant="body1" color={theme.palette.text.primary}>
+          <Typography variant="body1">
+            {/* color={theme.palette.text.primary} */}
             {list.length}
           </Typography>
         </Button>
@@ -116,10 +117,9 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
             return (
               <ListItem key={item.id}>
                 <Link href={`/report/${item.id}`}>
-                  <Typography
-                    variant="body1"
-                    color={theme.palette.text.primary}
-                  >
+                  <Typography variant="body1">
+                    {/* color={theme.palette.text.primary} */}
+
                     {formattingDate(item.dateEndingCycle)}
                   </Typography>
                 </Link>

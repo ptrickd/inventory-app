@@ -86,15 +86,18 @@ const ReportsProvider = ({ children }: IProps) => {
   const [createReport] = useMutation(CREATE_REPORT);
 
   useEffect(() => {
-    if (data && data.reports & data.reports.reports) {
+    console.log("in reports context");
+    console.log(data);
+    if (data && data.reports && data.reports.reports) {
       const currentsReports = sortReportsByNewerDate(data?.reports?.reports);
 
       setReports(currentsReports);
     }
-  }, [data, loading]);
+  }, [data]);
 
   useEffect(() => {
     if (loggedIn) {
+      console.log("getting reports");
       getReports();
     }
   }, [loggedIn, getReports]);

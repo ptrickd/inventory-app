@@ -90,7 +90,10 @@ function Dashboard() {
     console.log("categoires");
     console.log(categories);
     console.log(`loggedIn: ${loggedIn}`);
-  }, [categories, loggedIn]);
+
+    console.log("reports->");
+    console.log(reports);
+  }, [categories, loggedIn, reports]);
   return (
     <Container className={rootStyle} maxWidth="xs">
       <Box className={mainStyle}>
@@ -101,11 +104,12 @@ function Dashboard() {
           <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
           <CategoriesSection listOfCategories={categories || []} />
           <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
-          {/* <ReportsSection
+          <ReportsSection
             list={reports || []}
             handleClickAddModal={() => setOpenCreateNewReport(true)}
           />
           <Divider sx={{ marginTop: 2 }} className={dividerStyle} />
+
           <List>
             <ListItem>
               <IconButton
@@ -131,10 +135,11 @@ function Dashboard() {
             open={openErrorModal}
             handleCloseModal={handleCloseErrorModal}
           />
+
           <SettingsModal
             open={openSettingsModal}
             handleCloseModal={handleCloseSettingsModal}
-          /> */}
+          />
         </Paper>
       </Box>
     </Container>

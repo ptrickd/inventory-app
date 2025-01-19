@@ -34,8 +34,6 @@ function makeClient() {
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     const token = localStorage.getItem("token");
-    console.log(`token client: ${token}`);
-    console.log(`headers: ${headers}`);
     // return the headers to the context so httpLink can read them
     return {
       headers: {

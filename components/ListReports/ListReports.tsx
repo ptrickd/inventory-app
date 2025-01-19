@@ -14,7 +14,7 @@ import TableRow from "@mui/material/TableRow";
 import ListProductsByCategory from "../ListProductsByCategory";
 
 //Style
-import { categoryStyle } from "./ListReports.style";
+import {} from "./ListReports.style";
 
 //Types
 interface IProductByCategory {
@@ -38,7 +38,7 @@ const ListReports = ({ report }: IProps) => {
     <Box key={report.categoryName}>
       <TableContainer component={Paper}>
         <Table aria-label="report table">
-          <TableHead className={categoryStyle}>
+          <TableHead>
             <TableRow>
               <TableCell>{report.categoryName}</TableCell>
               <TableCell align="right">Current </TableCell>
