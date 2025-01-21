@@ -17,6 +17,8 @@ import { CategoriesProvider } from "../contexts/CategoriesContext";
 // import { ApolloProvider } from "@apollo/client";
 // import client from "../apollo-client";
 import { ApolloWrapper } from "../apollo-client";
+
+//Required by pigment-css
 import "@pigment-css/react/styles.css";
 
 export const metadata: Metadata = {
@@ -40,8 +42,12 @@ export default function RootLayout({
             <CategoriesProvider>
               <ProductsProvider>
                 <ReportsProvider>
-                  {children}
-                  <Footer />
+                  <Navbar />
+                  <ComponentWrapper>
+                    {children}
+
+                    <Footer />
+                  </ComponentWrapper>
                 </ReportsProvider>
               </ProductsProvider>
             </CategoriesProvider>

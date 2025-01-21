@@ -52,7 +52,7 @@ interface IProps {
 const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
   //Theming
   // const theme = useTheme();
-  console.log(list);
+
   //useState
   const [showList, setShowList] = useState(false);
   const [openMessageModal, setOpenMessageModal] = useState(false);

@@ -23,11 +23,11 @@ import { ProductsContext } from "../../../contexts/ProductsContext";
 import { ReportsContext } from "../../../contexts/ReportsContext";
 
 //Component
-// import Footer from "../../../Layout/Footer";
-// import WaitingModal from "../../../components/WaitingModal";
-// import MessageModal from "../../../components/MessageModal";
-// import UserChoiceModal from "../../../components/UserChoiceModal";
-// import SubmitReportButton from "../../../components/SubmitReportButton";
+
+import WaitingModal from "../../../components/WaitingModal";
+import MessageModal from "../../../components/MessageModal";
+import UserChoiceModal from "../../../components/UserChoiceModal";
+import SubmitReportButton from "../../../components/SubmitReportButton";
 import RenderReport from "../../../components/RenderReport";
 
 //Styles
@@ -244,7 +244,7 @@ const Report = ({ params }: { params: { reportId: string } }) => {
           reportId={reportId}
           submittedProductList={submittedProductList}
         />
-        {/* <SubmitReportButton
+        <SubmitReportButton
           status={status}
           handleSubmitClick={handleSubmitClick}
           handleDeleteClick={handleDeleteClick}
@@ -261,7 +261,7 @@ const Report = ({ params }: { params: { reportId: string } }) => {
           message="Are you sure you want to delete that report?"
           handleCloseModal={handleCloseUserChoiceModal}
           handleUserResponse={handleUserResponseOnDelete}
-        /> */}
+        />
       </Box>
     </Container>
   );

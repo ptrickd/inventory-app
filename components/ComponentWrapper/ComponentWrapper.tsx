@@ -1,3 +1,4 @@
+"use client";
 //React
 import React, { Fragment, useContext } from "react";
 
@@ -20,9 +21,8 @@ const ComponentWrapper = ({ children }: IProps) => {
 
   return (
     <section>
-      <div />
-      {/* className={toolbarStyle}  */}
-      <div>{children}</div>
+      {/* className={toolbarStyle}  empty class*/}
+      <div className={clsx(loggedIn && mainStyle)}>{children}</div>
       {/* className={clsx(loggedIn && mainStyle)} */}
     </section>
   );

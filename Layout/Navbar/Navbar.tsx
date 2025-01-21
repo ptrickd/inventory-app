@@ -1,6 +1,7 @@
+"use client";
 //React
 import React, { useState, useContext } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 //Components
 import NavbarDrawer from "../../components/NavbarDrawer";
@@ -12,11 +13,12 @@ import { CategoriesContext } from "../../contexts/CategoriesContext";
 //Material UI
 import clsx from "clsx";
 import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
-// import CssBaseline from "@mui/material/CssBaseline";
+
 import Button from "@mui/material/Button";
 
 //Icons
@@ -30,22 +32,22 @@ import {
   drawerPaperStyle,
   hideStyle,
   appBarStyle,
-  appBarShiftStyle,
+  // appBarShiftStyle,
   activeSubMenuStyle,
   menuButtonStyle,
   linkButtonStyle,
   titleStyle,
-  toolbarStyle,
+  // toolbarStyle,
 } from "./Navbar.style";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const { loggedIn, logout } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  // const router = useRouter();0
+  const router = useRouter();
 
   //Keep those for the icon more menu
   const handleClickOnMoreIconMenu = (
@@ -75,98 +77,96 @@ const Navbar = () => {
   //   );
   // };
   // const MemoIconButton = React.memo(renderedIconButton);
-  if (!categories) return null;
+  if (!categories) return <></>;
   //className={rootStyle}
   return (
-    <section>
-      <Typography variant="h6">hdhdhddh</Typography>
-      {/* */}
-      {/*Code comes here*/}
-    </section>
+    <Box component="section">
+      <AppBar>
+        {/*className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}*/}
+        <Toolbar>
+          {/*https:github.com/mui/material-ui/issues/4532*
+         To try React.memo the button
+ */}
+          {/* <MemoIconButton /> */}
+          {/* <IconButton
+            color="inherit"
+            arial-label="open drawer"
+            edge="start"
+            disableRipple
+            onClick={() => setMobileOpen(true)}
+          >
+            {/* className={clsx(menuButtonStyle, mobileOpen && hideStyle)} 
+            <MenuIcon />
+          </IconButton> 
+          */}
+
+          {/* <Button
+            className={titleStyle}
+            color="inherit"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            <Typography variant="h6">Inventory</Typography>
+          </Button> */}
+
+          {/* Keep this code for later */}
+          {/* <IconButton
+                   aria-label="display more action"
+                   edge="end"
+                   color="inherit"
+                   onClick={handleClickOnMoreIconMenu}
+               >
+                   <MoreIcon />
+               </IconButton>
+               <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
+          {/* {loggedIn && (
+            <Button
+              className={linkButtonStyle}
+              color="inherit"
+              onClick={() => handleLogoutClick()}
+            >
+              Logout
+            </Button>
+          )}
+          {!loggedIn && (
+            <Button
+              className={linkButtonStyle}
+              color="inherit"
+              onClick={() => {
+                router.push("/login");
+              }}
+            >
+              Login
+            </Button>
+          )} */}
+        </Toolbar>
+      </AppBar>
+      {/* {loggedIn && (
+        <nav className={drawerStyle} aria-label="menu">
+          <Drawer
+            // sx={{ display: { xs: "block", sm: "none" } }}
+            variant="temporary"
+            anchor="left"
+            classes={{ paper: drawerPaperStyle }}
+            open={mobileOpen}
+            onClose={() => setMobileOpen(false)}
+            ModalProps={{ keepMounted: true }}
+          >
+            <NavbarDrawer categories={categories} />
+          </Drawer>
+          <Drawer
+            // sx={{ display: { xs: "none", sm: "block" } }}
+            open
+            variant="permanent"
+            classes={{ paper: drawerPaperStyle }}
+          >
+            <NavbarDrawer categories={categories} />
+          </Drawer>
+        </nav>
+      )} */}
+    </Box>
   );
 };
 
 export default Navbar;
-
-//     <AppBar className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}>
-//       <Toolbar>
-//         {/*https://github.com/mui/material-ui/issues/4532*
-//         To try React.memo the button
-// */}
-//         {/* <MemoIconButton /> */}
-//         <IconButton
-//           color="inherit"
-//           arial-label="open drawer"
-//           edge="start"
-//           className={clsx(menuButtonStyle, mobileOpen && hideStyle)}
-//           // disableRipple
-//           onClick={() => setMobileOpen(true)}
-//         >
-//           <MenuIcon />
-//         </IconButton>
-
-//         <Button
-//           className={titleStyle}
-//           color="inherit"
-//           onClick={() => {
-//             router.push("/");
-//           }}
-//         >
-//           <Typography variant="h6">Inventory</Typography>
-//         </Button>
-
-//         {/* Keep this code for later */}
-//         {/* <IconButton
-//                   aria-label="display more action"
-//                   edge="end"
-//                   color="inherit"
-//                   onClick={handleClickOnMoreIconMenu}
-//               >
-//                   <MoreIcon />
-//               </IconButton>
-//               <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
-//         {loggedIn && (
-//           <Button
-//             className={linkButtonStyle}
-//             color="inherit"
-//             onClick={() => handleLogoutClick()}
-//           >
-//             Logout
-//           </Button>
-//         )}
-//         {!loggedIn && (
-//           <Button
-//             className={linkButtonStyle}
-//             color="inherit"
-//             onClick={() => {
-//               router.push("/login");
-//             }}
-//           >
-//             Login
-//           </Button>
-//         )}
-//       </Toolbar>
-//     </AppBar>
-//     {loggedIn && (
-//       <nav className={drawerStyle} aria-label="menu">
-//         <Drawer
-//           sx={{ display: { xs: "block", sm: "none" } }}
-//           variant="temporary"
-//           anchor="left"
-//           classes={{ paper: drawerPaperStyle }}
-//           open={mobileOpen}
-//           onClose={() => setMobileOpen(false)}
-//           ModalProps={{ keepMounted: true }}
-//         >
-//           <NavbarDrawer categories={categories} />
-//         </Drawer>
-//         <Drawer
-//           sx={{ display: { xs: "none", sm: "block" } }}
-//           open
-//           variant="permanent"
-//           classes={{ paper: drawerPaperStyle }}
-//         >
-//           <NavbarDrawer categories={categories} />
-//         </Drawer>
-//       </nav>
-//     )}
