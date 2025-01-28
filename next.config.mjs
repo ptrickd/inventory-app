@@ -29,19 +29,32 @@ const pigmentConfig = {
     colorSchemes: {
       light: {
         palette: {
-          background: "0 0% 100%",
-          foreground: "240 10% 3.9%",
-          primary: "240 5.9% 10%",
-          border: "240 5.9% 90%",
+          background: "#FFFFFF", //"0 0% 100%", //
+          foreground: "#09090A", //"240 10% 3.9%",
+          primary: "#18181A", //"240 5.9% 10%",
+          border: "#D8D8E6", //"240 5.9% 90%", //
         },
       },
       dark: {
         palette: {
-          background: "240 10% 3.9%",
-          foreground: "0 0% 80%",
-          primary: "0 0% 98%",
-          border: "240 3.7% 15.9%",
+          background: "#0B0B09", //"240 10% 3.9%", //
+          foreground: "#CCCCCC", //"0 0% 80%", //
+          primary: "#FAFAFA", //"0 0% 98%", //
+          border: "#272729", //"240 3.7% 15.9%", //
         },
+      },
+    },
+    spacing: { unit: 8 },
+    typography: {
+      fontFamily: "Inter, sans-serif",
+    },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
       },
     },
   }),

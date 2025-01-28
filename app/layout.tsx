@@ -1,6 +1,5 @@
 //NextJs
 import type { Metadata } from "next";
-import type { AppProps } from "next/app";
 
 //Components
 import Navbar from "../Layout/Navbar";
@@ -14,8 +13,6 @@ import { ReportsProvider } from "../contexts/ReportsContext";
 import { CategoriesProvider } from "../contexts/CategoriesContext";
 
 //GraphQL
-// import { ApolloProvider } from "@apollo/client";
-// import client from "../apollo-client";
 import { ApolloWrapper } from "../apollo-client";
 
 //Required by pigment-css
@@ -37,7 +34,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ApolloWrapper>
-          {/* <ApolloProvider client={client}> */}
           <UserProvider>
             <CategoriesProvider>
               <ProductsProvider>
@@ -52,7 +48,6 @@ export default function RootLayout({
               </ProductsProvider>
             </CategoriesProvider>
           </UserProvider>
-          {/* </ApolloProvider> */}
         </ApolloWrapper>
       </body>
     </html>

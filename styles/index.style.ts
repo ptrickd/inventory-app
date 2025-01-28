@@ -6,7 +6,7 @@ export const rootStyle = css({
   minHeight: "calc(100vh - 120px)",
   // flexDirection: "column",
   // justifyContent: "space-between",
-  width: "100%",
+  // width: "100%",
 });
 
 export const mainStyle = css({
@@ -19,8 +19,8 @@ export const mainStyle = css({
   alignContent: "center",
   alignItems: "center",
 });
-
 export const titleStyle = css({ marginBottom: 20 });
+
 export const subtitleStyle = css({ marginBottom: 30, marginTop: 10 });
 
 export const cardsSection = css({ width: "80%", marginTop: 30 });

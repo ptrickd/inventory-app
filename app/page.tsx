@@ -67,6 +67,7 @@ export default function Home() {
         <Typography className={titleStyle} variant="h4" align="center">
           Gruyere
         </Typography>
+
         <Typography className={subtitleStyle} variant="h5" align="center">
           Your Kitchen Inventory App Management
         </Typography>

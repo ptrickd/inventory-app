@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { UserContext } from "../../contexts/UserContext";
 
 //Styles
-import { mainStyle, toolbarStyle } from "./ComponentWrapper.style";
+import { mainStyle } from "./ComponentWrapper.style";
 
 interface IProps {
   children: React.ReactNode;
@@ -22,7 +22,11 @@ const ComponentWrapper = ({ children }: IProps) => {
   return (
     <section>
       {/* className={toolbarStyle}  empty class*/}
-      <div className={clsx(loggedIn && mainStyle)}>{children}</div>
+
+      <div className={clsx(loggedIn && mainStyle)}>
+        <h1>kdkdkdkdk</h1>
+        {children}
+      </div>
       {/* className={clsx(loggedIn && mainStyle)} */}
     </section>
   );

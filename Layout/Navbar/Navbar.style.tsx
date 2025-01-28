@@ -1,8 +1,5 @@
-//React
+//Pigment CSS
 import { css } from "@pigment-css/react";
-
-//Pigment css
-import { keyframes } from "@pigment-css/react";
 
 //Constant
 import { DRAWER_WIDTH } from "../../constants/dimensions";
@@ -10,50 +7,61 @@ import { DRAWER_WIDTH } from "../../constants/dimensions";
 //Colors
 import { indigo } from "@mui/material/colors";
 
-//animation
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
+const rootStyle = css({
+  flexGrow: 1,
+  height: "100%",
+  "@media (min-width: 600px)": {
+    width: `calc(100% + ${DRAWER_WIDTH}px)`,
+    marginLeft: DRAWER_WIDTH,
+  },
+});
 
-// const rootStyle = css({ flexGrow: 1, height: "100%" });
-const rootStyle = css({ width: 100 });
-const drawerStyle = css({ width: DRAWER_WIDTH, flexShrink: 0 });
+const drawerStyle = css({
+  width: DRAWER_WIDTH,
+  flexShrink: 0,
+});
+
+export const permanentDrawerStyle = css({
+  display: "none",
+  "@media (min-width: 600px)": {
+    display: "block",
+  },
+});
+
+export const temporaryDrawerStyle = css({
+  display: "block",
+  "@media (min-width: 600px)": {
+    display: "none",
+  },
+});
+
 const drawerPaperStyle = css({
   width: DRAWER_WIDTH,
   background: indigo[800],
 });
+
 const hideStyle = css({ display: "none" });
-// transition: `${fadeIn} 0.5s`,
-const appBarStyle = css({ display: "none" });
-// transition: ${({ theme }) =>
-//   theme.transitions.create(["margin", "width"], {
-//     easing: theme.transitions.easing.sharp,
-//     duration: theme.transitions.duration.leavingScreen,
-//   })};
-// const appBarShiftStyle = css(({ theme }) => ({
-//   "@container (min-width:600px)": {
-//     width: `calc(100% - ${DRAWER_WIDTH}px)`,
-//     marginLeft: DRAWER_WIDTH,
-//   },
-//   transition: theme.transitions.create(["margin", "width"], {
-//     easing: theme.transitions.easing.easeOut,
-//     duration: theme.transitions.duration.enteringScreen,
-//   }),
-// }));
+
+const appBarStyle = css({
+  width: "100%",
+  marginLeft: 0,
+});
+
+const appBarShiftStyle = css(({ theme }) => ({
+  padding: 0,
+  "@media (min-width: 600px)": {
+    width: `calc(100% + ${DRAWER_WIDTH}px)`,
+    marginLeft: DRAWER_WIDTH,
+  },
+}));
 
 const activeSubMenuStyle = css`
-  marginleft: ${({ theme }) => theme.spacing(2)};
+  marginleft: ${({ theme }) => theme.spacing.unit * 2};
   backgroundcolor: ${({}) => indigo[500]};
-`; // backgroundColor: "#f4f4f4",
+`;
 
 const menuButtonStyle = css(({ theme }) => ({
-  marginRight: theme.spacing(2),
-  "@container (min-width:600px)": { display: "none" },
+  marginRight: theme.spacing.unit * 2,
 }));
 
 const linkButtonStyle = css`
@@ -73,10 +81,9 @@ export {
   drawerPaperStyle,
   hideStyle,
   appBarStyle,
-  // appBarShiftStyle,
+  appBarShiftStyle,
   activeSubMenuStyle,
   menuButtonStyle,
   linkButtonStyle,
   titleStyle,
-  // toolbarStyle,
 };

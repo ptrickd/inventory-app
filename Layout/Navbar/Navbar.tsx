@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 //Components
 import NavbarDrawer from "../../components/NavbarDrawer";
+import MoreIconMenu from "../../components/MoreIconMenu";
 
 //Context
 import { UserContext } from "../../contexts/UserContext";
@@ -18,12 +19,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
+import Slide from "@mui/material/Slide";
 
 import Button from "@mui/material/Button";
 
 //Icons
 import MenuIcon from "@mui/icons-material/Menu";
 import MoreIcon from "@mui/icons-material/MoreVert";
+
+//Constant
+import { DRAWER_WIDTH } from "../../constants/dimensions";
 
 //Styles
 import {
@@ -32,19 +37,20 @@ import {
   drawerPaperStyle,
   hideStyle,
   appBarStyle,
-  // appBarShiftStyle,
+  appBarShiftStyle,
   activeSubMenuStyle,
   menuButtonStyle,
   linkButtonStyle,
   titleStyle,
   // toolbarStyle,
+  permanentDrawerStyle,
+  temporaryDrawerStyle,
 } from "./Navbar.style";
 
 const Navbar: React.FC = () => {
   const { loggedIn, logout } = useContext(UserContext);
   const { categories } = useContext(CategoriesContext);
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const router = useRouter();
@@ -80,27 +86,26 @@ const Navbar: React.FC = () => {
   if (!categories) return <></>;
   //className={rootStyle}
   return (
-    <Box component="section">
-      <AppBar>
-        {/*className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}*/}
+    <Box component="section" className={rootStyle}>
+      <AppBar className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}>
         <Toolbar>
           {/*https:github.com/mui/material-ui/issues/4532*
          To try React.memo the button
  */}
           {/* <MemoIconButton /> */}
-          {/* <IconButton
+          <IconButton
             color="inherit"
             arial-label="open drawer"
             edge="start"
             disableRipple
             onClick={() => setMobileOpen(true)}
+            className={clsx(menuButtonStyle, mobileOpen && hideStyle)}
           >
-            {/* className={clsx(menuButtonStyle, mobileOpen && hideStyle)} 
+            {/* className={clsx(menuButtonStyle, mobileOpen && hideStyle)}  */}
             <MenuIcon />
-          </IconButton> 
-          */}
+          </IconButton>
 
-          {/* <Button
+          <Button
             className={titleStyle}
             color="inherit"
             onClick={() => {
@@ -108,18 +113,21 @@ const Navbar: React.FC = () => {
             }}
           >
             <Typography variant="h6">Inventory</Typography>
-          </Button> */}
+          </Button>
 
           {/* Keep this code for later */}
-          {/* <IconButton
-                   aria-label="display more action"
-                   edge="end"
-                   color="inherit"
-                   onClick={handleClickOnMoreIconMenu}
-               >
-                   <MoreIcon />
-               </IconButton>
-               <MoreIconMenu anchorEl={anchorEl} handleOnClose={handleCloseMoreIconMenu} /> */}
+          <IconButton
+            aria-label="display more action"
+            edge="end"
+            color="inherit"
+            onClick={handleClickOnMoreIconMenu}
+          >
+            <MoreIcon />
+          </IconButton>
+          <MoreIconMenu
+            anchorEl={anchorEl}
+            handleOnClose={handleCloseMoreIconMenu}
+          />
           {/* {loggedIn && (
             <Button
               className={linkButtonStyle}
@@ -142,29 +150,31 @@ const Navbar: React.FC = () => {
           )} */}
         </Toolbar>
       </AppBar>
-      {/* {loggedIn && (
+      {loggedIn && (
         <nav className={drawerStyle} aria-label="menu">
           <Drawer
-            // sx={{ display: { xs: "block", sm: "none" } }}
             variant="temporary"
             anchor="left"
             classes={{ paper: drawerPaperStyle }}
+            className={temporaryDrawerStyle}
             open={mobileOpen}
             onClose={() => setMobileOpen(false)}
             ModalProps={{ keepMounted: true }}
           >
             <NavbarDrawer categories={categories} />
           </Drawer>
-          <Drawer
-            // sx={{ display: { xs: "none", sm: "block" } }}
-            open
-            variant="permanent"
-            classes={{ paper: drawerPaperStyle }}
-          >
-            <NavbarDrawer categories={categories} />
-          </Drawer>
+          <Slide direction="left" in={true}>
+            <Drawer
+              open
+              variant="permanent"
+              className={permanentDrawerStyle}
+              classes={{ paper: drawerPaperStyle }}
+            >
+              <NavbarDrawer categories={categories} />
+            </Drawer>
+          </Slide>
         </nav>
-      )} */}
+      )}
     </Box>
   );
 };

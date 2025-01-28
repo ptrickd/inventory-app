@@ -21,13 +21,17 @@ declare module "@pigment-css/react/theme" {
         };
       };
     };
+    spacing: { unit: number };
+    typography: {
+      fontFamily: string;
+    };
     breakpoints: {
       values: {
-        xs: 0;
-        sm: 600;
-        md: 900;
-        lg: 1200;
-        xl: 1536;
+        xs: number;
+        sm: number;
+        md: number;
+        lg: number;
+        xl: number;
       };
     };
   }
@@ -57,6 +61,19 @@ type Theme = {
         primary: string;
         border: string;
       };
+    };
+  };
+  spacing: { unit: number };
+  typography: {
+    fontFamily: string;
+  };
+  breakpoints: {
+    values: {
+      xs: number;
+      sm: number;
+      md: number;
+      lg: number;
+      xl: number;
     };
   };
 };
