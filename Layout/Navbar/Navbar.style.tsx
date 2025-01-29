@@ -8,9 +8,8 @@ import { DRAWER_WIDTH } from "../../constants/dimensions";
 import { indigo } from "@mui/material/colors";
 
 const rootStyle = css({
-  flexGrow: 1,
+  // flexGrow: 1,
   height: "100%",
-
   "@media (min-width: 600px)": {
     width: `calc(100% - ${DRAWER_WIDTH}px)`,
   },

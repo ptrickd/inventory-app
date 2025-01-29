@@ -86,8 +86,7 @@ const Navbar: React.FC = () => {
   if (!categories) return <></>;
   //className={rootStyle}
   return (
-    <Box component="section" className={rootStyle}>
-      {/*  */}
+    <Box component="section" className={clsx({}, { [rootStyle]: loggedIn })}>
       <AppBar
         position="sticky"
         className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}
@@ -119,19 +118,19 @@ const Navbar: React.FC = () => {
           </Button>
 
           {/* Keep this code for later */}
-          <IconButton
+          {/* <IconButton
             aria-label="display more action"
             edge="end"
             color="inherit"
             onClick={handleClickOnMoreIconMenu}
           >
             <MoreIcon />
-          </IconButton>
+          </IconButton> */}
           <MoreIconMenu
             anchorEl={anchorEl}
             handleOnClose={handleCloseMoreIconMenu}
           />
-          {/* {loggedIn && (
+          {loggedIn && (
             <Button
               className={linkButtonStyle}
               color="inherit"
@@ -150,7 +149,7 @@ const Navbar: React.FC = () => {
             >
               Login
             </Button>
-          )} */}
+          )}
         </Toolbar>
       </AppBar>
       {/* <Toolbar sx={{ width: "100%" }} /> */}
