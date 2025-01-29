@@ -42,7 +42,7 @@ import {
   menuButtonStyle,
   linkButtonStyle,
   titleStyle,
-  // toolbarStyle,
+  toolbarStyle,
   permanentDrawerStyle,
   temporaryDrawerStyle,
 } from "./Navbar.style";
@@ -87,7 +87,11 @@ const Navbar: React.FC = () => {
   //className={rootStyle}
   return (
     <Box component="section" className={rootStyle}>
-      <AppBar className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}>
+      {/*  */}
+      <AppBar
+        position="sticky"
+        className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}
+      >
         <Toolbar>
           {/*https:github.com/mui/material-ui/issues/4532*
          To try React.memo the button
@@ -101,7 +105,6 @@ const Navbar: React.FC = () => {
             onClick={() => setMobileOpen(true)}
             className={clsx(menuButtonStyle, mobileOpen && hideStyle)}
           >
-            {/* className={clsx(menuButtonStyle, mobileOpen && hideStyle)}  */}
             <MenuIcon />
           </IconButton>
 
@@ -150,6 +153,7 @@ const Navbar: React.FC = () => {
           )} */}
         </Toolbar>
       </AppBar>
+      {/* <Toolbar sx={{ width: "100%" }} /> */}
       {loggedIn && (
         <nav className={drawerStyle} aria-label="menu">
           <Drawer
@@ -175,6 +179,7 @@ const Navbar: React.FC = () => {
           </Slide>
         </nav>
       )}
+      {/* <Toolbar /> */}
     </Box>
   );
 };

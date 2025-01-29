@@ -12,6 +12,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import Divider from "@mui/material/Divider";
 import Slide from "@mui/material/Slide";
 
+import Toolbar from "@mui/material/Toolbar";
+
 //Style
 import {
   rootStyle,
@@ -61,8 +63,8 @@ const NavbarDrawer = ({ categories }: IProps) => {
     <div className={rootStyle}>
       {/* //Add the primary color on the top on the sidebar side */}
 
-      <div className={toolbarStyle} />
-
+      {/* <div className={toolbarStyle} /> */}
+      <Toolbar />
       <Divider />
 
       <List>

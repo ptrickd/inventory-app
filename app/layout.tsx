@@ -18,6 +18,15 @@ import { ApolloWrapper } from "../apollo-client";
 //Required by pigment-css
 import "@pigment-css/react/styles.css";
 
+import { globalCss } from "@pigment-css/react";
+
+globalCss`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+`;
+
 export const metadata: Metadata = {
   title: "Gruyere: The App Inventory",
   description: "The Perfect Kitchen Inventory App For Small Restaurant",

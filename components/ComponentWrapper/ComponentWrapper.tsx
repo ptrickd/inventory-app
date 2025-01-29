@@ -1,9 +1,10 @@
 "use client";
 //React
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 
 //Material UI
 import clsx from "clsx";
+import { Toolbar } from "@mui/material";
 
 //Context
 import { UserContext } from "../../contexts/UserContext";
@@ -24,10 +25,9 @@ const ComponentWrapper = ({ children }: IProps) => {
       {/* className={toolbarStyle}  empty class*/}
 
       <div className={clsx(loggedIn && mainStyle)}>
-        <h1>kdkdkdkdk</h1>
+        {/* <Toolbar /> */}
         {children}
       </div>
-      {/* className={clsx(loggedIn && mainStyle)} */}
     </section>
   );
 };

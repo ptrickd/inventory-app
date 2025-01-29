@@ -10,9 +10,9 @@ import { indigo } from "@mui/material/colors";
 const rootStyle = css({
   flexGrow: 1,
   height: "100%",
+
   "@media (min-width: 600px)": {
-    width: `calc(100% + ${DRAWER_WIDTH}px)`,
-    marginLeft: DRAWER_WIDTH,
+    width: `calc(100% - ${DRAWER_WIDTH}px)`,
   },
 });
 
@@ -21,14 +21,14 @@ const drawerStyle = css({
   flexShrink: 0,
 });
 
-export const permanentDrawerStyle = css({
+const permanentDrawerStyle = css({
   display: "none",
   "@media (min-width: 600px)": {
     display: "block",
   },
 });
 
-export const temporaryDrawerStyle = css({
+const temporaryDrawerStyle = css({
   display: "block",
   "@media (min-width: 600px)": {
     display: "none",
@@ -38,6 +38,7 @@ export const temporaryDrawerStyle = css({
 const drawerPaperStyle = css({
   width: DRAWER_WIDTH,
   background: indigo[800],
+  boxSizing: "border-box",
 });
 
 const hideStyle = css({ display: "none" });
@@ -48,9 +49,9 @@ const appBarStyle = css({
 });
 
 const appBarShiftStyle = css(({ theme }) => ({
-  padding: 0,
+  // padding: 0,
   "@media (min-width: 600px)": {
-    width: `calc(100% + ${DRAWER_WIDTH}px)`,
+    width: `calc(100% - ${DRAWER_WIDTH}px)`,
     marginLeft: DRAWER_WIDTH,
   },
 }));
@@ -73,7 +74,7 @@ const titleStyle = css({
   "&:hover": { background: "inherit" },
 });
 // necessary for content to be below app bar
-// const toolbarStyle = css({}); //theme.mixins.toolbar,
+export const toolbarStyle = css(({ theme }) => ({ theme })); //theme.mixins.toolbar,
 
 export {
   rootStyle,
@@ -86,4 +87,6 @@ export {
   menuButtonStyle,
   linkButtonStyle,
   titleStyle,
+  permanentDrawerStyle,
+  temporaryDrawerStyle,
 };
