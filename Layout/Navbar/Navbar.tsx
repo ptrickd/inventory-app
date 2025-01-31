@@ -152,7 +152,7 @@ const Navbar: React.FC = () => {
           )}
         </Toolbar>
       </AppBar>
-      {/* <Toolbar sx={{ width: "100%" }} /> */}
+
       {loggedIn && (
         <nav className={drawerStyle} aria-label="menu">
           <Drawer
@@ -178,7 +178,6 @@ const Navbar: React.FC = () => {
           </Slide>
         </nav>
       )}
-      {/* <Toolbar /> */}
     </Box>
   );
 };

@@ -14,8 +14,4 @@ export const menuStyle = css({
   background: BACKGROUND_MENU_COLOR,
 });
 
-export const menuIconStyle = css({ color: TEXT_MENU_COLOR });
-
-export const subMenuStyle = css({ color: TEXT_MENU_COLOR });
-
-export const toolbarStyle = css({}); // Theme.mixins.toolbar,
+export const listItemTextStyle = css({ color: TEXT_MENU_COLOR });

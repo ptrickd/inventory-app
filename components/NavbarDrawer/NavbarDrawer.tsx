@@ -1,5 +1,5 @@
 //React
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 //Material UI
@@ -15,13 +15,7 @@ import Slide from "@mui/material/Slide";
 import Toolbar from "@mui/material/Toolbar";
 
 //Style
-import {
-  rootStyle,
-  menuStyle,
-  menuIconStyle,
-  subMenuStyle,
-  toolbarStyle,
-} from "./NavbarDrawer.style";
+import { rootStyle, menuStyle, listItemTextStyle } from "./NavbarDrawer.style";
 
 //Icons
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
@@ -49,9 +43,12 @@ const NavbarDrawer = ({ categories }: IProps) => {
       // console.log(category)
       return (
         <Link href={`/category/${category.id}`} key={category.id}>
-          <ListItemButton className={subMenuStyle}>
-            <ListItemText primary={category.name} />
-            <ListItemIcon className={menuIconStyle}>
+          <ListItemButton>
+            <ListItemText
+              primary={category.name}
+              className={listItemTextStyle}
+            />
+            <ListItemIcon>
               <ArrowForwardIcon />
             </ListItemIcon>
           </ListItemButton>
@@ -63,7 +60,6 @@ const NavbarDrawer = ({ categories }: IProps) => {
     <div className={rootStyle}>
       {/* //Add the primary color on the top on the sidebar side */}
 
-      {/* <div className={toolbarStyle} /> */}
       <Toolbar />
       <Divider />
 
@@ -72,7 +68,7 @@ const NavbarDrawer = ({ categories }: IProps) => {
           <span className={menuStyle}>
             <ListItemButton key="dashboard">
               <ListItemText primary="Dashboard" />
-              <ListItemIcon className={menuIconStyle}>
+              <ListItemIcon>
                 <ArrowForwardIcon />
               </ListItemIcon>
             </ListItemButton>
@@ -89,7 +85,7 @@ const NavbarDrawer = ({ categories }: IProps) => {
         <span className={menuStyle}>
           <ListItemButton onClick={handleClickCategories} key="category">
             <ListItemText primary="Categories" />
-            <ListItemIcon className={menuIconStyle}>
+            <ListItemIcon>
               {categoryMenu ? <RemoveCircleIcon /> : <AddCircleIcon />}
             </ListItemIcon>
           </ListItemButton>

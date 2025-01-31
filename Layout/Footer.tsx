@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 // Material Icons

@@ -25,7 +25,6 @@ import {
   titleStyle,
   subtitleStyle,
   buttonStyle,
-  dividerStyle,
   cardsSection,
 } from "../styles/index.style";
 
@@ -87,7 +86,7 @@ export default function Home() {
 
         {/*****************    Dashboard    ****************/}
         <section className={cardsSection}>
-          <Divider flexItem className={dividerStyle} />
+          <Divider flexItem />
           <CardLandingPage
             imgWidth={414}
             imgHeight={533}
@@ -97,7 +96,7 @@ export default function Home() {
             title="A Clean Dashboard"
           />
           {/*****************    Categories    ****************/}
-          <Divider className={dividerStyle} />
+          <Divider />
           <CardLandingPage
             imgWidth={414}
             imgHeight={533}
@@ -107,7 +106,7 @@ export default function Home() {
             title="Display products by categories"
           />
           {/*****************    Reports    ****************/}
-          <Divider className={dividerStyle} />
+          <Divider />
 
           <CardLandingPage
             imgWidth={414}

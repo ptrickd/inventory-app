@@ -10,7 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 
 //Form
@@ -155,7 +155,7 @@ function AddProductForm({
                 // Regular option
                 return option.name;
               }}
-              sx={{ width: 300 }}
+              // sx={{ width: 300 }}
               options={products || []}
               renderOption={(props, option) => (
                 <li {...props} key={option.name}>
@@ -164,7 +164,14 @@ function AddProductForm({
               )}
               freeSolo
               renderInput={(params) => (
+                // @ts-ignore
                 <TextField {...params} label="Add a product" />
+                // <TextField
+                //   id="product"
+                //   type="text"
+                //   slotProps={{ htmlInput: { name: "test" } }}
+                //   label="Add a product"
+                // />
               )}
             />
             {errors.name && <span>*Required</span>}

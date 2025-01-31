@@ -2,8 +2,6 @@
 import React from "react";
 
 //Material UI
-import Box from "@mui/material-pigment-css/Box";
-
 import Dialog from "@mui/material/Dialog";
 
 import DialogContentText from "@mui/material/DialogContentText";

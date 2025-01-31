@@ -30,5 +30,3 @@ export const buttonStyle = css({
   marginBottom: "15%",
   borderRadius: 15,
 });
-
-export const dividerStyle = css({});

@@ -19,5 +19,3 @@ export const mainStyle = css(({ theme }) => ({
 //   easing: theme.transitions.easing.easeOut,
 //   duration: theme.transitions.duration.enteringScreen,
 // }),
-
-//export const toolbarStyle = css({}); // theme.mixins.toolbar,

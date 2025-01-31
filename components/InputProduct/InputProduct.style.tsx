@@ -10,12 +10,10 @@ export const formControlStyle = css({
   alignItems: "center",
 });
 
-export const innerFormControlStyle = css({
-  // margin: theme.spacing(1),
+export const innerFormControlStyle = css(({ theme }) => ({
+  margin: theme.spacing.unit,
   alignItems: "center",
-});
-
-// export const textFieldStyle = css({});
+}));
 
 export const selectUnitStyle = css({
   marginLeft: 5,
@@ -23,13 +21,11 @@ export const selectUnitStyle = css({
   minWidth: 50,
 });
 
-export const boxStyle = css({
-  // margin: theme.spacing(1),
+export const boxStyle = css(({ theme }) => ({
+  margin: theme.spacing.unit * 1,
   alignItems: "left",
-});
+}));
 
 export const lastAmountNameStyle = css({ width: "100%" });
 
 export const lastAmountValueStyle = css({ height: "auto" });
-
-// export const iconSettingsStyle = css({});

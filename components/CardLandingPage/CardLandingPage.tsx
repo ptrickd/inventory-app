@@ -1,3 +1,4 @@
+"use client";
 //React
 import Image from "next/image";
 
@@ -24,7 +25,7 @@ const CardLandingPage = ({
   imgHeight,
 }: IProps) => {
   //temporary constant #648dae #829baf
-  const Light_background_Color = "rgba(101,115,195,0.2)";
+  const Light_background_Color = "#6573c3";
   const Ratio = imgWidth + 20;
   return (
     // <Paper
@@ -45,8 +46,8 @@ const CardLandingPage = ({
     <div
       sx={{
         height: "auto",
-        background: Light_background_Color,
-        width: Ratio,
+        // background: Light_background_Color,
+        // width: Ratio,
         padding: "3%",
         // border: "0px",
         // borderColor: "red",
@@ -74,7 +75,7 @@ const CardLandingPage = ({
         component="section"
         sx={{
           height: "auto",
-          width: imgWidth,
+          // width: imgWidth,
           // border: "1px solid #aaaaaa",
         }}
       >

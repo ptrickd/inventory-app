@@ -3,7 +3,7 @@
 import React from "react";
 
 //Material UI
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 //Styles

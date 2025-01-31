@@ -2,7 +2,7 @@
 import React from "react";
 
 //Material UI
-import Box from "@mui/material-pigment-css/Box";
+import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
