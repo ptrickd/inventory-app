@@ -2,6 +2,9 @@
 //React
 import React from "react";
 
+//PigmentCSS
+import { useTheme } from "@pigment-css/react";
+
 //Material UI
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -16,7 +19,12 @@ import WaitingModal from "../../components/WaitingModal";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 //Style
-import { formStyle, inputStyle, buttonStyle } from "./AuthForm.styles";
+import {
+  formStyle,
+  inputStyle,
+  buttonStyle,
+  TextFieldStyled,
+} from "./AuthForm.styles";
 
 interface IForm {
   email: string;
@@ -45,9 +53,14 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
           defaultValue=""
           rules={{ required: true, pattern: EMAIL_REGEX }}
           render={({ field }) => (
-            <TextField
-              className={inputStyle}
+            <TextFieldStyled
               {...field}
+              // sx={{ input: { color: "red" } }}
+              // color="primary"
+              slotProps={{
+                input: { style: { color: "#fff" } },
+                inputLabel: { style: { color: "#fff" } },
+              }}
               label="Email"
               autoComplete="off"
             />
@@ -64,12 +77,17 @@ const AuthForm = ({ onSubmit, submitting, label }: IProps) => {
             <TextField
               id="password"
               data-testid="password"
-              className={inputStyle}
+              // className={inputStyle}
+
               {...field}
               label="Password"
               autoComplete="off"
               type="password"
-              slotProps={{ htmlInput: { input: "password" } }}
+              slotProps={{
+                htmlInput: { input: "password" },
+                inputLabel: { style: { color: "#fff" } },
+                input: { style: { color: "#fff" } },
+              }}
             />
           )}
         />

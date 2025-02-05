@@ -13,6 +13,15 @@ export const mainStyle = css(({ theme }) => ({
   },
 }));
 
+export const rootStyle = css(({ theme }) => ({
+  backgroundColor: theme.colorSchemes.dark.palette.background.default,
+  color: theme.colorSchemes.dark.palette.text.primary,
+  "@media (prefers-color-scheme: light)": {
+    backgroundColor: theme.colorSchemes.light.palette.background.default,
+    color: theme.colorSchemes.light.palette.text.primary,
+  },
+}));
+
 /********To do later add transistion with keyframe****************/
 //https://github.com/mui/pigment-css?tab=readme-ov-file#creating-animation-keyframes
 // transition: theme.transitions.create(["margin", "width"], {

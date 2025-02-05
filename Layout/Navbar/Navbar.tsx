@@ -1,6 +1,6 @@
 "use client";
 //React
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 //Components
@@ -22,10 +22,12 @@ import Drawer from "@mui/material/Drawer";
 import Slide from "@mui/material/Slide";
 
 import Button from "@mui/material/Button";
+import Switch from "@mui/material/Switch";
 
 //Icons
 import MenuIcon from "@mui/icons-material/Menu";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 //Constant
 import { DRAWER_WIDTH } from "../../constants/dimensions";
@@ -52,8 +54,18 @@ const Navbar: React.FC = () => {
   const { categories } = useContext(CategoriesContext);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.toggle("theme-dark");
+    } else document.documentElement.classList.toggle("theme-light");
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   //Keep those for the icon more menu
   const handleClickOnMoreIconMenu = (
@@ -90,6 +102,7 @@ const Navbar: React.FC = () => {
       <AppBar
         position="sticky"
         className={clsx(appBarStyle, { [appBarShiftStyle]: loggedIn })}
+        color="primary"
       >
         <Toolbar>
           {/*https:github.com/mui/material-ui/issues/4532*
@@ -130,6 +143,22 @@ const Navbar: React.FC = () => {
             anchorEl={anchorEl}
             handleOnClose={handleCloseMoreIconMenu}
           />
+          {/* dark mode swith to work on it later */}
+          {/* <Switch
+            icon={<DarkModeIcon />}
+            checkedIcon={<DarkModeIcon />}
+            checked={isDarkMode}
+            onChange={() => toggleDarkMode()}
+            color="secondary"
+            // sx={{ backgroundColor: "black" }}
+          /> */}
+          {/* <IconButton
+            aria-label="settings"
+            color="icon"
+            // onClick={handleOpenSettingsModal}
+          >
+            <DarkModeIcon color="inherit" />
+          </IconButton> */}
           {loggedIn && (
             <Button
               className={linkButtonStyle}

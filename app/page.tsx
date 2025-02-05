@@ -36,7 +36,6 @@ import { ProductsContext } from "../contexts/ProductsContext";
 
 //Component
 import CardLandingPage from "../components/CardLandingPage";
-import Footer from "../Layout/Footer";
 
 //temporary constant #648dae #829baf
 const Light_background_Color = "#c8e4fb";

@@ -7,13 +7,18 @@ import { DRAWER_WIDTH } from "../../constants/dimensions";
 //Colors
 import { indigo } from "@mui/material/colors";
 
-const rootStyle = css({
+const rootStyle = css(({ theme }) => ({
   // flexGrow: 1,
   height: "100%",
+
+  backgroundColor: theme.colorSchemes.dark.background,
   "@media (min-width: 600px)": {
     width: `calc(100% - ${DRAWER_WIDTH}px)`,
   },
-});
+  "@media (prefers-color-scheme: light)": {
+    backgroundColor: theme.colorSchemes.light.background,
+  },
+}));
 
 const drawerStyle = css({
   width: DRAWER_WIDTH,
@@ -45,6 +50,7 @@ const hideStyle = css({ display: "none" });
 const appBarStyle = css({
   width: "100%",
   marginLeft: 0,
+  backgroundColor: "green",
 });
 
 const appBarShiftStyle = css(({ theme }) => ({

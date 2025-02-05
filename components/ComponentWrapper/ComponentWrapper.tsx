@@ -10,7 +10,7 @@ import { Toolbar } from "@mui/material";
 import { UserContext } from "../../contexts/UserContext";
 
 //Styles
-import { mainStyle } from "./ComponentWrapper.style";
+import { rootStyle, mainStyle } from "./ComponentWrapper.style";
 
 interface IProps {
   children: React.ReactNode;
@@ -21,13 +21,8 @@ const ComponentWrapper = ({ children }: IProps) => {
   const { loggedIn } = useContext(UserContext);
 
   return (
-    <section>
-      {/* className={toolbarStyle}  empty class*/}
-
-      <div className={clsx(loggedIn && mainStyle)}>
-        {/* <Toolbar /> */}
-        {children}
-      </div>
+    <section className={rootStyle}>
+      <div className={clsx(loggedIn && mainStyle)}>{children}</div>
     </section>
   );
 };

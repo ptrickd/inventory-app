@@ -50,7 +50,6 @@ export default function RootLayout({
                   <Navbar />
                   <ComponentWrapper>
                     {children}
-
                     <Footer />
                   </ComponentWrapper>
                 </ReportsProvider>

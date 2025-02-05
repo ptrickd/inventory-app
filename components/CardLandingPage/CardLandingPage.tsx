@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 //Material UI
+import { css } from "@pigment-css/react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -16,6 +17,16 @@ interface IProps {
   text: string;
   title: string;
 }
+
+//Styles
+const rootStyle = css(({ theme }) => ({
+  backgroundColor: theme.colorSchemes.dark.palette.background.paper,
+
+  "@media (prefers-color-scheme: light)": {
+    backgroundColor: theme.colorSchemes.light.palette.background.paper,
+  },
+}));
+
 const CardLandingPage = ({
   imagePath,
   imageAlt,
@@ -44,6 +55,7 @@ const CardLandingPage = ({
     //   }}
     // >
     <div
+      className={rootStyle}
       sx={{
         height: "auto",
         // background: Light_background_Color,

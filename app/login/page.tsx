@@ -4,8 +4,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 
 //Material UI
-import Box from "@mui/material/Box";
-
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -109,7 +107,7 @@ const Login: React.FC = () => {
 
   return (
     <Container className={rootStyle} maxWidth="xs">
-      <Box className={mainStyle}>
+      <div className={mainStyle}>
         <Typography variant="h2" align="center" className={titleStyle}>
           Login
         </Typography>
@@ -121,7 +119,7 @@ const Login: React.FC = () => {
         <AuthForm onSubmit={onSubmit} submitting={submitting} label="Login" />
 
         <Button
-          color="inherit"
+          color="secondary"
           variant="contained"
           onClick={(e) => {
             e.preventDefault();
@@ -130,7 +128,7 @@ const Login: React.FC = () => {
         >
           Register
         </Button>
-      </Box>
+      </div>
     </Container>
   );
 };
