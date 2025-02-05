@@ -28,7 +28,11 @@ const MessageModal = ({ open, message, isError, handleClick }: IProps) => {
   }, [open]);
 
   return (
-    <Dialog open={openModal} aria-labelledby="message display">
+    <Dialog
+      open={openModal}
+      aria-labelledby="message display"
+      sx={{ margin: 0 }}
+    >
       <DialogContent>
         {/* className={classes.dialogContent} */}
         {isError ? (

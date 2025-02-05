@@ -15,7 +15,9 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
 
 //Add position:relative to all parent container
-const rootStyle = css({ marginTop: "auto" });
+const rootStyle = css({
+  width: "100%",
+});
 const contactStyle = css({
   minWidth: "100%",
   display: "flex",
@@ -23,33 +25,39 @@ const contactStyle = css({
   justifyContent: "space-around",
   alignItems: "center",
 });
+const iconStyle = css(({ theme }) => ({
+  color: theme.colorSchemes.dark.palette.text.primary,
+  "@media (prefers-color-scheme: light)": {
+    color: theme.colorSchemes.light.palette.text.primary,
+  },
+}));
 const itemsStyle = css({ margin: 0, padding: 0 });
 const Footer = () => {
   return (
-    <Container className={rootStyle}>
+    <Container className={rootStyle} maxWidth="md">
       <Divider />
       <Box component="section" className={contactStyle}>
-        <Box component="section">
+        <article>
           <Typography align="center" variant="body1">
             2025
           </Typography>
-        </Box>
-        <Box component="section">
+        </article>
+        <article>
           <Typography align="center" variant="body1">
             ptrickd
           </Typography>
-        </Box>
-        <Box component="section">
+        </article>
+        <article>
           <Tooltip title="Github">
             <IconButton
               href="https://github.com/ptrickd/inventory-app"
               aria-label="github"
               color="icon"
             >
-              <GitHubIcon fontSize="small" />
+              <GitHubIcon fontSize="small" className={iconStyle} />
             </IconButton>
           </Tooltip>
-        </Box>
+        </article>
       </Box>
       <Divider />
     </Container>

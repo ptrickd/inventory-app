@@ -2,7 +2,7 @@
 import { css } from "@pigment-css/react";
 
 export const rootStyle = css(({ theme }) => ({
-  margin: theme.spacing.unit * 4,
+  margin: 0,
   padding: theme.spacing.unit * 4,
 }));
 

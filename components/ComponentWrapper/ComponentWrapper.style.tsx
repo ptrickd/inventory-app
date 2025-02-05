@@ -8,6 +8,7 @@ import { DRAWER_WIDTH } from "../../constants/dimensions";
 export const mainStyle = css(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
+  // minHeight: "calc(100vh - 120px)",
   "@media (min-width: 600px)": {
     width: `calc(100% + ${DRAWER_WIDTH}px)`,
   },

@@ -4,7 +4,6 @@ import React, { useContext } from "react";
 
 //Material UI
 import clsx from "clsx";
-import { Toolbar } from "@mui/material";
 
 //Context
 import { UserContext } from "../../contexts/UserContext";

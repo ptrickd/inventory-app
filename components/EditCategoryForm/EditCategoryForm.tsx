@@ -150,6 +150,7 @@ function EditCategoryForm({ open, handleCloseModal, category }: IProps) {
       open={open}
       aria-labelledby="Add Category Form"
       onClose={() => handleCloseModal()}
+      sx={{ margin: 0 }}
     >
       <DialogTitle>{categoryName.toUpperCase()}</DialogTitle>
       <DialogContent>

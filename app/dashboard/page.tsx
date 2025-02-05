@@ -81,23 +81,17 @@ function Dashboard() {
   //Settings Modal
   const handleCloseSettingsModal = () => setOpenSettingsModal(false);
   const handleOpenSettingsModal = () => setOpenSettingsModal(true);
+
   useEffect(() => {
     if (!loggedIn) {
       router.push("/");
     }
   }, [loggedIn, router]);
-  useEffect(() => {
-    console.log("categoires");
-    console.log(categories);
-    console.log(`loggedIn: ${loggedIn}`);
 
-    console.log("reports->");
-    console.log(reports);
-  }, [categories, loggedIn, reports]);
   return (
     <Container className={rootStyle} maxWidth="xs">
       <Box className={mainStyle}>
-        <Paper className={paperStyle} elevation={1}>
+        <Paper className={paperStyle} elevation={2}>
           <Typography variant="h4" align="center">
             {currentUser && currentUser.email}
           </Typography>

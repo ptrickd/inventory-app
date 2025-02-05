@@ -3,7 +3,7 @@ import { css } from "@pigment-css/react";
 
 export const rootStyle = css({
   display: "flex",
-  minHeight: "calc(100vh - 120px)",
+  minHeight: "calc(100vh - 100px)",
   flexDirection: "column",
   width: "100%",
 });

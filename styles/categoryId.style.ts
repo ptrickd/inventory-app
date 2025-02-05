@@ -2,7 +2,8 @@
 import { css } from "@pigment-css/react";
 
 export const rootStyle = css({
-  marginTop: 60,
+  marginTop: 0,
+  minHeight: "calc(100vh - 100px)",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

@@ -66,8 +66,7 @@ const NavbarReportsList = () => {
           key={index}
           className={menuTextStyle}
         >
-          {" "}
-          <Link href={`/report/${report.id}`}>
+          <Link href={`/report/${report.id}`} className={listStyle}>
             <Typography
               color={theme.palette.text.primary}
               variant="body1"

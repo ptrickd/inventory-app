@@ -10,7 +10,6 @@ import { indigo } from "@mui/material/colors";
 const rootStyle = css(({ theme }) => ({
   // flexGrow: 1,
   height: "100%",
-
   backgroundColor: theme.colorSchemes.dark.background,
   "@media (min-width: 600px)": {
     width: `calc(100% - ${DRAWER_WIDTH}px)`,
