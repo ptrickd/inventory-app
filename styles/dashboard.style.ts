@@ -4,7 +4,6 @@ import { css } from "@pigment-css/react";
 export const rootStyle = css(({ theme }) => ({
   minHeight: "calc(100vh - 100px)",
   width: "100%",
-  backgroundColor: theme.colorSchemes.dark.palette.background.default,
 }));
 
 export const mainStyle = css({
@@ -20,7 +19,20 @@ export const paperStyle = css(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "center",
   padding: 10,
-  backgroundColor: "green",
+  borderRadius: "10px",
+  backgroundColor: theme.colorSchemes.dark.palette.background.paper,
+  color: theme.colorSchemes.dark.palette.text.primary,
+  "@media (prefers-color-scheme: light)": {
+    backgroundColor: theme.colorSchemes.light.palette.background.paper,
+    color: theme.colorSchemes.light.palette.text.primary,
+  },
+}));
+
+export const iconStyle = css(({ theme }) => ({
+  color: theme.colorSchemes.dark.palette.icon.main,
+  "@media (prefers-color-scheme: light)": {
+    color: theme.colorSchemes.light.palette.icon.main,
+  },
 }));
 
 export const dividerStyle = css({ marginBottom: 10 });

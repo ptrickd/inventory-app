@@ -26,9 +26,9 @@ const contactStyle = css({
   alignItems: "center",
 });
 const iconStyle = css(({ theme }) => ({
-  color: theme.colorSchemes.dark.palette.text.primary,
+  color: theme.colorSchemes.dark.palette.icon.main,
   "@media (prefers-color-scheme: light)": {
-    color: theme.colorSchemes.light.palette.text.primary,
+    color: theme.colorSchemes.light.palette.icon.main,
   },
 }));
 const itemsStyle = css({ margin: 0, padding: 0 });

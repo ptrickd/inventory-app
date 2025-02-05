@@ -37,6 +37,7 @@ import { ReportsContext } from "../../contexts/ReportsContext";
 import {
   rootStyle,
   mainStyle,
+  iconStyle,
   paperStyle,
   dividerStyle,
 } from "../../styles/dashboard.style";
@@ -91,7 +92,18 @@ function Dashboard() {
   return (
     <Container className={rootStyle} maxWidth="xs">
       <Box className={mainStyle}>
-        <Paper className={paperStyle} elevation={2}>
+        {/* <Paper className={paperStyle} elevation={2}> */}
+        <div
+          className={paperStyle}
+          sx={{
+            height: "auto",
+            padding: "3%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            alignSelf: "center",
+          }}
+        >
           <Typography variant="h4" align="center">
             {currentUser && currentUser.email}
           </Typography>
@@ -111,7 +123,7 @@ function Dashboard() {
                 color="icon"
                 onClick={handleOpenSettingsModal}
               >
-                <SettingsIcon color="inherit" />
+                <SettingsIcon color="inherit" className={iconStyle} />
               </IconButton>
               <ListItemText primary="Settings" />
             </ListItem>
@@ -134,7 +146,7 @@ function Dashboard() {
             open={openSettingsModal}
             handleCloseModal={handleCloseSettingsModal}
           />
-        </Paper>
+        </div>
       </Box>
     </Container>
   );

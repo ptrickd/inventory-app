@@ -77,8 +77,13 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
       color: ${({ theme }) => theme.colorSchemes.light.palette.primary};
     }
   `;
+  const iconStyle = css(({ theme }) => ({
+    color: theme.colorSchemes.dark.palette.icon.main,
+    "@media (prefers-color-scheme: light)": {
+      color: theme.colorSchemes.light.palette.icon.main,
+    },
+  }));
 
-  //
   return (
     <Box component="section" className={sectionStyle}>
       <Box className={horizontalBoxStyle}>
@@ -88,7 +93,7 @@ const CategoriesSection = ({ listOfCategories }: IProps) => {
           onClick={handleAddCategory}
           sx={{ padding: 0 }}
         >
-          <AddIcon color="inherit" />
+          <AddIcon className={iconStyle} />
         </IconButton>
 
         <Typography variant="body1" sx={{ padding: 0, paddingLeft: 1 }}>

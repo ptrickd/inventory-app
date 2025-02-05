@@ -14,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 //Style
@@ -66,7 +67,7 @@ const SettingsModal = ({ open, handleCloseModal }: IProps) => {
       <DialogTitle>Settings</DialogTitle>
       <DialogContent>
         <FormControl sx={{ mt: 2, minWidth: 120 }}>
-          <InputLabel htmlFor="theme">Theme</InputLabel>
+          {/* <InputLabel htmlFor="theme">Theme</InputLabel>
           <Select
             value={theme}
             label="Theme"
@@ -74,7 +75,10 @@ const SettingsModal = ({ open, handleCloseModal }: IProps) => {
           >
             <MenuItem value="light">Light</MenuItem>
             <MenuItem value="dark">Dark</MenuItem>
-          </Select>
+          </Select> */}
+          <Typography variant="h2">
+            Work in progress. Come back later
+          </Typography>
         </FormControl>
       </DialogContent>
     </Dialog>

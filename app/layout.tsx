@@ -27,6 +27,12 @@ globalCss`
   }
 `;
 
+//Roboto Font required by mui-typography
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
 export const metadata: Metadata = {
   title: "Gruyere: The App Inventory",
   description: "The Perfect Kitchen Inventory App For Small Restaurant",

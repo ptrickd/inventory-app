@@ -21,11 +21,6 @@ const nextConfig = {
   },
 };
 const theme = extendTheme({
-  // palette: {
-  //   primary: {
-  //     main: "#FF5733",
-  //   },
-  // },
   colorSchemes: {
     light: {
       palette: {
@@ -75,7 +70,7 @@ const theme = extendTheme({
           contrastText: "rgba(0, 0, 0, 0.87)",
         },
         icon: {
-          main: "#rgba(0, 0, 0, 0.87)",
+          main: "rgba(0, 0, 0, 0.87)",
           light: "#81c784",
           dark: "#388e3c",
           contrastText: "#fff",

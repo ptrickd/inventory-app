@@ -29,6 +29,7 @@ import {
   horizontalBoxStyle,
   collapseStyle,
   buttonStyle,
+  iconStyle,
 } from "./ReportsSection.style";
 
 //Types
@@ -96,7 +97,7 @@ const ReportsSection = ({ list, handleClickAddModal }: IProps) => {
           onClick={handleClickAddModal}
           sx={{ padding: 0 }}
         >
-          <AddIcon color="inherit" />
+          <AddIcon className={iconStyle} />
         </IconButton>
 
         <Typography variant="body1" sx={{ padding: 0, paddingLeft: 1 }}>

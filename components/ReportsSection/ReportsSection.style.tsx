@@ -21,3 +21,10 @@ export const collapseStyle = css({
 });
 
 export const buttonStyle = css({ padding: 0, paddingLeft: 1 });
+
+export const iconStyle = css(({ theme }) => ({
+  color: theme.colorSchemes.dark.palette.icon.main,
+  "@media (prefers-color-scheme: light)": {
+    color: theme.colorSchemes.light.palette.icon.main,
+  },
+}));
