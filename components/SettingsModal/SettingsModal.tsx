@@ -18,7 +18,7 @@ import Typography from "@mui/material/Typography";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 //Style
-import { closeStyle } from "./SettingsModal.style";
+import { closeStyle, DialogStyled } from "./SettingsModal.style";
 
 //Icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -53,7 +53,7 @@ const SettingsModal = ({ open, handleCloseModal }: IProps) => {
   };
 
   return (
-    <Dialog
+    <DialogStyled
       open={open}
       aria-labelledby="settings"
       onClose={() => handleCloseModal()}
@@ -76,12 +76,12 @@ const SettingsModal = ({ open, handleCloseModal }: IProps) => {
             <MenuItem value="light">Light</MenuItem>
             <MenuItem value="dark">Dark</MenuItem>
           </Select> */}
-          <Typography variant="h2">
+          <Typography variant="h4">
             Work in progress. Come back later
           </Typography>
         </FormControl>
       </DialogContent>
-    </Dialog>
+    </DialogStyled>
   );
 };
 
